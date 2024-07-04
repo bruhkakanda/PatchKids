@@ -979,7 +979,7 @@ local module = {
 }
 
 function module.New(Title,cd)
-	pcall(function()
+	task.spawn(function()
 	local clone = script.Template:Clone()
 	clone.Name = "Title"
 	clone.Title.Text = Title
@@ -1057,6 +1057,7 @@ local NewNotification = require(script.Parent.Parent.NewNotification)
 local tab = require(script.Parent.Parent.NewTab)
 
 local db = false
+local toggle = false
 
 local module = {}
 
@@ -1071,42 +1072,18 @@ function module.Start()
 			db = true
 			if window.Toggle.Value == false then
 				window.Toggle.Value = true
+				toggle = true
 				game.TweenService:Create(window.Frame,TweenInfo.new(.1),{Position = window.On.Position}):Play()
 				wait(.1)
 				db = false
 			elseif window.Toggle.Value == true then
 				window.Toggle.Value = false
+				toggle = false
 				game.TweenService:Create(window.Frame,TweenInfo.new(.1),{Position = window.Off.Position}):Play()
 				wait(.1)
 				db = false
 			end
 		end
-		task.spawn(function()
-			while wait(.2) do
-				if db == true then
-					for i,v in pairs(workspace:GetDescendants()) do
-						if v:FindFirstChild("CoinVisual") then
-							if v:FindFirstChild("ParticleEmitter") then
-								if not v:FindFirstChild("Highlight") then
-								task.spawn(NewNotification)("Rare Egg Detected!",1)
-								task.spawn(NewNotification)("Highlighting!",.4)
-								if v.CoinVisual.Transparency > 0 then
-									task.spawn(NewNotification)("You already own this Rare Egg!",1)
-								else
-									task.spawn(NewNotification)("Rare Egg Highlighted!",1)
-										local h = Instance.new("Highlight")
-										h.Parent = v.CoinVisual
-										h.FillColor = Color3.fromRGB(55, 195, 255)
-										h.OutlineColor = Color3.fromRGB(0, 0, 0)
-									end
-								end
-							end
-						end
-					end
-
-				end
-			end
-		end)
 	end)
 	
 	window2.Activated:Connect(function()
@@ -1114,6 +1091,32 @@ function module.Start()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Ihaveash0rtnamefordiscord/Releases/main/MurderMystery2HighlightESP"))(' Watermelon ?')
 		NewNotification.New("Loaded!",1)
 	end)
+	
+	
+		while wait(.5) do
+			if toggle then
+				for i,v in pairs(workspace:GetDescendants()) do
+					if v:FindFirstChild("CoinVisual") then
+						if v:FindFirstChild("ParticleEmitter") then
+							if not v.CoinVisual:FindFirstChild("Highlight") then
+								NewNotification.New("Rare Egg Detected!",1)
+							NewNotification.New("Highlighting...",.5)
+								if v.CoinVisual.Transparency > 0 then
+								NewNotification.New("Error! You already own this Rare Egg!",1)
+								else
+								NewNotification.New("Rare Egg Highlighted!",1)
+									local h = Instance.new("Highlight")
+									h.Parent = v.CoinVisual
+									h.FillColor = Color3.fromRGB(55, 195, 255)
+									h.OutlineColor = Color3.fromRGB(0, 0, 0)
+								end
+							end
+						end
+					end
+				end
+
+			end
+		end
 	
 end
 
