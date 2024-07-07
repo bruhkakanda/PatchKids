@@ -9,7 +9,7 @@
 
 -- Instances: 106 | Scripts: 12 | Modules: 7
 local G2L = {};
-
+--cc
 -- StarterGui.XX411154g1fd4gd44#fgd4
 G2L["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"));
 G2L["1"]["Name"] = [[XX411154g1fd4gd44#fgd4]];
