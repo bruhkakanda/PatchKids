@@ -6,6 +6,7 @@
 88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88 
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER
 ]=]
+if game.CoreGui:FindFirstChild("XX411154g1fd4gd44#fgd4") then return end
 
 -- Instances: 106 | Scripts: 12 | Modules: 7
 local G2L = {};
@@ -17,6 +18,7 @@ G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 G2L["1"]["ResetOnSpawn"] = false;
 -- Attributes
 G2L["1"]:SetAttribute([[version]], 1.75);
+
 
 -- StarterGui.XX411154g1fd4gd44#fgd4.mainframe
 G2L["2"] = Instance.new("Frame", G2L["1"]);
