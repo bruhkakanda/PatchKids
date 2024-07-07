@@ -9,7 +9,7 @@
 
 -- Instances: 106 | Scripts: 12 | Modules: 7
 local G2L = {};
---cc
+
 -- StarterGui.XX411154g1fd4gd44#fgd4
 G2L["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"));
 G2L["1"]["Name"] = [[XX411154g1fd4gd44#fgd4]];
@@ -1102,7 +1102,8 @@ function module.Start()
 	end)
 	
 	
-	game["Run Service"].RenderStepped:Connect(function()
+	task.spawn(function()
+		while wait(.5) do
 
 		roles = Rep:FindFirstChild("GetPlayerData", true):InvokeServer()
 
@@ -1119,6 +1120,7 @@ function module.Start()
 			EspModule.UpdateLabel(Sheriff,Murder,Hero,roles)
 			EspModule.ForceCreate("GunDrop")
 			
+		end
 		end
 	end)
 end
