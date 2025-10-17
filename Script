@@ -1,6 +1,4 @@
 
-
--- Instances: 112 | Scripts: 12 | Modules: 10
 local G2L = {};
 
 -- StarterGui.XX411154g1fd4gd44#fgd4
@@ -1150,6 +1148,7 @@ function module.Start()
 	local newTab = tab.New("Main")
 	local Esp = newwindow.NewToggle("Player Esp!","esp","Main")
 	local Autofarm = newwindow.NewWindow("Alpha Autofarm","Autofarm coins!","Main")
+	local grabgun = newwindow.NewWindow("Grab Gun", "", "Main")
 	
 
 	Esp.Activated:Connect(function()
@@ -1158,34 +1157,12 @@ function module.Start()
 			if Esp.Toggle.Value == false then
 				Esp.Toggle.Value = true
 				toggleEsp = true
-				espConn = game:GetService("RunService").Heartbeat:Connect(function()
-					if toggleEsp then
-
-						roles = Rep:FindFirstChild("GetPlayerData", true):InvokeServer()
-
-						for i, v in pairs(roles) do
-							if v.Role == "Murderer" then
-								Murder = i
-							elseif v.Role == "Sheriff" then
-								Sheriff = i
-							elseif v.Role == "Hero" then
-								Hero = i
-							end
-
-							EspModule.CreateLabel()
-							EspModule.UpdateLabel(Sheriff,Murder,Hero,roles)
-							EspModule.ForceCreate("GunDrop")
-
-						end
-					end
-				end)
 				game.TweenService:Create(Esp.Frame,TweenInfo.new(.1),{Position = Esp.On.Position}):Play()
 				wait(.1)
 				db = false
 			elseif Esp.Toggle.Value == true then
 				toggleEsp = false
 				Esp.Toggle.Value = false
-				espConn:Disconnect()
 				game.TweenService:Create(Esp.Frame,TweenInfo.new(.1),{Position = Esp.Off.Position}):Play()
 				wait(.1)
 				db = false
@@ -1203,6 +1180,40 @@ function module.Start()
 		end
 	end)
 	
+	grabgun.Activated:Connect(function()
+		if workspace:FindFirstChild("GunDrop", true) then
+			local lastPos = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
+			game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Jump = true
+			game.Players.LocalPlayer.Character:PivotTo(workspace:FindFirstChild("GunDrop", true).CFrame)
+			task.wait(0.1)
+			game.Players.LocalPlayer.Character:PivotTo(lastPos)
+			NewNotification.New("Grabbed Gun!", 1.5)
+		else
+			NewNotification.New("No gun found!", 1.5)
+		end
+	end)
+	
+end
+
+while toggleEsp do
+
+		roles = Rep:FindFirstChild("GetPlayerData", true):InvokeServer()
+
+		for i, v in pairs(roles) do
+			if v.Role == "Murderer" then
+				Murder = i
+			elseif v.Role == "Sheriff" then
+				Sheriff = i
+			elseif v.Role == "Hero" then
+				Hero = i
+			end
+
+			EspModule.CreateLabel()
+			EspModule.UpdateLabel(Sheriff,Murder,Hero,roles)
+			EspModule.ForceCreate("GunDrop")
+
+		end
+	task.wait(1)
 end
 
 return module
