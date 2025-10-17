@@ -1,4 +1,13 @@
+--[=[
+ d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
+88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
+88      88    88    88            odD'      88      88    88 88ooo88 
+88  ooo 88    88    88          .88'        88      88    88 88~~~88 
+88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88 
+ Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER
+]=]
 
+-- Instances: 112 | Scripts: 12 | Modules: 10
 local G2L = {};
 
 -- StarterGui.XX411154g1fd4gd44#fgd4
@@ -1195,8 +1204,8 @@ function module.Start()
 	
 end
 
-while toggleEsp do
-
+while true do
+if toggleEsp then
 		roles = Rep:FindFirstChild("GetPlayerData", true):InvokeServer()
 
 		for i, v in pairs(roles) do
@@ -1212,6 +1221,7 @@ while toggleEsp do
 			EspModule.UpdateLabel(Sheriff,Murder,Hero,roles)
 			EspModule.ForceCreate("GunDrop")
 
+		end
 		end
 	task.wait(1)
 end
