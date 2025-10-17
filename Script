@@ -62,6 +62,7 @@ G2L["8"]["BorderSizePixel"] = 0;
 G2L["8"]["TextScaled"] = true;
 G2L["8"]["BackgroundColor3"] = Color3.fromRGB(255, 11, 3);
 G2L["8"]["TextSize"] = 14;
+G2L["8"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["8"]["Size"] = UDim2.new(0.9792208075523376, 0, 0.865384578704834, 0);
 G2L["8"]["Name"] = [[Execute]];
@@ -76,6 +77,7 @@ G2L["9"]["TextWrapped"] = true;
 G2L["9"]["BorderSizePixel"] = 0;
 G2L["9"]["TextScaled"] = true;
 G2L["9"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["9"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["9"]["TextSize"] = 14;
 G2L["9"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["9"]["Size"] = UDim2.new(0.4519480764865875, 0, 0.48076921701431274, 0);
@@ -91,6 +93,7 @@ G2L["a"]["TextWrapped"] = true;
 G2L["a"]["BorderSizePixel"] = 0;
 G2L["a"]["TextScaled"] = true;
 G2L["a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["a"]["TextSize"] = 14;
 G2L["a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["a"]["Size"] = UDim2.new(0.43636366724967957, 0, 0.5192307829856873, 0);
@@ -105,6 +108,7 @@ G2L["b"]["TextWrapped"] = true;
 G2L["b"]["BorderSizePixel"] = 0;
 G2L["b"]["TextScaled"] = true;
 G2L["b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["b"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["b"]["TextSize"] = 14;
 G2L["b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["b"]["Size"] = UDim2.new(0.4519480764865875, 0, 0.48076921701431274, 0);
@@ -140,6 +144,7 @@ G2L["f"]["TextWrapped"] = true;
 G2L["f"]["BorderSizePixel"] = 0;
 G2L["f"]["TextScaled"] = true;
 G2L["f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["f"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["f"]["TextSize"] = 14;
 G2L["f"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["f"]["Size"] = UDim2.new(0.4519480764865875, 0, 0.48076921701431274, 0);
@@ -155,6 +160,7 @@ G2L["10"]["TextWrapped"] = true;
 G2L["10"]["BorderSizePixel"] = 0;
 G2L["10"]["TextScaled"] = true;
 G2L["10"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["10"]["TextSize"] = 14;
 G2L["10"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["10"]["Size"] = UDim2.new(0.43636366724967957, 0, 0.5192307829856873, 0);
@@ -169,6 +175,7 @@ G2L["11"]["TextWrapped"] = true;
 G2L["11"]["BorderSizePixel"] = 0;
 G2L["11"]["TextScaled"] = true;
 G2L["11"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["11"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["11"]["TextSize"] = 14;
 G2L["11"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["11"]["Size"] = UDim2.new(0.4519480764865875, 0, 0.48076921701431274, 0);
@@ -186,6 +193,7 @@ G2L["12"]["BorderSizePixel"] = 0;
 G2L["12"]["TextScaled"] = true;
 G2L["12"]["BackgroundColor3"] = Color3.fromRGB(144, 144, 144);
 G2L["12"]["TextSize"] = 14;
+G2L["12"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["12"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["12"]["Size"] = UDim2.new(0.1833566278219223, 0, 0.7440690994262695, 0);
 G2L["12"]["Name"] = [[Execute]];
@@ -271,6 +279,7 @@ G2L["1f"]["BorderSizePixel"] = 0;
 G2L["1f"]["TextScaled"] = true;
 G2L["1f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["1f"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["1f"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["1f"]["TextSize"] = 14;
 G2L["1f"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["1f"]["Size"] = UDim2.new(0.7696747183799744, 0, 0.626320481300354, 0);
@@ -344,6 +353,7 @@ G2L["28"]["TextStrokeTransparency"] = 0;
 G2L["28"]["BorderSizePixel"] = 0;
 G2L["28"]["TextScaled"] = true;
 G2L["28"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["28"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["28"]["TextSize"] = 14;
 G2L["28"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["28"]["Size"] = UDim2.new(1, 0, 0.07669903337955475, 0);
@@ -379,6 +389,7 @@ G2L["2b"]["BorderSizePixel"] = 0;
 G2L["2b"]["TextScaled"] = true;
 G2L["2b"]["BackgroundColor3"] = Color3.fromRGB(255, 11, 3);
 G2L["2b"]["TextSize"] = 14;
+G2L["2b"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["2b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["2b"]["Size"] = UDim2.new(0.9792208075523376, 0, 0.865384578704834, 0);
 G2L["2b"]["Name"] = [[ChangeTabs]];
@@ -394,6 +405,7 @@ G2L["2c"]["TextStrokeTransparency"] = 0;
 G2L["2c"]["BorderSizePixel"] = 0;
 G2L["2c"]["TextScaled"] = true;
 G2L["2c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["2c"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["2c"]["TextSize"] = 14;
 G2L["2c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["2c"]["Size"] = UDim2.new(1, 0, 0.8004105091094971, 0);
@@ -460,6 +472,7 @@ G2L["38"]["TextWrapped"] = true;
 G2L["38"]["BorderSizePixel"] = 0;
 G2L["38"]["TextScaled"] = true;
 G2L["38"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["38"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["38"]["TextSize"] = 14;
 G2L["38"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["38"]["Size"] = UDim2.new(0.22687609493732452, 0, 0.49056604504585266, 0);
@@ -475,6 +488,7 @@ G2L["39"]["TextWrapped"] = true;
 G2L["39"]["BorderSizePixel"] = 0;
 G2L["39"]["TextScaled"] = true;
 G2L["39"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["39"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["39"]["TextSize"] = 14;
 G2L["39"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["39"]["Size"] = UDim2.new(0.22687609493732452, 0, 0.2641509473323822, 0);
@@ -495,6 +509,7 @@ G2L["3b"]["BorderSizePixel"] = 0;
 G2L["3b"]["TextScaled"] = true;
 G2L["3b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["3b"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+G2L["3b"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["3b"]["TextSize"] = 14;
 G2L["3b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["3b"]["Size"] = UDim2.new(0.6335078477859497, 0, 0.6226414442062378, 0);
@@ -531,7 +546,7 @@ G2L["3f"]["TextYAlignment"] = Enum.TextYAlignment.Bottom;
 G2L["3f"]["TextScaled"] = true;
 G2L["3f"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["3f"]["TextSize"] = 60;
-
+G2L["3f"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Bold, Enum.FontStyle.Italic);
 G2L["3f"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["3f"]["Size"] = UDim2.new(0.07329843193292618, 0, 0.8113207221031189, 0);
 G2L["3f"]["Name"] = [[min]];
@@ -577,6 +592,7 @@ G2L["46"] = Instance.new("TextButton", G2L["2"]);
 G2L["46"]["BorderSizePixel"] = 0;
 G2L["46"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["46"]["TextSize"] = 14;
+G2L["46"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["46"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["46"]["Size"] = UDim2.new(0.9355975985527039, 0, 0.14610061049461365, 0);
 G2L["46"]["Name"] = [[Move]];
@@ -653,6 +669,7 @@ G2L["50"]["BorderSizePixel"] = 0;
 G2L["50"]["TextScaled"] = true;
 G2L["50"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["50"]["TextSize"] = 14;
+G2L["50"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["50"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["50"]["Visible"] = false;
 G2L["50"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
@@ -737,7 +754,7 @@ G2L["5b"] = Instance.new("TextButton", G2L["57"]);
 G2L["5b"]["BorderSizePixel"] = 0;
 G2L["5b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["5b"]["TextSize"] = 14;
-
+G2L["5b"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
 G2L["5b"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["5b"]["Size"] = UDim2.new(0.9355975985527039, 0, 0.14610061049461365, 0);
 G2L["5b"]["Name"] = [[Move]];
@@ -766,6 +783,7 @@ G2L["5e"]["TextWrapped"] = true;
 G2L["5e"]["BorderSizePixel"] = 0;
 G2L["5e"]["TextScaled"] = true;
 G2L["5e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["5e"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["5e"]["TextSize"] = 14;
 G2L["5e"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["5e"]["AnchorPoint"] = Vector2.new(0.5, 1);
@@ -782,6 +800,7 @@ G2L["5f"]["TextWrapped"] = true;
 G2L["5f"]["BorderSizePixel"] = 0;
 G2L["5f"]["TextScaled"] = true;
 G2L["5f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["5f"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["5f"]["TextSize"] = 14;
 G2L["5f"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["5f"]["AnchorPoint"] = Vector2.new(0.5, 1);
@@ -802,6 +821,7 @@ G2L["61"]["TextWrapped"] = true;
 G2L["61"]["BorderSizePixel"] = 0;
 G2L["61"]["TextScaled"] = true;
 G2L["61"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["61"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["61"]["TextSize"] = 14;
 G2L["61"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["61"]["AnchorPoint"] = Vector2.new(0.5, 1);
@@ -822,6 +842,7 @@ G2L["63"]["TextWrapped"] = true;
 G2L["63"]["BorderSizePixel"] = 0;
 G2L["63"]["TextScaled"] = true;
 G2L["63"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["63"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["63"]["TextSize"] = 14;
 G2L["63"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["63"]["AnchorPoint"] = Vector2.new(0.5, 1);
@@ -844,6 +865,7 @@ G2L["65"]["TextWrapped"] = true;
 G2L["65"]["TextScaled"] = true;
 G2L["65"]["BackgroundColor3"] = Color3.fromRGB(84, 84, 84);
 G2L["65"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["65"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Italic);
 G2L["65"]["BackgroundTransparency"] = 0.4000000059604645;
 G2L["65"]["Size"] = UDim2.new(0.4188481569290161, 0, 0.716981053352356, 0);
 G2L["65"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -864,6 +886,7 @@ G2L["68"]["TextWrapped"] = true;
 G2L["68"]["BorderSizePixel"] = 0;
 G2L["68"]["TextScaled"] = true;
 G2L["68"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["68"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["68"]["TextSize"] = 14;
 G2L["68"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["68"]["AnchorPoint"] = Vector2.new(0.5, 1);
@@ -888,6 +911,7 @@ G2L["6a"]["TextYAlignment"] = Enum.TextYAlignment.Bottom;
 G2L["6a"]["TextScaled"] = true;
 G2L["6a"]["BackgroundColor3"] = Color3.fromRGB(84, 84, 84);
 G2L["6a"]["TextSize"] = 60;
+G2L["6a"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["6a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["6a"]["Size"] = UDim2.new(0.2478184998035431, 0, 0.8113207221031189, 0);
 G2L["6a"]["Name"] = [[checkkey]];
@@ -911,6 +935,7 @@ G2L["6d"]["TextStrokeTransparency"] = 0;
 G2L["6d"]["BorderSizePixel"] = 0;
 G2L["6d"]["TextScaled"] = true;
 G2L["6d"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["6d"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["6d"]["TextSize"] = 14;
 G2L["6d"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["6d"]["Size"] = UDim2.new(1, 0, 0.6976743936538696, 0);
@@ -1200,6 +1225,15 @@ Closure = function()
     local script = G2L["31"];
 local module = {}
 
+
+local function IsAlive(Player,roles)
+	for i, v in roles do
+		if not v.Killed and not v.Dead then
+			return true
+		end
+	end
+end
+
 function module.CreateLabel()
 		for i, v in pairs(game.Players:GetChildren()) do
 			if (v ~= game.Players.LocalPlayer and v.Character) and not v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") then
@@ -1226,15 +1260,6 @@ function module.ForceCreate(Part)
 		text.BackgroundTransparency = 1
 		text.Text = Part
 		text.TextColor3 = Color3.new(0.250980, 0.019608, 0.678431)
-	end
-end
-
-
-local function IsAlive(Player,roles)
-	for i, v in roles do
-		if not v.Killed and not v.Dead then
-			return true
-		end
 	end
 end
 
@@ -1500,7 +1525,7 @@ local script = G2L["52"];
 	
 	mouse.Move:Connect(function()
 		if isHolding == true then
-			script.Parent.Parent.Position = UDim2.new(0,mouse.X,0,mouse.Y)
+			script.Parent.Position = UDim2.new(0,mouse.X,0,mouse.Y)
 		end
 	end)
 end;
