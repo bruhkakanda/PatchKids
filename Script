@@ -1,4 +1,11 @@
-
+--[=[
+ d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
+88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
+88      88    88    88            odD'      88      88    88 88ooo88 
+88  ooo 88    88    88          .88'        88      88    88 88~~~88 
+88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88 
+ Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER
+]=]
 
 -- Instances: 115 | Scripts: 13 | Modules: 10
 local G2L = {};
@@ -9,7 +16,7 @@ G2L["1"]["Name"] = [[XX411154g1fd4gd44#fgd4]];
 G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 G2L["1"]["ResetOnSpawn"] = false;
 -- Attributes
-G2L["1"]:SetAttribute([[version]], [[2.001]]);
+G2L["1"]:SetAttribute([[version]], [[2]]);
 
 -- StarterGui.XX411154g1fd4gd44#fgd4.mainframe
 G2L["2"] = Instance.new("Frame", G2L["1"]);
@@ -1285,6 +1292,9 @@ function module.Start()
 	local Esp = newwindow.NewToggle("Player Esp!","esp","Main")
 	local Autofarm = newwindow.NewWindow("Alpha Autofarm","Autofarm coins!","Main")
 	local grabgun = newwindow.NewWindow("Grab Gun", "gun grabber", "Main")
+	
+	local int_gun = newwindow.NewButton("Grab Gun")
+	
 	local newRolesTab = tab.New("Roles")
 	local silentAim = newwindow.NewToggle("Sheriff Silent Aim", "", "Roles")
 	game.TweenService:Create(Esp.Frame,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 39, 39)}):Play()
@@ -1321,6 +1331,19 @@ function module.Start()
 	end)
 	
 	grabgun.Activated:Connect(function()
+		if workspace:FindFirstChild("GunDrop", true) then
+			local lastPos = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
+			game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Jump = true
+			game.Players.LocalPlayer.Character:PivotTo(workspace:FindFirstChild("GunDrop", true).CFrame)
+			task.wait(0.1)
+			game.Players.LocalPlayer.Character:PivotTo(lastPos)
+			NewNotification.New("Grabbed Gun!", 1.5)
+		else
+			NewNotification.New("No gun found!", 1.5)
+		end
+	end)
+	
+	int_gun.Activated:Connect(function()
 		if workspace:FindFirstChild("GunDrop", true) then
 			local lastPos = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
 			game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Jump = true
