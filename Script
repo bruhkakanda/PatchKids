@@ -1,13 +1,22 @@
--- PATCH KIDS
+--[=[
+ d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
+88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
+88      88    88    88            odD'      88      88    88 88ooo88 
+88  ooo 88    88    88          .88'        88      88    88 88~~~88 
+88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88 
+ Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER
+]=]
+
+-- Instances: 115 | Scripts: 13 | Modules: 10
 local G2L = {};
 
 -- StarterGui.XX411154g1fd4gd44#fgd4
-G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
+G2L["1"] = Instance.new("ScreenGui", game.CoreGui);
 G2L["1"]["Name"] = [[XX411154g1fd4gd44#fgd4]];
 G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 G2L["1"]["ResetOnSpawn"] = false;
 -- Attributes
-G2L["1"]:SetAttribute([[version]], [[2]]);
+G2L["1"]:SetAttribute([[version]], [[2 BETA]]);
 
 -- StarterGui.XX411154g1fd4gd44#fgd4.mainframe
 G2L["2"] = Instance.new("Frame", G2L["1"]);
@@ -1287,7 +1296,7 @@ function module.Start()
 	local silentAim = newwindow.NewToggle("Sheriff Silent Aim", "", "Roles")
 	game.TweenService:Create(Esp.Frame,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 39, 39)}):Play()
 	task.spawn(function()
-		AFModule.Start()
+		--AFModule.Start()
 		shootModule.start()
 	end)
 
@@ -1303,7 +1312,6 @@ function module.Start()
 				toggleEsp = false
 				Esp.Toggle.Value = false
 				wait(.1)
-				EspModule.ClearAll()
 				db = false
 			end
 		end
@@ -1342,7 +1350,8 @@ function module.Start()
 		end
 	end)
 	
-	while toggleEsp do
+	while task.wait(1) do
+		if toggleEsp then
 			roles = Rep:FindFirstChild("GetPlayerData", true):InvokeServer()
 
 			for i, v in roles do
@@ -1359,7 +1368,9 @@ function module.Start()
 				EspModule.ForceCreate("GunDrop")
 
 			end
-			task.wait(1)
+		else
+			EspModule.ClearAll()
+			end
 	end
 end
 
