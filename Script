@@ -1,10 +1,17 @@
-
+--[=[
+ d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
+88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
+88      88    88    88            odD'      88      88    88 88ooo88 
+88  ooo 88    88    88          .88'        88      88    88 88~~~88 
+88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88 
+ Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER
+]=]
 
 -- Instances: 115 | Scripts: 13 | Modules: 10
 local G2L = {};
 
 -- StarterGui.XX411154g1fd4gd44#fgd4
-G2L["1"] = Instance.new("ScreenGui", game.CoreGui);
+G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
 G2L["1"]["Name"] = [[XX411154g1fd4gd44#fgd4]];
 G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 G2L["1"]["ResetOnSpawn"] = false;
@@ -1289,7 +1296,7 @@ function module.Start()
 	local silentAim = newwindow.NewToggle("Sheriff Silent Aim", "", "Roles")
 	game.TweenService:Create(Esp.Frame,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 39, 39)}):Play()
 	task.spawn(function()
-		--AFModule.Start()
+		AFModule.Start()
 		shootModule.start()
 	end)
 
@@ -1386,7 +1393,8 @@ end
 
 function module.CreateLabel()
 		for i, v in pairs(game.Players:GetChildren()) do
-			if (v ~= game.Players.LocalPlayer and v.Character) and not v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") then
+		--(v ~= game.Players.LocalPlayer and v.Character) and 
+			if not v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") then
 				local billboard = Instance.new("BillboardGui", v.Character.Head)
 				billboard.Size = UDim2.new(4,0,1,0)
 				billboard.ExtentsOffset = Vector3.new(0, 2, 0)
@@ -1440,7 +1448,7 @@ function module.UpdateLabel(Sheriff, Murder, Hero, roles)
 end
 
 function module.ClearAll()
-	for i, v in pairs(game.Players:GetChildren()) do
+	for i, v in game.Players:GetPlayers() do
 		if v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") then
 			v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui"):Destroy()
 			if v.Character:FindFirstChild("ESPH") then
@@ -1478,7 +1486,7 @@ module.Start = function()
 							h.FillColor = Color3.fromRGB(255, 0, 0)
 							h.OutlineColor = Color3.fromRGB(0, 0, 0)
 						end
-						game.TweenService:Create(game.Players.LocalPlayer.Character.PrimaryPart,TweenInfo.new(5,Enum.EasingStyle.Linear),{CFrame = v.CFrame}):Play()
+					game.TweenService:Create(game.Players.LocalPlayer.Character.PrimaryPart,TweenInfo.new(5,Enum.EasingStyle.Linear),{CFrame = v:FindFirstChild("CoinVisual").CFrame}):Play()
 				end
 			end
 end
