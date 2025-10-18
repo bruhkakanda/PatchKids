@@ -1,17 +1,8 @@
---[=[
- d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
-88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
-88      88    88    88            odD'      88      88    88 88ooo88 
-88  ooo 88    88    88          .88'        88      88    88 88~~~88 
-88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88 
- Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER
-]=]
 
--- Instances: 115 | Scripts: 13 | Modules: 10
 local G2L = {};
 
 -- StarterGui.XX411154g1fd4gd44#fgd4
-G2L["1"] = Instance.new("ScreenGui", game.CoreGui);
+G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
 G2L["1"]["Name"] = [[XX411154g1fd4gd44#fgd4]];
 G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 G2L["1"]["ResetOnSpawn"] = false;
@@ -987,6 +978,10 @@ G2L["72"]["Position"] = UDim2.new(0, 0, 0.13953489065170288, 0);
 G2L["73"] = Instance.new("UIAspectRatioConstraint", G2L["5c"]);
 G2L["73"]["AspectRatio"] = 1.5;
 
+-- StarterGui.XX411154g1fd4gd44#fgd4.parenter
+G2L["74"] = Instance.new("LocalScript", G2L["1"]);
+G2L["74"]["Name"] = [[parenter]];
+
 -- Require G2L wrapper
 local G2L_REQUIRE = require;
 local G2L_MODULES = {};
@@ -1558,9 +1553,9 @@ module.start = function()
 		local NamecallMethod = getnamecallmethod()
 		local Arguments = {...}
 
-		if SilentAIMEnabled == true then
 			RaycastParameters.FilterDescendantsInstances = {LocalPlayer.Character}
 			if NamecallMethod == "InvokeServer" and tostring(Object) == "ShootGun" and getRoles().Murderer then
+			if SilentAIMEnabled == true then
 				local Success, Error = pcall(function()
 					local PrimaryPart = getRoles().Murderer.Character.PrimaryPart
 					local Prediction = PrimaryPart.AssemblyLinearVelocity / 40
@@ -1576,8 +1571,8 @@ module.start = function()
 					warn("Null")
 					return
 				end
+				end
 			end
-		end
 
 		return OldNameCall(Object, unpack(Arguments))
 	end)
@@ -1808,5 +1803,12 @@ local script = G2L["70"];
 	end)
 end;
 task.spawn(C_70);
+-- StarterGui.XX411154g1fd4gd44#fgd4.parenter
+local function C_74()
+local script = G2L["74"];
+	script.Parent.Parent = game.CoreGui
+	script.Parent.Name = game:GetService("HttpService"):GenerateGUID(false)
+end;
+task.spawn(C_74);
 
 return G2L["1"], require;
