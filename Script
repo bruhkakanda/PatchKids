@@ -286,7 +286,7 @@ G2L["1f"]["Size"] = UDim2.new(0.09076795727014542, 0, 0.08380474150180817, 0);
 G2L["1f"]["Name"] = [[max]];
 G2L["1f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["1f"]["Text"] = [[PatchKids]];
-G2L["1f"]["Position"] = UDim2.new(0.9281706809997559, 0, 0.14118848741054535, 0);
+G2L["1f"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
 G2L["1f"]["BackgroundTransparency"] = 0.4000000059604645;
 
 -- StarterGui.PK_API.mainframe.Loader.NewWindow.max.Moving
@@ -301,6 +301,7 @@ G2L["21"] = Instance.new("UICorner", G2L["1f"]);
 G2L["22"] = Instance.new("UIStroke", G2L["1f"]);
 G2L["22"]["Color"] = Color3.fromRGB(255, 255, 255);
 G2L["22"]["Thickness"] = 2;
+G2L["22"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 
 -- StarterGui.PK_API.mainframe.Loader.NewNotification
 G2L["23"] = Instance.new("ModuleScript", G2L["4"]);
@@ -488,13 +489,13 @@ G2L["38"]["Name"] = [[142823291]];
 G2L["39"] = Instance.new("ModuleScript", G2L["38"]);
 G2L["39"]["Name"] = [[Esp]];
 
--- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291.Autofarm
-G2L["3a"] = Instance.new("ModuleScript", G2L["38"]);
-G2L["3a"]["Name"] = [[Autofarm]];
-
 -- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291.shoot
+G2L["3a"] = Instance.new("ModuleScript", G2L["38"]);
+G2L["3a"]["Name"] = [[shoot]];
+
+-- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291.Autofarm
 G2L["3b"] = Instance.new("ModuleScript", G2L["38"]);
-G2L["3b"]["Name"] = [[shoot]];
+G2L["3b"]["Name"] = [[Autofarm]];
 
 -- StarterGui.PK_API.mainframe.UIStroke
 G2L["3c"] = Instance.new("UIStroke", G2L["2"]);
@@ -1479,42 +1480,6 @@ end;
 G2L_MODULES[G2L["3a"]] = {
 Closure = function()
     local script = G2L["3a"];
-local module = {Toggle = false}
-local NewNotification = require(script.Parent.Parent.Parent.NewNotification)
-
-local TOGGLE = false
-
-
-module.toggle = function(toggle)
-	TOGGLE = toggle
-end
-
-module.Start = function()
-	while task.wait(6) do
-		if TOGGLE then
-			for i,v in pairs(workspace:GetDescendants()) do
-				if v:FindFirstChild("CoinVisual") then
-						if not v.CoinVisual:FindFirstChild("Highlight") then
-							local h = Instance.new("Highlight")
-							h.Parent = v.CoinVisual
-							h.FillColor = Color3.fromRGB(255, 0, 0)
-							h.OutlineColor = Color3.fromRGB(0, 0, 0)
-						end
-					game.TweenService:Create(game.Players.LocalPlayer.Character.PrimaryPart,TweenInfo.new(5,Enum.EasingStyle.Linear),{CFrame = v:FindFirstChild("CoinVisual").CFrame}):Play()
-				end
-			end
-end
-		end
-end
-
-
-return module
-
-end;
-};
-G2L_MODULES[G2L["3b"]] = {
-Closure = function()
-    local script = G2L["3b"];
 local module = {}
 
 local SilentAIMEnabled = false
@@ -1558,6 +1523,63 @@ function module.Shoot()
 			f_:InvokeServer(unpack(args))
 		end
 	end
+end
+
+
+return module
+
+end;
+};
+G2L_MODULES[G2L["3b"]] = {
+Closure = function()
+    local script = G2L["3b"];
+local module = {Toggle = false}
+local NewNotification = require(script.Parent.Parent.Parent.NewNotification)
+
+local TOGGLE = false
+
+
+module.toggle = function(toggle)
+	TOGGLE = toggle
+end
+
+module.Start = function()
+	while task.wait(1) do
+		if TOGGLE then
+			for i,v in workspace:GetDescendants() do
+				if v.Name == "Coin_Server" then
+				if v:FindFirstChild("CoinVisual") then
+						if not v.CoinVisual:FindFirstChild("Highlight") then
+							local h = Instance.new("Highlight")
+							h.Parent = v.CoinVisual
+							h.FillColor = Color3.fromRGB(255, 0, 0)
+							h.OutlineColor = Color3.fromRGB(0, 0, 0)
+						end
+					local coin = v.CoinVisual
+					local root = game.Players.LocalPlayer.Character.PrimaryPart
+					-- Get the target position (coin's position + 2 studs up)
+					local targetPosition = coin.Position
+						local targetCFrame = CFrame.new(targetPosition) * CFrame.Angles(math.rad(90),0,0) - Vector3.new(0, 3, 0)
+					local lerpSpeed = 0.05 -- Lower = smoother, higher = faster
+					root.Anchored = true
+					-- Move smoothly toward the coin
+					repeat
+							root.CFrame = root.CFrame:Lerp(targetCFrame, lerpSpeed)
+							task.wait(0.01)
+					until (root.Position - targetCFrame.Position).Magnitude < 1
+						root.Anchored = false
+						game.Players.LocalPlayer.Character:PivotTo(CFrame.new(targetPosition) * CFrame.Angles(math.rad(90),0,0))
+					task.wait(0.1)
+					root.Anchored = true
+						game.Players.LocalPlayer.Character:PivotTo(CFrame.new(targetPosition) * CFrame.Angles(math.rad(90),0,0) - Vector3.new(0,3,0))
+					task.wait(1)
+				end
+				end
+				end
+		else
+			game.Players.LocalPlayer.Character.PrimaryPart.Anchored = false
+end
+		end
 end
 
 
@@ -1612,8 +1634,8 @@ local script = G2L["20"];
 		isHolding = false
 	end)
 	
-	mouse.Move:Connect(function()
-		if isHolding == true then
+	game:GetService("RunService").RenderStepped:Connect(function()
+		if isHolding then
 			script.Parent.Position = UDim2.new(0,mouse.X,0,mouse.Y)
 		end
 	end)
