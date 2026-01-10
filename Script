@@ -1336,7 +1336,6 @@ local collisionCooldown = 0
 
 if UIS.TouchEnabled and not UIS.KeyboardEnabled then
 	isMobile = true
-	joystickFrame.Visible = true
 end
 
 
