@@ -1,25 +1,15 @@
---[=[
- d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
-88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
-88      88    88    88            odD'      88      88    88 88ooo88 
-88  ooo 88    88    88          .88'        88      88    88 88~~~88 
-88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @uniquadev
- Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
-]=]
 
--- Instances: 117 | Scripts: 12 | Modules: 12 | Tags: 0
 local G2L = {};
 
--- StarterGui.PK_API
+
 G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
 G2L["1"]["Name"] = [[PK_API]];
 G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 G2L["1"]["ResetOnSpawn"] = false;
--- Attributes
+
 G2L["1"]:SetAttribute([[version]], [[2]]);
 
 
--- StarterGui.PK_API.mainframe
 G2L["2"] = Instance.new("Frame", G2L["1"]);
 G2L["2"]["BorderSizePixel"] = 0;
 G2L["2"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
@@ -510,54 +500,54 @@ G2L["32"] = Instance.new("UICorner", G2L["2f"]);
 G2L["32"]["CornerRadius"] = UDim.new(1, 0);
 
 
--- StarterGui.PK_API.mainframe.Loader.Gamesloader
-G2L["33"] = Instance.new("Folder", G2L["4"]);
-G2L["33"]["Name"] = [[Gamesloader]];
-
-
--- StarterGui.PK_API.mainframe.Loader.Gamesloader.5819852418
-G2L["34"] = Instance.new("ModuleScript", G2L["33"]);
-G2L["34"]["Name"] = [[5819852418]];
-
-
--- StarterGui.PK_API.mainframe.Loader.Gamesloader.5677613211
-G2L["35"] = Instance.new("ModuleScript", G2L["33"]);
-G2L["35"]["Name"] = [[5677613211]];
-
-
--- StarterGui.PK_API.mainframe.Loader.Gamesloader.94373736738199
-G2L["36"] = Instance.new("ModuleScript", G2L["33"]);
-G2L["36"]["Name"] = [[94373736738199]];
-
-
--- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291
-G2L["37"] = Instance.new("ModuleScript", G2L["33"]);
-G2L["37"]["Name"] = [[142823291]];
-
-
--- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291.Autofarm
-G2L["38"] = Instance.new("ModuleScript", G2L["37"]);
-G2L["38"]["Name"] = [[Autofarm]];
-
-
--- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291.Esp
-G2L["39"] = Instance.new("ModuleScript", G2L["37"]);
-G2L["39"]["Name"] = [[Esp]];
-
-
--- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291.shoot
-G2L["3a"] = Instance.new("ModuleScript", G2L["37"]);
-G2L["3a"]["Name"] = [[shoot]];
-
-
 -- StarterGui.PK_API.mainframe.Loader.Universal
-G2L["3b"] = Instance.new("ModuleScript", G2L["4"]);
-G2L["3b"]["Name"] = [[Universal]];
+G2L["33"] = Instance.new("ModuleScript", G2L["4"]);
+G2L["33"]["Name"] = [[Universal]];
 
 
 -- StarterGui.PK_API.mainframe.Loader.Universal.Fly
-G2L["3c"] = Instance.new("ModuleScript", G2L["3b"]);
-G2L["3c"]["Name"] = [[Fly]];
+G2L["34"] = Instance.new("ModuleScript", G2L["33"]);
+G2L["34"]["Name"] = [[Fly]];
+
+
+-- StarterGui.PK_API.mainframe.Loader.Gamesloader
+G2L["35"] = Instance.new("Folder", G2L["4"]);
+G2L["35"]["Name"] = [[Gamesloader]];
+
+
+-- StarterGui.PK_API.mainframe.Loader.Gamesloader.5819852418
+G2L["36"] = Instance.new("ModuleScript", G2L["35"]);
+G2L["36"]["Name"] = [[5819852418]];
+
+
+-- StarterGui.PK_API.mainframe.Loader.Gamesloader.5677613211
+G2L["37"] = Instance.new("ModuleScript", G2L["35"]);
+G2L["37"]["Name"] = [[5677613211]];
+
+
+-- StarterGui.PK_API.mainframe.Loader.Gamesloader.94373736738199
+G2L["38"] = Instance.new("ModuleScript", G2L["35"]);
+G2L["38"]["Name"] = [[94373736738199]];
+
+
+-- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291
+G2L["39"] = Instance.new("ModuleScript", G2L["35"]);
+G2L["39"]["Name"] = [[142823291]];
+
+
+-- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291.Autofarm
+G2L["3a"] = Instance.new("ModuleScript", G2L["39"]);
+G2L["3a"]["Name"] = [[Autofarm]];
+
+
+-- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291.Esp
+G2L["3b"] = Instance.new("ModuleScript", G2L["39"]);
+G2L["3b"]["Name"] = [[Esp]];
+
+
+-- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291.shoot
+G2L["3c"] = Instance.new("ModuleScript", G2L["39"]);
+G2L["3c"]["Name"] = [[shoot]];
 
 
 -- StarterGui.PK_API.mainframe.UIStroke
@@ -1293,9 +1283,180 @@ return module
 
 end;
 };
+G2L_MODULES[G2L["33"]] = {
+Closure = function()
+    local script = G2L["33"];local module = {}
+
+module.Start = function()
+	local newwindow = require(script.Parent.NewWindow)
+	local NewNotification = require(script.Parent.NewNotification)
+	local tab = require(script.Parent.NewTab)
+
+
+	local FlyScript = require(script.Fly)
+
+	local newTab = tab.New("Universal")
+	local Fly = newwindow.NewToggle("Fly","G to toggle","Universal")
+
+	Fly.Activated:Connect(function()
+		Fly.Toggle.Value = not Fly.Toggle.Value
+		FlyScript.Toggle()
+	end)
+end
+
+return module
+
+end;
+};
 G2L_MODULES[G2L["34"]] = {
 Closure = function()
-    local script = G2L["34"];local newwindow = require(script.Parent.Parent.NewWindow)
+    local script = G2L["34"];local module = {}
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+
+local player = Players.LocalPlayer
+local camera = workspace.CurrentCamera
+local gui = player:WaitForChild("PlayerGui")
+
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local hrp = character:WaitForChild("HumanoidRootPart")
+
+local flying = false
+local speed = 90
+local bv
+local bg
+local input = {W=0,A=0,S=0,D=0}
+local mobileInput = Vector3.zero
+local isMobile = false
+local lastSafePosition
+local collisionCooldown = 0
+
+if UIS.TouchEnabled and not UIS.KeyboardEnabled then
+	isMobile = true
+	joystickFrame.Visible = true
+end
+
+
+
+local function toggle()
+	flying = not flying
+	if flying then
+		humanoid.PlatformStand = true
+		humanoid.AutoRotate = false
+		humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
+
+
+		bv = Instance.new("BodyVelocity")
+		bv.MaxForce = Vector3.new(1e20,1e20,1e20)
+		bv.Velocity = Vector3.zero
+		bv.Parent = hrp
+
+
+		bg = Instance.new("BodyGyro")
+		bg.MaxTorque = Vector3.new(1e20,1e20,1e20)
+		bg.P = 10000
+		bg.D = 1000
+		bg.Parent = hrp
+
+		lastSafePosition = hrp.Position
+		collisionCooldown = 0
+	else
+		if bv then bv:Destroy() bv = nil end
+		if bg then bg:Destroy() bg = nil end
+		humanoid.PlatformStand = false
+		humanoid.AutoRotate = true
+	end
+end
+
+UIS.InputBegan:Connect(function(i,gp)
+	if gp then return end
+	if i.KeyCode == Enum.KeyCode.W then input.W = 1 end
+	if i.KeyCode == Enum.KeyCode.S then input.S = 1 end
+	if i.KeyCode == Enum.KeyCode.A then input.A = 1 end
+	if i.KeyCode == Enum.KeyCode.D then input.D = 1 end
+	if i.KeyCode == Enum.KeyCode.G then
+		toggle()
+	end
+end)
+
+UIS.InputEnded:Connect(function(i)
+	if i.KeyCode == Enum.KeyCode.W then input.W = 0 end
+	if i.KeyCode == Enum.KeyCode.S then input.S = 0 end
+	if i.KeyCode == Enum.KeyCode.A then input.A = 0 end
+	if i.KeyCode == Enum.KeyCode.D then input.D = 0 end
+end)
+
+RunService.RenderStepped:Connect(function()
+	if not flying or not bv or not bg then return end
+
+	if collisionCooldown > 0 then
+		collisionCooldown = collisionCooldown - 1
+	end
+
+	local camCF = camera.CFrame
+	local dir
+
+	if isMobile then
+		if humanoid.MoveDirection.Magnitude > 0 then
+			dir = camCF.RightVector * mobileInput.X + camCF.LookVector * mobileInput.Z
+		else
+			dir = Vector3.zero
+		end
+	else
+		dir = camCF.LookVector * (input.W - input.S) + camCF.RightVector * (input.D - input.A)
+	end
+
+	if dir.Magnitude > 0 then
+		dir = dir.Unit
+	end
+
+	local nextPosition = hrp.Position + dir * speed * 0.016
+	local raycastParams = RaycastParams.new()
+	raycastParams.FilterDescendantsInstances = {character}
+	raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+
+	local raycastResult = workspace:Raycast(hrp.Position, nextPosition - hrp.Position, raycastParams)
+
+	if raycastResult and raycastResult.Distance < 2 then
+		if collisionCooldown == 0 then
+			bv.Velocity = Vector3.zero
+
+			local bounceDir = (hrp.Position - raycastResult.Position).Unit
+			if bounceDir.Magnitude > 0 then
+				bv.Velocity = bounceDir * speed * 0.3
+			end
+
+			collisionCooldown = 30
+		end
+	else
+		bv.Velocity = dir * speed
+
+
+		if dir.Magnitude > 0.1 then
+			lastSafePosition = hrp.Position
+		end
+	end
+
+
+	local lookDir = Vector3.new(camCF.LookVector.X, camCF.LookVector.Y, camCF.LookVector.Z).Unit
+	if lookDir.Magnitude > 0 then
+		bg.CFrame = CFrame.new(hrp.Position, hrp.Position + lookDir)
+	end
+end)
+
+
+module.Toggle = toggle
+
+return module
+
+end;
+};
+G2L_MODULES[G2L["36"]] = {
+Closure = function()
+    local script = G2L["36"];local newwindow = require(script.Parent.Parent.NewWindow)
 local NewNotification = require(script.Parent.Parent.NewNotification)
 
 local tab = require(script.Parent.Parent.NewTab)
@@ -1324,9 +1485,9 @@ return module
 
 end;
 };
-G2L_MODULES[G2L["35"]] = {
+G2L_MODULES[G2L["37"]] = {
 Closure = function()
-    local script = G2L["35"];local newwindow = require(script.Parent.Parent.NewWindow)
+    local script = G2L["37"];local newwindow = require(script.Parent.Parent.NewWindow)
 local NewNotification = require(script.Parent.Parent.NewNotification)
 local db = false
 
@@ -1384,9 +1545,9 @@ return module
 
 end;
 };
-G2L_MODULES[G2L["36"]] = {
+G2L_MODULES[G2L["38"]] = {
 Closure = function()
-    local script = G2L["36"];local newwindow = require(script.Parent.Parent.NewWindow)
+    local script = G2L["38"];local newwindow = require(script.Parent.Parent.NewWindow)
 local NewNotification = require(script.Parent.Parent.NewNotification)
 local db = false
 
@@ -1407,9 +1568,9 @@ return module
 
 end;
 };
-G2L_MODULES[G2L["37"]] = {
+G2L_MODULES[G2L["39"]] = {
 Closure = function()
-    local script = G2L["37"];local newwindow = require(script.Parent.Parent.NewWindow)
+    local script = G2L["39"];local newwindow = require(script.Parent.Parent.NewWindow)
 local NewNotification = require(script.Parent.Parent.NewNotification)
 local tab = require(script.Parent.Parent.NewTab)
 
@@ -1530,9 +1691,9 @@ end
 return module
 end;
 };
-G2L_MODULES[G2L["38"]] = {
+G2L_MODULES[G2L["3a"]] = {
 Closure = function()
-    local script = G2L["38"];local module = {Toggle = false}
+    local script = G2L["3a"];local module = {Toggle = false}
 local NewNotification = require(script.Parent.Parent.Parent.NewNotification)
 
 local TOGGLE = false
@@ -1695,9 +1856,9 @@ return module
 
 end;
 };
-G2L_MODULES[G2L["39"]] = {
+G2L_MODULES[G2L["3b"]] = {
 Closure = function()
-    local script = G2L["39"];local module = {}
+    local script = G2L["3b"];local module = {}
 
 
 local function IsAlive(Player,roles)
@@ -1779,9 +1940,9 @@ return module
 
 end;
 };
-G2L_MODULES[G2L["3a"]] = {
+G2L_MODULES[G2L["3c"]] = {
 Closure = function()
-    local script = G2L["3a"];local module = {}
+    local script = G2L["3c"];local module = {}
 
 local SilentAIMEnabled = false
 
@@ -1831,175 +1992,6 @@ return module
 
 end;
 };
-G2L_MODULES[G2L["3b"]] = {
-Closure = function()
-    local script = G2L["3b"];local module = {}
-
-local newwindow = require(script.Parent.NewWindow)
-local NewNotification = require(script.Parent.NewNotification)
-local tab = require(script.Parent.NewTab)
-
-
-local FlyScript = require(script.Fly)
-
-local newTab = tab.New("Universal")
-local Fly = newwindow.NewToggle("Fly","G to toggle","Universal")
-
-Fly.Activated:Connect(function()
-	Fly.Toggle.Value = not Fly.Toggle.Value
-	FlyScript.Toggle()
-end)
-
-return module
-
-end;
-};
-G2L_MODULES[G2L["3c"]] = {
-Closure = function()
-    local script = G2L["3c"];local module = {}
-
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local UIS = game:GetService("UserInputService")
-
-local player = Players.LocalPlayer
-local camera = workspace.CurrentCamera
-local gui = player:WaitForChild("PlayerGui")
-
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:WaitForChild("Humanoid")
-local hrp = character:WaitForChild("HumanoidRootPart")
-
-local flying = false
-local speed = 90
-local bv
-local bg
-local input = {W=0,A=0,S=0,D=0}
-local mobileInput = Vector3.zero
-local isMobile = false
-local lastSafePosition
-local collisionCooldown = 0
-
-if UIS.TouchEnabled and not UIS.KeyboardEnabled then
-	isMobile = true
-	joystickFrame.Visible = true
-end
-
-
-
-local function toggle()
-	flying = not flying
-	if flying then
-		humanoid.PlatformStand = true
-		humanoid.AutoRotate = false
-		humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
-
-
-		bv = Instance.new("BodyVelocity")
-		bv.MaxForce = Vector3.new(1e20,1e20,1e20)
-		bv.Velocity = Vector3.zero
-		bv.Parent = hrp
-
-
-		bg = Instance.new("BodyGyro")
-		bg.MaxTorque = Vector3.new(1e20,1e20,1e20)
-		bg.P = 10000
-		bg.D = 1000
-		bg.Parent = hrp
-
-		lastSafePosition = hrp.Position
-		collisionCooldown = 0
-	else
-		if bv then bv:Destroy() bv = nil end
-		if bg then bg:Destroy() bg = nil end
-		humanoid.PlatformStand = false
-		humanoid.AutoRotate = true
-	end
-end
-
-UIS.InputBegan:Connect(function(i,gp)
-	if gp then return end
-	if i.KeyCode == Enum.KeyCode.W then input.W = 1 end
-	if i.KeyCode == Enum.KeyCode.S then input.S = 1 end
-	if i.KeyCode == Enum.KeyCode.A then input.A = 1 end
-	if i.KeyCode == Enum.KeyCode.D then input.D = 1 end
-	if i.KeyCode == Enum.KeyCode.G then
-		toggle()
-	end
-end)
-
-UIS.InputEnded:Connect(function(i)
-	if i.KeyCode == Enum.KeyCode.W then input.W = 0 end
-	if i.KeyCode == Enum.KeyCode.S then input.S = 0 end
-	if i.KeyCode == Enum.KeyCode.A then input.A = 0 end
-	if i.KeyCode == Enum.KeyCode.D then input.D = 0 end
-end)
-
-RunService.RenderStepped:Connect(function()
-	if not flying or not bv or not bg then return end
-
-	if collisionCooldown > 0 then
-		collisionCooldown = collisionCooldown - 1
-	end
-
-	local camCF = camera.CFrame
-	local dir
-
-	if isMobile then
-		if humanoid.MoveDirection.Magnitude > 0 then
-			dir = camCF.RightVector * mobileInput.X + camCF.LookVector * mobileInput.Z
-		else
-			dir = Vector3.zero
-		end
-	else
-		dir = camCF.LookVector * (input.W - input.S) + camCF.RightVector * (input.D - input.A)
-	end
-
-	if dir.Magnitude > 0 then
-		dir = dir.Unit
-	end
-
-	local nextPosition = hrp.Position + dir * speed * 0.016
-	local raycastParams = RaycastParams.new()
-	raycastParams.FilterDescendantsInstances = {character}
-	raycastParams.FilterType = Enum.RaycastFilterType.Exclude
-
-	local raycastResult = workspace:Raycast(hrp.Position, nextPosition - hrp.Position, raycastParams)
-
-	if raycastResult and raycastResult.Distance < 2 then
-		if collisionCooldown == 0 then
-			bv.Velocity = Vector3.zero
-
-			local bounceDir = (hrp.Position - raycastResult.Position).Unit
-			if bounceDir.Magnitude > 0 then
-				bv.Velocity = bounceDir * speed * 0.3
-			end
-
-			collisionCooldown = 30
-		end
-	else
-		bv.Velocity = dir * speed
-
-
-		if dir.Magnitude > 0.1 then
-			lastSafePosition = hrp.Position
-		end
-	end
-
-
-	local lookDir = Vector3.new(camCF.LookVector.X, camCF.LookVector.Y, camCF.LookVector.Z).Unit
-	if lookDir.Magnitude > 0 then
-		bg.CFrame = CFrame.new(hrp.Position, hrp.Position + lookDir)
-	end
-end)
-
-
-module.Toggle = toggle
-
-return module
-
-end;
-};
 -- StarterGui.PK_API.mainframe.LocalScript
 local function C_3()
 local script = G2L["3"];
@@ -2029,6 +2021,8 @@ local script = G2L["4"];
 		end
 	end)
 	
+	universal.Start()
+	
 	if script.Gamesloader:FindFirstChild(game.PlaceId) then
 		for i,v in script.Gamesloader:GetChildren() do
 			if v.Name ~= tostring(game.PlaceId) then
@@ -2038,7 +2032,10 @@ local script = G2L["4"];
 		
 		local r = require(script.Gamesloader:FindFirstChild(game.PlaceId))
 		r.Start()
-		
+	else
+		for i,v in script.Gamesloader:GetChildren() do
+			v:Destroy()
+		end
 	end
 end;
 task.spawn(C_4);
