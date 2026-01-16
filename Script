@@ -1846,16 +1846,13 @@ Closure = function()
     local script = G2L["3b"];local module = {}
 
 
-local function IsAlive(Player,roles)
-	for i, v in roles do
-		if i == Player.Name then
+local function IsAlive(v)
+		
 if not v.Killed and not v.Dead then
 			return true
 		else
 			return nil
 		end
-end
-	end
 end
 
 function module.CreateLabel()
@@ -1900,17 +1897,17 @@ function module.UpdateLabel()
 			text.Text = v.Name
 			if PlayerRoles[v.Name] then
 				local ROLE = PlayerRoles[v.Name].Role
-				if ROLE == "Sheriff" then
+				if ROLE == "Sheriff" and IsAlive(PlayerRoles[v.Name]) then
 					text.TextColor3 = Color3.fromRGB(0, 0, 225)
 					highlight.FillColor = Color3.fromRGB(0,0,255)
 				end
 
-				if ROLE == "Murderer" then
+				if ROLE == "Murderer" and IsAlive(PlayerRoles[v.Name]) then
 					text.TextColor3 = Color3.fromRGB(225, 0, 0)
 					highlight.FillColor = Color3.fromRGB(255,0,0)
 				end
 
-				if ROLE == "Innocent" then 
+				if ROLE == "Innocent" and IsAlive(PlayerRoles[v.Name]) then 
 					text.TextColor3 = Color3.fromRGB(0, 225, 0)
 					highlight.FillColor = Color3.fromRGB(0,255,0)
 				end 
