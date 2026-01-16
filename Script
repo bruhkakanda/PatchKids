@@ -1975,7 +1975,7 @@ function module.Shoot()
 				velocity
 				* Vector3.new(10 / 200, 0, 10 / 200)
 			)
-		args[2] = aimPosition
+		args[2] = CFrame.new(aimPosition)
 		args[1] = game.Players.LocalPlayer.Character:WaitForChild("Head").CFrame
 		
 		
