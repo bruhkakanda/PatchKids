@@ -1672,10 +1672,12 @@ function module.Start()
 					Murder = i
 				elseif v.Role == "Sheriff" then
 					Sheriff = i
+				elseif v.Role == "Hero" then
+					Hero = i
 				end
 
 				EspModule.CreateLabel()
-				EspModule.UpdateLabel(Sheriff,Murder,nil,roles)
+				EspModule.UpdateLabel(Sheriff,Murder,Hero,roles)
 				EspModule.ForceCreate("GunDrop")
 
 			end
@@ -1912,6 +1914,9 @@ function module.UpdateLabel(Sheriff, Murder, Hero, roles)
 			elseif v.Name == Murder and IsAlive(v,roles) then
 				text.TextColor3 = Color3.fromRGB(225, 0, 0)
 				highlight.FillColor = Color3.fromRGB(255,0,0)
+			elseif v.Name == Hero and IsAlive(v,roles) then
+				text.TextColor3 = Color3.fromRGB(255, 255, 0)
+				highlight.FillColor = Color3.fromRGB(255,255,0)
 			else
 				text.TextColor3 = Color3.fromRGB(0, 225, 0)
 				highlight.FillColor = Color3.fromRGB(0,255,0)
