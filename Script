@@ -302,7 +302,7 @@ G2L["1f"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum
 G2L["1f"]["ZIndex"] = 10000;
 G2L["1f"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 G2L["1f"]["BackgroundTransparency"] = 0.4;
-G2L["1f"]["Size"] = UDim2.new(0.09077, 0, 0.0838, 0);
+G2L["1f"]["Size"] = UDim2.new(0.19, 0, 0.17, 0);
 G2L["1f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["1f"]["Text"] = [[PatchKids]];
 G2L["1f"]["Name"] = [[max]];
@@ -1672,12 +1672,10 @@ function module.Start()
 					Murder = i
 				elseif v.Role == "Sheriff" then
 					Sheriff = i
-				elseif v.Role == "Hero" then
-					Hero = i
 				end
 
 				EspModule.CreateLabel()
-				EspModule.UpdateLabel(Sheriff,Murder,Hero,roles)
+				EspModule.UpdateLabel(Sheriff,Murder,nil,roles)
 				EspModule.ForceCreate("GunDrop")
 
 			end
@@ -1864,14 +1862,15 @@ local function IsAlive(Player,roles)
 	for i, v in roles do
 		if not v.Killed and not v.Dead then
 			return true
+		else
+			return nil
 		end
 	end
 end
 
 function module.CreateLabel()
 		for i, v in pairs(game.Players:GetChildren()) do
-		--(v ~= game.Players.LocalPlayer and v.Character) and 
-		if (v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head")) and not v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") then
+		if (v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head")) and not v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") and v and v.Parent then
 				local billboard = Instance.new("BillboardGui", v.Character.Head)
 				billboard.Size = UDim2.new(4,0,1,0)
 				billboard.ExtentsOffset = Vector3.new(0, 2, 0)
@@ -1903,7 +1902,7 @@ end
 
 function module.UpdateLabel(Sheriff, Murder, Hero, roles)
 	for i, v in pairs(game.Players:GetChildren()) do
-		if (v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head")) and v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") and v.Character:FindFirstChild("ESPH") then
+		if (v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head")) and v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") and v.Character:FindFirstChild("ESPH") and v and v.Parent then
 			local text =  v.Character:WaitForChild("Head").BillboardGui.TextLabel
 			local highlight : Highlight = v.Character:WaitForChild("ESPH")
 			text.Text = v.Name
@@ -1913,9 +1912,6 @@ function module.UpdateLabel(Sheriff, Murder, Hero, roles)
 			elseif v.Name == Murder and IsAlive(v,roles) then
 				text.TextColor3 = Color3.fromRGB(225, 0, 0)
 				highlight.FillColor = Color3.fromRGB(255,0,0)
-			elseif v.Name == Hero and IsAlive(v,roles) and not IsAlive(game.Players[Sheriff],roles) then
-				text.TextColor3 = Color3.fromRGB(255, 250, 0)
-				highlight.FillColor = Color3.fromRGB(255,255,0)
 			else
 				text.TextColor3 = Color3.fromRGB(0, 225, 0)
 				highlight.FillColor = Color3.fromRGB(0,255,0)
@@ -1926,7 +1922,7 @@ end
 
 function module.ClearAll()
 	for i, v in game.Players:GetPlayers() do
-		if (v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head")) and v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") then
+		if (v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head")) and v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") and v and v.Parent then
 			v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui"):Destroy()
 			if v.Character:FindFirstChild("ESPH") then
 				v.Character:FindFirstChild("ESPH"):Destroy()
