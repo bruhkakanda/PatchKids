@@ -1979,7 +1979,7 @@ function module.Shoot()
 		
 		
 		local plr = game.Players.LocalPlayer
-		local f_ = plr.Character:FindFirstChild("ShootGun", true)
+		local f_ = plr.Character:FindFirstChild("Shoot", true)
 		if f_ then
 			f_:InvokeServer(unpack(args))
 		end
