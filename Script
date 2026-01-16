@@ -1575,10 +1575,6 @@ local tab = require(script.Parent.Parent.NewTab)
 
 -- Esp Stuff
 local Rep = game.ReplicatedStorage
-local roles
-local Murder
-local Sheriff
-local Hero
 
 local EspModule = require(script.Esp)
 local AFModule = require(script.Autofarm)
@@ -1671,7 +1667,6 @@ function module.Start()
 				EspModule.UpdateLabel()
 				EspModule.ForceCreate("GunDrop")
 
-			end
 		else
 			EspModule.ClearAll()
 			end
