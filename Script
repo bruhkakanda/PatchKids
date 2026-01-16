@@ -1872,7 +1872,7 @@ end
 
 function module.CreateLabel()
 		for i, v in pairs(game.Players:GetChildren()) do
-		if (v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head")) and not v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") and v.Parent then
+		if (v ~= game.Players.LocalPlayer and v and v.Parent and v.Character and v.Character:FindFirstChild("Head")) and not v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") then
 				local billboard = Instance.new("BillboardGui", v.Character.Head)
 				billboard.Size = UDim2.new(4,0,1,0)
 				billboard.ExtentsOffset = Vector3.new(0, 2, 0)
@@ -1902,25 +1902,31 @@ function module.ForceCreate(Part)
 	end
 end
 
-function module.UpdateLabel(Sheriff, Murder, Hero, roles)
+function module.UpdateLabel()
+	local Rep = game.ReplicatedStorage
+	local PlayerRoles = Rep:FindFirstChild("GetPlayerData", true):InvokeServer()
 	for i, v in pairs(game.Players:GetChildren()) do
 		if (v ~= game.Players.LocalPlayer and v and v.Parent and v.Character and v.Character:FindFirstChild("Head")) and v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") and v.Character:FindFirstChild("ESPH") then
 			local text =  v.Character:WaitForChild("Head").BillboardGui.TextLabel
 			local highlight : Highlight = v.Character:WaitForChild("ESPH")
 			text.Text = v.Name
-			if v == Sheriff then
-				text.TextColor3 = Color3.fromRGB(0, 0, 225)
-				highlight.FillColor = Color3.fromRGB(0,0,255)
-			elseif v == Murder then
-				text.TextColor3 = Color3.fromRGB(225, 0, 0)
-				highlight.FillColor = Color3.fromRGB(255,0,0)
-			--elseif v.Name == Hero and IsAlive(v,roles) then
-			--	text.TextColor3 = Color3.fromRGB(255, 255, 0)
-			--	highlight.FillColor = Color3.fromRGB(255,255,0)
-			elseif v ~= Sheriff and v ~= Murder then 
-				text.TextColor3 = Color3.fromRGB(0, 225, 0)
-				highlight.FillColor = Color3.fromRGB(0,255,0)
-			end 
+			if PlayerRoles[v.Name] then
+				local ROLE = PlayerRoles[v.Name].Role
+				if ROLE == "Sheriff" then
+					text.TextColor3 = Color3.fromRGB(0, 0, 225)
+					highlight.FillColor = Color3.fromRGB(0,0,255)
+				end
+
+				if ROLE == "Murderer" then
+					text.TextColor3 = Color3.fromRGB(225, 0, 0)
+					highlight.FillColor = Color3.fromRGB(255,0,0)
+				end
+
+				if ROLE == "Innocent" then 
+					text.TextColor3 = Color3.fromRGB(0, 225, 0)
+					highlight.FillColor = Color3.fromRGB(0,255,0)
+				end 
+		end
 		end
 	end
 end
