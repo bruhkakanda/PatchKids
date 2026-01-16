@@ -1905,8 +1905,8 @@ end
 function module.UpdateLabel()
 	local Rep = game.ReplicatedStorage
 	local PlayerRoles = Rep:FindFirstChild("GetPlayerData", true):InvokeServer()
-	for i, v in pairs(game.Players:GetChildren()) do
-		if (v ~= game.Players.LocalPlayer and v and v.Parent and v.Character and v.Character:FindFirstChild("Head")) and v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") and v.Character:FindFirstChild("ESPH") then
+	for i, v in game.Players:GetChildren() do
+		if (v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head")) and v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") and v.Character:FindFirstChild("ESPH") then
 			local text =  v.Character:WaitForChild("Head").BillboardGui.TextLabel
 			local highlight : Highlight = v.Character:WaitForChild("ESPH")
 			text.Text = v.Name
