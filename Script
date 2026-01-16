@@ -1976,12 +1976,13 @@ function module.Shoot()
 				* Vector3.new(10 / 200, 0, 10 / 200)
 			)
 		args[2] = aimPosition
+		args[1] = game.Players.LocalPlayer.Character:WaitForChild("Head").CFrame
 		
 		
 		local plr = game.Players.LocalPlayer
 		local f_ = plr.Character:FindFirstChild("Shoot", true)
 		if f_ then
-			f_:InvokeServer(unpack(args))
+			f_:FireServer(unpack(args))
 		end
 	end
 end
