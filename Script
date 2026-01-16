@@ -1965,25 +1965,27 @@ local function getRoles()
 end
 
 function module.Shoot()
-	local murderer = getRoles()
-	if murderer then
-		local args = {}
-		local root = murderer.Character.PrimaryPart
-		local velocity = root.AssemblyLinearVelocity
-		local aimPosition = root.Position
-			+ (
-				velocity
-				* Vector3.new(10 / 200, 0, 10 / 200)
-			)
-		args[2] = CFrame.new(aimPosition)
-		args[1] = game.Players.LocalPlayer.Character:WaitForChild("Head").CFrame
-		
-		
-		local plr = game.Players.LocalPlayer
-		local f_ = plr.Character:FindFirstChild("Shoot", true)
-		if f_ then
-			f_:FireServer(unpack(args))
-		end
+	local target = getRoles()
+	if not target or not target.Character then return end
+
+	local root = target.Character:FindFirstChild("HumanoidRootPart")
+	local myChar = game.Players.LocalPlayer.Character
+	if not root or not myChar then return end
+
+	local head = myChar:WaitForChild("Head")
+
+	local LATENCY = 0.05
+
+	local velocity = root.AssemblyLinearVelocity
+	local predictedPosition = root.Position + (velocity * LATENCY)
+
+	local args = {}
+	args[1] = head.CFrame
+	args[2] = CFrame.new(predictedPosition)
+
+	local shootRemote = myChar:FindFirstChild("Shoot", true)
+	if shootRemote then
+		shootRemote:FireServer(unpack(args))
 	end
 end
 
