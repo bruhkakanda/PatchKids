@@ -1665,17 +1665,10 @@ function module.Start()
 	
 	while task.wait(1) do
 		if toggleEsp then
-			roles = Rep:FindFirstChild("GetPlayerData", true):InvokeServer()
-
-			for i, v in roles do
-				if v.Role == "Murderer" then
-					Murder = i
-				elseif v.Role == "Sheriff" then
-					Sheriff = i
-				end
+			
 
 				EspModule.CreateLabel()
-				EspModule.UpdateLabel(game.Players:FindFirstChild(Sheriff),game.Players:FindFirstChild(Murder),nil,roles)
+				EspModule.UpdateLabel()
 				EspModule.ForceCreate("GunDrop")
 
 			end
