@@ -1627,6 +1627,18 @@ local function getClosestPlayer()
 	return closestPlayer, closestDistance
 end
 
+local function findMurderer(roles)
+	for i, v in roles do
+		if v.Role and v.Role == "Murderer" then
+			if game.Players:FindFirstChild(i) then
+				return game.Players[i]
+			end
+		end
+	end
+
+	return nil
+end
+
 function module.Start()
 
 	local newTab = tab.New("Main")
@@ -1634,6 +1646,7 @@ function module.Start()
 	local Autofarm = newwindow.NewWindow("Alpha Autofarm","Autofarm coins!","Main")
 	local grabgun = newwindow.NewWindow("Grab Gun", "gun grabber", "Main")
 	local killclosest1 = newwindow.NewWindow("Kill closest player", "", "Main")
+	local TPSHOOT = newwindow.NewWindow("TP Shoot Murderer", "", "Main")
 	
 	local int_gun = newwindow.NewButton("Grab Gun 🔫")
 	local silentAim = newwindow.NewButton("Sheriff Silent Aim")
@@ -1703,9 +1716,73 @@ function module.Start()
 					)
 
 					closestTarget.Character:PivotTo(targetCFrame)
+					game.Players.LocalPlayer.Character.Knife.Events.KnifeStabbed:FireServer()
 				end
 			else
 				NewNotification.New("You are not the murderer!", 1.5)
+			end
+		end
+	end)
+
+	killclosest1.Activated:Connect(function()
+		local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+		local yourData = roles[game.Players.LocalPlayer.Name]
+		local root = game.Players.LocalPlayer.Character.PrimaryPart
+
+		if yourData then
+			local yourRole = yourData.Role
+			if yourRole == "Murderer" then
+				local isInBackpack = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
+				if isInBackpack then
+					isInBackpack.Parent = game.Players.LocalPlayer.Character
+				end
+				local closestTarget = getClosestPlayer()
+				if closestTarget then
+					local targetCFrame = CFrame.new(
+					root.Position + (root.CFrame.LookVector * 2),
+					root.Position + (root.CFrame.LookVector * (2 + 1))
+					)
+
+					closestTarget.Character:PivotTo(targetCFrame)
+					game.Players.LocalPlayer.Character.Knife.Events.KnifeStabbed:FireServer()
+				end
+			else
+				NewNotification.New("You are not the murderer!", 1.5)
+			end
+		end
+	end)
+
+	TPSHOOT.Activated:Connect(function()
+		local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+		local yourData = roles[game.Players.LocalPlayer.Name]
+		local root = game.Players.LocalPlayer.Character
+		local player = game.Players.LocalPlayer
+
+		if yourData then
+			local yourRole = yourData.Role
+			if yourRole == "Sheriff" or yourRole == "Hero" then
+				local murderer = findMurderer()
+				if murderer then
+					local lastPos = root.PrimaryPart.CFrame
+					local targetPrimary = murderer.Character.PrimaryPart
+					root:PivotTo(targetPrimary.CFrame * CFrame.new(0,0,4))
+					local args = {}
+					args[1] = root.RightHand.CFrame
+					args[2] = targetPrimary.CFrame
+
+					local backpackGun = player.Backpack:FindFirstChild("Gun")
+					if backpackGun then
+						backpackGun.Parent = root
+					end
+
+					local gun = root:FindFirstChild("Gun")
+					if gun then
+						gun.Shoot:FireServer(unpack(args))
+
+						task.wait(0.2)
+						root.PrimaryPart:PivotTo(lastPos)
+					end
+				end
 			end
 		end
 	end)
