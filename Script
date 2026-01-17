@@ -1,6 +1,8 @@
 
 local G2L = {};
 
+local lockedButtons = false
+
 
 G2L["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"));
 G2L["1"]["Name"] = [[PK_API]];
@@ -1184,7 +1186,7 @@ end
 
 game:GetService("RunService").RenderStepped:Connect(function()
 	for index, button in module.Buttons do
-		if button:HasTag("Hold") then
+		if button:HasTag("Hold") and not lockedButtons then
 			button.Position = UDim2.new(0, mouse.X, 0, mouse.Y)
 		end
 	end
@@ -1297,11 +1299,18 @@ module.Start = function()
 
 	local newTab = tab.New("Universal")
 	local Fly = newwindow.NewToggle("Fly","G to toggle","Universal")
+	local ButtonLock = newwindow.NewToggle("Button Lock","Lock buttons","Universal")
 
 	Fly.Activated:Connect(function()
 		Fly.Toggle.Value = not Fly.Toggle.Value
 		FlyScript.Toggle()
 	end)
+
+ButtonLock.Activated:Connect(function()
+		ButtonLock.Toggle.Value = not Fly.Toggle.Value
+		lockedButtons = not lockedButtons
+	end)
+
 end
 
 return module
