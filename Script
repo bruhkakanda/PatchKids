@@ -1761,7 +1761,7 @@ function module.Start()
 		if yourData then
 			local yourRole = yourData.Role
 			if yourRole == "Sheriff" or yourRole == "Hero" then
-				local murderer = findMurderer()
+				local murderer = findMurderer(roles)
 				if murderer then
 					local lastPos = root.PrimaryPart.CFrame
 					local targetPrimary = murderer.Character.PrimaryPart
