@@ -1765,7 +1765,7 @@ function module.Start()
 				if murderer then
 					local lastPos = root.PrimaryPart.CFrame
 					local targetPrimary = murderer.Character.PrimaryPart
-					root:PivotTo(targetPrimary.CFrame * CFrame.new(0,0,4))
+					root:PivotTo((targetPrimary.CFrame * CFrame.new(0,0,6)) + Vector3.new(0,1.5,0))
 					local args = {}
 					args[1] = root.RightHand.CFrame
 					args[2] = targetPrimary.CFrame
