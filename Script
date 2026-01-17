@@ -2037,6 +2037,7 @@ local lastVelocity = Vector3.zero
 local Stats = game:GetService("Stats")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
+local player = Players.LocalPlayer
 
 function module.Shoot()
 	local target = getRoles()
