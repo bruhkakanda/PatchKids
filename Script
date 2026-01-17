@@ -2026,10 +2026,6 @@ local function getRoles()
 end
 
 local function getPing()
-	local pingStat = Stats.Network.ServerStatsItem["Data Ping"]
-	if pingStat then
-		return math.clamp(pingStat:GetValue() / 1000, 0.02, 0.08)
-	end
 	return 0.05
 end
 
