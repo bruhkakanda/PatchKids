@@ -1597,15 +1597,47 @@ local toggleAF = false
 
 local module = {}
 
+local function getClosestPlayer()
+	local Players = game:GetService("Players")
+	local localPlayer = Players.LocalPlayer
+	local character = localPlayer.Character
+	if not character then return nil end
+
+	local root = character:WaitForChild("HumanoidRootPart")
+
+	local closestPlayer = nil
+	local closestDistance = math.huge
+
+	for _, player in ipairs(Players:GetPlayers()) do
+		if player ~= localPlayer and player.Character then
+			local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+			local hrp = player.Character:FindFirstChild("HumanoidRootPart")
+
+			if humanoid and hrp and humanoid.Health > 0 then
+				local distance = (hrp.Position - root.Position).Magnitude
+
+				if distance < closestDistance then
+					closestDistance = distance
+					closestPlayer = player
+				end
+			end
+		end
+	end
+
+	return closestPlayer, closestDistance
+end
+
 function module.Start()
 
 	local newTab = tab.New("Main")
 	local Esp = newwindow.NewToggle("Player Esp!","esp","Main")
 	local Autofarm = newwindow.NewWindow("Alpha Autofarm","Autofarm coins!","Main")
 	local grabgun = newwindow.NewWindow("Grab Gun", "gun grabber", "Main")
+	local killclosest1 = newwindow.NewWindow("Kill closest player", "", "Main")
 	
-	local int_gun = newwindow.NewButton("Grab Gun")
+	local int_gun = newwindow.NewButton("Grab Gun 🔫")
 	local silentAim = newwindow.NewButton("Sheriff Silent Aim")
+	local killclosestButton = newwindow.NewButton("Kill closest 🔪")
 	game.TweenService:Create(Esp.Frame,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 39, 39)}):Play()
 	task.spawn(function()
 		AFModule.Start()
@@ -1650,6 +1682,34 @@ function module.Start()
 			NewNotification.New("No gun found!", 1.5)
 		end
 	end)
+
+	killclosestButton.Activated:Connect(function()
+		local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+		local yourData = roles[game.Players.LocalPlayer.Name]
+		local root = game.Players.LocalPlayer.Character.PrimaryPart
+
+		if yourData then
+			local yourRole = yourData.Role
+			if yourRole == "Murderer" then
+				local isInBackpack = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
+				if isInBackpack then
+					isInBackpack.Parent = game.Players.LocalPlayer.Character
+				end
+				local closestTarget = getClosestPlayer()
+				if closestTarget then
+					local targetCFrame = CFrame.new(
+					root.Position + (root.CFrame.LookVector * 2),
+					root.Position + (root.CFrame.LookVector * (2 + 1))
+					)
+
+					closestTarget:PivotTo(targetCFrame)
+				end
+			else
+				NewNotification.New("You are not the murderer!", 1.5)
+			end
+		end
+	end)
+
 	int_gun.Activated:Connect(function()
 		if workspace:FindFirstChild("GunDrop", true) then
 			local lastPos = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
@@ -1965,28 +2025,70 @@ local function getRoles()
 	return ROLES
 end
 
+local function getPing()
+	local pingStat = Stats.Network.ServerStatsItem["Data Ping"]
+	if pingStat then
+		return math.clamp(pingStat:GetValue() / 1000, 0.02, 0.08)
+	end
+	return 0.05
+end
+
+local lastVelocity = Vector3.zero
+local Stats = game:GetService("Stats")
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+
 function module.Shoot()
 	local target = getRoles()
 	if not target or not target.Character then return end
 
 	local root = target.Character:FindFirstChild("HumanoidRootPart")
-	local myChar = game.Players.LocalPlayer.Character
-	if not root or not myChar then return end
+	local humanoid = target.Character:FindFirstChildOfClass("Humanoid")
+	local myChar = player.Character
+	if not root or not humanoid or not myChar then return end
 
-	local head = myChar:WaitForChild("Head")
+	local hand = myChar:WaitForChild("RightHand")
 
-	local LATENCY = 0.05
+	local latency = getPing()
 
 	local velocity = root.AssemblyLinearVelocity
-	local predictedPosition = root.Position + (velocity * LATENCY)
+
+	velocity = lastVelocity:Lerp(velocity, 0.6)
+	lastVelocity = velocity
+
+	if velocity.Magnitude > 70 then
+		velocity = velocity.Unit * 70
+	end
+
+	local verticalMultiplier = 1
+	local state = humanoid:GetState()
+
+	if state == Enum.HumanoidStateType.Jumping then
+		verticalMultiplier = 0.25
+	elseif state == Enum.HumanoidStateType.Freefall then
+		verticalMultiplier = 0.1
+	end
+
+	local predictedOffset = Vector3.new(
+		velocity.X * latency,
+		velocity.Y * latency * verticalMultiplier,
+		velocity.Z * latency
+	)
+
+	local predictedPosition = root.Position + predictedOffset
 
 	local args = {}
-	args[1] = head.CFrame
+	args[1] = hand.CFrame
 	args[2] = CFrame.new(predictedPosition)
 
-	local shootRemote = myChar:FindFirstChild("Shoot", true)
-	if shootRemote then
-		shootRemote:FireServer(unpack(args))
+	local backpackGun = player.Backpack:FindFirstChild("Gun")
+	if backpackGun then
+		backpackGun.Parent = myChar
+	end
+
+	local gun = myChar:FindFirstChild("Gun")
+	if gun then
+		gun.Shoot:FireServer(unpack(args))
 	end
 end
 
