@@ -1702,7 +1702,7 @@ function module.Start()
 					root.Position + (root.CFrame.LookVector * (2 + 1))
 					)
 
-					closestTarget:PivotTo(targetCFrame)
+					closestTarget.Character:PivotTo(targetCFrame)
 				end
 			else
 				NewNotification.New("You are not the murderer!", 1.5)
