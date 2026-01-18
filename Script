@@ -1948,7 +1948,7 @@ function module.Start()
 					root.Position + (root.CFrame.LookVector * (2 + 1))
 					)
 
-					Closest.Character:PivotTo(targetCFrame)
+					closest.Character:PivotTo(targetCFrame)
 			player.Character:FindFirstChild("HitEvent", true):FireServer()
 		end
 	end)
@@ -1966,7 +1966,7 @@ function module.Start()
 					root.Position + (root.CFrame.LookVector * (2 + 1))
 					)
 
-					Closest.Character:PivotTo(targetCFrame)
+					closest.Character:PivotTo(targetCFrame)
 			player.Character:FindFirstChild("HitEvent", true):FireServer()
 		end
 	end)
