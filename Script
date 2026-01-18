@@ -439,6 +439,7 @@ G2L["2d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["2d"]["Text"] = [[Universal]];
 G2L["2d"]["Name"] = [[Label]];
 G2L["2d"]["Position"] = UDim2.new(0, 0, -0, 0);
+G2L["2d"]["Visible"] = false;
 
 
 -- StarterGui.PK_API.mainframe.Loader.NewTab.TemplateTab.Label.Frame
@@ -1139,6 +1140,15 @@ Closure = function()
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse()
 
+function module.NewTitle(Title,tab)
+	local clone = script.Parent.Parent.NewTabs[tab].Label:Clone()
+	clone.Name = "NEWTITLE: " .. Title
+	clone.Text = Title
+	clone.Parent = script.Parent.Parent.NewTabs[tab]
+
+	clone.Visible = true
+end
+
 function module.NewWindow(Title,Desc,tab)
 	local clone = script.Template:Clone()
 	clone.Name = "Title"
@@ -1646,12 +1656,20 @@ end
 function module.Start()
 
 	local newTab = tab.New("Main")
+
+	newwindow.NewTitle("Visuals", "Main")
 	local Esp = newwindow.NewToggle("Player Esp!","esp","Main")
-	local Autofarm = newwindow.NewWindow("Alpha Autofarm","Autofarm coins!","Main")
+
+	newwindow.NewTitle("Sheriff", "Main")
 	local grabgun = newwindow.NewWindow("Grab Gun", "gun grabber", "Main")
-	local killclosest1 = newwindow.NewWindow("Kill closest player", "", "Main")
 	local TPSHOOT = newwindow.NewWindow("TP Shoot Murderer", "", "Main")
+
+	newwindow.NewTitle("Murderer", "Main")
+	local killclosest1 = newwindow.NewWindow("Kill closest player", "", "Main")
 	local KILLALL = newwindow.NewWindow("Kill all", "", "Main")
+
+	newwindow.NewTitle("Autofarm", "Main")
+	local Autofarm = newwindow.NewWindow("Alpha Autofarm","Autofarm coins!","Main")
 	
 	local int_gun = newwindow.NewButton("Grab Gun 🔫")
 	local silentAim = newwindow.NewButton("Sheriff Silent Aim")
@@ -2016,6 +2034,8 @@ local SPEED = 20
 
 local NO_COIN_TIMEOUT = 5
 local lastCoinSeen = os.clock()
+
+local humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
 
 module.toggle = function(toggle)
 	TOGGLE = toggle
