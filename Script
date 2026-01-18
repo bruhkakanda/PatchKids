@@ -531,6 +531,10 @@ G2L["37"]["Name"] = [[5677613211]];
 G2L["38"] = Instance.new("ModuleScript", G2L["35"]);
 G2L["38"]["Name"] = [[94373736738199]];
 
+-- StarterGui.PK_API.mainframe.Loader.Gamesloader.75084962946572
+G2L["385"] = Instance.new("ModuleScript", G2L["35"]);
+G2L["385"]["Name"] = [[75084962946572]];
+
 
 -- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291
 G2L["39"] = Instance.new("ModuleScript", G2L["35"]);
@@ -1765,7 +1769,7 @@ function module.Start()
 				if murderer then
 					local lastPos = root.PrimaryPart.CFrame
 					local targetPrimary = murderer.Character.PrimaryPart
-					root:PivotTo((targetPrimary.CFrame * CFrame.new(0,0,6)) + Vector3.new(0,1.5,0))
+					root:PivotTo(targetPrimary.CFrame * CFrame.new(0,0,4))
 					local args = {}
 					args[1] = root.RightHand.CFrame
 					args[2] = targetPrimary.CFrame
@@ -1822,6 +1826,100 @@ end
 return module
 end;
 };
+
+G2L_MODULES[G2L["385"]] = {
+Closure = function()
+    local script = G2L["385"];local newwindow = require(script.Parent.Parent.NewWindow)
+local NewNotification = require(script.Parent.Parent.NewNotification)
+local tab = require(script.Parent.Parent.NewTab)
+
+-- Esp Stuff
+local Rep = game.ReplicatedStorage
+-- End
+-- Cham Stuff
+
+local module = {}
+
+local function getClosestPlayer()
+	local Players = game:GetService("Players")
+	local localPlayer = Players.LocalPlayer
+	local character = localPlayer.Character
+	if not character then return nil end
+
+	local root = character:WaitForChild("HumanoidRootPart")
+
+	local closestPlayer = nil
+	local closestDistance = math.huge
+
+	for _, player in ipairs(Players:GetPlayers()) do
+		if player ~= localPlayer and player.Character then
+			local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+			local hrp = player.Character:FindFirstChild("HumanoidRootPart")
+
+			if humanoid and hrp and humanoid.Health > 0 then
+				local distance = (hrp.Position - root.Position).Magnitude
+
+				if distance < closestDistance then
+					closestDistance = distance
+					closestPlayer = player
+				end
+			end
+		end
+	end
+
+	return closestPlayer, closestDistance
+end
+
+
+function module.Start()
+
+	local newTab = tab.New("Main")
+	local shootClosest = newwindow.NewWindow("Shoot Closest", "gun grabber", "Main") -- FireWeapon(spotfrom, hit)
+	local killclosest1 = newwindow.NewWindow("Knife Closest", "", "Main") -- HitEvent
+	
+	local shootClosestButton = newwindow.NewButton("Shoot Closest")
+	local killclosestButton = newwindow.NewButton("Kill closest 🔪")
+	local player = game.Players.LocalPlayer
+
+	
+	shootClosest.Activated:Connect(function()
+		local hasGunInBackpack = player.Backpack:FindFirstChild("FireWeapon", true)
+		if hasGunInBackpack then
+			hasGunInBackpack.Parent.Parent = player.Character
+		end
+
+		local closest = getClosestPlayer()
+		if closest then
+
+			local args = {}
+			args[1] = player.Character.RightHand.Position
+			args[2] = closest.Character.Head
+
+			player.Character:FindFirstChild("FireWeapon", true):FireServer(unpack(args))
+		end
+	end)
+	shootClosestButton.Activated:Connect(function()
+		local hasGunInBackpack = player.Backpack:FindFirstChild("FireWeapon", true)
+		if hasGunInBackpack then
+			hasGunInBackpack.Parent.Parent = player.Character
+		end
+
+		local closest = getClosestPlayer()
+		if closest then
+
+			local args = {}
+			args[1] = player.Character.RightHand.Position
+			args[2] = closest.Character.Head
+
+			player.Character:FindFirstChild("FireWeapon", true):FireServer(unpack(args))
+		end
+	end)
+end
+
+return module
+end;
+};
+
 G2L_MODULES[G2L["3a"]] = {
 Closure = function()
     local script = G2L["3a"];local module = {Toggle = false}
@@ -2013,8 +2111,8 @@ function module.CreateLabel()
 				text.BackgroundTransparency = 1
 				
 				local newHighlight = Instance.new("Highlight", v.Character)
-				newHighlight.Name = "ESPH"
-				newHighlight.FillColor = Color3.fromRGB(196,196,196)
+			newHighlight.Name = "ESPH"
+			newHighlight.FillColor = Color3.fromRGB(196,196,196)
 			end
 		end
 end
