@@ -1874,13 +1874,32 @@ end
 function module.Start()
 
 	local newTab = tab.New("Main")
-	local shootClosest = newwindow.NewWindow("Shoot Closest", "gun grabber", "Main") -- FireWeapon(spotfrom, hit)
+	local shootClosest = newwindow.NewWindow("Shoot Closest - R", "gun grabber", "Main") -- FireWeapon(spotfrom, hit)
 	local killclosest1 = newwindow.NewWindow("Knife Closest", "", "Main") -- HitEvent
 	
 	local shootClosestButton = newwindow.NewButton("Shoot Closest")
 	local killclosestButton = newwindow.NewButton("Kill closest 🔪")
 	local player = game.Players.LocalPlayer
+	local root = player.Character.PrimaryPart
 
+	game.UserInputService.InputBegan:Connect(function(key)
+		if key.KeyCode == Enum.KeyCode.R then
+			local hasGunInBackpack = player.Backpack:FindFirstChild("FireWeapon", true)
+		if hasGunInBackpack then
+			hasGunInBackpack.Parent.Parent = player.Character
+		end
+
+		local closest = getClosestPlayer()
+		if closest then
+
+			local args = {}
+			args[1] = vector.create(closest.Character.UpperTorso.Position.X,closest.Character.UpperTorso.Position.Y,closest.Character.UpperTorso.Position.Z)
+			args[2] = closest.Character.Head
+
+			player.Character:FindFirstChild("FireWeapon", true):FireServer(unpack(args))
+		end
+		end
+	end)
 	
 	shootClosest.Activated:Connect(function()
 		local hasGunInBackpack = player.Backpack:FindFirstChild("FireWeapon", true)
@@ -1892,7 +1911,7 @@ function module.Start()
 		if closest then
 
 			local args = {}
-			args[1] = vector.create(closest.Character.Head.Position.X,closest.Character.Head.Position.Y,closest.Character.Head.Position.Z)
+			args[1] = vector.create(closest.Character.UpperTorso.Position.X,closest.Character.UpperTorso.Position.Y,closest.Character.UpperTorso.Position.Z)
 			args[2] = closest.Character.Head
 
 			player.Character:FindFirstChild("FireWeapon", true):FireServer(unpack(args))
@@ -1908,10 +1927,47 @@ function module.Start()
 		if closest then
 
 			local args = {}
-			args[1] = vector.create(closest.Character.Head.Position.X,closest.Character.Head.Position.Y,closest.Character.Head.Position.Z)
+			args[1] = vector.create(closest.Character.UpperTorso.Position.X,closest.Character.UpperTorso.Position.Y,closest.Character.UpperTorso.Position.Z)
 			args[2] = closest.Character.Head
 
 			player.Character:FindFirstChild("FireWeapon", true):FireServer(unpack(args))
+		end
+	end)
+
+
+	killclosest1.Activated:Connect(function()
+		local hasGunInBackpack = player.Backpack:FindFirstChild("HitEvent", true)
+		if hasGunInBackpack then
+			hasGunInBackpack.Parent.Parent = player.Character
+		end
+
+		local closest = getClosestPlayer()
+		if closest then
+			local targetCFrame = CFrame.new(
+					root.Position + (root.CFrame.LookVector * 2),
+					root.Position + (root.CFrame.LookVector * (2 + 1))
+					)
+
+					Closest.Character:PivotTo(targetCFrame)
+			player.Character:FindFirstChild("HitEvent", true):FireServer()
+		end
+	end)
+
+	killclosestButton.Activated:Connect(function()
+		local hasGunInBackpack = player.Backpack:FindFirstChild("HitEvent", true)
+		if hasGunInBackpack then
+			hasGunInBackpack.Parent.Parent = player.Character
+		end
+
+		local closest = getClosestPlayer()
+		if closest then
+			local targetCFrame = CFrame.new(
+					root.Position + (root.CFrame.LookVector * 2),
+					root.Position + (root.CFrame.LookVector * (2 + 1))
+					)
+
+					Closest.Character:PivotTo(targetCFrame)
+			player.Character:FindFirstChild("HitEvent", true):FireServer()
 		end
 	end)
 end
