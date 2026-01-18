@@ -1892,7 +1892,7 @@ function module.Start()
 		if closest then
 
 			local args = {}
-			args[1] = player.Character.RightHand.Position
+			args[1] = vector.create(closest.Character.Head.Position.X,closest.Character.Head.Position.Y,closest.Character.Head.Position.Z)
 			args[2] = closest.Character.Head
 
 			player.Character:FindFirstChild("FireWeapon", true):FireServer(unpack(args))
@@ -1908,7 +1908,7 @@ function module.Start()
 		if closest then
 
 			local args = {}
-			args[1] = player.Character.RightHand.Position
+			args[1] = vector.create(closest.Character.Head.Position.X,closest.Character.Head.Position.Y,closest.Character.Head.Position.Z)
 			args[2] = closest.Character.Head
 
 			player.Character:FindFirstChild("FireWeapon", true):FireServer(unpack(args))
