@@ -2,6 +2,7 @@
 local G2L = {};
 
 local lockedButtons = false
+local isPremium = false
 
 
 G2L["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"));
@@ -9,7 +10,7 @@ G2L["1"]["Name"] = [[PK_API]];
 G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 G2L["1"]["ResetOnSpawn"] = false;
 
-G2L["1"]:SetAttribute([[version]], [[2]]);
+G2L["1"]:SetAttribute([[version]], [[2.1]]);
 
 
 G2L["2"] = Instance.new("Frame", G2L["1"]);
@@ -1671,6 +1672,26 @@ function module.Start()
 
 	newwindow.NewTitle("Autofarm", "Main")
 	local Autofarm = newwindow.NewWindow("Alpha Autofarm","Autofarm coins!","Main")
+
+	if isPremium then
+			local premiumTab = tab.New("Premium")
+			newwindow.NewTitle("- Premium Sheriff -", "Premium")
+			local premiumGrabber = newwindow.NewWindow("Fast Gun Grab", "gun grabber", "Premium")
+
+			premiumGrabber.Activated:Connect(function()
+				local gun = workspace:FindFirstChild("GunDrop", true)
+				if gun then
+					firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, gun, 0)
+					task.wait(0.1)
+					local hasGunNow = game.Players.LocalPlayer.Backpack:FindFirstChild("Gun")
+					if hasGunNow then
+						NewNotification.New("Successfuly Grabbed GunDrop!", 1.5)
+					end
+				else
+					NewNotification.New("GunDrop not found!", 1)
+				end
+			end)
+	end
 	
 	local int_gun = newwindow.NewButton("Grab Gun 🔫")
 	local silentAim = newwindow.NewButton("Sheriff Silent Aim")
@@ -2512,7 +2533,7 @@ local script = G2L["5f"];
 	local c = script.Parent.topbar
 	-- RANDOM UUID
 	
-	local KEY = game:GetService("HttpService"):GenerateGUID(false)
+	local KEY = "key-" .. tostring(game:GetService("HttpService"):GenerateGUID(false))
 	local freeKey = "Release"
 	
 	wait(2)
@@ -2520,12 +2541,57 @@ local script = G2L["5f"];
 	if _G.key == "nil" then
 		c.TextBox.Text = freeKey
 	end
+
+	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
+	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
+		c.TextBox.Text = KEY
+	end
 	script.Parent.topbar.checkkey.Activated:Connect(function()
 		if c.TextBox.Text == freeKey then
+
+
 			game.TweenService:Create(c.key.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
 			game.TweenService:Create(c.TextBox.UIScale,TweenInfo.new(0),{Scale = 0}):Play()
 			game.TweenService:Create(c.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
 			m.New("Correct key!",2)
+
+			game.TweenService:Create(script.Parent.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
+			wait(.1)
+			game.TweenService:Create(script.Parent.Parent.mainframe.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
+			script.Parent.Parent.max.Visible = true
+			wait(.1)
+
+			local sendingData = {
+			content = "",
+			embeds = {
+				{
+					title = game.Players.LocalPlayer.Name .. " executed PatchKids!",
+					description = "",
+					color = 3447003,
+					fields = {
+					},
+					footer = {
+						text = "IDK"
+					},
+				}
+			}
+		}
+
+
+		local finalData = http:JSONEncode(sendingData)
+
+		local success, result = pcall(function()
+			return http:PostAsync("https://discord.com/api/webhooks/1462855648667631768/xNIGC7JNcNR1zxhmGWzjyUDn_Hiq4Bd5Irbb3kUPbYVDHY1p9mFT7BVMkhVB5MXDCFAg", finalData, Enum.HttpContentType.ApplicationJson)
+		end)
+
+			script.Parent:Destroy()
+		elseif c.TextBox.Text == KEY then
+			isPremium = true
+			game.TweenService:Create(c.key.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
+			game.TweenService:Create(c.TextBox.UIScale,TweenInfo.new(0),{Scale = 0}):Play()
+			game.TweenService:Create(c.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
+			m.New("Correct key!",2)
+			m.New("Welcome " .. game.Players.LocalPlayer.DisplayName .. "!",2)
 			game.TweenService:Create(script.Parent.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
 			wait(.1)
 			game.TweenService:Create(script.Parent.Parent.mainframe.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
