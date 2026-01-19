@@ -2,7 +2,6 @@
 local G2L = {};
 
 local lockedButtons = false
-local isPremium = false
 
 
 G2L["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"));
@@ -1673,7 +1672,9 @@ function module.Start()
 	newwindow.NewTitle("Autofarm", "Main")
 	local Autofarm = newwindow.NewWindow("Alpha Autofarm","Autofarm coins!","Main")
 
-	if isPremium then
+	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
+	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
+		print("Premium USER")
 			local premiumTab = tab.New("Premium")
 			newwindow.NewTitle("- Premium Sheriff -", "Premium")
 			local premiumGrabber = newwindow.NewWindow("Fast Gun Grab", "gun grabber", "Premium")
@@ -2586,7 +2587,6 @@ local script = G2L["5f"];
 
 			script.Parent:Destroy()
 		elseif c.TextBox.Text == KEY then
-			isPremium = true
 			game.TweenService:Create(c.key.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
 			game.TweenService:Create(c.TextBox.UIScale,TweenInfo.new(0),{Scale = 0}):Play()
 			game.TweenService:Create(c.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
