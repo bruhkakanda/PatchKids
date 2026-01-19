@@ -1312,6 +1312,7 @@ module.Start = function()
 	local FlyScript = require(script.Fly)
 
 	local newTab = tab.New("Universal")
+	newwindow.NewTitle("Universal", "Universal")
 	local Fly = newwindow.NewToggle("Fly","G to toggle","Universal")
 	local ButtonLock = newwindow.NewToggle("Button Lock","Lock buttons","Universal")
 
