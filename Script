@@ -2326,15 +2326,54 @@ local function getRoles()
 	return ROLES
 end
 
-local function getPing()
-	return 0.05
-end
-
 local lastVelocity = Vector3.zero
 local Stats = game:GetService("Stats")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
+
+local FIXED_PING = 0.06
+local VELOCITY_CLAMP = 80
+local SMOOTHING = 0.7
+
+local function predictPosition(root, humanoid)
+	local velocity = root.AssemblyLinearVelocity
+
+	velocity = lastVelocity:Lerp(velocity, SMOOTHING)
+	lastVelocity = velocity
+
+	if velocity.Magnitude > VELOCITY_CLAMP then
+		velocity = velocity.Unit * VELOCITY_CLAMP
+	end
+
+	local yMultiplier = 0.15
+	local state = humanoid:GetState()
+
+	if state == Enum.HumanoidStateType.Jumping then
+		yMultiplier = 0.25
+	elseif state == Enum.HumanoidStateType.Freefall then
+		yMultiplier = 0.05
+	end
+
+	return root.Position + Vector3.new(
+		velocity.X * FIXED_PING,
+		velocity.Y * FIXED_PING * yMultiplier,
+		velocity.Z * FIXED_PING
+	)
+end
+
+local function createPredictionBall()
+	local part = Instance.new("Part")
+	part.Shape = Enum.PartType.Ball
+	part.Size = Vector3.new(0.6, 0.6, 0.6)
+	part.Material = Enum.Material.Neon
+	part.Color = Color3.fromRGB(255, 80, 80)
+	part.Anchored = true
+	part.CanCollide = false
+	part.Name = "PredictionBall"
+	part.Parent = workspace
+	return part
+end
 
 function module.Shoot()
 	local target = getRoles()
@@ -2347,37 +2386,12 @@ function module.Shoot()
 
 	local hand = myChar:WaitForChild("RightHand")
 
-	local latency = getPing()
+	local predictedPos = predictPosition(root, humanoid)
 
-	local velocity = root.AssemblyLinearVelocity
-
-	velocity = lastVelocity:Lerp(velocity, 0.6)
-	lastVelocity = velocity
-
-	if velocity.Magnitude > 70 then
-		velocity = velocity.Unit * 70
-	end
-
-	local verticalMultiplier = 1
-	local state = humanoid:GetState()
-
-	if state == Enum.HumanoidStateType.Jumping then
-		verticalMultiplier = 0.25
-	elseif state == Enum.HumanoidStateType.Freefall then
-		verticalMultiplier = 0.1
-	end
-
-	local predictedOffset = Vector3.new(
-		velocity.X * latency,
-		velocity.Y * latency * verticalMultiplier,
-		velocity.Z * latency
-	)
-
-	local predictedPosition = root.Position + predictedOffset
-
-	local args = {}
-	args[1] = hand.CFrame
-	args[2] = CFrame.new(predictedPosition)
+	local args = {
+		hand.CFrame,
+		CFrame.new(predictedPos)
+	}
 
 	local backpackGun = player.Backpack:FindFirstChild("Gun")
 	if backpackGun then
@@ -2652,3 +2666,22 @@ end;
 task.spawn(C_72);
 
 return G2L["1"], require;
+
+local RunService = game:GetService("RunService")
+
+local predictionBall = createPredictionBall()
+
+RunService.RenderStepped:Connect(function()
+	local target = getRoles()
+	if not target or not target.Character then
+		predictionBall.Transparency = 1
+		return
+	end
+
+	local root = target.Character:FindFirstChild("HumanoidRootPart")
+	local humanoid = target.Character:FindFirstChildOfClass("Humanoid")
+	if not root or not humanoid then return end
+
+	predictionBall.Transparency = 0
+	predictionBall.Position = predictPosition(root, humanoid)
+end)
