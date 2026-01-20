@@ -54,7 +54,7 @@ return {
         --Properties:
 
         PK_API.Name = "PK_API"
-        PK_API.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+        PK_API.Parent = game:GetService("CoreGui")
         PK_API.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
         PK_API.ResetOnSpawn = false
 
