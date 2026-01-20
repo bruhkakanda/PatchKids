@@ -1,0 +1,461 @@
+return {
+    AddDrag = function(frame)
+
+    end
+
+    CreateHUD = function(version)
+        local PK_API = Instance.new("ScreenGui")
+        local mainframe = Instance.new("Frame")
+        local topbar = Instance.new("Frame")
+        local nahidwin = Instance.new("TextLabel")
+        local version = Instance.new("TextLabel")
+        local gamename = Instance.new("TextLabel")
+        local detail = Instance.new("Frame")
+        local UICorner = Instance.new("UICorner")
+        local min = Instance.new("TextButton")
+        local ImageLabel = Instance.new("ImageLabel")
+        local UIScale = Instance.new("UIScale")
+        local UICorner_2 = Instance.new("UICorner")
+        local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+        local UIScale_2 = Instance.new("UIScale")
+        local Move = Instance.new("TextButton")
+        local Tabs = Instance.new("ScrollingFrame")
+        local UIListLayout = Instance.new("UIListLayout")
+        local Frame = Instance.new("Frame")
+        local ya = Instance.new("Frame")
+        local UICorner_3 = Instance.new("UICorner")
+        local UIAspectRatioConstraint_2 = Instance.new("UIAspectRatioConstraint")
+        local NewTabs = Instance.new("Folder")
+        local max = Instance.new("TextButton")
+        local UICorner_4 = Instance.new("UICorner")
+        local NotifyFrame = Instance.new("ScrollingFrame")
+        local UIListLayout_2 = Instance.new("UIListLayout")
+        local Space = Instance.new("Frame")
+        local loading = Instance.new("Frame")
+        local UIScale_3 = Instance.new("UIScale")
+        local Move_2 = Instance.new("TextButton")
+        local topbar_2 = Instance.new("Frame")
+        local TITLE = Instance.new("TextLabel")
+        local version_2 = Instance.new("TextLabel")
+        local loadingui = Instance.new("TextLabel")
+        local UIScale_4 = Instance.new("UIScale")
+        local key = Instance.new("TextLabel")
+        local UIScale_5 = Instance.new("UIScale")
+        local TextBox = Instance.new("TextBox")
+        local UICorner_5 = Instance.new("UICorner")
+        local UIScale_6 = Instance.new("UIScale")
+        local keyfree = Instance.new("TextLabel")
+        local UIScale_7 = Instance.new("UIScale")
+        local checkkey = Instance.new("TextButton")
+        local UICorner_6 = Instance.new("UICorner")
+        local TextLabel = Instance.new("TextLabel")
+        local UIAspectRatioConstraint_3 = Instance.new("UIAspectRatioConstraint")
+
+        --Properties:
+
+        PK_API.Name = "PK_API"
+        PK_API.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+        PK_API.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+        PK_API.ResetOnSpawn = false
+
+        mainframe.Name = "mainframe"
+        mainframe.Parent = PK_API
+        mainframe.AnchorPoint = Vector2.new(0.5, 0)
+        mainframe.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        mainframe.BackgroundTransparency = 0.200
+        mainframe.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        mainframe.BorderSizePixel = 0
+        mainframe.Position = UDim2.new(0.535455167, 0, 0.183090866, 0)
+        mainframe.Size = UDim2.new(0.42881161, 0, 0.563250601, 0)
+
+        topbar.Name = "topbar"
+        topbar.Parent = mainframe
+        topbar.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        topbar.BackgroundTransparency = 0.200
+        topbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        topbar.BorderSizePixel = 0
+        topbar.Position = UDim2.new(-0.00157519698, 0, -0.0020475788, 0)
+        topbar.Size = UDim2.new(1, 0, 0.130864203, 0)
+
+        nahidwin.Name = "nahidwin"
+        nahidwin.Parent = topbar
+        nahidwin.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        nahidwin.BackgroundTransparency = 1.000
+        nahidwin.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        nahidwin.BorderSizePixel = 0
+        nahidwin.Position = UDim2.new(0.0226876084, 0, 0, 0)
+        nahidwin.Size = UDim2.new(0.226876095, 0, 0.490566045, 0)
+        nahidwin.Font = Enum.Font.Unknown
+        nahidwin.Text = "PatchKids"
+        nahidwin.TextColor3 = Color3.fromRGB(255, 255, 255)
+        nahidwin.TextScaled = true
+        nahidwin.TextSize = 14.000
+        nahidwin.TextWrapped = true
+
+        version.Name = "version"
+        version.Parent = topbar
+        version.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        version.BackgroundTransparency = 1.000
+        version.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        version.BorderSizePixel = 0
+        version.Position = UDim2.new(0.0226876084, 0, 0.490566045, 0)
+        version.Size = UDim2.new(0.226876095, 0, 0.264150947, 0)
+        version.Font = Enum.Font.Unknown
+        version.Text = "v" .. version
+        version.TextColor3 = Color3.fromRGB(255, 255, 255)
+        version.TextScaled = true
+        version.TextSize = 14.000
+        version.TextWrapped = true
+
+        gamename.Name = "gamename"
+        gamename.Parent = topbar
+        gamename.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        gamename.BackgroundTransparency = 1.000
+        gamename.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        gamename.BorderSizePixel = 0
+        gamename.Position = UDim2.new(0.305410117, 0, 0, 0)
+        gamename.Size = UDim2.new(0.633507848, 0, 0.622641444, 0)
+        gamename.Font = Enum.Font.Unknown
+        gamename.Text = "player rng"
+        gamename.TextColor3 = Color3.fromRGB(255, 255, 255)
+        gamename.TextScaled = true
+        gamename.TextSize = 14.000
+        gamename.TextWrapped = true
+        gamename.TextXAlignment = Enum.TextXAlignment.Left
+
+        detail.Name = "detail"
+        detail.Parent = topbar
+        detail.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        detail.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        detail.BorderSizePixel = 0
+        detail.Position = UDim2.new(0.305410117, 0, 0.754716992, 0)
+        detail.Size = UDim2.new(0.694999993, 0, 0.0599999987, 0)
+        detail.ZIndex = 699999
+
+        UICorner.CornerRadius = UDim.new(2, 0)
+        UICorner.Parent = detail
+
+        min.Name = "min"
+        min.Parent = topbar
+        min.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        min.BackgroundTransparency = 0.400
+        min.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        min.BorderSizePixel = 0
+        min.Position = UDim2.new(0.926701546, 0, -0.973308563, 0)
+        min.Size = UDim2.new(0.0732984319, 0, 0.811320722, 0)
+        min.Font = Enum.Font.Unknown
+        min.Text = ""
+        min.TextColor3 = Color3.fromRGB(255, 255, 255)
+        min.TextScaled = true
+        min.TextSize = 60.000
+        min.TextStrokeColor3 = Color3.fromRGB(171, 171, 171)
+        min.TextWrapped = true
+        min.TextYAlignment = Enum.TextYAlignment.Bottom
+
+        ImageLabel.Parent = min
+        ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+        ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        ImageLabel.BackgroundTransparency = 1.000
+        ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        ImageLabel.BorderSizePixel = 0
+        ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+        ImageLabel.Size = UDim2.new(1, 0, 1, 0)
+        ImageLabel.Image = "rbxassetid://10002373478"
+        ImageLabel.ScaleType = Enum.ScaleType.Fit
+
+        UIScale.Parent = ImageLabel
+        UIScale.Scale = 1.200
+
+        UICorner_2.CornerRadius = UDim.new(1, 0)
+        UICorner_2.Parent = min
+
+        UIAspectRatioConstraint.Parent = min
+
+        UIScale_2.Parent = mainframe
+        UIScale_2.Scale = 0.000
+
+        Move.Name = "Move"
+        Move.Parent = mainframe
+        Move.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Move.BackgroundTransparency = 1.000
+        Move.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Move.BorderSizePixel = 0
+        Move.Position = UDim2.new(0, 0, -0.0444444083, 0)
+        Move.Size = UDim2.new(0.935597599, 0, 0.14610061, 0)
+        Move.Font = Enum.Font.SourceSans
+        Move.Text = ""
+        Move.TextColor3 = Color3.fromRGB(0, 0, 0)
+        Move.TextSize = 14.000
+
+        Tabs.Name = "Tabs"
+        Tabs.Parent = mainframe
+        Tabs.Active = true
+        Tabs.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Tabs.BackgroundTransparency = 1.000
+        Tabs.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Tabs.BorderSizePixel = 0
+        Tabs.Position = UDim2.new(0, 0, 0.160493791, 0)
+        Tabs.Size = UDim2.new(0.247988552, 0, 0.792592645, 0)
+        Tabs.ScrollBarThickness = 1
+
+        UIListLayout.Parent = Tabs
+        UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+        UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        UIListLayout.Padding = UDim.new(0.0250000004, 0)
+
+        Frame.Parent = mainframe
+        Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        Frame.BackgroundTransparency = 1.000
+        Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Frame.BorderSizePixel = 0
+        Frame.ClipsDescendants = true
+        Frame.Size = UDim2.new(1, 0, 1, 0)
+
+        ya.Name = "ya"
+        ya.Parent = Frame
+        ya.AnchorPoint = Vector2.new(0.5, 0.5)
+        ya.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        ya.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        ya.BorderSizePixel = 0
+        ya.ClipsDescendants = true
+        ya.Position = UDim2.new(0.262468368, 0, 0.501719177, 0)
+        ya.Size = UDim2.new(0.00499999989, 0, 1, 0)
+        ya.ZIndex = 10
+
+        UICorner_3.CornerRadius = UDim.new(2, 0)
+        UICorner_3.Parent = ya
+
+        UIAspectRatioConstraint_2.Parent = mainframe
+        UIAspectRatioConstraint_2.AspectRatio = 1.500
+
+        NewTabs.Name = "NewTabs"
+        NewTabs.Parent = mainframe
+
+        max.Name = "max"
+        max.Parent = PK_API
+        max.AnchorPoint = Vector2.new(0.5, 0.5)
+        max.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        max.BackgroundTransparency = 0.400
+        max.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        max.BorderSizePixel = 0
+        max.Position = UDim2.new(0.939775467, 0, 0.156905204, 0)
+        max.Size = UDim2.new(0.0675584525, 0, 0.115238167, 0)
+        max.Visible = false
+        max.Font = Enum.Font.Unknown
+        max.Text = "PatchKids"
+        max.TextColor3 = Color3.fromRGB(255, 255, 255)
+        max.TextScaled = true
+        max.TextSize = 14.000
+        max.TextWrapped = true
+
+        UICorner_4.Parent = max
+
+        NotifyFrame.Name = "NotifyFrame"
+        NotifyFrame.Parent = PK_API
+        NotifyFrame.Active = true
+        NotifyFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        NotifyFrame.BackgroundTransparency = 1.000
+        NotifyFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        NotifyFrame.BorderSizePixel = 0
+        NotifyFrame.ClipsDescendants = false
+        NotifyFrame.Position = UDim2.new(0.811390638, 0, 0.367998391, 0)
+        NotifyFrame.Size = UDim2.new(0.181659997, 0, 0.261485696, 0)
+        NotifyFrame.ScrollingEnabled = false
+
+        UIListLayout_2.Parent = NotifyFrame
+        UIListLayout_2.HorizontalAlignment = Enum.HorizontalAlignment.Right
+        UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+        UIListLayout_2.VerticalAlignment = Enum.VerticalAlignment.Bottom
+        UIListLayout_2.Padding = UDim.new(0.0250000004, 0)
+
+        Space.Name = "Space"
+        Space.Parent = NotifyFrame
+        Space.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        Space.BackgroundTransparency = 1.000
+        Space.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Space.BorderSizePixel = 0
+        Space.Position = UDim2.new(0.12478178, 0, 0, 0)
+        Space.Size = UDim2.new(0.750436425, 0, 0.0254133418, 0)
+
+        loading.Name = "loading"
+        loading.Parent = PK_API
+        loading.AnchorPoint = Vector2.new(0.5, 0)
+        loading.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        loading.BackgroundTransparency = 0.200
+        loading.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        loading.BorderSizePixel = 0
+        loading.Position = UDim2.new(0.5, 0, 0.252439022, 0)
+        loading.Size = UDim2.new(0.42899999, 0, 0.563000023, 0)
+
+        UIScale_3.Parent = loading
+        UIScale_3.Scale = 0.000
+
+        Move_2.Name = "Move"
+        Move_2.Parent = loading
+        Move_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Move_2.BackgroundTransparency = 1.000
+        Move_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Move_2.BorderSizePixel = 0
+        Move_2.Position = UDim2.new(0, 0, -0.0444444083, 0)
+        Move_2.Size = UDim2.new(0.935597599, 0, 0.14610061, 0)
+        Move_2.Font = Enum.Font.SourceSans
+        Move_2.Text = ""
+        Move_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+        Move_2.TextSize = 14.000
+
+        topbar_2.Name = "topbar"
+        topbar_2.Parent = loading
+        topbar_2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        topbar_2.BackgroundTransparency = 0.200
+        topbar_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        topbar_2.BorderSizePixel = 0
+        topbar_2.Position = UDim2.new(-0.00157519698, 0, -0.0020475788, 0)
+        topbar_2.Size = UDim2.new(1, 0, 0.130864203, 0)
+
+        TITLE.Name = "TITLE"
+        TITLE.Parent = topbar_2
+        TITLE.AnchorPoint = Vector2.new(0.5, 1)
+        TITLE.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TITLE.BackgroundTransparency = 1.000
+        TITLE.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        TITLE.BorderSizePixel = 0
+        TITLE.Position = UDim2.new(0.499127388, 0, 2.39622593, 0)
+        TITLE.Size = UDim2.new(0.226876095, 0, 0.490566045, 0)
+        TITLE.Font = Enum.Font.Unknown
+        TITLE.Text = "PatchKids"
+        TITLE.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TITLE.TextScaled = true
+        TITLE.TextSize = 14.000
+        TITLE.TextWrapped = true
+
+        version_2.Name = "version"
+        version_2.Parent = topbar_2
+        version_2.AnchorPoint = Vector2.new(0.5, 1)
+        version_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        version_2.BackgroundTransparency = 1.000
+        version_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        version_2.BorderSizePixel = 0
+        version_2.Position = UDim2.new(0.499127388, 0, 2.86792397, 0)
+        version_2.Size = UDim2.new(0.226876095, 0, 0.264150947, 0)
+        version_2.Font = Enum.Font.Unknown
+        version_2.Text = "v" .. version
+        version_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+        version_2.TextScaled = true
+        version_2.TextSize = 14.000
+        version_2.TextWrapped = true
+
+        loadingui.Name = "loadingui"
+        loadingui.Parent = topbar_2
+        loadingui.AnchorPoint = Vector2.new(0.5, 1)
+        loadingui.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        loadingui.BackgroundTransparency = 1.000
+        loadingui.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        loadingui.BorderSizePixel = 0
+        loadingui.Position = UDim2.new(0.500872612, 0, 3.98113155, 0)
+        loadingui.Size = UDim2.new(0.633507848, 0, 0.924528241, 0)
+        loadingui.Font = Enum.Font.Unknown
+        loadingui.Text = "loading..."
+        loadingui.TextColor3 = Color3.fromRGB(255, 255, 255)
+        loadingui.TextScaled = true
+        loadingui.TextSize = 14.000
+        loadingui.TextWrapped = true
+
+        UIScale_4.Parent = loadingui
+        UIScale_4.Scale = 0.000
+
+        key.Name = "key"
+        key.Parent = topbar_2
+        key.AnchorPoint = Vector2.new(0.5, 1)
+        key.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        key.BackgroundTransparency = 1.000
+        key.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        key.BorderSizePixel = 0
+        key.Position = UDim2.new(0.500872612, 0, 3.83018804, 0)
+        key.Size = UDim2.new(0.633507848, 0, 0.773584843, 0)
+        key.Font = Enum.Font.Unknown
+        key.Text = "key:"
+        key.TextColor3 = Color3.fromRGB(255, 255, 255)
+        key.TextScaled = true
+        key.TextSize = 14.000
+        key.TextWrapped = true
+
+        UIScale_5.Parent = key
+
+        TextBox.Parent = topbar_2
+        TextBox.BackgroundColor3 = Color3.fromRGB(83, 83, 83)
+        TextBox.BackgroundTransparency = 0.400
+        TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        TextBox.BorderSizePixel = 0
+        TextBox.Position = UDim2.new(0.291448504, 0, 3.98113155, 0)
+        TextBox.Size = UDim2.new(0.418848157, 0, 0.716981053, 0)
+        TextBox.Font = Enum.Font.Unknown
+        TextBox.Text = ""
+        TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TextBox.TextScaled = true
+        TextBox.TextSize = 14.000
+        TextBox.TextWrapped = true
+
+        UICorner_5.Parent = TextBox
+
+        UIScale_6.Parent = TextBox
+
+        keyfree.Name = "keyfree"
+        keyfree.Parent = topbar_2
+        keyfree.AnchorPoint = Vector2.new(0.5, 1)
+        keyfree.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        keyfree.BackgroundTransparency = 1.000
+        keyfree.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        keyfree.BorderSizePixel = 0
+        keyfree.Position = UDim2.new(0.500872612, 0, 0.528301537, 0)
+        keyfree.Size = UDim2.new(0.633507848, 0, 0.528301835, 0)
+        keyfree.Font = Enum.Font.Unknown
+        keyfree.Text = "Free key: Release"
+        keyfree.TextColor3 = Color3.fromRGB(255, 255, 255)
+        keyfree.TextScaled = true
+        keyfree.TextSize = 14.000
+        keyfree.TextWrapped = true
+
+        UIScale_7.Parent = keyfree
+
+        checkkey.Name = "checkkey"
+        checkkey.Parent = topbar_2
+        checkkey.BackgroundColor3 = Color3.fromRGB(83, 83, 83)
+        checkkey.BackgroundTransparency = 0.400
+        checkkey.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        checkkey.BorderSizePixel = 0
+        checkkey.Position = UDim2.new(0.375218153, 0, 4.93235207, 0)
+        checkkey.Size = UDim2.new(0.2478185, 0, 0.811320722, 0)
+        checkkey.Font = Enum.Font.SourceSansBold
+        checkkey.Text = ""
+        checkkey.TextColor3 = Color3.fromRGB(255, 255, 255)
+        checkkey.TextScaled = true
+        checkkey.TextSize = 60.000
+        checkkey.TextStrokeColor3 = Color3.fromRGB(48, 48, 48)
+        checkkey.TextStrokeTransparency = 0.000
+        checkkey.TextWrapped = true
+        checkkey.TextYAlignment = Enum.TextYAlignment.Bottom
+
+        UICorner_6.CornerRadius = UDim.new(1, 0)
+        UICorner_6.Parent = checkkey
+
+        TextLabel.Parent = checkkey
+        TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel.BackgroundTransparency = 1.000
+        TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        TextLabel.BorderSizePixel = 0
+        TextLabel.Position = UDim2.new(0, 0, 0.139534891, 0)
+        TextLabel.Size = UDim2.new(1, 0, 0.697674394, 0)
+        TextLabel.Font = Enum.Font.Unknown
+        TextLabel.Text = "check key"
+        TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TextLabel.TextScaled = true
+        TextLabel.TextSize = 14.000
+        TextLabel.TextStrokeTransparency = 0.000
+        TextLabel.TextWrapped = true
+
+        UIAspectRatioConstraint_3.Parent = loading
+        UIAspectRatioConstraint_3.AspectRatio = 1.500
+
+        return PK_API
+    end
+}
