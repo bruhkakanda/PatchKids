@@ -3,7 +3,7 @@ return {
 
     end
 
-    CreateHUD = function(version)
+    ["CreateHUD"] = function(version)
         local PK_API = Instance.new("ScreenGui")
         local mainframe = Instance.new("Frame")
         local topbar = Instance.new("Frame")
