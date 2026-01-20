@@ -4,7 +4,7 @@ local G2L = {};
 local lockedButtons = false
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD(2.1)
+local API = library.CreateHUD(2.15)
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -1154,6 +1154,31 @@ function module.Start()
 			local premiumTab = tab.New("Premium")
 			newwindow.NewTitle("- Premium Sheriff -", "Premium")
 			local premiumGrabber = newwindow.NewWindow("Fast Gun Grab", "gun grabber", "Premium")
+
+			newwindow.NewTitle("- Premium Murderer -", "Premium")
+
+			local silentKillClosest = newwindow.NewWindow("Silent Kill Closest", "", "Premium")
+
+			newwindow.NewTitle("- Fun -", "Premium")
+
+			local flingMurderer = newwindow.NewWindow("Fling Murderer", "", "Premium")
+
+			flingMurderer.Activated:Connect(function()
+				NewNotification.New("You can't access this feature or this feature is not completed yet!", 1)
+			end)
+
+			silentKillClosest.Activated:Connect(function()
+				local closestTarget = getClosestPlayer()
+				if closestTarget then
+					if game.Players.LocalPlayer.Backpack:FindFirstChild("Knife") then
+						local args = {
+						closestTarget.Character.PrimaryPart
+					}
+					game.Players.LocalPlayer.Backpack.Knife.Events.KnifeStabbed:FireServer()
+					game.Players.LocalPlayer.Backpack.Knife.Events.HandleTouched:FireServer(unpack(args))
+					end
+				end
+			end)
 
 			premiumGrabber.Activated:Connect(function()
 				local gun = workspace:FindFirstChild("GunDrop", true)
