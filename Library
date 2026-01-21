@@ -1,8 +1,9 @@
 local library = {}
 local RunService = game:GetService("RunService")   
+local UserInputService = game:GetService("UserInputService")
 library.DraggingEnabled = true
 
-    function library.AddDraggingTo(frame, storeTo, id)
+   function library.AddDraggingTo(frame, storeTo, id)
     assert(typeof(storeTo) == "table", "storeTo must be a table")
     assert(id ~= nil, "Drag ID is required")
 
@@ -12,30 +13,16 @@ library.DraggingEnabled = true
 
     local dragData = {
         dragging = false,
+        dragInput = nil,
         dragStart = nil,
         startPos = nil,
         connections = {}
     }
 
-    local function onInputBegan(input)
-        if not library.DraggingEnabled then return end
-        if input.UserInputType ~= Enum.UserInputType.MouseButton1 then return end
-
-        dragData.dragging = true
-        dragData.dragStart = input.Position
-        dragData.startPos = frame.Position
-
-        dragData.connections.inputEnded = input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then
-                dragData.dragging = false
-            end
-        end)
-    end
-
-    local function onInputChanged(input)
+    local function update(input)
         if not library.DraggingEnabled then return end
         if not dragData.dragging then return end
-        if input.UserInputType ~= Enum.UserInputType.MouseMovement then return end
+        if input ~= dragData.dragInput then return end
 
         local delta = input.Position - dragData.dragStart
         frame.Position = UDim2.new(
@@ -46,15 +33,35 @@ library.DraggingEnabled = true
         )
     end
 
-    dragData.connections.began = frame.InputBegan:Connect(onInputBegan)
-    dragData.connections.changed = frame.InputChanged:Connect(onInputChanged)
+    dragData.connections.began = frame.InputBegan:Connect(function(input)
+        if not library.DraggingEnabled then return end
+
+        if input.UserInputType == Enum.UserInputType.MouseButton1
+        or input.UserInputType == Enum.UserInputType.Touch then
+
+            dragData.dragging = true
+            dragData.dragInput = input
+            dragData.dragStart = input.Position
+            dragData.startPos = frame.Position
+        end
+    end)
+
+    dragData.connections.ended = frame.InputEnded:Connect(function(input)
+        if input == dragData.dragInput then
+            dragData.dragging = false
+            dragData.dragInput = nil
+        end
+    end)
+
+    dragData.connections.changed = UserInputService.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement
+        or input.UserInputType == Enum.UserInputType.Touch then
+            update(input)
+        end
+    end)
 
     storeTo[id] = dragData
 end
-
-    function library.ToggleDragging()  
-        library.DraggingEnabled = not library.DraggingEnabled
-    end
 
     function library.RemoveDrag(storeTo, id)
     local dragData = storeTo[id]
