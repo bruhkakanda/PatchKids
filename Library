@@ -19,12 +19,11 @@ library.DraggingEnabled = true
         connections = {}
     }
 
-    local function update(input)
+    local function update(position)
         if not library.DraggingEnabled then return end
         if not dragData.dragging then return end
-        if input ~= dragData.dragInput then return end
 
-        local delta = input.Position - dragData.dragStart
+        local delta = position - dragData.dragStart
         frame.Position = UDim2.new(
             dragData.startPos.X.Scale,
             dragData.startPos.X.Offset + delta.X,
@@ -43,6 +42,20 @@ library.DraggingEnabled = true
             dragData.dragInput = input
             dragData.dragStart = input.Position
             dragData.startPos = frame.Position
+
+            -- TOUCH movement
+            dragData.connections.touchMove = input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.Change then
+                    update(input.Position)
+                end
+            end)
+        end
+    end)
+
+    -- MOUSE movement (global)
+    dragData.connections.mouseMove = UserInputService.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement then
+            update(input.Position)
         end
     end)
 
@@ -50,13 +63,11 @@ library.DraggingEnabled = true
         if input == dragData.dragInput then
             dragData.dragging = false
             dragData.dragInput = nil
-        end
-    end)
 
-    dragData.connections.changed = UserInputService.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement
-        or input.UserInputType == Enum.UserInputType.Touch then
-            update(input)
+            if dragData.connections.touchMove then
+                dragData.connections.touchMove:Disconnect()
+                dragData.connections.touchMove = nil
+            end
         end
     end)
 
@@ -79,12 +90,11 @@ function library.AddDraggingTo2(toDrag, frame, storeTo, id)
         connections = {}
     }
 
-    local function update(input)
+    local function update(position)
         if not library.DraggingEnabled then return end
         if not dragData.dragging then return end
-        if input ~= dragData.dragInput then return end
 
-        local delta = input.Position - dragData.dragStart
+        local delta = position - dragData.dragStart
         frame.Position = UDim2.new(
             dragData.startPos.X.Scale,
             dragData.startPos.X.Offset + delta.X,
@@ -103,6 +113,20 @@ function library.AddDraggingTo2(toDrag, frame, storeTo, id)
             dragData.dragInput = input
             dragData.dragStart = input.Position
             dragData.startPos = frame.Position
+
+            -- TOUCH movement
+            dragData.connections.touchMove = input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.Change then
+                    update(input.Position)
+                end
+            end)
+        end
+    end)
+
+    -- MOUSE movement (global)
+    dragData.connections.mouseMove = UserInputService.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement then
+            update(input.Position)
         end
     end)
 
@@ -110,13 +134,11 @@ function library.AddDraggingTo2(toDrag, frame, storeTo, id)
         if input == dragData.dragInput then
             dragData.dragging = false
             dragData.dragInput = nil
-        end
-    end)
 
-    dragData.connections.changed = UserInputService.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement
-        or input.UserInputType == Enum.UserInputType.Touch then
-            update(input)
+            if dragData.connections.touchMove then
+                dragData.connections.touchMove:Disconnect()
+                dragData.connections.touchMove = nil
+            end
         end
     end)
 
