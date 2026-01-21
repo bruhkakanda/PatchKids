@@ -2,9 +2,10 @@
 local G2L = {};
 
 local lockedButtons = false
+local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD(2.15)
+local API = library.CreateHUD(2.16)
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -541,12 +542,6 @@ G2L["3c"] = Instance.new("ModuleScript", G2L["39"]);
 G2L["3c"]["Name"] = [[shoot]];
 
 
--- StarterGui.PK_API.mainframe.topbar.version.LocalScript
-G2L["41"] = Instance.new("LocalScript", API.mainframe.topbar.version);
-
-
-
-
 -- StarterGui.PK_API.mainframe.topbar.gamename.LocalScript
 G2L["43"] = Instance.new("LocalScript", API.mainframe.topbar.gamename);
 
@@ -556,32 +551,18 @@ G2L["47"] = Instance.new("LocalScript", API.mainframe.topbar.min);
 
 
 
--- StarterGui.PK_API.mainframe.Move.LocalScript
-G2L["4e"] = Instance.new("LocalScript", API.mainframe.Move);
+library.AddDraggingTo(API.mainframe, Drags, "mainframe")
 
 
-
--- StarterGui.PK_API.mainframe.Move.Holding
-G2L["4f"] = Instance.new("BoolValue", API.mainframe.Move);
-G2L["4f"]["Name"] = [[Holding]];
-
-
--- StarterGui.PK_API.max.LocalScript
+library.AddDraggingTo(API.max, Drags, "Max_1")
 G2L["58"] = Instance.new("LocalScript", API.max);
-
-
-
--- StarterGui.PK_API.max.Moving
-G2L["59"] = Instance.new("LocalScript", API.max);
-G2L["59"]["Name"] = [[Moving]];
 
 
 -- StarterGui.PK_API.loading.LocalScript
 G2L["5f"] = Instance.new("LocalScript", API.loading);
 
 
--- StarterGui.PK_API.loading.Move.LocalScript
-G2L["63"] = Instance.new("LocalScript", API.loading.Move);
+library.AddDraggingTo(API.loading, Drags, "loading")
 
 -- StarterGui.PK_API.loading.topbar.checkkey.LocalScript
 G2L["72"] = Instance.new("LocalScript", API.loading.topbar.checkkey);
@@ -660,27 +641,10 @@ function module.NewButton(Title)
 	new.Text = Title
 	new.Parent = script.Parent.Parent.Parent
 	new.Visible = true
-	module.Buttons[Title] = new
-	
-	new.MouseButton1Down:Connect(function()
-		new:AddTag("Hold")
-	end)
-	
-	new.MouseButton1Up:Connect(function()
-		new:RemoveTag("Hold")
-	end)
-	
+	library.AddDraggingTo(new, Drags, "Button_" .. Title)
 	
 	return new
 end
-
-game:GetService("RunService").RenderStepped:Connect(function()
-	for index, button in module.Buttons do
-		if button:HasTag("Hold") and not lockedButtons then
-			button.Position = UDim2.new(0, mouse.X, 0, mouse.Y)
-		end
-	end
-end)
 
 return module
 
@@ -1145,6 +1109,10 @@ function module.Start()
 	local killclosest1 = newwindow.NewWindow("Kill closest player", "", "Main")
 	local KILLALL = newwindow.NewWindow("Kill all", "", "Main")
 
+	newwindow.NewTitle("Teleports", "Main")
+	local MapTP = newwindow.NewWindow("Teleport to map", "", "Main")
+	local LobbyTP = newwindow.NewWindow("Teleport to lobby", "", "Main")
+	
 	newwindow.NewTitle("Autofarm", "Main")
 	local Autofarm = newwindow.NewWindow("Alpha Autofarm","Autofarm coins!","Main")
 
@@ -1217,6 +1185,36 @@ function module.Start()
 				wait(.1)
 				db = false
 			end
+		end
+	end)
+
+	LobbyTP.Activated:Connect(function()
+		local lobby = workspace:FindFirstChild("Lobby")
+		if lobby then
+			local spawns = lobby:FindFirstChild("Spawns")
+			if spawns then
+				local rCF = spawns:GetChildren()[math.random(1, #spawns:GetChildren())].CFrame + Vector3.new(0,2,0)
+				game.Players.LocalPlayer.Character:PivotTo(rCF)
+			else
+				NewNotification.New("Parts not found!", 1.5)
+			end
+		else
+			NewNotification.New("Lobby not found!", 1.5)
+		end
+	end)
+
+	MapTP.Activated:Connect(function()
+		local map = workspace:FindFirstChild("CoinContainer", true) or workspace:FindFirstChild("CoinAreas", true)
+		if map then
+			local spawns = map.Parent:FindFirstChild("Spawns")
+			if spawns then
+				local rCF = spawns:GetChildren()[math.random(1, #spawns:GetChildren())].CFrame + Vector3.new(0,2,0)
+				game.Players.LocalPlayer.Character:PivotTo(rCF)
+			else
+				NewNotification.New("Parts not found!", 1.5)
+			end
+		else
+			NewNotification.New("Map not found!", 1.5)
 		end
 	end)
 	
@@ -1928,6 +1926,11 @@ local script = G2L["4"];
 		if not p then
 			if input.KeyCode == Enum.KeyCode.Q then
 				script.Parent.Visible = not script.Parent.Visible
+				if script.Parent.Visible then
+					script.Parent.UIScale.Scale = 1
+				else
+					script.Parent.UIScale.Scale = 0
+				end
 			end
 		end
 	end)
@@ -1950,12 +1953,6 @@ local script = G2L["4"];
 	end
 end;
 task.spawn(C_4);
--- StarterGui.PK_API.mainframe.topbar.version.LocalScript
-local function C_41()
-local script = G2L["41"];
-	script.Parent.Text = "v"..script.Parent.Parent.Parent.Parent:GetAttribute("version")
-end;
-task.spawn(C_41);
 -- StarterGui.PK_API.mainframe.topbar.gamename.LocalScript
 local function C_43()
 local script = G2L["43"];
@@ -1967,6 +1964,8 @@ local function C_47()
 local script = G2L["47"];
 	script.Parent.Activated:Connect(function()
 		game.TweenService:Create(script.Parent.Parent.Parent.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
+		task.wait(0.2)
+		API.mainframe.Visible = false
 	end)
 	
 	script.Parent.MouseEnter:Connect(function()
@@ -1980,60 +1979,18 @@ local script = G2L["47"];
 	end)
 end;
 task.spawn(C_47);
--- StarterGui.PK_API.mainframe.Move.LocalScript
-local function C_4e()
-local script = G2L["4e"];
-	local player = game.Players.LocalPlayer
-	local mouse = player:GetMouse()
-	
-	script.Parent.MouseButton1Down:Connect(function()
-		script.Parent.Holding.Value = true
-	end)
-	
-	script.Parent.MouseButton1Up:Connect(function()
-		script.Parent.Holding.Value = false
-	end)
-	
-	mouse.Move:Connect(function()
-		if script.Parent.Holding.Value == true then
-			script.Parent.Parent.Position = UDim2.new(0,mouse.X,0,mouse.Y)
-		end
-	end)
-end;
-task.spawn(C_4e);
+
 -- StarterGui.PK_API.max.LocalScript
 local function C_58()
 local script = G2L["58"];
 	script.Parent.Activated:Connect(function()
 		script.Parent.Activated:Connect(function()
 			game.TweenService:Create(script.Parent.Parent.mainframe.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
+			API.mainframe.Visible = true
 		end)
 	end)
 end;
 task.spawn(C_58);
--- StarterGui.PK_API.max.Moving
-local function C_59()
-local script = G2L["59"];
-	local player = game.Players.LocalPlayer
-	local mouse = player:GetMouse()
-	
-	local isHolding = false
-	
-	script.Parent.MouseButton1Down:Connect(function()
-		isHolding = true
-	end)
-	
-	script.Parent.MouseButton1Up:Connect(function()
-		isHolding = false
-	end)
-	
-	mouse.Move:Connect(function()
-		if isHolding == true then
-			script.Parent.Position = UDim2.new(0,mouse.X,0,mouse.Y)
-		end
-	end)
-end;
-task.spawn(C_59);
 -- StarterGui.PK_API.loading.LocalScript
 
 function SendMessage(url, message)
@@ -2110,36 +2067,7 @@ local script = G2L["5f"];
 	end)
 end;
 task.spawn(C_5f);
--- StarterGui.PK_API.loading.Move.LocalScript
-local function C_63()
-local script = G2L["63"];
-	local player = game.Players.LocalPlayer
-	local mouse = player:GetMouse()
-	
-	local isHolding = false
-	
-	script.Parent.MouseButton1Down:Connect(function()
-		isHolding = true
-	end)
-	
-	script.Parent.MouseButton1Up:Connect(function()
-		isHolding = false
-	end)
-	
-	mouse.Move:Connect(function()
-		if isHolding == true then
-			script.Parent.Parent.Position = UDim2.new(0,mouse.X,0,mouse.Y)
-		end
-	end)
-end;
-task.spawn(C_63);
--- StarterGui.PK_API.loading.topbar.version.LocalScript
-local function C_67()
-local script = G2L["67"];
-	script.Parent.Text = "v"..script.Parent.Parent.Parent.Parent:GetAttribute("version")
-end;
-task.spawn(C_67);
--- StarterGui.PK_API.loading.topbar.checkkey.LocalScript
+
 local function C_72()
 local script = G2L["72"];
 	
