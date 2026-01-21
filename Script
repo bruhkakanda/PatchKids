@@ -551,7 +551,7 @@ G2L["47"] = Instance.new("LocalScript", API.mainframe.topbar.min);
 
 
 
-library.AddDraggingTo(API.mainframe, Drags, "mainframe")
+library.AddDraggingTo2(API.mainframe.topbar, API.mainframe, Drags, "mainframe")
 
 
 library.AddDraggingTo(API.max, Drags, "Max_1")
@@ -562,7 +562,7 @@ G2L["58"] = Instance.new("LocalScript", API.max);
 G2L["5f"] = Instance.new("LocalScript", API.loading);
 
 
-library.AddDraggingTo(API.loading, Drags, "loading")
+library.AddDraggingTo2(API.loading.topbar, API.loading, Drags, "loading")
 
 -- StarterGui.PK_API.loading.topbar.checkkey.LocalScript
 G2L["72"] = Instance.new("LocalScript", API.loading.topbar.checkkey);
@@ -762,8 +762,8 @@ module.Start = function()
 	end)
 
 ButtonLock.Activated:Connect(function()
-		ButtonLock.Toggle.Value = not Fly.Toggle.Value
-		lockedButtons = not lockedButtons
+		ButtonLock.Toggle.Value = not ButtonLock.Toggle.Value
+		library.ToggleDragging()
 	end)
 
 end
@@ -1189,7 +1189,7 @@ function module.Start()
 	end)
 
 	LobbyTP.Activated:Connect(function()
-		local lobby = workspace:FindFirstChild("Lobby")
+		local lobby = workspace:FindFirstChild("Lobby") or workspace:FindFirstChild("RegularLobby")
 		if lobby then
 			local spawns = lobby:FindFirstChild("Spawns")
 			if spawns then
