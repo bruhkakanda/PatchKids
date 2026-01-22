@@ -5,7 +5,7 @@ local lockedButtons = false
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD(2.16)
+local API = library.CreateHUD(2.17)
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -551,7 +551,7 @@ G2L["47"] = Instance.new("LocalScript", API.mainframe.topbar.min);
 
 
 
-library.AddDraggingTo2(API.mainframe.topbar, API.mainframe, Drags, "mainframe")
+library.AddDraggingTo2(API.mainframe.topbar.draggable, API.mainframe, Drags, "mainframe")
 
 
 library.AddDraggingTo(API.max, Drags, "Max_1")
@@ -562,7 +562,7 @@ G2L["58"] = Instance.new("LocalScript", API.max);
 G2L["5f"] = Instance.new("LocalScript", API.loading);
 
 
-library.AddDraggingTo2(API.loading.topbar, API.loading, Drags, "loading")
+library.AddDraggingTo2(API.loading.topbar.draggable, API.loading, Drags, "loading")
 
 -- StarterGui.PK_API.loading.topbar.checkkey.LocalScript
 G2L["72"] = Instance.new("LocalScript", API.loading.topbar.checkkey);
@@ -1112,13 +1112,9 @@ function module.Start()
 	newwindow.NewTitle("Teleports", "Main")
 	local MapTP = newwindow.NewWindow("Teleport to map", "", "Main")
 	local LobbyTP = newwindow.NewWindow("Teleport to lobby", "", "Main")
-	
-	newwindow.NewTitle("Autofarm", "Main")
-	local Autofarm = newwindow.NewWindow("Alpha Autofarm","Autofarm coins!","Main")
 
 	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
 	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
-		print("Premium USER")
 			local premiumTab = tab.New("Premium")
 			newwindow.NewTitle("- Premium Sheriff -", "Premium")
 			local premiumGrabber = newwindow.NewWindow("Fast Gun Grab", "gun grabber", "Premium")
@@ -1130,6 +1126,24 @@ function module.Start()
 			newwindow.NewTitle("- Fun -", "Premium")
 
 			local flingMurderer = newwindow.NewWindow("Fling Murderer", "", "Premium")
+				
+			newwindow.NewTitle("Autofarm", "Premium")
+
+			local Autofarm = newwindow.NewWindow("Autofarm (ALPHA!!!)","Autofarm coins!","Premium")
+
+			task.spawn(function()
+				AFModule.Start()
+			end)
+
+			Autofarm.Activated:Connect(function()
+				if toggleAF then
+					toggleAF = false
+					AFModule.toggle(false)
+				else
+					AFModule.toggle(true)
+					toggleAF = true
+				end
+			end)
 
 			flingMurderer.Activated:Connect(function()
 				NewNotification.New("You can't access this feature or this feature is not completed yet!", 1)
@@ -1166,10 +1180,6 @@ function module.Start()
 	local int_gun = newwindow.NewButton("Grab Gun 🔫")
 	local silentAim = newwindow.NewButton("Sheriff Silent Aim")
 	local killclosestButton = newwindow.NewButton("Kill closest 🔪")
-	game.TweenService:Create(Esp.Frame,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 39, 39)}):Play()
-	task.spawn(function()
-		AFModule.Start()
-	end)
 
 	Esp.Activated:Connect(function()
 		if db == false then
@@ -1215,16 +1225,6 @@ function module.Start()
 			end
 		else
 			NewNotification.New("Map not found!", 1.5)
-		end
-	end)
-	
-	Autofarm.Activated:Connect(function()
-		if toggleAF then
-			toggleAF = false
-			AFModule.toggle(false)
-		else
-			AFModule.toggle(true)
-			toggleAF = true
 		end
 	end)
 	
@@ -1606,6 +1606,7 @@ end
 module.Start = function()
 	while task.wait(0.2) do
 		if TOGGLE then
+			if char:FindFirstChild("Humanoid") then
 		
 			local char = game.Players.LocalPlayer.Character
 			local humanoid = char:WaitForChild("Humanoid")
@@ -1639,12 +1640,6 @@ module.Start = function()
 			lastCoinSeen = os.clock()
 
 			if coin and coin.Parent then
-				if not coin:FindFirstChild("Highlight") then
-					local h = Instance.new("Highlight")
-					h.Parent = coin
-					h.FillColor = Color3.fromRGB(255, 0, 0)
-					h.OutlineColor = Color3.fromRGB(0, 0, 0)
-				end
 				
 				if not LOCKED_Y then
 					LOCKED_Y = root.Position.Y
@@ -1682,21 +1677,18 @@ module.Start = function()
 						root.CFrame = CFrame.new(newPos) * CFrame.Angles(math.rad(90), 0, 0)
 					end
 
-					if dist < 4 then
-						coin.CFrame = CFrame.new(Vector3.new(coin.Position.X, targetY, coin.Position.Z))
-					end
-
-					if dist < 1 then
+					if dist < 2 then
+						firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, coin.Parent, 0)
 						break
 					end
 				end
 			end
-
+		end
 		else
 			workspace.Gravity = 196.2
 			noclip = false
 			local char = game.Players.LocalPlayer.Character
-			if char then
+			if char and char:FindFirstChild("Humanoid") then
 				char.Humanoid.PlatformStand = false
 			end
 			LOCKED_Y = nil -- reset when turning off
@@ -2030,6 +2022,11 @@ local script = G2L["5f"];
 	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
 	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
 		c.TextBox.Text = KEY
+		API.mainframe.Profile.Premium.Visible = true
+		API.mainframe.Profile.Free.Visible = false
+	else
+		API.mainframe.Profile.Free.Visible = true
+		API.mainframe.Profile.Premium.Visible = false
 	end
 	script.Parent.topbar.checkkey.Activated:Connect(function()
 		if c.TextBox.Text == freeKey then
@@ -2048,6 +2045,15 @@ local script = G2L["5f"];
 
 			SendMessage("https://discord.com/api/webhooks/1462855648667631768/xNIGC7JNcNR1zxhmGWzjyUDn_Hiq4Bd5Irbb3kUPbYVDHY1p9mFT7BVMkhVB5MXDCFAg", game.Players.LocalPlayer.Name .. " executed PatchKids at: " .. os.date("%x", 906000490))
 
+			local userId = game.Players.LocalPlayer.UserId
+			local thumbnailType = Enum.ThumbnailType.HeadShot
+			local thumbnailSize = Enum.ThumbnailSize.Size420x420
+
+			local content, isReady = Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
+
+			API.mainframe.Profile.User.Text = game.Players.LocalPlayer.Name
+			API.mainframe.Profile.Icon.Image = content
+
 			script.Parent:Destroy()
 		elseif c.TextBox.Text == KEY then
 			game.TweenService:Create(c.key.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
@@ -2060,6 +2066,16 @@ local script = G2L["5f"];
 			game.TweenService:Create(script.Parent.Parent.mainframe.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
 			script.Parent.Parent.max.Visible = true
 			wait(.1)
+
+			local userId = game.Players.LocalPlayer.UserId
+			local thumbnailType = Enum.ThumbnailType.HeadShot
+			local thumbnailSize = Enum.ThumbnailSize.Size420x420
+
+			local content, isReady = Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
+
+			API.mainframe.Profile.User.Text = game.Players.LocalPlayer.Name
+			API.mainframe.Profile.Icon.Image = content
+
 			script.Parent:Destroy()
 		else
 			m.New("Incorrect key!",2)
