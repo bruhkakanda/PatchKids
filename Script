@@ -2000,7 +2000,6 @@ function SendMessage(url, message)
         Headers = headers,
         Body = body
     })
-    print("Sent")
 end
 
 local function C_5f()
@@ -2008,7 +2007,6 @@ local script = G2L["5f"];
 	script.Parent.UIScale.Scale = 0
 	local m = require(script.Parent.Parent.mainframe.Loader.NewNotification)
 	local c = script.Parent.topbar
-	-- RANDOM UUID
 	
 	local KEY = "key-" .. tostring(game:GetService("HttpService"):GenerateGUID(false))
 	local freeKey = "Release"
@@ -2022,11 +2020,11 @@ local script = G2L["5f"];
 	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
 	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
 		c.TextBox.Text = KEY
-		API.mainframe.Profile.Paid.Visible = true
+		API.mainframe.Profile.Premium.Visible = true
 		API.mainframe.Profile.Free.Visible = false
 	else
 		API.mainframe.Profile.Free.Visible = true
-		API.mainframe.Profile.Paid.Visible = false
+		API.mainframe.Profile.Premium.Visible = false
 	end
 	script.Parent.topbar.checkkey.Activated:Connect(function()
 		if c.TextBox.Text == freeKey then
@@ -2049,7 +2047,7 @@ local script = G2L["5f"];
 			local thumbnailType = Enum.ThumbnailType.HeadShot
 			local thumbnailSize = Enum.ThumbnailSize.Size420x420
 
-			local content, isReady = Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
+			local content, isReady = game.Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
 
 			API.mainframe.Profile.User.Text = game.Players.LocalPlayer.Name
 			API.mainframe.Profile.Icon.Image = content
@@ -2071,7 +2069,7 @@ local script = G2L["5f"];
 			local thumbnailType = Enum.ThumbnailType.HeadShot
 			local thumbnailSize = Enum.ThumbnailSize.Size420x420
 
-			local content, isReady = Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
+			local content, isReady = game.Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
 
 			API.mainframe.Profile.User.Text = game.Players.LocalPlayer.Name
 			API.mainframe.Profile.Icon.Image = content
