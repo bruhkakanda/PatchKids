@@ -5,7 +5,7 @@ local lockedButtons = false
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD(2.17)
+local API = library.CreateHUD("2.17.1")
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -2020,11 +2020,11 @@ local script = G2L["5f"];
 	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
 	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
 		c.TextBox.Text = KEY
-		API.mainframe.Profile.Premium.Visible = true
+		API.mainframe.Profile.Paid.Visible = true
 		API.mainframe.Profile.Free.Visible = false
 	else
 		API.mainframe.Profile.Free.Visible = true
-		API.mainframe.Profile.Premium.Visible = false
+		API.mainframe.Profile.Paid.Visible = false
 	end
 	script.Parent.topbar.checkkey.Activated:Connect(function()
 		if c.TextBox.Text == freeKey then
