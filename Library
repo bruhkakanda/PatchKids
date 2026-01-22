@@ -184,6 +184,111 @@ end
         G2L["2"]["Name"] = [[mainframe]];
         G2L["2"]["BackgroundTransparency"] = 0.2;
 
+        -- StarterGui.PK_API.mainframe.Profile
+        G2L["profile"] = Instance.new("Frame", G2L["2"]);
+        G2L["profile"]["ZIndex"] = 2;
+        G2L["profile"]["BorderSizePixel"] = 0;
+        G2L["profile"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+        G2L["profile"]["Size"] = UDim2.new(0.99944, 0, 0.14344, 0);
+        G2L["profile"]["Position"] = UDim2.new(0, 0, 0.856, 0);
+        G2L["profile"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+        G2L["profile"]["Name"] = [[Profile]];
+        G2L["profile"]["BackgroundTransparency"] = 0.2;
+
+
+        -- StarterGui.PK_API.mainframe.Profile.Icon
+        G2L["icon"] = Instance.new("ImageLabel", G2L["profile"]);
+        G2L["icon"]["BorderSizePixel"] = 0;
+        G2L["icon"]["BackgroundColor3"] = Color3.fromRGB(59, 59, 59);
+        G2L["icon"]["AnchorPoint"] = Vector2.new(0, 0.5);
+        G2L["icon"]["Size"] = UDim2.new(0.0787, 0, 0.8871, 0);
+        G2L["icon"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+        G2L["icon"]["BackgroundTransparency"] = 0.2;
+        G2L["icon"]["Name"] = [[Icon]];
+        G2L["icon"]["Position"] = UDim2.new(0, 0, 0.5, 0);
+
+
+        -- StarterGui.PK_API.mainframe.Profile.Icon.UICorner
+        G2L["corner"] = Instance.new("UICorner", G2L["icon"]);
+        G2L["corner"]["CornerRadius"] = UDim.new(1, 0);
+
+
+        -- StarterGui.PK_API.mainframe.Profile.Icon.UIAspectRatioConstraint
+        G2L["aspect"] = Instance.new("UIAspectRatioConstraint", G2L["icon"]);
+
+
+
+        -- StarterGui.PK_API.mainframe.Profile.Icon.UIStroke
+        G2L["stroke"] = Instance.new("UIStroke", G2L["icon"]);
+        G2L["stroke"]["Thickness"] = 2;
+        G2L["stroke"]["Color"] = Color3.fromRGB(132, 171, 255);
+
+
+        -- StarterGui.PK_API.mainframe.Profile.User
+        G2L["user"] = Instance.new("TextLabel", G2L["profile"]);
+        G2L["user"]["TextWrapped"] = true;
+        G2L["user"]["BorderSizePixel"] = 0;
+        G2L["user"]["TextSize"] = 14;
+        G2L["user"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+        G2L["user"]["TextScaled"] = true;
+        G2L["user"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+        G2L["user"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Italic);
+        G2L["user"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+        G2L["user"]["BackgroundTransparency"] = 1;
+        G2L["user"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+        G2L["user"]["Size"] = UDim2.new(0.43519, 0, 0.5, 0);
+        G2L["user"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+        G2L["user"]["Text"] = [[Max20CharactersLong!]];
+        G2L["user"]["Name"] = [[User]];
+        G2L["user"]["Position"] = UDim2.new(0.32022, 0, 0.33871, 0);
+
+
+        -- StarterGui.PK_API.mainframe.Profile.Paid
+        G2L["paid"] = Instance.new("TextLabel", G2L["profile"]);
+        G2L["paid"]["TextWrapped"] = true;
+        G2L["paid"]["BorderSizePixel"] = 0;
+        G2L["paid"]["TextSize"] = 14;
+        G2L["paid"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+        G2L["paid"]["TextScaled"] = true;
+        G2L["paid"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+        G2L["paid"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Italic);
+        G2L["paid"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+        G2L["paid"]["BackgroundTransparency"] = 1;
+        G2L["paid"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+        G2L["paid"]["Size"] = UDim2.new(0.21451, 0, 0.41519, 0);
+        G2L["paid"]["Visible"] = false;
+        G2L["paid"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+        G2L["paid"]["Text"] = [[Premium]];
+        G2L["paid"]["Name"] = [[Paid]];
+        G2L["paid"]["Position"] = UDim2.new(0.20988, 0, 0.79631, 0);
+
+
+        -- StarterGui.PK_API.mainframe.Profile.Paid.UIGradient
+        G2L["a67"] = Instance.new("UIGradient", G2L["paid"]);
+        G2L["a67"]["Rotation"] = 45;
+        G2L["a67"]["Offset"] = Vector2.new(-0.1, 0);
+        G2L["a67"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(122, 88, 255)),ColorSequenceKeypoint.new(0.107, Color3.fromRGB(122, 88, 255)),ColorSequenceKeypoint.new(0.505, Color3.fromRGB(255, 255, 255)),ColorSequenceKeypoint.new(0.855, Color3.fromRGB(122, 88, 255)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(122, 88, 255))};
+
+
+        -- StarterGui.PK_API.mainframe.Profile.Free
+        G2L["6.7"] = Instance.new("TextLabel", G2L["profile"]);
+        G2L["6.7"]["TextWrapped"] = true;
+        G2L["6.7"]["BorderSizePixel"] = 0;
+        G2L["6.7"]["TextSize"] = 14;
+        G2L["6.7"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+        G2L["6.7"]["TextScaled"] = true;
+        G2L["6.7"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+        G2L["6.7"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Italic);
+        G2L["6.7"]["TextColor3"] = Color3.fromRGB(141, 255, 145);
+        G2L["6.7"]["BackgroundTransparency"] = 1;
+        G2L["6.7"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+        G2L["6.7"]["Size"] = UDim2.new(0.12963, 0, 0.41519, 0);
+        G2L["6.7"]["Visible"] = false;
+        G2L["6.7"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+        G2L["6.7"]["Text"] = [[Free]];
+        G2L["6.7"]["Name"] = [[Free]];
+        G2L["6.7"]["Position"] = UDim2.new(0.16744, 0, 0.79631, 0);
+
 
         -- StarterGui.PK_API.mainframe.UIStroke
         G2L["3"] = Instance.new("UIStroke", G2L["2"]);
@@ -200,6 +305,11 @@ end
         G2L["4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
         G2L["4"]["Name"] = [[topbar]];
         G2L["4"]["BackgroundTransparency"] = 0.2;
+
+        G2L["drag1"] = Instance.new("Frame", G2L["4"]);
+        G2L["drag1"]["Size"] = UDim2.new(1,0,1,0);
+        G2L["drag1"]["Name"] = [[draggable]];
+        G2L["drag1"]["BackgroundTransparency"] = 1;
 
 
         -- StarterGui.PK_API.mainframe.topbar.nahidwin
@@ -504,6 +614,11 @@ end
         G2L["21"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
         G2L["21"]["Name"] = [[topbar]];
         G2L["21"]["BackgroundTransparency"] = 0.2;
+
+         G2L["drag2"] = Instance.new("Frame", G2L["21"]);
+        G2L["drag2"]["Size"] = UDim2.new(1,0,1,0);
+        G2L["drag2"]["Name"] = [[draggable]];
+        G2L["drag2"]["BackgroundTransparency"] = 1;
 
 
         -- StarterGui.PK_API.loading.topbar.TITLE
