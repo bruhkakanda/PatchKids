@@ -1129,7 +1129,7 @@ function module.Start()
 				
 			newwindow.NewTitle("Autofarm", "Premium")
 
-			local Autofarm = newwindow.NewWindow("Autofarm (ALPHA!!!)","Autofarm coins!","Premium")
+			local Autofarm = newwindow.NewToggle("Autofarm (ALPHA!!!)","Autofarm coins!","Premium")
 
 			task.spawn(function()
 				AFModule.Start()
@@ -1138,8 +1138,10 @@ function module.Start()
 			Autofarm.Activated:Connect(function()
 				if toggleAF then
 					toggleAF = false
+					Autofarm.Toggle.Value = false
 					AFModule.toggle(false)
 				else
+					Autofarm.Toggle.Value = true
 					AFModule.toggle(true)
 					toggleAF = true
 				end
@@ -1612,7 +1614,8 @@ module.Start = function()
 			local root = char.PrimaryPart
 			
 
-			local coin, distance = getClosestCoin(root)
+			local coinVisual, distance = getClosestCoin(root)
+			local coin = coinVisual.Parent
 
 			if not coin then
 
@@ -1644,7 +1647,7 @@ module.Start = function()
 					LOCKED_Y = root.Position.Y
 				end
 
-				local targetY = coin.Position.Y - 1.5
+				local targetY = coin.Position.Y - 2
 				if math.abs(targetY - LOCKED_Y) > 0.1 then
 					LOCKED_Y = targetY -- move Y to coin's Y
 				end
@@ -1677,7 +1680,7 @@ module.Start = function()
 					end
 
 					if dist < 2 then
-						firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, coin.Parent, 0)
+						firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, coin, 0)
 						break
 					end
 				end
