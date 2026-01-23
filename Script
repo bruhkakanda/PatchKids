@@ -5,7 +5,7 @@ local lockedButtons = false
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD("2.17.3")
+local API = library.CreateHUD("2.17.4")
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -1116,8 +1116,11 @@ function module.Start()
 	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
 	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
 			local premiumTab = tab.New("Premium")
+
 			newwindow.NewTitle("- Premium Sheriff -", "Premium")
+
 			local premiumGrabber = newwindow.NewWindow("Fast Gun Grab", "gun grabber", "Premium")
+			local premiumGrabberButton = newwindow.NewButton("Fast Gun Grab")
 
 			newwindow.NewTitle("- Premium Murderer -", "Premium")
 
@@ -1177,11 +1180,40 @@ function module.Start()
 					NewNotification.New("GunDrop not found!", 1)
 				end
 			end)
+
+			premiumGrabberButton.Activated:Connect(function()
+				local gun = workspace:FindFirstChild("GunDrop", true)
+				if gun then
+					firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, gun, 0)
+					task.wait(0.1)
+					local hasGunNow = game.Players.LocalPlayer.Backpack:FindFirstChild("Gun")
+					if hasGunNow then
+						NewNotification.New("Successfuly Grabbed GunDrop!", 1.5)
+					end
+				else
+					NewNotification.New("GunDrop not found!", 1)
+				end
+			end)
 	end
 	
-	local int_gun = newwindow.NewButton("Grab Gun 🔫")
 	local silentAim = newwindow.NewButton("Sheriff Silent Aim")
 	local killclosestButton = newwindow.NewButton("Kill closest 🔪")
+
+	if not table.find(premiumUsers, game.Players.LocalPlayer.Name) then
+		local int_gun = newwindow.NewButton("Grab Gun 🔫")
+		int_gun.Activated:Connect(function()
+			if workspace:FindFirstChild("GunDrop", true) then
+				local lastPos = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
+				game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Jump = true
+				game.Players.LocalPlayer.Character:PivotTo(workspace:FindFirstChild("GunDrop", true).CFrame)
+				task.wait(0.1)
+				game.Players.LocalPlayer.Character:PivotTo(lastPos)
+				NewNotification.New("Grabbed Gun!", 1.5)
+			else
+				NewNotification.New("No gun found!", 1.5)
+			end
+		end)
+	end
 
 	Esp.Activated:Connect(function()
 		if db == false then
@@ -1356,19 +1388,6 @@ function module.Start()
 					end
 				end
 			end
-		end
-	end)
-
-	int_gun.Activated:Connect(function()
-		if workspace:FindFirstChild("GunDrop", true) then
-			local lastPos = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
-			game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Jump = true
-			game.Players.LocalPlayer.Character:PivotTo(workspace:FindFirstChild("GunDrop", true).CFrame)
-			task.wait(0.1)
-			game.Players.LocalPlayer.Character:PivotTo(lastPos)
-			NewNotification.New("Grabbed Gun!", 1.5)
-		else
-			NewNotification.New("No gun found!", 1.5)
 		end
 	end)
 	
