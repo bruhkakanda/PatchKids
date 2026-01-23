@@ -1129,7 +1129,7 @@ function module.Start()
 				
 			newwindow.NewTitle("Autofarm", "Premium")
 
-			local Autofarm = newwindow.NewToggle("Autofarm (ALPHA!!!)","Autofarm coins!","Premium")
+			local Autofarm = newwindow.NewToggle("Autofarm","Autofarm coins!","Premium")
 
 			task.spawn(function()
 				AFModule.Start()
