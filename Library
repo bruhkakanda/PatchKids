@@ -306,11 +306,12 @@ end
         G2L["4"]["Name"] = [[topbar]];
         G2L["4"]["BackgroundTransparency"] = 0.2;
 
-        G2L["drag1"] = Instance.new("Frame", G2L["4"]);
+        G2L["drag1"] = Instance.new("TextButton", G2L["4"]);
         G2L["drag1"]["Size"] = UDim2.new(1,0,1,0);
         G2L["drag1"]["Name"] = [[draggable]];
         G2L["drag1"]["BackgroundTransparency"] = 1;
-        G2L["drag1"]["ZIndex"] = 999;
+        G2L["drag1"]["ZIndex"] = 9999999;
+        G2L["drag1"]["Text"] = "";
 
 
         -- StarterGui.PK_API.mainframe.topbar.nahidwin
@@ -616,11 +617,13 @@ end
         G2L["21"]["Name"] = [[topbar]];
         G2L["21"]["BackgroundTransparency"] = 0.2;
 
-         G2L["drag2"] = Instance.new("Frame", G2L["21"]);
+        G2L["drag2"] = Instance.new("TextButton", G2L["21"]);
         G2L["drag2"]["Size"] = UDim2.new(1,0,1,0);
         G2L["drag2"]["Name"] = [[draggable]];
         G2L["drag2"]["BackgroundTransparency"] = 1;
-        G2L["drag1"]["ZIndex"] = 999;
+        G2L["drag2"]["ZIndex"] = 9999999;
+        G2L["drag2"]["Text"] = "";
+
 
 
         -- StarterGui.PK_API.loading.topbar.TITLE
