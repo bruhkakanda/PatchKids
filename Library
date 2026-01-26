@@ -91,7 +91,6 @@ function library.AddDraggingTo2(toDrag, frame, storeTo, id)
     }
 
     local function update(position)
-        if not library.DraggingEnabled then return end
         if not dragData.dragging then return end
 
         local delta = position - dragData.dragStart
@@ -104,7 +103,6 @@ function library.AddDraggingTo2(toDrag, frame, storeTo, id)
     end
 
     dragData.connections.began = toDrag.InputBegan:Connect(function(input)
-        if not library.DraggingEnabled then return end
 
         if input.UserInputType == Enum.UserInputType.MouseButton1
         or input.UserInputType == Enum.UserInputType.Touch then
@@ -114,23 +112,26 @@ function library.AddDraggingTo2(toDrag, frame, storeTo, id)
             dragData.dragStart = input.Position
             dragData.startPos = frame.Position
 
-            -- TOUCH movement
-            dragData.connections.touchMove = input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.Change then
-                    update(input.Position)
-                end
-            end)
+            if input.UserInputType == Enum.UserInputType.Touch then
+                dragData.connections.touchMove = input.Changed:Connect(function()
+                    if input.UserInputState == Enum.UserInputState.Change then
+                        update(input.Position)
+                    end
+                end)
+            end
         end
     end)
 
-    -- MOUSE movement (global)
     dragData.connections.mouseMove = UserInputService.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement then
+        if input.UserInputType == Enum.UserInputType.MouseMovement
+        and dragData.dragging
+        and dragData.dragInput
+        and dragData.dragInput.UserInputType == Enum.UserInputType.MouseButton1 then
             update(input.Position)
         end
     end)
 
-    dragData.connections.ended = toDrag.InputEnded:Connect(function(input)
+    dragData.connections.ended = UserInputService.InputEnded:Connect(function(input)
         if input == dragData.dragInput then
             dragData.dragging = false
             dragData.dragInput = nil
