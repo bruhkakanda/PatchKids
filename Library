@@ -195,6 +195,7 @@ end
         G2L["profile"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
         G2L["profile"]["Name"] = [[Profile]];
         G2L["profile"]["BackgroundTransparency"] = 0;
+        G2L["profile"].ZIndex = 12
 
 
         -- StarterGui.PK_API.mainframe.Profile.Icon
@@ -306,11 +307,12 @@ end
         G2L["4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
         G2L["4"]["Name"] = [[topbar]];
         G2L["4"]["BackgroundTransparency"] = 0.2;
+        G2L["4"].ZIndex = 10
 
         G2L["drag1"] = Instance.new("TextButton", G2L["4"]);
         G2L["drag1"]["Size"] = UDim2.new(1,0,1,0);
         G2L["drag1"]["Name"] = [[draggable]];
-        G2L["drag1"]["BackgroundTransparency"] = 0.5;
+        G2L["drag1"]["BackgroundTransparency"] = 1;
         G2L["drag1"]["ZIndex"] = 999;
         G2L["drag1"]["Text"] = "";
 
@@ -472,18 +474,9 @@ end
         G2L["12"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 
 
-        -- StarterGui.PK_API.mainframe.Frame
-        G2L["13"] = Instance.new("Frame", G2L["2"]);
-        G2L["13"]["BorderSizePixel"] = 0;
-        G2L["13"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
-        G2L["13"]["ClipsDescendants"] = true;
-        G2L["13"]["Size"] = UDim2.new(1, 0, 1, 0);
-        G2L["13"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-        G2L["13"]["BackgroundTransparency"] = 1;
-
 
         -- StarterGui.PK_API.mainframe.Frame.ya
-        G2L["14"] = Instance.new("Frame", G2L["13"]);
+        G2L["14"] = Instance.new("Frame", G2L["2"]);
         G2L["14"]["ZIndex"] = 10;
         G2L["14"]["BorderSizePixel"] = 0;
         G2L["14"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
@@ -493,6 +486,7 @@ end
         G2L["14"]["Position"] = UDim2.new(0.26247, 0, 0.50172, 0);
         G2L["14"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
         G2L["14"]["Name"] = [[ya]];
+        G2L["14"].ZIndex = 11
 
 
         -- StarterGui.PK_API.mainframe.Frame.ya.UICorner
