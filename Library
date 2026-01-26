@@ -310,8 +310,8 @@ end
         G2L["drag1"] = Instance.new("TextButton", G2L["4"]);
         G2L["drag1"]["Size"] = UDim2.new(1,0,1,0);
         G2L["drag1"]["Name"] = [[draggable]];
-        G2L["drag1"]["BackgroundTransparency"] = 1;
-        G2L["drag1"]["ZIndex"] = 9999999;
+        G2L["drag1"]["BackgroundTransparency"] = 0.5;
+        G2L["drag1"]["ZIndex"] = 999;
         G2L["drag1"]["Text"] = "";
 
 
