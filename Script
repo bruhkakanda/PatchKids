@@ -1693,7 +1693,7 @@ module.Start = function()
 						for _, coinAura in CoinContainers:GetChildren() do
 							if coinAura and coinAura:FindFirstChild("CoinVisual") and coinAura:FindFirstChild("CoinVisual"):FindFirstChild("MainCoin") then
 								if coinAura.CoinVisual.MainCoin.Transparency == 0 then
-									firetouchinterest(char, coinAura, 0)
+									firetouchinterest(root, coinAura, 0)
 								end
 							end
 						end
