@@ -1643,7 +1643,7 @@ module.Start = function()
 				end
 			end
 
-			if not coin then
+			if not coin or not coinVisual or not coinVisual.Parent or not coin.Parent then
 
 				if os.clock() - lastCoinSeen < NO_COIN_TIMEOUT then
 					continue
@@ -1684,9 +1684,15 @@ module.Start = function()
 				while true do
 					local dt = task.wait(0.01)
 
-					if not coin or not coin.Parent or not coin.Parent.Parent or coinVisual.MainCoin.Transparency > 0 or not TOGGLE then
+					if not coin or not coin.Parent or not coin.Parent.Parent then
 						break
 					end
+
+					if coinVisual.MainCoin.Transparency > 0 then
+						break
+					end
+
+					if not TOGGLE then break end
 
 					local CoinContainers = workspace:FindFirstChild("CoinContainer", true)
 					if CoinContainers then
@@ -1715,7 +1721,7 @@ module.Start = function()
 						root.CFrame = CFrame.new(newPos) * CFrame.Angles(math.rad(90), 0, 0)
 					end
 
-					if dist < 1 then
+					if dist < 2.5 then
 						break
 					end
 				end
