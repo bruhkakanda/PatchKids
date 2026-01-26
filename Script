@@ -1652,7 +1652,7 @@ module.Start = function()
 						noclip = false
 						humanoid.PlatformStand = false
 						workspace.Gravity = 196.2
-						game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health = 0
+						humanoid.Health = 0
 						canReset = false
 					end
 				end
@@ -1673,7 +1673,7 @@ module.Start = function()
 					LOCKED_Y = root.Position.Y
 				end
 
-				local targetY = coin.Position.Y - 2
+				local targetY = coin.Position.Y - 2.5
 				if math.abs(targetY - LOCKED_Y) > 0.1 then
 					LOCKED_Y = targetY -- move Y to coin's Y
 				end
@@ -1684,9 +1684,19 @@ module.Start = function()
 				while true do
 					local dt = task.wait(0.01)
 
-					-- coin was collected by someone else
-					if not coin or not coin.Parent or not coin.Parent.Parent then
+					if not coin or not coin.Parent or not coin.Parent.Parent or coinVisual.MainCoin.Transparency > 0 or not TOGGLE then
 						break
+					end
+
+					local CoinContainers = workspace:FindFirstChild("CoinContainer", true)
+					if CoinContainers then
+						for _, coinAura in CoinContainers:GetChildren() do
+							if coinAura and coinAura:FindFirstChild("CoinVisual") and coinAura:FindFirstChild("CoinVisual"):FindFirstChild("MainCoin") then
+								if coinAura.CoinVisual.MainCoin.Transparency == 0 then
+									firetouchinterest(char, coinAura, 0)
+								end
+							end
+						end
 					end
 
 					local currentPos = root.Position
@@ -1705,8 +1715,7 @@ module.Start = function()
 						root.CFrame = CFrame.new(newPos) * CFrame.Angles(math.rad(90), 0, 0)
 					end
 
-					if dist < 2 then
-						firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, coin, 0)
+					if dist < 1 then
 						break
 					end
 				end
