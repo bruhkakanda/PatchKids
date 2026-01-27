@@ -5,7 +5,7 @@ local lockedButtons = false
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD("2.17.5")
+local API = library.CreateHUD("2.17.7")
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -1606,12 +1606,14 @@ end)
 
 local function getClosestCoin(root)
 	local closestCoin = nil
-	local closestDist = 999
+	local closestDist = 1000
 
-	for _, v in workspace:GetDescendants() do
-		if v.Name == "Coin_Server" then
+	local CoinContainer = workspace:FindFirstChild("CoinContainer", true)
+
+	if CoinContainer then
+		for _, v in CoinContainer:GetChildren() do
 			local coin = v:FindFirstChild("CoinVisual")
-			if coin then
+			if coin and coin:FindFirstChild("MainCoin") then
 				local dist = (coin.Position - root.Position).Magnitude
 				if dist < closestDist then
 					closestDist = dist
@@ -1625,7 +1627,7 @@ local function getClosestCoin(root)
 end
 
 module.Start = function()
-	while task.wait(0.05) do
+	while task.wait(0.2) do
 		if TOGGLE then
 			local char = game.Players.LocalPlayer.Character
 			if char and char.Parent and char:FindFirstChild("Humanoid") then
@@ -1638,11 +1640,13 @@ module.Start = function()
 
 			if coinVisual then
 				if coinVisual.Parent then
-					coin = coinVisual.Parent
+					if coinVisual:FindFirstChild("MainCoin") then
+						coin = coinVisual.Parent
+					end
 				end
 			end
 
-			if not coin or not coinVisual or not coinVisual.Parent or not coin.Parent then
+			if not coinVisual or not coinVisual.Parent then
 
 				if os.clock() - lastCoinSeen < NO_COIN_TIMEOUT then
 					continue
@@ -1683,15 +1687,19 @@ module.Start = function()
 				while true do
 					local dt = task.wait(0.01)
 
-					if not coin or not coin.Parent or not coin.Parent.Parent then
+					if not coinVisual or not coinVisual.Parent then
 						break
 					end
 
-					if coinVisual.MainCoin.Transparency > 0 then
-						break
+					if coinVisual:FindFirstChild("MainCoin") then
+						if coinVisual.MainCoin.Transparency ~= 0 then
+							break
+						end
 					end
 
-					if not TOGGLE then break end
+					if not TOGGLE then
+						break
+					end
 
 					local CoinContainers = workspace:FindFirstChild("CoinContainer", true)
 					if CoinContainers then
@@ -1720,7 +1728,7 @@ module.Start = function()
 						root.CFrame = CFrame.new(newPos) * CFrame.Angles(math.rad(90), 0, 0)
 					end
 
-					if dist < 2.5 then
+					if dist < 1.5 then
 						break
 					end
 				end
@@ -1733,7 +1741,7 @@ module.Start = function()
 			if char and char:FindFirstChild("Humanoid") then
 				char.Humanoid.PlatformStand = false
 			end
-			LOCKED_Y = nil -- reset when turning off
+			LOCKED_Y = nil
 		end
 	end
 end
