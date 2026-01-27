@@ -1,11 +1,11 @@
--- https://raw.githubusercontent.com/bruhkakanda/PatchKids/757ad905c776412cc6a6e5f0362d6f0fd52c0aae/Script
+
 local G2L = {};
 
 local lockedButtons = false
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD("2.17.7")
+local API = library.CreateHUD("2.18.1")
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -24,95 +24,8 @@ G2L["5"]["Name"] = [[NewWindow]];
 
 
 -- StarterGui.PK_API.mainframe.Loader.NewWindow.Template
-G2L["6"] = Instance.new("Frame", G2L["5"]);
-G2L["6"]["BorderSizePixel"] = 0;
-G2L["6"]["BackgroundColor3"] = Color3.fromRGB(84, 84, 84);
-G2L["6"]["Size"] = UDim2.new(0.6719, 0, 0.1284, 0);
-G2L["6"]["Position"] = UDim2.new(0.16405, 0, 0.8, 0);
-G2L["6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["6"]["Name"] = [[Template]];
-G2L["6"]["BackgroundTransparency"] = 0.4;
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.Template.UICorner
-G2L["7"] = Instance.new("UICorner", G2L["6"]);
-G2L["7"]["CornerRadius"] = UDim.new(0.2, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.Template.Execute
-G2L["8"] = Instance.new("TextButton", G2L["6"]);
-G2L["8"]["TextWrapped"] = true;
-G2L["8"]["BorderSizePixel"] = 0;
-G2L["8"]["TextSize"] = 14;
-G2L["8"]["TextScaled"] = true;
-G2L["8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["8"]["BackgroundColor3"] = Color3.fromRGB(255, 11, 3);
-G2L["8"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["8"]["BackgroundTransparency"] = 1;
-G2L["8"]["Size"] = UDim2.new(0.97922, 0, 0.86538, 0);
-G2L["8"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["8"]["Text"] = [[]];
-G2L["8"]["Name"] = [[Execute]];
-G2L["8"]["Position"] = UDim2.new(0.02078, 0, 0.05769, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.Template.Desc
-G2L["9"] = Instance.new("TextLabel", G2L["6"]);
-G2L["9"]["TextWrapped"] = true;
-G2L["9"]["BorderSizePixel"] = 0;
-G2L["9"]["TextSize"] = 14;
-G2L["9"]["TextScaled"] = true;
-G2L["9"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["9"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["9"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["9"]["BackgroundTransparency"] = 1;
-G2L["9"]["Size"] = UDim2.new(0.45195, 0, 0.48077, 0);
-G2L["9"]["Visible"] = false;
-G2L["9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["9"]["Text"] = [[Autofarm]];
-G2L["9"]["Name"] = [[Desc]];
-G2L["9"]["Position"] = UDim2.new(0.02078, 0, 0.51923, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.Template.Title
-G2L["a"] = Instance.new("TextLabel", G2L["6"]);
-G2L["a"]["TextWrapped"] = true;
-G2L["a"]["BorderSizePixel"] = 0;
-G2L["a"]["TextSize"] = 14;
-G2L["a"]["TextScaled"] = true;
-G2L["a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["a"]["BackgroundTransparency"] = 1;
-G2L["a"]["Size"] = UDim2.new(1, 0, 1, 0);
-G2L["a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["a"]["Text"] = [[Autofarm]];
-G2L["a"]["Name"] = [[Title]];
-G2L["a"]["Position"] = UDim2.new(0, 0, 0, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.Template.ExecuteString
-G2L["b"] = Instance.new("TextLabel", G2L["6"]);
-G2L["b"]["TextWrapped"] = true;
-G2L["b"]["BorderSizePixel"] = 0;
-G2L["b"]["TextSize"] = 14;
-G2L["b"]["TextScaled"] = true;
-G2L["b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["b"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["b"]["BackgroundTransparency"] = 1;
-G2L["b"]["Size"] = UDim2.new(0.45195, 0, 0.48077, 0);
-G2L["b"]["Visible"] = false;
-G2L["b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["b"]["Text"] = [[Autofarm]];
-G2L["b"]["Name"] = [[ExecuteString]];
-G2L["b"]["Position"] = UDim2.new(0.02078, 0, 0.51923, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.Template.UIStroke
-G2L["c"] = Instance.new("UIStroke", G2L["6"]);
-G2L["c"]["Thickness"] = 2;
-G2L["c"]["Color"] = Color3.fromRGB(255, 255, 255);
+G2L["6"] = library.CreateTemplate();
+G2L["6"]["Parent"] = G2L["5"]
 
 
 -- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle
@@ -605,6 +518,56 @@ function module.NewTitle(Title,tab)
 
 	clone.Visible = true
 end
+
+ local clone = script.Template:Clone()
+    clone.Name = "Title"
+    clone.Title.Text = Title
+    clone.Desc.Text = Desc
+    clone.Parent = script.Parent.Parent.NewTabs[tab]
+
+    local currentKey = nil
+    local listening = false
+
+    clone.KeybindTitle.Text = "Set key"
+
+    clone.Keybind.Activated:Connect(function()
+        if listening then return end
+        listening = true
+
+        clone.KeybindTitle.Text = "..."
+
+        local connection
+        connection = UserInputService.InputBegan:Connect(function(input, gpe)
+            if gpe then return end
+            if input.UserInputType ~= Enum.UserInputType.Keyboard then return end
+
+            if input.KeyCode == Enum.KeyCode.Escape then
+                clone.KeybindTitle.Text = "None"
+                listening = false
+                connection:Disconnect()
+                return
+            end
+
+            currentKey = input.KeyCode
+            clone.KeybindTitle.Text = currentKey.Name
+
+            listening = false
+            connection:Disconnect()
+        end)
+    end)
+
+    clone.Execute.Activated:Connect(Func)
+
+    UserInputService.InputBegan:Connect(function(input, gpe)
+        if gpe then return end
+        if listening then return end
+        if not currentKey then return end
+        if input.UserInputType ~= Enum.UserInputType.Keyboard then return end
+
+        if input.KeyCode == currentKey then
+            Func()
+        end
+    end)
 
 function module.NewWindow(Title,Desc,tab)
 	local clone = script.Template:Clone()
@@ -1107,7 +1070,33 @@ function module.Start()
 
 	newwindow.NewTitle("Murderer", "Main")
 	local killclosest1 = newwindow.NewWindow("Kill closest player", "", "Main")
-	local KILLALL = newwindow.NewWindow("Kill all", "", "Main")
+	local KILLALL = newwindow.NewWindowV2("Kill all", "", "Main", function()
+		local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+		local yourData = roles[game.Players.LocalPlayer.Name]
+		local root = game.Players.LocalPlayer.Character.PrimaryPart
+
+		if yourData then
+			local yourRole = yourData.Role
+			if yourRole == "Murderer" then
+				local isInBackpack = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
+				if isInBackpack then
+					isInBackpack.Parent = game.Players.LocalPlayer.Character
+				end
+				
+					for i, v in game.Players:GetPlayers() do
+						if v ~= game.Players.LocalPlayer then
+							local args = {
+						v.Character.PrimaryPart
+					}
+					game.Players.LocalPlayer.Character.Knife.Events.KnifeStabbed:FireServer()
+					game.Players.LocalPlayer.Character.Knife.Events.HandleTouched:FireServer(unpack(args))
+						end
+					end
+			else
+				NewNotification.New("You are not the murderer!", 1.5)
+			end
+		end
+	end)
 
 	newwindow.NewTitle("Teleports", "Main")
 	local MapTP = newwindow.NewWindow("Teleport to map", "", "Main")
@@ -1119,12 +1108,38 @@ function module.Start()
 
 			newwindow.NewTitle("- Premium Sheriff -", "Premium")
 
-			local premiumGrabber = newwindow.NewWindow("Fast Gun Grab", "gun grabber", "Premium")
+			local premiumGrabber = newwindow.NewWindowV2("Fast Gun Grab", "gun grabber", "Premium", function()
+				local gun = workspace:FindFirstChild("GunDrop", true)
+				if gun then
+					firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, gun, 0)
+					task.wait(0.1)
+					local hasGunNow = game.Players.LocalPlayer.Backpack:FindFirstChild("Gun")
+					if hasGunNow then
+						NewNotification.New("Successfuly Grabbed GunDrop!", 1.5)
+					end
+				else
+					NewNotification.New("GunDrop not found!", 1)
+				end
+			end)
+
 			local premiumGrabberButton = newwindow.NewButton("Fast Gun Grab")
 
 			newwindow.NewTitle("- Premium Murderer -", "Premium")
 
-			local silentKillClosest = newwindow.NewWindow("Silent Kill Closest", "", "Premium")
+			local silentKillClosest = newwindow.NewWindowV2("Silent Kill Closest", "", "Premium", function()
+				local closestTarget = getClosestPlayer()
+				if closestTarget then
+					if game.Players.LocalPlayer.Backpack:FindFirstChild("Knife") then
+							local args = {
+							closestTarget.Character.PrimaryPart
+						}
+						game.Players.LocalPlayer.Backpack.Knife.Events.KnifeStabbed:FireServer()
+						game.Players.LocalPlayer.Backpack.Knife.Events.HandleTouched:FireServer(unpack(args))
+					else
+						NewNotification.New("Unequip your knife!")
+					end
+				end
+			end)
 
 			newwindow.NewTitle("- Fun -", "Premium")
 
@@ -1152,33 +1167,6 @@ function module.Start()
 
 			flingMurderer.Activated:Connect(function()
 				NewNotification.New("You can't access this feature or this feature is not completed yet!", 1)
-			end)
-
-			silentKillClosest.Activated:Connect(function()
-				local closestTarget = getClosestPlayer()
-				if closestTarget then
-					if game.Players.LocalPlayer.Backpack:FindFirstChild("Knife") then
-						local args = {
-						closestTarget.Character.PrimaryPart
-					}
-					game.Players.LocalPlayer.Backpack.Knife.Events.KnifeStabbed:FireServer()
-					game.Players.LocalPlayer.Backpack.Knife.Events.HandleTouched:FireServer(unpack(args))
-					end
-				end
-			end)
-
-			premiumGrabber.Activated:Connect(function()
-				local gun = workspace:FindFirstChild("GunDrop", true)
-				if gun then
-					firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, gun, 0)
-					task.wait(0.1)
-					local hasGunNow = game.Players.LocalPlayer.Backpack:FindFirstChild("Gun")
-					if hasGunNow then
-						NewNotification.New("Successfuly Grabbed GunDrop!", 1.5)
-					end
-				else
-					NewNotification.New("GunDrop not found!", 1)
-				end
 			end)
 
 			premiumGrabberButton.Activated:Connect(function()
@@ -1296,34 +1284,6 @@ function module.Start()
 					game.Players.LocalPlayer.Character.Knife.Events.HandleTouched:FireServer(unpack(args))
 
 				end
-			else
-				NewNotification.New("You are not the murderer!", 1.5)
-			end
-		end
-	end)
-
-	KILLALL.Activated:Connect(function()
-		local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
-		local yourData = roles[game.Players.LocalPlayer.Name]
-		local root = game.Players.LocalPlayer.Character.PrimaryPart
-
-		if yourData then
-			local yourRole = yourData.Role
-			if yourRole == "Murderer" then
-				local isInBackpack = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
-				if isInBackpack then
-					isInBackpack.Parent = game.Players.LocalPlayer.Character
-				end
-				
-					for i, v in game.Players:GetPlayers() do
-						if v ~= game.Players.LocalPlayer then
-							local args = {
-						v.Character.PrimaryPart
-					}
-					game.Players.LocalPlayer.Character.Knife.Events.KnifeStabbed:FireServer()
-					game.Players.LocalPlayer.Character.Knife.Events.HandleTouched:FireServer(unpack(args))
-						end
-					end
 			else
 				NewNotification.New("You are not the murderer!", 1.5)
 			end
