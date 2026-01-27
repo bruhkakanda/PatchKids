@@ -1,4 +1,4 @@
-
+-- https://raw.githubusercontent.com/bruhkakanda/PatchKids/757ad905c776412cc6a6e5f0362d6f0fd52c0aae/Script
 local G2L = {};
 
 local lockedButtons = false
