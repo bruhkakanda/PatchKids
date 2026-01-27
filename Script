@@ -1616,7 +1616,6 @@ local function getClosestCoin(root)
 				if dist < closestDist then
 					closestDist = dist
 					closestCoin = coin
-					break
 				end
 			end
 		end
@@ -1626,7 +1625,7 @@ local function getClosestCoin(root)
 end
 
 module.Start = function()
-	while task.wait(0.2) do
+	while task.wait(0.05) do
 		if TOGGLE then
 			local char = game.Players.LocalPlayer.Character
 			if char and char.Parent and char:FindFirstChild("Humanoid") then
