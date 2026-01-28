@@ -580,6 +580,8 @@ function module.NewWindow(Title,Desc,tab)
 	clone.Parent = script.Parent.Parent.NewTabs[tab]
 	clone.Keybind.Visible = false
 	clone.KeybindTitle.Visible = false
+	clone.Title.Size = UDim2.fromScale(1,1)
+	clone.Title.Position = UDim2.new(0,0,0,0)
 	return clone.Execute
 end
 
