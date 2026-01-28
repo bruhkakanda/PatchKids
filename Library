@@ -285,7 +285,7 @@ end
         G2L["a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
         G2L["a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
         G2L["a"]["BackgroundTransparency"] = 0.5;
-        G2L["a"]["Size"] = UDim2.new(0.10169, 0, 0.93253, 0);
+        G2L["a"]["Size"] = UDim2.new(0.12, 0, 0.93253, 0);
         G2L["a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
         G2L["a"]["Text"] = [[...]];
         G2L["a"]["Name"] = [[KeybindTitle]];
