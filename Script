@@ -1112,6 +1112,26 @@ function module.Start()
 	local MapTP = newwindow.NewWindow("Teleport to map", "", "Main")
 	local LobbyTP = newwindow.NewWindow("Teleport to lobby", "", "Main")
 
+				newwindow.NewTitle("Autofarm", "Main")
+
+			local Autofarm = newwindow.NewToggle("Autofarm","Autofarm coins!","Main")
+
+			task.spawn(function()
+				AFModule.Start()
+			end)
+
+			Autofarm.Activated:Connect(function()
+				if toggleAF then
+					toggleAF = false
+					Autofarm.Toggle.Value = false
+					AFModule.toggle(false)
+				else
+					Autofarm.Toggle.Value = true
+					AFModule.toggle(true)
+					toggleAF = true
+				end
+			end)
+
 	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
 	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
 			local premiumTab = tab.New("Premium")
@@ -1154,26 +1174,6 @@ function module.Start()
 			newwindow.NewTitle("- Fun -", "Premium")
 
 			local flingMurderer = newwindow.NewWindow("Fling Murderer", "", "Premium")
-				
-			newwindow.NewTitle("Autofarm", "Premium")
-
-			local Autofarm = newwindow.NewToggle("Autofarm","Autofarm coins!","Premium")
-
-			task.spawn(function()
-				AFModule.Start()
-			end)
-
-			Autofarm.Activated:Connect(function()
-				if toggleAF then
-					toggleAF = false
-					Autofarm.Toggle.Value = false
-					AFModule.toggle(false)
-				else
-					Autofarm.Toggle.Value = true
-					AFModule.toggle(true)
-					toggleAF = true
-				end
-			end)
 
 			flingMurderer.Activated:Connect(function()
 				NewNotification.New("You can't access this feature or this feature is not completed yet!", 1)
@@ -1646,7 +1646,7 @@ module.Start = function()
 					LOCKED_Y = root.Position.Y
 				end
 
-				local targetY = coin.Position.Y - (coin.Size.Y / 2) - 0.12
+				local targetY = coin.Position.Y - (coin.Size.Y / 2) - 0.8
 				if math.abs(targetY - LOCKED_Y) > 0.1 then
 					LOCKED_Y = targetY -- move Y to coin's Y
 				end
