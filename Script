@@ -1646,7 +1646,7 @@ module.Start = function()
 					LOCKED_Y = root.Position.Y
 				end
 
-				local targetY = coin.Position.Y - 2.5
+				local targetY = coin.Position.Y - 1.5
 				if math.abs(targetY - LOCKED_Y) > 0.1 then
 					LOCKED_Y = targetY -- move Y to coin's Y
 				end
@@ -1698,7 +1698,7 @@ module.Start = function()
 						root.CFrame = CFrame.new(newPos) * CFrame.Angles(math.rad(90), 0, 0)
 					end
 
-					if dist < 1.5 then
+					if dist < 0.5 then
 						break
 					end
 				end
