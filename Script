@@ -6,7 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD("2.18.4")
+local API = library.CreateHUD("2.18.5")
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -1963,6 +1963,21 @@ local script = G2L["4"];
 			v:Destroy()
 		end
 	end
+
+	task.wait(0.1)
+	local ThemesTab = tab.New("Settings")
+
+	newwindow.NewTitle("Themes", "Settings")
+
+	local default = newwindow.NewWindow("Default Theme", "", "Settings")
+	local valentines = newwindow.NewWindow("Valentines Theme", "", "Settings")
+
+	default.Activated:Connect(function()
+		library:ApplyTheme("Default")
+	end)
+	valentines.Activated:Connect(function()
+		library:ApplyTheme("Valentines")
+	end)
 end;
 task.spawn(C_4);
 -- StarterGui.PK_API.mainframe.topbar.gamename.LocalScript
@@ -2046,6 +2061,9 @@ local script = G2L["5f"];
 		API.mainframe.Profile.Free.Visible = true
 		API.mainframe.Profile.Paid.Visible = false
 	end
+
+	
+
 	script.Parent.topbar.checkkey.Activated:Connect(function()
 		if c.TextBox.Text == freeKey then
 
