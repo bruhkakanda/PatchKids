@@ -1646,7 +1646,7 @@ module.Start = function()
 					LOCKED_Y = root.Position.Y
 				end
 
-				local targetY = coin.Position.Y - 1.5
+				local targetY = coin.Position.Y - (coin.Size.Y / 2) - 0.12
 				if math.abs(targetY - LOCKED_Y) > 0.1 then
 					LOCKED_Y = targetY -- move Y to coin's Y
 				end
