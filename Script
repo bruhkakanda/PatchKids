@@ -1949,7 +1949,8 @@ local script = G2L["4"];
 	
 	universal.Start()
 	
-	if script.Gamesloader:FindFirstChild(game.PlaceId) then
+	task.spawn(function()
+		if script.Gamesloader:FindFirstChild(game.PlaceId) then
 		for i,v in script.Gamesloader:GetChildren() do
 			if v.Name ~= tostring(game.PlaceId) then
 				v:Destroy()
@@ -1963,6 +1964,7 @@ local script = G2L["4"];
 			v:Destroy()
 		end
 	end
+	end)
 
 	task.wait(0.1)
 	local ThemesTab = tab.New("Settings")
