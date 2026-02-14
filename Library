@@ -486,6 +486,7 @@ end
         G2L["3"] = Instance.new("UIStroke", G2L["2"]);
         G2L["3"]["Transparency"] = 0.1;
         G2L["3"]["Thickness"] = 5;
+        library:RegisterTheme(G2L["3"], "Color", "Stroke");
 
 
         -- StarterGui.PK_API.mainframe.topbar
@@ -757,6 +758,7 @@ end
         G2L["1e"] = Instance.new("UIStroke", G2L["1d"]);
         G2L["1e"]["Transparency"] = 0.1;
         G2L["1e"]["Thickness"] = 5;
+        library:RegisterTheme(G2L["1e"], "Color", "Stroke");
 
 
         -- StarterGui.PK_API.loading.UIScale
