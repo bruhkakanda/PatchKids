@@ -1904,14 +1904,13 @@ local VELOCITY_CLAMP = 80
 local SMOOTHING = 0.7
 
 local function predictPosition(part, ping)
-	local timeInterval = math.floor((ping * 1000) - 5) / 100
+	local timeInterval = math.ceil((ping * 10)) / 2
 	return part.Position + part.Velocity * timeInterval
 end
 
 
 function module.Shoot()
 	local target = getRoles()
-	print(player:GetNetworkPing())
 	if not target or not target.Character then return end
 
 	local root = target.Character:FindFirstChild("HumanoidRootPart")
