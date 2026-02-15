@@ -1719,7 +1719,7 @@ module.Start = function()
 									if coinAura.CoinVisual:FindFirstChild("MainCoin") then
 										if coinAura.CoinVisual.MainCoin.Transparency == 0 then
 											if game:GetService("UserInputService").TouchEnabled then
-												local dist = (root.Position - coinAura.Position)
+												local dist = (root.Position - coinAura.Position).Magnitude
 												if dist < 3 then
 													coinAura.Position = root.Position
 												end
