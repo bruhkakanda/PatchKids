@@ -230,7 +230,7 @@ library.CreateTemplate = function()
         -- StarterGui.ScreenGui.Template
         G2L["2"] = Instance.new("Frame");
         G2L["2"]["BorderSizePixel"] = 0;
-        library:RegisterTheme(G2L["2"], "BackgroundColor3", "Secondary");
+        G2L["2"]["BackgroundColor3"] = Color3.fromRGB(0,0,0);
         G2L["2"]["Size"] = UDim2.new(0.6719, 0, 0.1284, 0);
         G2L["2"]["Position"] = UDim2.new(0.16405, 0, 0.8, 0);
         G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
