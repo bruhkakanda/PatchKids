@@ -1215,7 +1215,7 @@ function module.Start()
 									if coinAura.CoinVisual:FindFirstChild("MainCoin") then
 										if coinAura.CoinVisual.MainCoin.Transparency == 0 then
 											if game:GetService("UserInputService").TouchEnabled then
-												local dist = (root.Position - coinAura.Position)
+												local dist = (root.Position - coinAura.Position).Magnitude
 												if dist < 4 then
 													coinAura.Position = root.Position
 												end
@@ -1904,7 +1904,7 @@ local VELOCITY_CLAMP = 80
 local SMOOTHING = 0.7
 
 local function predictPosition(part, ping)
-	local timeInterval = ping / 10
+	local timeInterval = ((ping * 1000) - 5) / 10
 	return part.Position + part.Velocity * timeInterval
 end
 
