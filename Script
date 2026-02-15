@@ -1904,7 +1904,7 @@ local VELOCITY_CLAMP = 80
 local SMOOTHING = 0.7
 
 local function predictPosition(part, ping)
-	local timeInterval = math.floor((ping * 100))
+	local timeInterval = math.floor((ping * 1000) - 5) / 100
 	return part.Position + part.Velocity * timeInterval
 end
 
