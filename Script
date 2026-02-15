@@ -6,7 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD("2.18.6")
+local API = library.CreateHUD("2.18.7")
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -1175,6 +1175,14 @@ function module.Start()
 
 			local flingMurderer = newwindow.NewWindow("Fling Murderer", "", "Premium")
 
+			newwindow.NewTitle("- Coins -", "Premium")
+
+			local coinAura = newwindow.NewToggle("Coin Aura", "", "Premium")
+
+			coinAura.Activated:Connect(function()
+				coinAura.Toggle.Value = not coinAura.Toggle.Value
+			end)
+
 			flingMurderer.Activated:Connect(function()
 				NewNotification.New("You can't access this feature or this feature is not completed yet!", 1)
 			end)
@@ -1190,6 +1198,38 @@ function module.Start()
 					end
 				else
 					NewNotification.New("GunDrop not found!", 1)
+				end
+			end)
+
+			task.spawn(function()
+				while task.wait(0.2) do
+					if coinAura.Toggle.Value then
+						local char = game.Players.LocalPlayer.Character
+						if char and char.Parent and  char:FindFirstChild("HumanoidRootPart") then
+							local root = char.PrimaryPart
+							local CoinContainers = workspace:FindFirstChild("CoinContainer", true)
+					if CoinContainers then
+						for _, coinAura in CoinContainers:GetChildren() do
+							if coinAura and coinAura:FindFirstChild("CoinVisual") and coinAura:FindFirstChild("CoinVisual"):FindFirstChild("MainCoin") then
+								if coinAura:FindFirstChild("CoinVisual") then
+									if coinAura.CoinVisual:FindFirstChild("MainCoin") then
+										if coinAura.CoinVisual.MainCoin.Transparency == 0 then
+											if game:GetService("UserInputService").TouchEnabled then
+												local dist = (root.Position - coinAura.Position)
+												if dist < 4 then
+													coinAura.Position = root.Position
+												end
+											else
+												firetouchinterest(root, coinAura, 0)
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+						end
+					end
 				end
 			end)
 	end
@@ -1646,7 +1686,7 @@ module.Start = function()
 					LOCKED_Y = root.Position.Y
 				end
 
-				local targetY = coin.Position.Y - (coin.Size.Y / 2) - 0.8
+				local targetY = coin.Position.Y - (coin.Size.Y / 2) - 1
 				if math.abs(targetY - LOCKED_Y) > 0.1 then
 					LOCKED_Y = targetY -- move Y to coin's Y
 				end
@@ -1675,8 +1715,19 @@ module.Start = function()
 					if CoinContainers then
 						for _, coinAura in CoinContainers:GetChildren() do
 							if coinAura and coinAura:FindFirstChild("CoinVisual") and coinAura:FindFirstChild("CoinVisual"):FindFirstChild("MainCoin") then
-								if coinAura.CoinVisual.MainCoin.Transparency == 0 then
-									firetouchinterest(root, coinAura, 0)
+								if coinAura:FindFirstChild("CoinVisual") then
+									if coinAura.CoinVisual:FindFirstChild("MainCoin") then
+										if coinAura.CoinVisual.MainCoin.Transparency == 0 then
+											if game:GetService("UserInputService").TouchEnabled then
+												local dist = (root.Position - coinAura.Position)
+												if dist < 3 then
+													coinAura.Position = root.Position
+												end
+											else
+												firetouchinterest(root, coinAura, 0)
+											end
+										end
+									end
 								end
 							end
 						end
@@ -1852,13 +1903,15 @@ local FIXED_PING = 0.06
 local VELOCITY_CLAMP = 80
 local SMOOTHING = 0.7
 
-local function predictPosition(part, timeInterval)
+local function predictPosition(part, ping)
+	local timeInterval = ping / 10
 	return part.Position + part.Velocity * timeInterval
 end
 
 
 function module.Shoot()
 	local target = getRoles()
+	print(player:GetNetworkPing())
 	if not target or not target.Character then return end
 
 	local root = target.Character:FindFirstChild("HumanoidRootPart")
@@ -1868,7 +1921,7 @@ function module.Shoot()
 
 	local hand = myChar:WaitForChild("RightHand")
 
-	local predictedPos = predictPosition(root, 0.1)
+	local predictedPos = predictPosition(root, player:GetNetworkPing())
 
 	local args = {
 		hand.CFrame,
@@ -1944,7 +1997,7 @@ local script = G2L["4"];
 	end
 	end)
 
-	task.wait(0.1)
+	task.wait(0.5)
 	local ThemesTab = tab.New("Settings")
 
 	newwindow.NewTitle("Themes", "Settings")
