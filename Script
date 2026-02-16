@@ -1907,12 +1907,8 @@ local SMOOTHING = 0.7
 
 local function predictPosition(part, ping)
 	local toMS = ping * 10
-	-- returns ping in 0.025
-	-- 25 ms ping
-	-- 0.025 * 10 = 0.25 = TOO LONG
-	-- 0.25 * 0.5 = 0.15 PRETTY GOOD
 	
-	local timeInterval = math.floor(toMS * 0.55)
+	local timeInterval = math.floor(toMS * 0.43)
 
 	return part.Position + part.Velocity * timeInterval
 end
