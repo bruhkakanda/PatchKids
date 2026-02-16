@@ -1620,7 +1620,8 @@ local function getClosestCoin(root)
 
 	local CoinContainer = workspace:FindFirstChild("CoinContainer", true)
 
-    for _, v in CoinContainer:GetChildren() do
+    if CoinContainer then
+for _, v in CoinContainer:GetChildren() do
         local coin = v:FindFirstChild("CoinVisual")
         if coin and coin:FindFirstChild("MainCoin") then
             if coin.MainCoin.Transparency == 0 then
@@ -1632,6 +1633,7 @@ local function getClosestCoin(root)
             end
         end
     end
+end
 
     return closestCoin, closestDist
 end
