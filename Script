@@ -6,7 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD("2.18.71")
+local API = library.CreateHUD("2.18.72")
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -1615,25 +1615,25 @@ end)
 
 
 local function getClosestCoin(root)
-	local closestCoin = nil
-	local closestDist = 1000
+    local closestCoin = nil
+    local closestDist = math.huge
 
 	local CoinContainer = workspace:FindFirstChild("CoinContainer", true)
 
-	if CoinContainer then
-		for _, v in CoinContainer:GetChildren() do
-			local coin = v:FindFirstChild("CoinVisual")
-			if coin and coin:FindFirstChild("MainCoin") then
-				local dist = (coin.Position - root.Position).Magnitude
-				if dist < closestDist then
-					closestDist = dist
-					closestCoin = coin
-				end
-			end
-		end
-	end
+    for _, v in CoinContainer:GetChildren() do
+        local coin = v:FindFirstChild("CoinVisual")
+        if coin and coin:FindFirstChild("MainCoin") then
+            if coin.MainCoin.Transparency == 0 then
+                local dist = (coin.Position - root.Position).Magnitude
+                if dist < closestDist then
+                    closestDist = dist
+                    closestCoin = coin
+                end
+            end
+        end
+    end
 
-	return closestCoin, closestDist
+    return closestCoin, closestDist
 end
 
 module.Start = function()
@@ -1686,7 +1686,7 @@ module.Start = function()
 					LOCKED_Y = root.Position.Y
 				end
 
-				local targetY = coin.Position.Y - (coin.Size.Y / 2) - 1
+				local targetY = coin.Position.Y - (coin.Size.Y / 2) - 1.2
 				if math.abs(targetY - LOCKED_Y) > 0.1 then
 					LOCKED_Y = targetY -- move Y to coin's Y
 				end
@@ -1720,7 +1720,7 @@ module.Start = function()
 										if coinAura.CoinVisual.MainCoin.Transparency == 0 then
 											if game:GetService("UserInputService").TouchEnabled then
 												local dist = (root.Position - coinAura.Position).Magnitude
-												if dist < 3 then
+												if dist < 5 then
 													coinAura.Position = root.Position
 												end
 											else
@@ -1904,7 +1904,14 @@ local VELOCITY_CLAMP = 80
 local SMOOTHING = 0.7
 
 local function predictPosition(part, ping)
-	local timeInterval = math.floor(ping * 4.5)
+	local toMS = ping * 10
+	-- returns ping in 0.025
+	-- 25 ms ping
+	-- 0.025 * 10 = 0.25 = TOO LONG
+	-- 0.25 * 0.5 = 0.15 PRETTY GOOD
+	
+	local timeInterval = math.floor(toMS * 0.55)
+
 	return part.Position + part.Velocity * timeInterval
 end
 
