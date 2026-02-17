@@ -1908,7 +1908,7 @@ local SMOOTHING = 0.7
 local function predictPosition(part, ping)
 	local toMS = ping * 10
 	
-	local timeInterval = math.floor(toMS * getgenv().Multi)
+	local timeInterval = math.floor(toMS * 2)
 
 	return part.Position + part.Velocity * timeInterval
 end
