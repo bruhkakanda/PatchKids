@@ -6,7 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD("2.18.74")
+local API = library.CreateHUD("2.18.745")
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -1915,6 +1915,7 @@ end
 
 
 function module.Shoot()
+print(getgenv().Multi)
 	local target = getRoles()
 	if not target or not target.Character then return end
 
