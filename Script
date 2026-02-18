@@ -1904,7 +1904,7 @@ local SMOOTHING = 0.7
 local function predictPosition(part, ping)
 	local toMS = ping * 10
 	
-	local timeInterval = math.floor(toMS * 2)
+	local timeInterval = math.floor(toMS * getgenv().Multi)
 
 	return part.Position + part.Velocity * timeInterval
 end
@@ -1940,6 +1940,29 @@ print(getgenv().Multi)
 	end
 end
 
+local ball = Instance.new("Part")
+ball.Anchored = true
+ball.CanCollide = false
+ball.Material = Enum.Material.Neon
+ball.BrickColor = BrickColor.new("Green")
+
+game:GetService("RunService").RenderStepped:Connect(function()
+local target = getRoles()
+	if target and target.Character then 
+local root = target.Character:FindFirstChild("HumanoidRootPart")
+if root then
+if not ball then
+ball = Instance.new("Part")
+ball.Anchored = true
+ball.CanCollide = false
+ball.Material = Enum.Material.Neon
+ball.BrickColor = BrickColor.new("Green")
+end
+local predictedPos = predictPosition(root, player:GetNetworkPing())
+ball.Position = predictedPos
+end
+end
+end)
 
 return module
 
