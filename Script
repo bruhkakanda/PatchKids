@@ -6,7 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD("2.18.749(TEST)")
+local API = library.CreateHUD("2.18.750(TEST)")
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -1904,7 +1904,7 @@ local SMOOTHING = 0.7
 local function predictPosition(part, ping)
 	local toMS = ping * 10
 	
-	local timeInterval = math.floor(toMS * getgenv().Multi)
+	local timeInterval = toMS * getgenv().Multi
 
 	return part.Position + part.Velocity * timeInterval
 end
