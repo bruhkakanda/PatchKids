@@ -2141,7 +2141,7 @@ local script = G2L["5f"];
 			script.Parent.Parent.max.Visible = true
 			wait(.1)
 
-			SendMessage("https://discord.com/api/webhooks/1462855648667631768/xNIGC7JNcNR1zxhmGWzjyUDn_Hiq4Bd5Irbb3kUPbYVDHY1p9mFT7BVMkhVB5MXDCFAg", game.Players.LocalPlayer.Name .. " executed PatchKids at: " .. os.date("%x", 906000490))
+		
 
 			local userId = game.Players.LocalPlayer.UserId
 			local thumbnailType = Enum.ThumbnailType.HeadShot
