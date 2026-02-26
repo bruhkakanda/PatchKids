@@ -33,13 +33,13 @@ Ocean = {
 		Outer = Color3.fromRGB(5, 20, 40),      
     };
 Space = {
-        MainBackground = Color3.fromRGB(8, 10, 25),      
-        Accent = Color3.fromRGB(255, 196, 0),
-        Stroke = Color3.fromRGB(255, 230, 150),       
-        Text = Color3.fromRGB(230, 230, 255),           
-        Secondary = Color3.fromRGB(25, 25, 70),                
-        Outer = Color3.fromRGB(3, 3, 15),  
-        effects = true;            
+       MainBackground = Color3.fromRGB(4, 6, 15),
+		Accent = Color3.fromRGB(90, 110, 160), -- muted space blue
+		Stroke = Color3.fromRGB(130, 150, 200),
+		Text = Color3.fromRGB(220, 225, 240),
+		Secondary = Color3.fromRGB(15, 18, 40),
+		Outer = Color3.fromRGB(2, 3, 10),
+		effects = true;      
 }
 }
 
