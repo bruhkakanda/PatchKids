@@ -1835,11 +1835,6 @@ local script = G2L["4"];
 		if not p then
 			if input.KeyCode == Enum.KeyCode.Q then
 				script.Parent.Visible = not script.Parent.Visible
-				if script.Parent.Visible then
-					script.Parent.UIScale.Scale = 1
-				else
-					script.Parent.UIScale.Scale = 0
-				end
 			end
 		end
 	end)
@@ -1904,8 +1899,6 @@ task.spawn(C_43);
 local function C_47()
 local script = G2L["47"];
 	script.Parent.Activated:Connect(function()
-		game.TweenService:Create(script.Parent.Parent.Parent.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
-		task.wait(0.2)
 		API.mainframe.Visible = false
 	end)
 	
@@ -1926,7 +1919,6 @@ local function C_58()
 local script = G2L["58"];
 	script.Parent.Activated:Connect(function()
 		script.Parent.Activated:Connect(function()
-			game.TweenService:Create(script.Parent.Parent.mainframe.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
 			API.mainframe.Visible = true
 		end)
 	end)
