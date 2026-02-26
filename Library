@@ -59,7 +59,7 @@ if not library.CreatedUI then return end
            if item:HasTag("Added") then
             local property = item:GetAttribute("Property")
             if property then
-                item[property] = item:GetAttribute(property)
+                item[property] = library.CurrentTheme[item:GetAttribute("Key")]
             end
            end
     end
@@ -68,7 +68,7 @@ end
 function library:RegisterTheme(instance, property, key)
     -- key = "MainBackground", "Accent", "Text", etc.
 
-    instance:SetAttribute(property, key)
+    instance:SetAttribute("Key", key)
     instance:SetAttribute("Property", property)
 
 	instance:AddTag("Added")
