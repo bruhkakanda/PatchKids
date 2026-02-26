@@ -1,4 +1,4 @@
-local library = {} --
+local library = {} --T
 local RunService = game:GetService("RunService")   
 local UserInputService = game:GetService("UserInputService")
 library.DraggingEnabled = true
@@ -265,6 +265,21 @@ G2L["f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["f"]["Text"] = [[Autofarm]];
 G2L["f"]["Name"] = [[Desc]];
 G2L["f"]["Position"] = UDim2.new(0.02078, 0, 0.51923, 0);
+
+G2L["10"] = Instance.new("TextLabel", G2L["d"]);
+G2L["10"]["TextWrapped"] = true;
+G2L["10"]["BorderSizePixel"] = 0;
+G2L["10"]["TextSize"] = 14;
+G2L["10"]["TextScaled"] = true;
+G2L["10"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+library:RegisterTheme(G2L["10"], "TextColor3", "Text");
+G2L["10"]["BackgroundTransparency"] = 1;
+G2L["10"]["Size"] = UDim2.new(0.6962, 0, 1, 0);
+G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["10"]["Text"] = [[Autofarm]];
+G2L["10"]["Name"] = [[Title]];
+G2L["10"]["Position"] = UDim2.new(0, 0, 0, 0);
 
 G2L["11"] = Instance.new("TextLabel", G2L["d"]);
 G2L["11"]["TextWrapped"] = true;
