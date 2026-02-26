@@ -6,7 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD("2.2")
+local API = library.CreateHUD("2.21")
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -1871,6 +1871,7 @@ local script = G2L["4"];
 	local default = newwindow.NewWindow("Default Theme", "", "Settings")
 	local valentines = newwindow.NewWindow("Valentines Theme", "", "Settings")
 	local ocean = newwindow.NewWindow("Ocean Theme", "", "Settings")
+local space = newwindow.NewWindow("Space Theme", "", "Settings")
 
 	default.Activated:Connect(function()
 		library:ApplyTheme("Default")
@@ -1880,6 +1881,9 @@ local script = G2L["4"];
 	end)
 	ocean.Activated:Connect(function()
 		library:ApplyTheme("Ocean")
+	end)
+	space.Activated:Connect(function()
+		library:ApplyTheme("Space")
 	end)
 end;
 task.spawn(C_4);
