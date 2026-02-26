@@ -3,7 +3,7 @@ local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 library.DraggingEnabled = true
 
-library.ThemedObjects = {}
+library.CreatedUI = nil
 
 library.Themes = {
     Default = {
@@ -54,20 +54,22 @@ function library:ApplyTheme(themeName)
 
     library.CurrentTheme = theme
 
-    for _, item in library.ThemedObjects do
-            item.Instance[item.Property] = theme[item.Key]
+    for _, item in library.CreatedUI:GetDescendants() do
+           if item:HasTag("Added") then
+            local property = item:GetAttribute("Property")
+            if property then
+                item[property] = item:GetAttribute(property)
+            end
+           end
     end
 end
 
 function library:RegisterTheme(instance, property, key)
     -- key = "MainBackground", "Accent", "Text", etc.
-    table.insert(library.ThemedObjects, {
-        Instance = instance,
-        Property = property,
-        Key = key
-    })
 
-    -- Apply immediately
+    instance:SetAttribute(property, key)
+    instance:SetAttribute("Property", property)
+
     instance[property] = library.CurrentTheme[key]
 end
 
@@ -984,6 +986,7 @@ end
         G2L["30"] = Instance.new("UIAspectRatioConstraint", G2L["1d"]);
         G2L["30"]["AspectRatio"] = 1.5;
 
+        module.CreatedUI = G2L["1"]
         return G2L["1"]
     end
 
