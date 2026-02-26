@@ -71,6 +71,8 @@ function library:RegisterTheme(instance, property, key)
     instance:SetAttribute(property, key)
     instance:SetAttribute("Property", property)
 
+	instance:AddTag("Added")
+
     instance[property] = library.CurrentTheme[key]
 end
 
