@@ -25,12 +25,12 @@ library.Themes = {
     };
 
 Ocean = {
-        MainBackground = Color3.fromRGB(82, 111, 242), 
-        Accent = Color3.fromRGB(90, 110, 255),        
-        Text = Color3.fromRGB(177, 232, 247),
-        Secondary = Color3.fromRGB(0, 119, 255),
-        Stroke = Color3.fromRGB(255, 255, 255),
-        Outer = Color3.fromRGB(3, 77, 120),
+        MainBackground = Color3.fromRGB(18, 45, 76),     
+		Accent = Color3.fromRGB(0, 168, 232),            
+		Text = Color3.fromRGB(224, 247, 255),            
+		Secondary = Color3.fromRGB(0, 119, 182),         
+		Stroke = Color3.fromRGB(173, 216, 230),         
+		Outer = Color3.fromRGB(5, 20, 40),        
     }
 }
 
