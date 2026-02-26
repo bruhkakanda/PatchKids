@@ -1871,7 +1871,17 @@ local script = G2L["4"];
 	local default = newwindow.NewWindow("Default Theme", "", "Settings")
 	local valentines = newwindow.NewWindow("Valentines Theme", "", "Settings")
 	local ocean = newwindow.NewWindow("Ocean Theme", "", "Settings")
-local space = newwindow.NewWindow("Space Theme", "", "Settings")
+
+
+	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
+	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
+		newwindow.NewTitle(" - Premium Themes - ", "Settings")
+
+		local space = newwindow.NewWindow("Space Theme", "", "Settings")
+		space.Activated:Connect(function()
+			library:ApplyTheme("Space")
+		end)
+	end
 
 	default.Activated:Connect(function()
 		library:ApplyTheme("Default")
@@ -1881,9 +1891,6 @@ local space = newwindow.NewWindow("Space Theme", "", "Settings")
 	end)
 	ocean.Activated:Connect(function()
 		library:ApplyTheme("Ocean")
-	end)
-	space.Activated:Connect(function()
-		library:ApplyTheme("Space")
 	end)
 end;
 task.spawn(C_4);
