@@ -29,7 +29,7 @@ Ocean = {
         Accent = Color3.fromRGB(90, 110, 255),        
         Text = Color3.fromRGB(177, 232, 247),
         Secondary = Color3.fromRGB(0, 119, 255),
-        Stroke = Color3.fromRGB(36, 98, 214),
+        Stroke = Color3.fromRGB(255, 105, 180),
         Outer = Color3.fromRGB(3, 77, 120),
     }
 }
@@ -242,7 +242,7 @@ library.CreateTemplate = function()
         -- StarterGui.ScreenGui.Template
         G2L["2"] = Instance.new("Frame");
         G2L["2"]["BorderSizePixel"] = 0;
-        G2L["2"]["BackgroundColor3"] = Color3.fromRGB(0,0,0);
+         library:RegisterTheme(G2L["2"], "BackgroundColor3", "Secondary");
         G2L["2"]["Size"] = UDim2.new(0.6719, 0, 0.1284, 0);
         G2L["2"]["Position"] = UDim2.new(0.16405, 0, 0.8, 0);
         G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
