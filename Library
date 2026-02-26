@@ -34,7 +34,7 @@ Ocean = {
     }
 }
 
-library.CurrentTheme = library.Themes.Default
+library.CurrentTheme = library.Themes.Ocean
 
 function library:SetTheme(themeName)
     local theme = library.Themes[themeName]
@@ -54,10 +54,8 @@ function library:ApplyTheme(themeName)
 
     library.CurrentTheme = theme
 
-    for _, item in ipairs(library.ThemedObjects) do
-        if item.Instance and item.Instance.Parent then
+    for _, item in library.ThemedObjects do
             item.Instance[item.Property] = theme[item.Key]
-        end
     end
 end
 
