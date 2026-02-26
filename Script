@@ -2033,12 +2033,16 @@ local script = G2L["4"];
 
 	local default = newwindow.NewWindow("Default Theme", "", "Settings")
 	local valentines = newwindow.NewWindow("Valentines Theme", "", "Settings")
+	local ocean = newwindow.NewWindow("Ocean Theme", "", "Settings")
 
 	default.Activated:Connect(function()
 		library:ApplyTheme("Default")
 	end)
 	valentines.Activated:Connect(function()
 		library:ApplyTheme("Valentines")
+	end)
+	ocean.Activated:Connect(function()
+		library:ApplyTheme("Ocean")
 	end)
 end;
 task.spawn(C_4);
