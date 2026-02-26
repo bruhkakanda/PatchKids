@@ -51,6 +51,7 @@ function library:ApplyTheme(themeName)
         warn("Theme not found:", themeName)
         return
     end
+if not library.CreatedUI then return end
 
     library.CurrentTheme = theme
 
@@ -986,7 +987,7 @@ end
         G2L["30"] = Instance.new("UIAspectRatioConstraint", G2L["1d"]);
         G2L["30"]["AspectRatio"] = 1.5;
 
-        module.CreatedUI = G2L["1"]
+        library.CreatedUI = G2L["1"]
         return G2L["1"]
     end
 
