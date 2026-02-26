@@ -31,7 +31,15 @@ Ocean = {
 		Secondary = Color3.fromRGB(0, 119, 182),         
 		Stroke = Color3.fromRGB(173, 216, 230),         
 		Outer = Color3.fromRGB(5, 20, 40),        
-    }
+    };
+Space = {
+    MainBackground = Color3.fromRGB(8, 10, 25),      
+    Accent = Color3.fromRGB(138, 43, 226),           
+    Text = Color3.fromRGB(230, 230, 255),           
+    Secondary = Color3.fromRGB(25, 25, 70),        
+    Stroke = Color3.fromRGB(0, 255, 255),          
+    Outer = Color3.fromRGB(3, 3, 15),              
+}
 }
 
 library.CurrentTheme = library.Themes.Default
