@@ -34,7 +34,7 @@ Ocean = {
     }
 }
 
-library.CurrentTheme = library.Themes.Ocean
+library.CurrentTheme = library.Themes.Default
 
 function library:SetTheme(themeName)
     local theme = library.Themes[themeName]
