@@ -29,7 +29,7 @@ Ocean = {
         Accent = Color3.fromRGB(90, 110, 255),        
         Text = Color3.fromRGB(177, 232, 247),
         Secondary = Color3.fromRGB(0, 119, 255),
-        Stroke = Color3.fromRGB(255, 105, 180),
+        Stroke = Color3.fromRGB(255, 255, 255),
         Outer = Color3.fromRGB(3, 77, 120),
     }
 }
