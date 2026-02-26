@@ -30,15 +30,16 @@ Ocean = {
 		Text = Color3.fromRGB(224, 247, 255),            
 		Secondary = Color3.fromRGB(0, 119, 182),         
 		Stroke = Color3.fromRGB(173, 216, 230),         
-		Outer = Color3.fromRGB(5, 20, 40),        
+		Outer = Color3.fromRGB(5, 20, 40),      
     };
 Space = {
-    MainBackground = Color3.fromRGB(8, 10, 25),      
-    Accent = Color3.fromRGB(138, 43, 226),           
-    Text = Color3.fromRGB(230, 230, 255),           
-    Secondary = Color3.fromRGB(25, 25, 70),        
-    Stroke = Color3.fromRGB(0, 255, 255),          
-    Outer = Color3.fromRGB(3, 3, 15),              
+        MainBackground = Color3.fromRGB(8, 10, 25),      
+        Accent = Color3.fromRGB(255, 196, 0),
+        Stroke = Color3.fromRGB(255, 230, 150),       
+        Text = Color3.fromRGB(230, 230, 255),           
+        Secondary = Color3.fromRGB(25, 25, 70),                
+        Outer = Color3.fromRGB(3, 3, 15),  
+        effects = true;            
 }
 }
 
@@ -51,6 +52,100 @@ function library:SetTheme(themeName)
 	else
 		return false
     end
+end
+
+function library:AddParticles()
+    if not library.CurrentTheme.effects then return end
+    
+    local UI = library.CreatedUI
+    if not UI then return end
+    
+    local MainFrame = UI:FindFirstChild("mainframe")
+    if not MainFrame then return end
+    if MainFrame:FindFirstChild("SpaceParticles") then return end
+    
+    local ParticleFolder = Instance.new("Folder")
+    ParticleFolder.Name = "SpaceParticles"
+    ParticleFolder.Parent = MainFrame
+    
+    local particles = {}
+    local particleCount = 35
+    
+    local glowColors = {
+        Color3.fromRGB(255,255,255),
+        Color3.fromRGB(138,43,226),
+        Color3.fromRGB(0,255,255)
+    }
+
+    for i = 1, particleCount do
+        local star = Instance.new("Frame")
+        star.Size = UDim2.fromOffset(math.random(2,4), math.random(2,4))
+        star.BorderSizePixel = 0
+        star.BackgroundColor3 = glowColors[math.random(1,#glowColors)]
+        star.BackgroundTransparency = math.random()
+        star.AnchorPoint = Vector2.new(0,0)
+        star.Parent = ParticleFolder
+        
+        local corner = Instance.new("UICorner")
+        corner.CornerRadius = UDim.new(1,0)
+        corner.Parent = star
+
+        local absSize = MainFrame.AbsoluteSize
+        local startPos = Vector2.new(
+            math.random(0, absSize.X),
+            math.random(0, absSize.Y)
+        )
+        
+        star.Position = UDim2.fromOffset(startPos.X, startPos.Y)
+        
+        particles[#particles+1] = {
+            Instance = star,
+            Position = startPos,
+            Speed = Vector2.new(
+                (math.random()-0.5) * 20,
+                (math.random()-0.5) * 20
+            ),
+            TwinkleOffset = math.random() * math.pi * 2
+        }
+    end
+
+    local connection
+    connection = RunService.RenderStepped:Connect(function(dt)
+        if not library.CurrentTheme.effects or not MainFrame.Parent then
+            connection:Disconnect()
+            ParticleFolder:Destroy()
+            return
+        end
+        
+        local absSize = MainFrame.AbsoluteSize
+        
+        for _, particle in ipairs(particles) do
+            local star = particle.Instance
+            if star then
+                particle.Position += particle.Speed * dt
+                if particle.Position.X <= 0 or particle.Position.X >= absSize.X then
+                    particle.Speed = Vector2.new(-particle.Speed.X, particle.Speed.Y)
+                end
+                
+                if particle.Position.Y <= 0 or particle.Position.Y >= absSize.Y then
+                    particle.Speed = Vector2.new(particle.Speed.X, -particle.Speed.Y)
+                end
+
+                particle.Position = Vector2.new(
+                    math.clamp(particle.Position.X, 0, absSize.X),
+                    math.clamp(particle.Position.Y, 0, absSize.Y)
+                )
+                
+                star.Position = UDim2.fromOffset(
+                    particle.Position.X,
+                    particle.Position.Y
+                )
+
+                star.BackgroundTransparency =
+                    0.4 + math.sin(tick()*2 + particle.TwinkleOffset) * 0.25
+            end
+        end
+    end)
 end
 
 function library:ApplyTheme(themeName)
@@ -71,6 +166,8 @@ if not library.CreatedUI then return end
             end
            end
     end
+
+    library:AddParticles()
 end
 
 function library:RegisterTheme(instance, property, key)
@@ -246,147 +343,147 @@ end
 
 library.CreateToggle = function()
     local G2L = {}
-G2L["d"] = Instance.new("Frame");
-G2L["d"]["BorderSizePixel"] = 0;
-library:RegisterTheme(G2L["d"], "BackgroundColor3", "Secondary");
-G2L["d"]["Size"] = UDim2.new(0.6719, 0, 0.1284, 0);
-G2L["d"]["Position"] = UDim2.new(0.16405, 0, 0.20494, 0);
-G2L["d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["d"]["Name"] = [[TemplateToggle]];
-G2L["d"]["BackgroundTransparency"] = 0.4;
+    G2L["d"] = Instance.new("Frame");
+    G2L["d"]["BorderSizePixel"] = 0;
+    library:RegisterTheme(G2L["d"], "BackgroundColor3", "Secondary");
+    G2L["d"]["Size"] = UDim2.new(0.6719, 0, 0.1284, 0);
+    G2L["d"]["Position"] = UDim2.new(0.16405, 0, 0.20494, 0);
+    G2L["d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+    G2L["d"]["Name"] = [[TemplateToggle]];
+    G2L["d"]["BackgroundTransparency"] = 0.4;
 
-G2L["e"] = Instance.new("UICorner", G2L["d"]);
-G2L["e"]["CornerRadius"] = UDim.new(0.2, 0);
+    G2L["e"] = Instance.new("UICorner", G2L["d"]);
+    G2L["e"]["CornerRadius"] = UDim.new(0.2, 0);
 
-G2L["f"] = Instance.new("TextLabel", G2L["d"]);
-G2L["f"]["TextWrapped"] = true;
-G2L["f"]["BorderSizePixel"] = 0;
-G2L["f"]["TextSize"] = 14;
-G2L["f"]["TextScaled"] = true;
-G2L["f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["f"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["f"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["f"]["BackgroundTransparency"] = 1;
-G2L["f"]["Size"] = UDim2.new(0.45195, 0, 0.48077, 0);
-G2L["f"]["Visible"] = false;
-G2L["f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["f"]["Text"] = [[Autofarm]];
-G2L["f"]["Name"] = [[Desc]];
-G2L["f"]["Position"] = UDim2.new(0.02078, 0, 0.51923, 0);
+    G2L["f"] = Instance.new("TextLabel", G2L["d"]);
+    G2L["f"]["TextWrapped"] = true;
+    G2L["f"]["BorderSizePixel"] = 0;
+    G2L["f"]["TextSize"] = 14;
+    G2L["f"]["TextScaled"] = true;
+    G2L["f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+    G2L["f"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+    G2L["f"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+    G2L["f"]["BackgroundTransparency"] = 1;
+    G2L["f"]["Size"] = UDim2.new(0.45195, 0, 0.48077, 0);
+    G2L["f"]["Visible"] = false;
+    G2L["f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+    G2L["f"]["Text"] = [[Autofarm]];
+    G2L["f"]["Name"] = [[Desc]];
+    G2L["f"]["Position"] = UDim2.new(0.02078, 0, 0.51923, 0);
 
-G2L["10"] = Instance.new("TextLabel", G2L["d"]);
-G2L["10"]["TextWrapped"] = true;
-G2L["10"]["BorderSizePixel"] = 0;
-G2L["10"]["TextSize"] = 14;
-G2L["10"]["TextScaled"] = true;
-G2L["10"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-library:RegisterTheme(G2L["10"], "TextColor3", "Text");
-G2L["10"]["BackgroundTransparency"] = 1;
-G2L["10"]["Size"] = UDim2.new(0.6962, 0, 1, 0);
-G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["10"]["Text"] = [[Autofarm]];
-G2L["10"]["Name"] = [[Title]];
-G2L["10"]["Position"] = UDim2.new(0, 0, 0, 0);
+    G2L["10"] = Instance.new("TextLabel", G2L["d"]);
+    G2L["10"]["TextWrapped"] = true;
+    G2L["10"]["BorderSizePixel"] = 0;
+    G2L["10"]["TextSize"] = 14;
+    G2L["10"]["TextScaled"] = true;
+    G2L["10"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+    G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+    library:RegisterTheme(G2L["10"], "TextColor3", "Text");
+    G2L["10"]["BackgroundTransparency"] = 1;
+    G2L["10"]["Size"] = UDim2.new(0.6962, 0, 1, 0);
+    G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+    G2L["10"]["Text"] = [[Autofarm]];
+    G2L["10"]["Name"] = [[Title]];
+    G2L["10"]["Position"] = UDim2.new(0, 0, 0, 0);
 
-G2L["11"] = Instance.new("TextLabel", G2L["d"]);
-G2L["11"]["TextWrapped"] = true;
-G2L["11"]["BorderSizePixel"] = 0;
-G2L["11"]["TextSize"] = 14;
-G2L["11"]["TextScaled"] = true;
-G2L["11"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["11"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["11"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["11"]["BackgroundTransparency"] = 1;
-G2L["11"]["Size"] = UDim2.new(0.45195, 0, 0.48077, 0);
-G2L["11"]["Visible"] = false;
-G2L["11"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["11"]["Text"] = [[Autofarm]];
-G2L["11"]["Name"] = [[ExecuteString]];
-G2L["11"]["Position"] = UDim2.new(0.02078, 0, 0.51923, 0);
+    G2L["11"] = Instance.new("TextLabel", G2L["d"]);
+    G2L["11"]["TextWrapped"] = true;
+    G2L["11"]["BorderSizePixel"] = 0;
+    G2L["11"]["TextSize"] = 14;
+    G2L["11"]["TextScaled"] = true;
+    G2L["11"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+    G2L["11"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+    G2L["11"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+    G2L["11"]["BackgroundTransparency"] = 1;
+    G2L["11"]["Size"] = UDim2.new(0.45195, 0, 0.48077, 0);
+    G2L["11"]["Visible"] = false;
+    G2L["11"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+    G2L["11"]["Text"] = [[Autofarm]];
+    G2L["11"]["Name"] = [[ExecuteString]];
+    G2L["11"]["Position"] = UDim2.new(0.02078, 0, 0.51923, 0);
 
-G2L["12"] = Instance.new("TextButton", G2L["d"]);
-G2L["12"]["TextWrapped"] = true;
-G2L["12"]["BorderSizePixel"] = 0;
-G2L["12"]["TextSize"] = 14;
-G2L["12"]["TextScaled"] = true;
-G2L["12"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-library:RegisterTheme(G2L["12"], "BackgroundColor3", "Accent");
-G2L["12"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["12"]["Size"] = UDim2.new(0.18336, 0, 0.74407, 0);
-G2L["12"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["12"]["Text"] = [[]];
-G2L["12"]["Name"] = [[Execute]];
-G2L["12"]["Position"] = UDim2.new(0.73766, 0, 0.10622, 0);
+    G2L["12"] = Instance.new("TextButton", G2L["d"]);
+    G2L["12"]["TextWrapped"] = true;
+    G2L["12"]["BorderSizePixel"] = 0;
+    G2L["12"]["TextSize"] = 14;
+    G2L["12"]["TextScaled"] = true;
+    G2L["12"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+    library:RegisterTheme(G2L["12"], "BackgroundColor3", "Accent");
+    G2L["12"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+    G2L["12"]["Size"] = UDim2.new(0.18336, 0, 0.74407, 0);
+    G2L["12"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
+    G2L["12"]["Text"] = [[]];
+    G2L["12"]["Name"] = [[Execute]];
+    G2L["12"]["Position"] = UDim2.new(0.73766, 0, 0.10622, 0);
 
-G2L["13"] = Instance.new("UICorner", G2L["12"]);
-G2L["13"]["CornerRadius"] = UDim.new(1, 0);
+    G2L["13"] = Instance.new("UICorner", G2L["12"]);
+    G2L["13"]["CornerRadius"] = UDim.new(1, 0);
 
-G2L["14"] = Instance.new("Frame", G2L["12"]);
-G2L["14"]["BorderSizePixel"] = 0;
-G2L["14"]["BackgroundColor3"] = Color3.fromRGB(255, 39, 39);
-G2L["14"]["Size"] = UDim2.new(1.2, 0, 1.2, 0);
-G2L["14"]["Position"] = UDim2.new(0, 0, -0.1052, 0);
-G2L["14"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+    G2L["14"] = Instance.new("Frame", G2L["12"]);
+    G2L["14"]["BorderSizePixel"] = 0;
+    G2L["14"]["BackgroundColor3"] = Color3.fromRGB(255, 39, 39);
+    G2L["14"]["Size"] = UDim2.new(1.2, 0, 1.2, 0);
+    G2L["14"]["Position"] = UDim2.new(0, 0, -0.1052, 0);
+    G2L["14"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 
-G2L["15"] = Instance.new("UICorner", G2L["14"]);
-G2L["15"]["CornerRadius"] = UDim.new(1, 0);
+    G2L["15"] = Instance.new("UICorner", G2L["14"]);
+    G2L["15"]["CornerRadius"] = UDim.new(1, 0);
 
-G2L["16"] = Instance.new("UIAspectRatioConstraint", G2L["14"]);
-
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.Toggle
-G2L["17"] = Instance.new("BoolValue", G2L["12"]);
-G2L["17"]["Name"] = [[Toggle]];
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.Off
-G2L["18"] = Instance.new("Frame", G2L["12"]);
-G2L["18"]["Visible"] = false;
-G2L["18"]["BorderSizePixel"] = 0;
-G2L["18"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["18"]["Size"] = UDim2.new(1.2, 0, 1.2, 0);
-G2L["18"]["Position"] = UDim2.new(0, 0, -0.1052, 0);
-G2L["18"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["18"]["Name"] = [[Off]];
-
-G2L["19"] = Instance.new("UICorner", G2L["18"]);
-G2L["19"]["CornerRadius"] = UDim.new(1, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.Off.UIAspectRatioConstraint
-G2L["1a"] = Instance.new("UIAspectRatioConstraint", G2L["18"]);
+    G2L["16"] = Instance.new("UIAspectRatioConstraint", G2L["14"]);
 
 
 
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.On
-G2L["1b"] = Instance.new("Frame", G2L["12"]);
-G2L["1b"]["Visible"] = false;
-G2L["1b"]["BorderSizePixel"] = 0;
-G2L["1b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["1b"]["Size"] = UDim2.new(1.2, 0, 1.2, 0);
-G2L["1b"]["Position"] = UDim2.new(0.5, 0, -0.1052, 0);
-G2L["1b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["1b"]["Name"] = [[On]];
+    -- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.Toggle
+    G2L["17"] = Instance.new("BoolValue", G2L["12"]);
+    G2L["17"]["Name"] = [[Toggle]];
 
 
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.On.UICorner
-G2L["1c"] = Instance.new("UICorner", G2L["1b"]);
-G2L["1c"]["CornerRadius"] = UDim.new(1, 0);
+    -- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.Off
+    G2L["18"] = Instance.new("Frame", G2L["12"]);
+    G2L["18"]["Visible"] = false;
+    G2L["18"]["BorderSizePixel"] = 0;
+    G2L["18"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+    G2L["18"]["Size"] = UDim2.new(1.2, 0, 1.2, 0);
+    G2L["18"]["Position"] = UDim2.new(0, 0, -0.1052, 0);
+    G2L["18"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+    G2L["18"]["Name"] = [[Off]];
+
+    G2L["19"] = Instance.new("UICorner", G2L["18"]);
+    G2L["19"]["CornerRadius"] = UDim.new(1, 0);
 
 
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.On.UIAspectRatioConstraint
-G2L["1d"] = Instance.new("UIAspectRatioConstraint", G2L["1b"]);
+    -- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.Off.UIAspectRatioConstraint
+    G2L["1a"] = Instance.new("UIAspectRatioConstraint", G2L["18"]);
 
 
 
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.UIStroke
-G2L["1e"] = Instance.new("UIStroke", G2L["d"]);
-G2L["1e"]["Thickness"] = 2;
-library:RegisterTheme(G2L["1e"], "Color", "Stroke");
+    -- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.On
+    G2L["1b"] = Instance.new("Frame", G2L["12"]);
+    G2L["1b"]["Visible"] = false;
+    G2L["1b"]["BorderSizePixel"] = 0;
+    G2L["1b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+    G2L["1b"]["Size"] = UDim2.new(1.2, 0, 1.2, 0);
+    G2L["1b"]["Position"] = UDim2.new(0.5, 0, -0.1052, 0);
+    G2L["1b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+    G2L["1b"]["Name"] = [[On]];
 
-return G2L["d"]
+
+    -- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.On.UICorner
+    G2L["1c"] = Instance.new("UICorner", G2L["1b"]);
+    G2L["1c"]["CornerRadius"] = UDim.new(1, 0);
+
+
+    -- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.On.UIAspectRatioConstraint
+    G2L["1d"] = Instance.new("UIAspectRatioConstraint", G2L["1b"]);
+
+
+
+    -- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.UIStroke
+    G2L["1e"] = Instance.new("UIStroke", G2L["d"]);
+    G2L["1e"]["Thickness"] = 2;
+    library:RegisterTheme(G2L["1e"], "Color", "Stroke");
+
+    return G2L["d"]
 end
 
 library.CreateTemplate = function()
