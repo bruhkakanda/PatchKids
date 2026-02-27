@@ -30,7 +30,8 @@ Ocean = {
 		Text = Color3.fromRGB(224, 247, 255),            
 		Secondary = Color3.fromRGB(0, 119, 182),         
 		Stroke = Color3.fromRGB(173, 216, 230),         
-		Outer = Color3.fromRGB(5, 20, 40),      
+		Outer = Color3.fromRGB(5, 20, 40),
+        effects = true
     };
 Space = {
        MainBackground = Color3.fromRGB(4, 6, 15),
@@ -39,7 +40,7 @@ Space = {
 		Text = Color3.fromRGB(220, 225, 240),
 		Secondary = Color3.fromRGB(15, 18, 40),
 		Outer = Color3.fromRGB(2, 3, 10),
-		effects = true;      
+		effects = true    
 }
 }
 
@@ -62,29 +63,42 @@ function library:AddParticles()
     
     local MainFrame = UI:FindFirstChild("mainframe")
     if not MainFrame then return end
-    if MainFrame:FindFirstChild("SpaceParticles") then return end
+    if MainFrame:FindFirstChild("ThemeParticles") then return end
     
     local ParticleFolder = Instance.new("Folder")
-    ParticleFolder.Name = "SpaceParticles"
+    ParticleFolder.Name = "ThemeParticles"
     ParticleFolder.Parent = MainFrame
     
     local particles = {}
     local particleCount = 35
     
-    local glowColors = {
-        Color3.fromRGB(255,255,255),
-        Color3.fromRGB(138,43,226),
-        Color3.fromRGB(0,255,255)
-    }
+    local themeColors = {}
+    for key, value in pairs(library.CurrentTheme) do
+        if typeof(value) == "Color3" then
+            table.insert(themeColors, value)
+        end
+    end
+    
+    if #themeColors == 0 then return end
 
+    local function brighten(color)
+        return Color3.new(
+            math.clamp(color.R * 1.3, 0, 1),
+            math.clamp(color.G * 1.3, 0, 1),
+            math.clamp(color.B * 1.3, 0, 1)
+        )
+    end
+    
     for i = 1, particleCount do
         local star = Instance.new("Frame")
         star.Size = UDim2.fromOffset(math.random(2,4), math.random(2,4))
         star.BorderSizePixel = 0
-        star.BackgroundColor3 = glowColors[math.random(1,#glowColors)]
-        star.BackgroundTransparency = math.random()
         star.AnchorPoint = Vector2.new(0,0)
         star.Parent = ParticleFolder
+        
+        local randomThemeColor = themeColors[math.random(1, #themeColors)]
+        star.BackgroundColor3 = brighten(randomThemeColor)
+        star.BackgroundTransparency = math.random()
         
         local corner = Instance.new("UICorner")
         corner.CornerRadius = UDim.new(1,0)
@@ -123,6 +137,7 @@ function library:AddParticles()
             local star = particle.Instance
             if star then
                 particle.Position += particle.Speed * dt
+                
                 if particle.Position.X <= 0 or particle.Position.X >= absSize.X then
                     particle.Speed = Vector2.new(-particle.Speed.X, particle.Speed.Y)
                 end
