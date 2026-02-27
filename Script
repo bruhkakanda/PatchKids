@@ -1001,6 +1001,7 @@ function module.Start()
 				local murd = findMurderer(roles)
 				if murd and murd.Character and murd.Character:FindFirstChild("HumanoidRootPart") then
 					local target = murd.Character
+					local myChar = player.Character
 
 					local args = {
 						target.HumanoidRootPart.CFrame + Vector3.new(1,0,0),
