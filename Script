@@ -6,7 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD("2.21")
+local API = library.CreateHUD("2.22")
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -988,6 +988,36 @@ function module.Start()
 					NewNotification.New("GunDrop not found!", 1)
 				end
 			end)
+			local autograb = newwindow.NewToggle("Fast Gun Grab", "", "Premium")
+			autograb.Activated:Connect(function()
+				autograb.Toggle.Value = not autograb.Toggle.Value
+			end)
+
+			local instaShoot = newwindow.NewWindowV2("Instant Shoot Murderer", "", "Premium", function()
+				local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+				local yourData = roles[game.Players.LocalPlayer.Name]
+
+				local murd = findMurderer(roles)
+				if murd and murd.Character and murd.Character:FindFirstChild("HumanoidRootPart") then
+					local target = murd.Character
+
+					local args = {
+						target.HumanoidRootPart.CFrame + Vector3.new(1,0,0),
+						target.PrimaryPart.CFrame
+					}
+
+					local backpackGun = player.Backpack:FindFirstChild("Gun")
+				
+					if backpackGun then
+						backpackGun.Parent = myChar
+					end
+
+					local gun = myChar:FindFirstChild("Gun")
+					if gun then
+						gun.Shoot:FireServer(unpack(args))
+					end
+				end
+			end)
 
 			local premiumGrabberButton = newwindow.NewButton("Fast Gun Grab")
 
@@ -1008,6 +1038,7 @@ function module.Start()
 				end
 			end)
 
+			
 			newwindow.NewTitle("- Fun -", "Premium")
 
 			local flingMurderer = newwindow.NewWindow("Fling Murderer", "", "Premium")
@@ -1040,6 +1071,17 @@ function module.Start()
 
 			task.spawn(function()
 				while task.wait(0.2) do
+					if autograb.Toggle.Value then
+						local gun = workspace:FindFirstChild("GunDrop", true)
+				if gun then
+					firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, gun, 0)
+					task.wait(0.1)
+					local hasGunNow = game.Players.LocalPlayer.Backpack:FindFirstChild("Gun")
+					if hasGunNow then
+						NewNotification.New("Successfuly Grabbed GunDrop!", 1.5)
+					end
+				end
+					end
 					if coinAura.Toggle.Value then
 						local char = game.Players.LocalPlayer.Character
 						if char and char.Parent and  char:FindFirstChild("HumanoidRootPart") then
