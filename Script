@@ -6,7 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 
-local API = library.CreateHUD("2.22.5")
+local API = library.CreateHUD("2.22.67")
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -901,6 +901,14 @@ local function findMurderer(roles)
 	return nil
 end
 
+local function predictPosition(part, ping)
+	local toMS = ping * 10
+	
+	local timeInterval = toMS * 0.405
+
+	return part.Position + part.Velocity * timeInterval
+end
+
 function module.Start()
 
 	local newTab = tab.New("Main")
@@ -1003,9 +1011,11 @@ function module.Start()
 					local target = murd.Character
 					local myChar = player.Character
 
+					local predictedPos = predictPosition(target.PrimaryPart, player:GetNetworkPing())
+
 					local args = {
-						target.HumanoidRootPart.CFrame + Vector3.new(1,0,0),
-						target.PrimaryPart.CFrame
+						target.HumanoidRootPart.CFrame,
+						CFrame.new(predictedPos)
 					}
 
 					local backpackGun = player.Backpack:FindFirstChild("Gun")
@@ -1792,7 +1802,6 @@ end
 
 
 function module.Shoot()
-print(getgenv().Multi)
 	local target = getRoles()
 	if not target or not target.Character then return end
 
