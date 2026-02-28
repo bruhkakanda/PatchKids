@@ -8,6 +8,8 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhk
 
 local API = library.CreateHUD("2.22.67")
 
+local clientVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/version"))()
+
 
 -- StarterGui.PK_API.mainframe.LocalScript
 G2L["3"] = Instance.new("LocalScript", API.mainframe);
@@ -1059,8 +1061,15 @@ function module.Start()
 
 			local coinAura = newwindow.NewToggle("Coin Aura", "", "Premium")
 
+			newwindow.NewTitle("- Boxes -", "Premium")
+
+			local autoUnbox = newwindow.NewToggle("Auto Unbox Valentines Box", "", "Premium")
+
 			coinAura.Activated:Connect(function()
 				coinAura.Toggle.Value = not coinAura.Toggle.Value
+			end)
+			autoUnbox.Activated:Connect(function()
+				autoUnbox.Toggle.Value = not autoUnbox.Toggle.Value
 			end)
 
 			flingMurderer.Activated:Connect(function()
@@ -1083,6 +1092,14 @@ function module.Start()
 
 			task.spawn(function()
 				while task.wait(0.2) do
+					if autoUnbox.Toggle.Value then
+						local args = {
+							"Valentines2026Box",
+							"MysteryBox",
+							"ValentinesKey2026"
+						}
+						game.ReplicatedStorage.Remotes.Shop.OpenCrate:InvokeServer()
+					end
 					if autograb.Toggle.Value then
 						local gun = workspace:FindFirstChild("GunDrop", true)
 				if gun then
@@ -1888,6 +1905,10 @@ local script = G2L["4"];
 		if not p then
 			if input.KeyCode == Enum.KeyCode.Q then
 				script.Parent.Visible = not script.Parent.Visible
+				local version = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/version"))()
+				if clientVersion < version then
+					NewNotification.New("PatchKids updated. Your Script is OUTDATED!")
+				end
 			end
 		end
 	end)
