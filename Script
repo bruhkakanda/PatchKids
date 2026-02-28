@@ -1899,6 +1899,11 @@ local script = G2L["4"];
 	local universal = require(script.Universal)
 	
 	NewNotification.New("Welcome to PatchKids!")
+
+				local version = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/version"))()
+				if clientVersion == version then
+					NewNotification.New("PatchKids is up-to-date.")
+				end
 	
 	UserInputService.InputBegan:Connect(function(input, p)
 		if not p then
