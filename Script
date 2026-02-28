@@ -1956,7 +1956,7 @@ local script = G2L["4"];
 		end)
 
 local cyber = newwindow.NewWindow("Cyber Theme", "", "Settings")
-		space.Activated:Connect(function()
+		cyber.Activated:Connect(function()
 			library:ApplyTheme("Cyber")
 		end)
 	end
