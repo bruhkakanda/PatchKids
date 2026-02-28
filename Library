@@ -41,6 +41,16 @@ Space = {
 		Secondary = Color3.fromRGB(15, 18, 40),
 		Outer = Color3.fromRGB(2, 3, 10),
 		effects = true    
+};
+Cyber = {
+    MainBackground = Color3.fromRGB(10, 10, 25),  
+    Accent         = Color3.fromRGB(0, 255, 200),  
+    Stroke         = Color3.fromRGB(0, 200, 255),    
+    Text           = Color3.fromRGB(180, 255, 255),   
+    Secondary      = Color3.fromRGB(15, 15, 45),     
+    Outer          = Color3.fromRGB(5, 5, 15),       
+    Glow           = Color3.fromRGB(0, 255, 255),    
+    effects        = true                             
 }
 }
 
