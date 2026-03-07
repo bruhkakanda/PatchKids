@@ -1527,15 +1527,54 @@ local function tp()
 	end
 end
 
+local function tpCelestial()
+	-- SHOUTOUT TO GRY_630
+
+	local player = game.Players.LocalPlayer
+
+	local folder = workspace.ItemSpawners:GetDescendants()
+	for _, v in folder do
+		if v:IsA("Model") then
+			local root = v.PrimaryPart
+			if not root then continue end
+
+			local prompt = root:FindFirstChild("PickupPrompt")
+			if not prompt then continue end
+			local char = player.Character
+			if not char:FindFirstChild("HumanoidRootPart") then continue end
+			local board = v:FindFirstChild("InfoGUI")
+			if not board then continue end
+			local mutation = board.TextLabels.Mutation
+			if mutation.Text ~= "Celestial" then continue end
+
+			prompt.HoldDuration = 0
+
+			char:PivotTo(root.CFrame)
+
+			task.wait(0.3)
+
+			fireproximityprompt(prompt)
+
+			task.wait(0.1)
+			char:PivotTo(CFrame.new(0,0,0))
+
+			task.wait(0.5)
+		end
+	end
+end
+
 function module.Start()
 
 	local newTab = tab.New("Main")
+newwindow.NewTitle("Grabber", "Main")
 	local get = newwindow.NewWindow("Get all Experiments", "", "Main")
-	
+	local getC = newwindow.NewWindow("Get all celestials", "", "Main")
+	local cButton = newwindow.NewButton("Get all celestials")
 
-	get.Activated:Connect(function()
-		tp()
-	end)
+	get.Activated:Connect(tp)
+
+	cButton.Activated:Connect(tpCelestial)
+	getC.Activated:Connect(tpCelestial)
 end
 
 return module
