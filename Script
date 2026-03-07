@@ -271,6 +271,8 @@ G2L["38"]["Name"] = [[94373736738199]];
 -- StarterGui.PK_API.mainframe.Loader.Gamesloader.75084962946572
 G2L["385"] = Instance.new("ModuleScript", G2L["35"]);
 G2L["385"]["Name"] = [[75084962946572]];
+G2L["PPT"] = Instance.new("ModuleScript", G2L["35"]);
+G2L["PPT"]["Name"] = [[125229766573493]];
 
 
 -- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291
@@ -1480,6 +1482,67 @@ return module
 end;
 };
 
+G2L_MODULES[G2L["PPT"]] = {
+Closure = function()
+    local script = G2L["PPT"];local newwindow = require(script.Parent.Parent.NewWindow)
+local NewNotification = require(script.Parent.Parent.NewNotification)
+local tab = require(script.Parent.Parent.NewTab)
+
+-- Esp Stuff
+local Rep = game.ReplicatedStorage
+-- End
+-- Cham Stuff
+
+local module = {}
+
+local function tp()
+	-- SHOUTOUT TO GRY_630
+
+	local player = game.Players.LocalPlayer
+
+	local folder = workspace.ItemSpawners.Experiments:GetChildren()
+	for _, v in folder do
+		if v:IsA("Model") then
+			local root = v.PrimaryPart
+			if not root then continue end
+
+			local prompt = root:FindFirstChild("PickupPrompt")
+			if not prompt then continue end
+			local char = player.Character
+			if not char:FindFirstChild("HumanoidRootPart") then continue end
+
+			prompt.HoldDuration = 0
+
+			char:PivotTo(root.CFrame)
+
+			task.wait(0.3)
+
+			fireproximityprompt(prompt)
+
+			task.wait(0.1)
+			char:PivotTo(CFrame.new(0,0,0))
+
+			task.wait(0.5)
+		end
+	end
+end
+
+function module.Start()
+
+	local newTab = tab.New("Main")
+	local get = newwindow.NewWindow("Get all Experiments", "", "Main")
+	
+
+	get.Activated:Connect(function()
+		tp()
+	end)
+end
+
+return module
+end;
+};
+
+
 G2L_MODULES[G2L["3a"]] = {
 Closure = function()
     local script = G2L["3a"];local module = {Toggle = false}
@@ -2085,7 +2148,6 @@ local script = G2L["5f"];
 			game.TweenService:Create(c.TextBox.UIScale,TweenInfo.new(0),{Scale = 0}):Play()
 			game.TweenService:Create(c.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
 			m.New("Correct key!",2)
-			m.New("Welcome " .. game.Players.LocalPlayer.DisplayName .. "!",2)
 			game.TweenService:Create(script.Parent.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
 			wait(.1)
 			game.TweenService:Create(script.Parent.Parent.mainframe.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
