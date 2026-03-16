@@ -5,7 +5,7 @@ local lockedButtons = false
 local UserInputService = game:GetService("UserInputService")
 local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
-
+print("library never failed to load - just useless info")
 local clientVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/version"))()
 local API = library.CreateHUD(tostring(clientVersion))
 
