@@ -1,5 +1,4 @@
---// New Library \\--
-local library = {} --T
+local library = {}
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 
@@ -59,13 +58,6 @@ library.Themes = {
 
 library.CurrentTheme = library.Themes.Default
 
--- ─────────────────────────────────────────────
---  THEME HELPERS
--- ─────────────────────────────────────────────
-
--- Resolves a theme key; "Surface" and "TextMuted"
--- are synthetic keys derived from existing colors
--- so no theme tables need to change.
 local function themeGet(key)
     local t = library.CurrentTheme
     if t[key] then return t[key] end
@@ -107,9 +99,6 @@ function library:RegisterTheme(instance, property, key)
     instance[property] = themeGet(key)
 end
 
--- ─────────────────────────────────────────────
---  PARTICLES  (unchanged from original)
--- ─────────────────────────────────────────────
 function library:AddParticles()
     if not library.CurrentTheme.effects then return end
     local UI = library.CreatedUI
