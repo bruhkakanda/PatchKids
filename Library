@@ -6,254 +6,254 @@ library.DraggingEnabled = true
 library.CreatedUI = nil
 
 library.Themes = {
-    Default = {
-        MainBackground = Color3.fromRGB(0, 0, 0),
-        Accent         = Color3.fromRGB(132, 171, 255),
-        Text           = Color3.fromRGB(255, 255, 255),
-        Secondary      = Color3.fromRGB(84, 84, 84),
-        Stroke         = Color3.fromRGB(255, 255, 255),
-        Outer          = Color3.fromRGB(0, 0, 0),
-    },
+	Default = {
+		MainBackground = Color3.fromRGB(0, 0, 0),
+		Accent         = Color3.fromRGB(132, 171, 255),
+		Text           = Color3.fromRGB(255, 255, 255),
+		Secondary      = Color3.fromRGB(84, 84, 84),
+		Stroke         = Color3.fromRGB(255, 255, 255),
+		Outer          = Color3.fromRGB(0, 0, 0),
+	},
 
-    Valentines = {
-        MainBackground = Color3.fromRGB(255, 182, 193),
-        Accent         = Color3.fromRGB(255, 105, 180),
-        Text           = Color3.fromRGB(255, 255, 255),
-        Secondary      = Color3.fromRGB(199, 21, 133),
-        Stroke         = Color3.fromRGB(255, 105, 180),
-        Outer          = Color3.fromRGB(255, 105, 180),
-    },
+	Valentines = {
+		MainBackground = Color3.fromRGB(255, 182, 193),
+		Accent         = Color3.fromRGB(255, 105, 180),
+		Text           = Color3.fromRGB(255, 255, 255),
+		Secondary      = Color3.fromRGB(199, 21, 133),
+		Stroke         = Color3.fromRGB(255, 105, 180),
+		Outer          = Color3.fromRGB(255, 105, 180),
+	},
 
-    Ocean = {
-        MainBackground = Color3.fromRGB(18, 45, 76),
-        Accent         = Color3.fromRGB(0, 168, 232),
-        Text           = Color3.fromRGB(224, 247, 255),
-        Secondary      = Color3.fromRGB(0, 119, 182),
-        Stroke         = Color3.fromRGB(173, 216, 230),
-        Outer          = Color3.fromRGB(5, 20, 40),
-        effects        = true,
-    },
+	Ocean = {
+		MainBackground = Color3.fromRGB(18, 45, 76),
+		Accent         = Color3.fromRGB(0, 168, 232),
+		Text           = Color3.fromRGB(224, 247, 255),
+		Secondary      = Color3.fromRGB(0, 119, 182),
+		Stroke         = Color3.fromRGB(173, 216, 230),
+		Outer          = Color3.fromRGB(5, 20, 40),
+		effects        = true,
+	},
 
-    Space = {
-        MainBackground = Color3.fromRGB(4, 6, 15),
-        Accent         = Color3.fromRGB(90, 110, 160),
-        Stroke         = Color3.fromRGB(130, 150, 200),
-        Text           = Color3.fromRGB(220, 225, 240),
-        Secondary      = Color3.fromRGB(15, 18, 40),
-        Outer          = Color3.fromRGB(2, 3, 10),
-        effects        = true,
-    },
+	Space = {
+		MainBackground = Color3.fromRGB(4, 6, 15),
+		Accent         = Color3.fromRGB(90, 110, 160),
+		Stroke         = Color3.fromRGB(130, 150, 200),
+		Text           = Color3.fromRGB(220, 225, 240),
+		Secondary      = Color3.fromRGB(15, 18, 40),
+		Outer          = Color3.fromRGB(2, 3, 10),
+		effects        = true,
+	},
 
-    Cyber = {
-        MainBackground = Color3.fromRGB(10, 10, 25),
-        Accent         = Color3.fromRGB(0, 255, 200),
-        Stroke         = Color3.fromRGB(0, 200, 255),
-        Text           = Color3.fromRGB(180, 255, 255),
-        Secondary      = Color3.fromRGB(15, 15, 45),
-        Outer          = Color3.fromRGB(5, 5, 15),
-        Glow           = Color3.fromRGB(0, 255, 255),
-        effects        = true,
-    },
+	Cyber = {
+		MainBackground = Color3.fromRGB(10, 10, 25),
+		Accent         = Color3.fromRGB(0, 255, 200),
+		Stroke         = Color3.fromRGB(0, 200, 255),
+		Text           = Color3.fromRGB(180, 255, 255),
+		Secondary      = Color3.fromRGB(15, 15, 45),
+		Outer          = Color3.fromRGB(5, 5, 15),
+		Glow           = Color3.fromRGB(0, 255, 255),
+		effects        = true,
+	},
 }
 
 library.CurrentTheme = library.Themes.Default
 
 local function themeGet(key)
-    local t = library.CurrentTheme
-    if t[key] then return t[key] end
-    if key == "Surface" then
-        local c = t.MainBackground
-        return Color3.new(math.clamp(c.R + 0.06, 0, 1), math.clamp(c.G + 0.06, 0, 1), math.clamp(c.B + 0.06, 0, 1))
-    end
-    if key == "TextMuted" then
-        local c = t.Text
-        return Color3.new(c.R * 0.5, c.G * 0.5, c.B * 0.5)
-    end
-    return Color3.fromRGB(255, 255, 255)
+	local t = library.CurrentTheme
+	if t[key] then return t[key] end
+	if key == "Surface" then
+		local c = t.MainBackground
+		return Color3.new(math.clamp(c.R + 0.06, 0, 1), math.clamp(c.G + 0.06, 0, 1), math.clamp(c.B + 0.06, 0, 1))
+	end
+	if key == "TextMuted" then
+		local c = t.Text
+		return Color3.new(c.R * 0.5, c.G * 0.5, c.B * 0.5)
+	end
+	return Color3.fromRGB(255, 255, 255)
 end
 
 function library:SetTheme(themeName)
-    local theme = library.Themes[themeName]
-    if theme then library.CurrentTheme = theme else return false end
+	local theme = library.Themes[themeName]
+	if theme then library.CurrentTheme = theme else return false end
 end
 
 function library:ApplyTheme(themeName)
-    local theme = library.Themes[themeName]
-    if not theme then warn("Theme not found:", themeName) return end
-    if not library.CreatedUI then return end
-    library.CurrentTheme = theme
-    for _, item in library.CreatedUI:GetDescendants() do
-        if item:HasTag("Added") then
-            local property = item:GetAttribute("Property")
-            local key      = item:GetAttribute("Key")
-            if property and key then item[property] = themeGet(key) end
-        end
-    end
-    library:AddParticles()
+	local theme = library.Themes[themeName]
+	if not theme then warn("Theme not found:", themeName) return end
+	if not library.CreatedUI then return end
+	library.CurrentTheme = theme
+	for _, item in library.CreatedUI:GetDescendants() do
+		if item:HasTag("Added") then
+			local property = item:GetAttribute("Property")
+			local key      = item:GetAttribute("Key")
+			if property and key then item[property] = themeGet(key) end
+		end
+	end
+	library:AddParticles()
 end
 
 function library:RegisterTheme(instance, property, key)
-    instance:SetAttribute("Key", key)
-    instance:SetAttribute("Property", property)
-    instance:AddTag("Added")
-    instance[property] = themeGet(key)
+	instance:SetAttribute("Key", key)
+	instance:SetAttribute("Property", property)
+	instance:AddTag("Added")
+	instance[property] = themeGet(key)
 end
 
 function library:AddParticles()
-    if not library.CurrentTheme.effects then return end
-    local UI = library.CreatedUI
-    if not UI then return end
-    local MainFrame = UI:FindFirstChild("mainframe")
-    if not MainFrame then return end
-    if MainFrame:FindFirstChild("ThemeParticles") then return end
+	if not library.CurrentTheme.effects then return end
+	local UI = library.CreatedUI
+	if not UI then return end
+	local MainFrame = UI:FindFirstChild("mainframe")
+	if not MainFrame then return end
+	if MainFrame:FindFirstChild("ThemeParticles") then return end
 
-    local ParticleFolder = Instance.new("Folder")
-    ParticleFolder.Name   = "ThemeParticles"
-    ParticleFolder.Parent = MainFrame
+	local ParticleFolder = Instance.new("Folder")
+	ParticleFolder.Name   = "ThemeParticles"
+	ParticleFolder.Parent = MainFrame
 
-    local particles    = {}
-    local themeColors  = {}
-    for _, value in pairs(library.CurrentTheme) do
-        if typeof(value) == "Color3" then table.insert(themeColors, value) end
-    end
-    if #themeColors == 0 then return end
+	local particles    = {}
+	local themeColors  = {}
+	for _, value in pairs(library.CurrentTheme) do
+		if typeof(value) == "Color3" then table.insert(themeColors, value) end
+	end
+	if #themeColors == 0 then return end
 
-    local function brighten(color)
-        return Color3.new(math.clamp(color.R*1.3,0,1), math.clamp(color.G*1.3,0,1), math.clamp(color.B*1.3,0,1))
-    end
+	local function brighten(color)
+		return Color3.new(math.clamp(color.R*1.3,0,1), math.clamp(color.G*1.3,0,1), math.clamp(color.B*1.3,0,1))
+	end
 
-    for i = 1, 35 do
-        local star = Instance.new("Frame")
-        star.Size = UDim2.fromOffset(math.random(2,4), math.random(2,4))
-        star.BorderSizePixel = 0
-        star.AnchorPoint = Vector2.new(0,0)
-        star.Parent = ParticleFolder
-        star.BackgroundColor3 = brighten(themeColors[math.random(1,#themeColors)])
-        star.BackgroundTransparency = math.random()
-        local corner = Instance.new("UICorner"); corner.CornerRadius = UDim.new(1,0); corner.Parent = star
-        local absSize = MainFrame.AbsoluteSize
-        local startPos = Vector2.new(math.random(0,absSize.X), math.random(0,absSize.Y))
-        star.Position = UDim2.fromOffset(startPos.X, startPos.Y)
-        particles[#particles+1] = {
-            Instance = star, Position = startPos,
-            Speed = Vector2.new((math.random()-0.5)*20, (math.random()-0.5)*20),
-            TwinkleOffset = math.random()*math.pi*2,
-        }
-    end
+	for i = 1, 35 do
+		local star = Instance.new("Frame")
+		star.Size = UDim2.fromOffset(math.random(2,4), math.random(2,4))
+		star.BorderSizePixel = 0
+		star.AnchorPoint = Vector2.new(0,0)
+		star.Parent = ParticleFolder
+		star.BackgroundColor3 = brighten(themeColors[math.random(1,#themeColors)])
+		star.BackgroundTransparency = math.random()
+		local corner = Instance.new("UICorner"); corner.CornerRadius = UDim.new(1,0); corner.Parent = star
+		local absSize = MainFrame.AbsoluteSize
+		local startPos = Vector2.new(math.random(0,absSize.X), math.random(0,absSize.Y))
+		star.Position = UDim2.fromOffset(startPos.X, startPos.Y)
+		particles[#particles+1] = {
+			Instance = star, Position = startPos,
+			Speed = Vector2.new((math.random()-0.5)*20, (math.random()-0.5)*20),
+			TwinkleOffset = math.random()*math.pi*2,
+		}
+	end
 
-    local connection
-    connection = RunService.RenderStepped:Connect(function(dt)
-        if not library.CurrentTheme.effects or not MainFrame.Parent then
-            connection:Disconnect(); ParticleFolder:Destroy(); return
-        end
-        local absSize = MainFrame.AbsoluteSize
-        for _, p in ipairs(particles) do
-            local star = p.Instance
-            if star then
-                p.Position += p.Speed * dt
-                if p.Position.X <= 0 or p.Position.X >= absSize.X then p.Speed = Vector2.new(-p.Speed.X, p.Speed.Y) end
-                if p.Position.Y <= 0 or p.Position.Y >= absSize.Y then p.Speed = Vector2.new(p.Speed.X, -p.Speed.Y) end
-                p.Position = Vector2.new(math.clamp(p.Position.X,0,absSize.X), math.clamp(p.Position.Y,0,absSize.Y))
-                star.Position = UDim2.fromOffset(p.Position.X, p.Position.Y)
-                star.BackgroundTransparency = 0.4 + math.sin(tick()*2 + p.TwinkleOffset)*0.25
-            end
-        end
-    end)
+	local connection
+	connection = RunService.RenderStepped:Connect(function(dt)
+		if not library.CurrentTheme.effects or not MainFrame.Parent then
+			connection:Disconnect(); ParticleFolder:Destroy(); return
+		end
+		local absSize = MainFrame.AbsoluteSize
+		for _, p in ipairs(particles) do
+			local star = p.Instance
+			if star then
+				p.Position += p.Speed * dt
+				if p.Position.X <= 0 or p.Position.X >= absSize.X then p.Speed = Vector2.new(-p.Speed.X, p.Speed.Y) end
+				if p.Position.Y <= 0 or p.Position.Y >= absSize.Y then p.Speed = Vector2.new(p.Speed.X, -p.Speed.Y) end
+				p.Position = Vector2.new(math.clamp(p.Position.X,0,absSize.X), math.clamp(p.Position.Y,0,absSize.Y))
+				star.Position = UDim2.fromOffset(p.Position.X, p.Position.Y)
+				star.BackgroundTransparency = 0.4 + math.sin(tick()*2 + p.TwinkleOffset)*0.25
+			end
+		end
+	end)
 end
 
 -- ─────────────────────────────────────────────
 --  DRAG SYSTEM  (unchanged from original)
 -- ─────────────────────────────────────────────
 function library.AddDraggingTo(frame, storeTo, id)
-    assert(typeof(storeTo)=="table","storeTo must be a table")
-    assert(id~=nil,"Drag ID is required")
-    if storeTo[id] then library.RemoveDrag(storeTo,id) end
-    local d = {dragging=false,dragInput=nil,dragStart=nil,startPos=nil,connections={}}
-    local function update(pos)
-        if not library.DraggingEnabled or not d.dragging then return end
-        local delta = pos - d.dragStart
-        frame.Position = UDim2.new(d.startPos.X.Scale, d.startPos.X.Offset+delta.X, d.startPos.Y.Scale, d.startPos.Y.Offset+delta.Y)
-    end
-    d.connections.began = frame.InputBegan:Connect(function(input)
-        if not library.DraggingEnabled then return end
-        if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then
-            d.dragging=true; d.dragInput=input; d.dragStart=input.Position; d.startPos=frame.Position
-            d.connections.touchMove = input.Changed:Connect(function()
-                if input.UserInputState==Enum.UserInputState.Change then update(input.Position) end
-            end)
-        end
-    end)
-    d.connections.mouseMove = UserInputService.InputChanged:Connect(function(input)
-        if input.UserInputType==Enum.UserInputType.MouseMovement then update(input.Position) end
-    end)
-    d.connections.ended = frame.InputEnded:Connect(function(input)
-        if input==d.dragInput then d.dragging=false; d.dragInput=nil
-            if d.connections.touchMove then d.connections.touchMove:Disconnect(); d.connections.touchMove=nil end
-        end
-    end)
-    storeTo[id] = d
+	assert(typeof(storeTo)=="table","storeTo must be a table")
+	assert(id~=nil,"Drag ID is required")
+	if storeTo[id] then library.RemoveDrag(storeTo,id) end
+	local d = {dragging=false,dragInput=nil,dragStart=nil,startPos=nil,connections={}}
+	local function update(pos)
+		if not library.DraggingEnabled or not d.dragging then return end
+		local delta = pos - d.dragStart
+		frame.Position = UDim2.new(d.startPos.X.Scale, d.startPos.X.Offset+delta.X, d.startPos.Y.Scale, d.startPos.Y.Offset+delta.Y)
+	end
+	d.connections.began = frame.InputBegan:Connect(function(input)
+		if not library.DraggingEnabled then return end
+		if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then
+			d.dragging=true; d.dragInput=input; d.dragStart=input.Position; d.startPos=frame.Position
+			d.connections.touchMove = input.Changed:Connect(function()
+				if input.UserInputState==Enum.UserInputState.Change then update(input.Position) end
+			end)
+		end
+	end)
+	d.connections.mouseMove = UserInputService.InputChanged:Connect(function(input)
+		if input.UserInputType==Enum.UserInputType.MouseMovement then update(input.Position) end
+	end)
+	d.connections.ended = frame.InputEnded:Connect(function(input)
+		if input==d.dragInput then d.dragging=false; d.dragInput=nil
+			if d.connections.touchMove then d.connections.touchMove:Disconnect(); d.connections.touchMove=nil end
+		end
+	end)
+	storeTo[id] = d
 end
 
 function library.AddDraggingTo2(toDrag, frame, storeTo, id)
-    assert(typeof(storeTo)=="table","storeTo must be a table")
-    assert(id~=nil,"Drag ID is required")
-    if storeTo[id] then library.RemoveDrag(storeTo,id) end
-    local d = {dragging=false,dragInput=nil,dragStart=nil,startPos=nil,connections={}}
-    local function update(pos)
-        if not d.dragging then return end
-        local delta = pos - d.dragStart
-        frame.Position = UDim2.new(d.startPos.X.Scale, d.startPos.X.Offset+delta.X, d.startPos.Y.Scale, d.startPos.Y.Offset+delta.Y)
-    end
-    d.connections.began = toDrag.InputBegan:Connect(function(input)
-        if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then
-            d.dragging=true; d.dragInput=input; d.dragStart=input.Position; d.startPos=frame.Position
-            if input.UserInputType==Enum.UserInputType.Touch then
-                d.connections.touchMove = input.Changed:Connect(function()
-                    if input.UserInputState==Enum.UserInputState.Change then update(input.Position) end
-                end)
-            end
-        end
-    end)
-    d.connections.mouseMove = UserInputService.InputChanged:Connect(function(input)
-        if input.UserInputType==Enum.UserInputType.MouseMovement and d.dragging and d.dragInput and d.dragInput.UserInputType==Enum.UserInputType.MouseButton1 then
-            update(input.Position)
-        end
-    end)
-    d.connections.ended = UserInputService.InputEnded:Connect(function(input)
-        if input==d.dragInput then d.dragging=false; d.dragInput=nil
-            if d.connections.touchMove then d.connections.touchMove:Disconnect(); d.connections.touchMove=nil end
-        end
-    end)
-    storeTo[id] = d
+	assert(typeof(storeTo)=="table","storeTo must be a table")
+	assert(id~=nil,"Drag ID is required")
+	if storeTo[id] then library.RemoveDrag(storeTo,id) end
+	local d = {dragging=false,dragInput=nil,dragStart=nil,startPos=nil,connections={}}
+	local function update(pos)
+		if not d.dragging then return end
+		local delta = pos - d.dragStart
+		frame.Position = UDim2.new(d.startPos.X.Scale, d.startPos.X.Offset+delta.X, d.startPos.Y.Scale, d.startPos.Y.Offset+delta.Y)
+	end
+	d.connections.began = toDrag.InputBegan:Connect(function(input)
+		if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then
+			d.dragging=true; d.dragInput=input; d.dragStart=input.Position; d.startPos=frame.Position
+			if input.UserInputType==Enum.UserInputType.Touch then
+				d.connections.touchMove = input.Changed:Connect(function()
+					if input.UserInputState==Enum.UserInputState.Change then update(input.Position) end
+				end)
+			end
+		end
+	end)
+	d.connections.mouseMove = UserInputService.InputChanged:Connect(function(input)
+		if input.UserInputType==Enum.UserInputType.MouseMovement and d.dragging and d.dragInput and d.dragInput.UserInputType==Enum.UserInputType.MouseButton1 then
+			update(input.Position)
+		end
+	end)
+	d.connections.ended = UserInputService.InputEnded:Connect(function(input)
+		if input==d.dragInput then d.dragging=false; d.dragInput=nil
+			if d.connections.touchMove then d.connections.touchMove:Disconnect(); d.connections.touchMove=nil end
+		end
+	end)
+	storeTo[id] = d
 end
 
 function library.RemoveDrag(storeTo, id)
-    local dragData = storeTo[id]
-    if not dragData then return end
-    for _, connection in pairs(dragData.connections) do
-        if connection and connection.Disconnect then connection:Disconnect() end
-    end
-    storeTo[id] = nil
+	local dragData = storeTo[id]
+	if not dragData then return end
+	for _, connection in pairs(dragData.connections) do
+		if connection and connection.Disconnect then connection:Disconnect() end
+	end
+	storeTo[id] = nil
 end
 
 function library.ToggleDragging()
-    library.DraggingEnabled = not library.DraggingEnabled
+	library.DraggingEnabled = not library.DraggingEnabled
 end
 
 -- ─────────────────────────────────────────────
 --  INTERNAL HELPERS
 -- ─────────────────────────────────────────────
 local function Corner(parent, radius)
-    local c = Instance.new("UICorner", parent); c.CornerRadius = UDim.new(0, radius or 6); return c
+	local c = Instance.new("UICorner", parent); c.CornerRadius = UDim.new(0, radius or 6); return c
 end
 local function Padding(parent, top, bottom, left, right)
-    local p = Instance.new("UIPadding", parent)
-    p.PaddingTop=UDim.new(0,top or 0); p.PaddingBottom=UDim.new(0,bottom or 0)
-    p.PaddingLeft=UDim.new(0,left or 0); p.PaddingRight=UDim.new(0,right or 0)
+	local p = Instance.new("UIPadding", parent)
+	p.PaddingTop=UDim.new(0,top or 0); p.PaddingBottom=UDim.new(0,bottom or 0)
+	p.PaddingLeft=UDim.new(0,left or 0); p.PaddingRight=UDim.new(0,right or 0)
 end
 local function Stroke(parent, thickness, transparency)
-    local s = Instance.new("UIStroke", parent)
-    s.Thickness=thickness or 1; s.Transparency=transparency or 0; return s
+	local s = Instance.new("UIStroke", parent)
+	s.Thickness=thickness or 1; s.Transparency=transparency or 0; return s
 end
 
 -- ─────────────────────────────────────────────
@@ -264,126 +264,126 @@ end
 --  On (G2L["1b"]), UIStroke (G2L["1e"])
 -- ─────────────────────────────────────────────
 library.CreateToggle = function()
-    local G2L = {}
+	local G2L = {}
 
-    -- Outer row (was the old solid frame, now transparent wrapper)
-    G2L["d"] = Instance.new("Frame")
-    G2L["d"].Name = "TemplateToggle"
-    G2L["d"].Size = UDim2.new(0.6719, 0, 0.1284, 0)
-    G2L["d"].Position = UDim2.new(0.16405, 0, 0.20494, 0)
-    G2L["d"].BorderSizePixel = 0
-    G2L["d"].BackgroundTransparency = 1   -- card handles background now
+	-- Outer row (was the old solid frame, now transparent wrapper)
+	G2L["d"] = Instance.new("Frame")
+	G2L["d"].Name = "TemplateToggle"
+	G2L["d"].Size = UDim2.new(0.6719, 0, 0.1284, 0)
+	G2L["d"].Position = UDim2.new(0.16405, 0, 0.20494, 0)
+	G2L["d"].BorderSizePixel = 0
+	G2L["d"].BackgroundTransparency = 1   -- card handles background now
 
-    -- Card surface (new — sits inside the row)
-    local card = Instance.new("Frame", G2L["d"])
-    card.Name = "Card"
-    card.Size = UDim2.new(1, 0, 1, 0)
-    card.BorderSizePixel = 0
-    library:RegisterTheme(card, "BackgroundColor3", "Secondary")
-    card.BackgroundTransparency = 0.45
-    Corner(card, 8)
-    Padding(card, 0, 0, 10, 10)
+	-- Card surface (new — sits inside the row)
+	local card = Instance.new("Frame", G2L["d"])
+	card.Name = "Card"
+	card.Size = UDim2.new(1, 0, 1, 0)
+	card.BorderSizePixel = 0
+	library:RegisterTheme(card, "BackgroundColor3", "Secondary")
+	card.BackgroundTransparency = 0.45
+	Corner(card, 8)
+	Padding(card, 0, 0, 10, 10)
 
-    -- UIStroke on the outer row (G2L["1e"], Name & key preserved)
-    G2L["1e"] = Instance.new("UIStroke", G2L["d"])
-    G2L["1e"].Thickness = 1
-    G2L["1e"].Transparency = 0.55
-    library:RegisterTheme(G2L["1e"], "Color", "Stroke")
+	-- UIStroke on the outer row (G2L["1e"], Name & key preserved)
+	G2L["1e"] = Instance.new("UIStroke", G2L["d"])
+	G2L["1e"].Thickness = 1
+	G2L["1e"].Transparency = 0.55
+	library:RegisterTheme(G2L["1e"], "Color", "Stroke")
 
-    -- Title (G2L["10"])
-    G2L["10"] = Instance.new("TextLabel", card)
-    G2L["10"].Name = "Title"
-    G2L["10"].TextWrapped = true
-    G2L["10"].BorderSizePixel = 0
-    G2L["10"].TextScaled = true
-    G2L["10"].BackgroundTransparency = 1
-    G2L["10"].Size = UDim2.new(0.6962, 0, 1, 0)
-    G2L["10"].Position = UDim2.new(0, 0, 0, 0)
-    G2L["10"].TextXAlignment = Enum.TextXAlignment.Left
-    G2L["10"].Text = "Autofarm"
-    G2L["10"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["10"], "TextColor3", "Text")
+	-- Title (G2L["10"])
+	G2L["10"] = Instance.new("TextLabel", card)
+	G2L["10"].Name = "Title"
+	G2L["10"].TextWrapped = true
+	G2L["10"].BorderSizePixel = 0
+	G2L["10"].TextScaled = true
+	G2L["10"].BackgroundTransparency = 1
+	G2L["10"].Size = UDim2.new(0.6962, 0, 1, 0)
+	G2L["10"].Position = UDim2.new(0, 0, 0, 0)
+	G2L["10"].TextXAlignment = Enum.TextXAlignment.Left
+	G2L["10"].Text = "Autofarm"
+	G2L["10"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["10"], "TextColor3", "Text")
 
-    -- Desc (G2L["f"])
-    G2L["f"] = Instance.new("TextLabel", card)
-    G2L["f"].Name = "Desc"
-    G2L["f"].TextWrapped = true
-    G2L["f"].BorderSizePixel = 0
-    G2L["f"].TextScaled = true
-    G2L["f"].BackgroundTransparency = 1
-    G2L["f"].Size = UDim2.new(0.45195, 0, 0.48077, 0)
-    G2L["f"].Visible = false
-    G2L["f"].Text = "Autofarm"
-    G2L["f"].Position = UDim2.new(0.02078, 0, 0.51923, 0)
-    G2L["f"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["f"], "TextColor3", "Text")
+	-- Desc (G2L["f"])
+	G2L["f"] = Instance.new("TextLabel", card)
+	G2L["f"].Name = "Desc"
+	G2L["f"].TextWrapped = true
+	G2L["f"].BorderSizePixel = 0
+	G2L["f"].TextScaled = true
+	G2L["f"].BackgroundTransparency = 1
+	G2L["f"].Size = UDim2.new(0.45195, 0, 0.48077, 0)
+	G2L["f"].Visible = false
+	G2L["f"].Text = "Autofarm"
+	G2L["f"].Position = UDim2.new(0.02078, 0, 0.51923, 0)
+	G2L["f"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["f"], "TextColor3", "Text")
 
-    -- ExecuteString (G2L["11"])
-    G2L["11"] = Instance.new("TextLabel", card)
-    G2L["11"].Name = "ExecuteString"
-    G2L["11"].TextWrapped = true
-    G2L["11"].BorderSizePixel = 0
-    G2L["11"].TextScaled = true
-    G2L["11"].BackgroundTransparency = 1
-    G2L["11"].Size = UDim2.new(0.45195, 0, 0.48077, 0)
-    G2L["11"].Visible = false
-    G2L["11"].Text = "Autofarm"
-    G2L["11"].Position = UDim2.new(0.02078, 0, 0.51923, 0)
+	-- ExecuteString (G2L["11"])
+	G2L["11"] = Instance.new("TextLabel", card)
+	G2L["11"].Name = "ExecuteString"
+	G2L["11"].TextWrapped = true
+	G2L["11"].BorderSizePixel = 0
+	G2L["11"].TextScaled = true
+	G2L["11"].BackgroundTransparency = 1
+	G2L["11"].Size = UDim2.new(0.45195, 0, 0.48077, 0)
+	G2L["11"].Visible = false
+	G2L["11"].Text = "Autofarm"
+	G2L["11"].Position = UDim2.new(0.02078, 0, 0.51923, 0)
 
-    -- Execute pill (G2L["12"])
-    G2L["12"] = Instance.new("TextButton", card)
-    G2L["12"].Name = "Execute"
-    G2L["12"].TextWrapped = true
-    G2L["12"].BorderSizePixel = 0
-    G2L["12"].TextScaled = true
-    G2L["12"].TextColor3 = Color3.fromRGB(255, 255, 255)
-    G2L["12"].Size = UDim2.new(0.18336, 0, 0.74407, 0)
-    G2L["12"].Position = UDim2.new(0.73766, 0, 0.10622, 0)
-    G2L["12"].Text = ""
-    library:RegisterTheme(G2L["12"], "BackgroundColor3", "Secondary")
-    G2L["12"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-    Corner(G2L["12"], 99)   -- full pill
-    Stroke(G2L["12"], 1, 0.5):Color3 = Color3.new() -- themed below
-    local pillStroke = Stroke(G2L["12"], 1, 0.55)
-    library:RegisterTheme(pillStroke, "Color", "Stroke")
+	-- Execute pill (G2L["12"])
+	G2L["12"] = Instance.new("TextButton", card)
+	G2L["12"].Name = "Execute"
+	G2L["12"].TextWrapped = true
+	G2L["12"].BorderSizePixel = 0
+	G2L["12"].TextScaled = true
+	G2L["12"].TextColor3 = Color3.fromRGB(255, 255, 255)
+	G2L["12"].Size = UDim2.new(0.18336, 0, 0.74407, 0)
+	G2L["12"].Position = UDim2.new(0.73766, 0, 0.10622, 0)
+	G2L["12"].Text = ""
+	library:RegisterTheme(G2L["12"], "BackgroundColor3", "Secondary")
+	G2L["12"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+	Corner(G2L["12"], 99)   -- full pill
+	Stroke(G2L["12"], 1, 0.5)
+	local pillStroke = Stroke(G2L["12"], 1, 0.55)
+	library:RegisterTheme(pillStroke, "Color", "Stroke")
 
-    -- Toggle BoolValue (G2L["17"])
-    G2L["17"] = Instance.new("BoolValue", G2L["12"])
-    G2L["17"].Name = "Toggle"
+	-- Toggle BoolValue (G2L["17"])
+	G2L["17"] = Instance.new("BoolValue", G2L["12"])
+	G2L["17"].Name = "Toggle"
 
-    -- Red indicator frame (G2L["14"], original position)
-    G2L["14"] = Instance.new("Frame", G2L["12"])
-    G2L["14"].BorderSizePixel = 0
-    G2L["14"].BackgroundColor3 = Color3.fromRGB(255, 39, 39)
-    G2L["14"].Size = UDim2.new(1.2, 0, 1.2, 0)
-    G2L["14"].Position = UDim2.new(0, 0, -0.1052, 0)
-    Corner(G2L["14"], 99)
-    Instance.new("UIAspectRatioConstraint", G2L["14"])
+	-- Red indicator frame (G2L["14"], original position)
+	G2L["14"] = Instance.new("Frame", G2L["12"])
+	G2L["14"].BorderSizePixel = 0
+	G2L["14"].BackgroundColor3 = Color3.fromRGB(255, 39, 39)
+	G2L["14"].Size = UDim2.new(1.2, 0, 1.2, 0)
+	G2L["14"].Position = UDim2.new(0, 0, -0.1052, 0)
+	Corner(G2L["14"], 99)
+	Instance.new("UIAspectRatioConstraint", G2L["14"])
 
-    -- Off knob (G2L["18"])
-    G2L["18"] = Instance.new("Frame", G2L["12"])
-    G2L["18"].Name = "Off"
-    G2L["18"].Visible = false
-    G2L["18"].BorderSizePixel = 0
-    G2L["18"].BackgroundColor3 = Color3.fromRGB(200, 200, 200)
-    G2L["18"].Size = UDim2.new(1.2, 0, 1.2, 0)
-    G2L["18"].Position = UDim2.new(0, 0, -0.1052, 0)
-    Corner(G2L["18"], 99)
-    Instance.new("UIAspectRatioConstraint", G2L["18"])
+	-- Off knob (G2L["18"])
+	G2L["18"] = Instance.new("Frame", G2L["12"])
+	G2L["18"].Name = "Off"
+	G2L["18"].Visible = false
+	G2L["18"].BorderSizePixel = 0
+	G2L["18"].BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+	G2L["18"].Size = UDim2.new(1.2, 0, 1.2, 0)
+	G2L["18"].Position = UDim2.new(0, 0, -0.1052, 0)
+	Corner(G2L["18"], 99)
+	Instance.new("UIAspectRatioConstraint", G2L["18"])
 
-    -- On knob (G2L["1b"])
-    G2L["1b"] = Instance.new("Frame", G2L["12"])
-    G2L["1b"].Name = "On"
-    G2L["1b"].Visible = false
-    G2L["1b"].BorderSizePixel = 0
-    G2L["1b"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    G2L["1b"].Size = UDim2.new(1.2, 0, 1.2, 0)
-    G2L["1b"].Position = UDim2.new(0.5, 0, -0.1052, 0)
-    Corner(G2L["1b"], 99)
-    Instance.new("UICorner", G2L["1b"]).CornerRadius = UDim.new(1,0)
-    Instance.new("UIAspectRatioConstraint", G2L["1b"])
+	-- On knob (G2L["1b"])
+	G2L["1b"] = Instance.new("Frame", G2L["12"])
+	G2L["1b"].Name = "On"
+	G2L["1b"].Visible = false
+	G2L["1b"].BorderSizePixel = 0
+	G2L["1b"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	G2L["1b"].Size = UDim2.new(1.2, 0, 1.2, 0)
+	G2L["1b"].Position = UDim2.new(0.5, 0, -0.1052, 0)
+	Corner(G2L["1b"], 99)
+	Instance.new("UICorner", G2L["1b"]).CornerRadius = UDim.new(1,0)
+	Instance.new("UIAspectRatioConstraint", G2L["1b"])
 
-    return G2L["d"]
+	return G2L["d"]
 end
 
 -- ─────────────────────────────────────────────
@@ -393,119 +393,119 @@ end
 --  ExecuteString, UIStroke, Keybind, KeybindTitle
 -- ─────────────────────────────────────────────
 library.CreateTemplate = function()
-    local G2L = {}
+	local G2L = {}
 
-    G2L["2"] = Instance.new("Frame")
-    G2L["2"].Name = "Template"
-    G2L["2"].BorderSizePixel = 0
-    G2L["2"].Size = UDim2.new(0.6719, 0, 0.1284, 0)
-    G2L["2"].Position = UDim2.new(0.16405, 0, 0.8, 0)
-    G2L["2"].BackgroundTransparency = 1   -- card handles bg
+	G2L["2"] = Instance.new("Frame")
+	G2L["2"].Name = "Template"
+	G2L["2"].BorderSizePixel = 0
+	G2L["2"].Size = UDim2.new(0.6719, 0, 0.1284, 0)
+	G2L["2"].Position = UDim2.new(0.16405, 0, 0.8, 0)
+	G2L["2"].BackgroundTransparency = 1   -- card handles bg
 
-    -- Card surface
-    local card = Instance.new("Frame", G2L["2"])
-    card.Name = "Card"
-    card.Size = UDim2.new(1, 0, 1, 0)
-    card.BorderSizePixel = 0
-    library:RegisterTheme(card, "BackgroundColor3", "Secondary")
-    card.BackgroundTransparency = 0.45
-    Corner(card, 8)
-    Padding(card, 0, 0, 10, 10)
+	-- Card surface
+	local card = Instance.new("Frame", G2L["2"])
+	card.Name = "Card"
+	card.Size = UDim2.new(1, 0, 1, 0)
+	card.BorderSizePixel = 0
+	library:RegisterTheme(card, "BackgroundColor3", "Secondary")
+	card.BackgroundTransparency = 0.45
+	Corner(card, 8)
+	Padding(card, 0, 0, 10, 10)
 
-    -- UIStroke (G2L["8"])
-    G2L["8"] = Instance.new("UIStroke", G2L["2"])
-    G2L["8"].Thickness = 1
-    G2L["8"].Transparency = 0.55
-    library:RegisterTheme(G2L["8"], "Color", "Stroke")
+	-- UIStroke (G2L["8"])
+	G2L["8"] = Instance.new("UIStroke", G2L["2"])
+	G2L["8"].Thickness = 1
+	G2L["8"].Transparency = 0.55
+	library:RegisterTheme(G2L["8"], "Color", "Stroke")
 
-    -- Execute button (G2L["4"])
-    G2L["4"] = Instance.new("TextButton", card)
-    G2L["4"].Name = "Execute"
-    G2L["4"].TextWrapped = true
-    G2L["4"].BorderSizePixel = 0
-    G2L["4"].TextScaled = true
-    G2L["4"].BackgroundTransparency = 0
-    G2L["4"].Size = UDim2.new(0.83147, 0, 0.86538, 0)
-    G2L["4"].Position = UDim2.new(0.02078, 0, 0.05769, 0)
-    G2L["4"].Text = ""
-    G2L["4"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["4"], "BackgroundColor3", "Accent")
-    library:RegisterTheme(G2L["4"], "TextColor3", "MainBackground")
-    Corner(G2L["4"], 6)
+	-- Execute button (G2L["4"])
+	G2L["4"] = Instance.new("TextButton", card)
+	G2L["4"].Name = "Execute"
+	G2L["4"].TextWrapped = true
+	G2L["4"].BorderSizePixel = 0
+	G2L["4"].TextScaled = true
+	G2L["4"].BackgroundTransparency = 0
+	G2L["4"].Size = UDim2.new(0.83147, 0, 0.86538, 0)
+	G2L["4"].Position = UDim2.new(0.02078, 0, 0.05769, 0)
+	G2L["4"].Text = ""
+	G2L["4"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["4"], "BackgroundColor3", "Accent")
+	library:RegisterTheme(G2L["4"], "TextColor3", "MainBackground")
+	Corner(G2L["4"], 6)
 
-    -- Desc (G2L["5"])
-    G2L["5"] = Instance.new("TextLabel", card)
-    G2L["5"].Name = "Desc"
-    G2L["5"].TextWrapped = true
-    G2L["5"].BorderSizePixel = 0
-    G2L["5"].TextScaled = true
-    G2L["5"].BackgroundTransparency = 1
-    G2L["5"].Size = UDim2.new(0.45195, 0, 0.48077, 0)
-    G2L["5"].Visible = false
-    G2L["5"].Text = "Autofarm"
-    G2L["5"].Position = UDim2.new(0.02078, 0, 0.51923, 0)
-    G2L["5"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["5"], "TextColor3", "Text")
+	-- Desc (G2L["5"])
+	G2L["5"] = Instance.new("TextLabel", card)
+	G2L["5"].Name = "Desc"
+	G2L["5"].TextWrapped = true
+	G2L["5"].BorderSizePixel = 0
+	G2L["5"].TextScaled = true
+	G2L["5"].BackgroundTransparency = 1
+	G2L["5"].Size = UDim2.new(0.45195, 0, 0.48077, 0)
+	G2L["5"].Visible = false
+	G2L["5"].Text = "Autofarm"
+	G2L["5"].Position = UDim2.new(0.02078, 0, 0.51923, 0)
+	G2L["5"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["5"], "TextColor3", "Text")
 
-    -- Title (G2L["6"])
-    G2L["6"] = Instance.new("TextLabel", card)
-    G2L["6"].Name = "Title"
-    G2L["6"].TextWrapped = true
-    G2L["6"].BorderSizePixel = 0
-    G2L["6"].TextScaled = true
-    G2L["6"].BackgroundTransparency = 1
-    G2L["6"].Size = UDim2.new(0.85225, 0, 1, 0)
-    G2L["6"].Position = UDim2.new(0, 0, 0, 0)
-    G2L["6"].TextXAlignment = Enum.TextXAlignment.Left
-    G2L["6"].Text = "Autofarm"
-    G2L["6"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["6"], "TextColor3", "Text")
+	-- Title (G2L["6"])
+	G2L["6"] = Instance.new("TextLabel", card)
+	G2L["6"].Name = "Title"
+	G2L["6"].TextWrapped = true
+	G2L["6"].BorderSizePixel = 0
+	G2L["6"].TextScaled = true
+	G2L["6"].BackgroundTransparency = 1
+	G2L["6"].Size = UDim2.new(0.85225, 0, 1, 0)
+	G2L["6"].Position = UDim2.new(0, 0, 0, 0)
+	G2L["6"].TextXAlignment = Enum.TextXAlignment.Left
+	G2L["6"].Text = "Autofarm"
+	G2L["6"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["6"], "TextColor3", "Text")
 
-    -- ExecuteString (G2L["7"])
-    G2L["7"] = Instance.new("TextLabel", card)
-    G2L["7"].Name = "ExecuteString"
-    G2L["7"].TextWrapped = true
-    G2L["7"].BorderSizePixel = 0
-    G2L["7"].TextScaled = true
-    G2L["7"].BackgroundTransparency = 1
-    G2L["7"].Size = UDim2.new(0.45195, 0, 0.48077, 0)
-    G2L["7"].Visible = false
-    G2L["7"].Text = "Autofarm"
-    G2L["7"].Position = UDim2.new(0.02078, 0, 0.51923, 0)
-    library:RegisterTheme(G2L["7"], "TextColor3", "Text")
+	-- ExecuteString (G2L["7"])
+	G2L["7"] = Instance.new("TextLabel", card)
+	G2L["7"].Name = "ExecuteString"
+	G2L["7"].TextWrapped = true
+	G2L["7"].BorderSizePixel = 0
+	G2L["7"].TextScaled = true
+	G2L["7"].BackgroundTransparency = 1
+	G2L["7"].Size = UDim2.new(0.45195, 0, 0.48077, 0)
+	G2L["7"].Visible = false
+	G2L["7"].Text = "Autofarm"
+	G2L["7"].Position = UDim2.new(0.02078, 0, 0.51923, 0)
+	library:RegisterTheme(G2L["7"], "TextColor3", "Text")
 
-    -- Keybind hit area (G2L["9"])
-    G2L["9"] = Instance.new("TextButton", card)
-    G2L["9"].Name = "Keybind"
-    G2L["9"].TextWrapped = true
-    G2L["9"].BorderSizePixel = 0
-    G2L["9"].TextScaled = true
-    G2L["9"].BackgroundTransparency = 1
-    G2L["9"].ZIndex = 2
-    G2L["9"].Size = UDim2.new(0.08879, 0, 0.86538, 0)
-    G2L["9"].Position = UDim2.new(0.89742, 0, 0.05769, 0)
-    G2L["9"].Text = ""
-    G2L["9"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["9"], "BackgroundColor3", "Accent")
+	-- Keybind hit area (G2L["9"])
+	G2L["9"] = Instance.new("TextButton", card)
+	G2L["9"].Name = "Keybind"
+	G2L["9"].TextWrapped = true
+	G2L["9"].BorderSizePixel = 0
+	G2L["9"].TextScaled = true
+	G2L["9"].BackgroundTransparency = 1
+	G2L["9"].ZIndex = 2
+	G2L["9"].Size = UDim2.new(0.08879, 0, 0.86538, 0)
+	G2L["9"].Position = UDim2.new(0.89742, 0, 0.05769, 0)
+	G2L["9"].Text = ""
+	G2L["9"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["9"], "BackgroundColor3", "Accent")
 
-    -- KeybindTitle pill (G2L["a"])
-    G2L["a"] = Instance.new("TextLabel", card)
-    G2L["a"].Name = "KeybindTitle"
-    G2L["a"].TextWrapped = true
-    G2L["a"].BorderSizePixel = 0
-    G2L["a"].TextScaled = true
-    G2L["a"].BackgroundTransparency = 0.5
-    G2L["a"].Size = UDim2.new(0.12, 0, 0.93253, 0)
-    G2L["a"].Position = UDim2.new(0.89043, 0, 0.02892, 0)
-    G2L["a"].Text = "..."
-    G2L["a"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["a"], "BackgroundColor3", "MainBackground")
-    library:RegisterTheme(G2L["a"], "TextColor3", "Text")
-    Corner(G2L["a"], 4)
+	-- KeybindTitle pill (G2L["a"])
+	G2L["a"] = Instance.new("TextLabel", card)
+	G2L["a"].Name = "KeybindTitle"
+	G2L["a"].TextWrapped = true
+	G2L["a"].BorderSizePixel = 0
+	G2L["a"].TextScaled = true
+	G2L["a"].BackgroundTransparency = 0.5
+	G2L["a"].Size = UDim2.new(0.12, 0, 0.93253, 0)
+	G2L["a"].Position = UDim2.new(0.89043, 0, 0.02892, 0)
+	G2L["a"].Text = "..."
+	G2L["a"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["a"], "BackgroundColor3", "MainBackground")
+	library:RegisterTheme(G2L["a"], "TextColor3", "Text")
+	Corner(G2L["a"], 4)
 
-    Instance.new("UICorner", G2L["a"]).CornerRadius = UDim.new(0.2, 0)
+	Instance.new("UICorner", G2L["a"]).CornerRadius = UDim.new(0.2, 0)
 
-    return G2L["2"]
+	return G2L["2"]
 end
 
 -- ─────────────────────────────────────────────
@@ -513,512 +513,512 @@ end
 --  All original child names preserved.
 -- ─────────────────────────────────────────────
 library.CreateHUD = function(V)
-    local G2L = {}
+	local G2L = {}
 
-    -- ScreenGui
-    G2L["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"))
-    G2L["1"].Name = "PK_API"
-    G2L["1"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    G2L["1"].ResetOnSpawn = false
+	-- ScreenGui
+	G2L["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"))
+	G2L["1"].Name = "PK_API"
+	G2L["1"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	G2L["1"].ResetOnSpawn = false
 
-    -- Main window (G2L["2"] = mainframe)
-    G2L["2"] = Instance.new("Frame", G2L["1"])
-    library:RegisterTheme(G2L["2"], "BackgroundColor3", "MainBackground")
-    G2L["2"].AnchorPoint = Vector2.new(0.5, 0)
-    G2L["2"].Size = UDim2.new(0.42881, 0, 0.56325, 0)
-    G2L["2"].Position = UDim2.new(0.53546, 0, 0.18309, 0)
-    G2L["2"].Name = "mainframe"
-    G2L["2"].BackgroundTransparency = 0.2
-    Corner(G2L["2"], 12)
+	-- Main window (G2L["2"] = mainframe)
+	G2L["2"] = Instance.new("Frame", G2L["1"])
+	library:RegisterTheme(G2L["2"], "BackgroundColor3", "MainBackground")
+	G2L["2"].AnchorPoint = Vector2.new(0.5, 0)
+	G2L["2"].Size = UDim2.new(0.42881, 0, 0.56325, 0)
+	G2L["2"].Position = UDim2.new(0.53546, 0, 0.18309, 0)
+	G2L["2"].Name = "mainframe"
+	G2L["2"].BackgroundTransparency = 0.2
+	Corner(G2L["2"], 12)
 
-    -- Outer UIStroke (G2L["3"])
-    G2L["3"] = Instance.new("UIStroke", G2L["2"])
-    G2L["3"].Transparency = 0.15
-    G2L["3"].Thickness = 2
-    library:RegisterTheme(G2L["3"], "Color", "Outer")
+	-- Outer UIStroke (G2L["3"])
+	G2L["3"] = Instance.new("UIStroke", G2L["2"])
+	G2L["3"].Transparency = 0.15
+	G2L["3"].Thickness = 2
+	library:RegisterTheme(G2L["3"], "Color", "Outer")
 
-    -- UIScale (G2L["f"])
-    G2L["f"] = Instance.new("UIScale", G2L["2"])
-    G2L["f"].Scale = 0
+	-- UIScale (G2L["f"])
+	G2L["f"] = Instance.new("UIScale", G2L["2"])
+	G2L["f"].Scale = 0
 
-    -- UIAspectRatioConstraint (G2L["16"])
-    G2L["16"] = Instance.new("UIAspectRatioConstraint", G2L["2"])
-    G2L["16"].AspectRatio = 1.5
+	-- UIAspectRatioConstraint (G2L["16"])
+	G2L["16"] = Instance.new("UIAspectRatioConstraint", G2L["2"])
+	G2L["16"].AspectRatio = 1.5
 
-    -- ── TOPBAR (G2L["4"]) ─────────────────────
-    G2L["4"] = Instance.new("Frame", G2L["2"])
-    G2L["4"].Name = "topbar"
-    G2L["4"].BorderSizePixel = 0
-    G2L["4"].Size = UDim2.new(1, 0, 0.13086, 0)
-    G2L["4"].Position = UDim2.new(-0.00158, 0, -0.00205, 0)
-    G2L["4"].BackgroundTransparency = 0.15
-    G2L["4"].ZIndex = 10
-    library:RegisterTheme(G2L["4"], "BackgroundColor3", "Secondary")
-    Corner(G2L["4"], 10)
+	-- ── TOPBAR (G2L["4"]) ─────────────────────
+	G2L["4"] = Instance.new("Frame", G2L["2"])
+	G2L["4"].Name = "topbar"
+	G2L["4"].BorderSizePixel = 0
+	G2L["4"].Size = UDim2.new(1, 0, 0.13086, 0)
+	G2L["4"].Position = UDim2.new(-0.00158, 0, -0.00205, 0)
+	G2L["4"].BackgroundTransparency = 0.15
+	G2L["4"].ZIndex = 10
+	library:RegisterTheme(G2L["4"], "BackgroundColor3", "Secondary")
+	Corner(G2L["4"], 10)
 
-    -- Bottom fill so only top two corners are rounded
-    local topFill = Instance.new("Frame", G2L["4"])
-    topFill.Size = UDim2.new(1, 0, 0.5, 0)
-    topFill.Position = UDim2.new(0, 0, 0.5, 0)
-    topFill.BorderSizePixel = 0
-    topFill.BackgroundTransparency = 0.15
-    topFill.ZIndex = 9
-    library:RegisterTheme(topFill, "BackgroundColor3", "Secondary")
+	-- Bottom fill so only top two corners are rounded
+	local topFill = Instance.new("Frame", G2L["4"])
+	topFill.Size = UDim2.new(1, 0, 0.5, 0)
+	topFill.Position = UDim2.new(0, 0, 0.5, 0)
+	topFill.BorderSizePixel = 0
+	topFill.BackgroundTransparency = 0.15
+	topFill.ZIndex = 9
+	library:RegisterTheme(topFill, "BackgroundColor3", "Secondary")
 
-    -- 1 px separator line at bottom of topbar
-    local topLine = Instance.new("Frame", G2L["4"])
-    topLine.Size = UDim2.new(1, 0, 0, 1)
-    topLine.Position = UDim2.new(0, 0, 1, -1)
-    topLine.BorderSizePixel = 0
-    topLine.ZIndex = 11
-    library:RegisterTheme(topLine, "BackgroundColor3", "Stroke")
+	-- 1 px separator line at bottom of topbar
+	local topLine = Instance.new("Frame", G2L["4"])
+	topLine.Size = UDim2.new(1, 0, 0, 1)
+	topLine.Position = UDim2.new(0, 0, 1, -1)
+	topLine.BorderSizePixel = 0
+	topLine.ZIndex = 11
+	library:RegisterTheme(topLine, "BackgroundColor3", "Stroke")
 
-    -- Draggable hit area (Name "draggable" preserved)
-    G2L["drag1"] = Instance.new("TextButton", G2L["4"])
-    G2L["drag1"].Name = "draggable"
-    G2L["drag1"].Size = UDim2.new(0.65, 0, 1, 0)
-    G2L["drag1"].BackgroundTransparency = 1
-    G2L["drag1"].ZIndex = 999
-    G2L["drag1"].Text = ""
+	-- Draggable hit area (Name "draggable" preserved)
+	G2L["drag1"] = Instance.new("TextButton", G2L["4"])
+	G2L["drag1"].Name = "draggable"
+	G2L["drag1"].Size = UDim2.new(0.65, 0, 1, 0)
+	G2L["drag1"].BackgroundTransparency = 1
+	G2L["drag1"].ZIndex = 999
+	G2L["drag1"].Text = ""
 
-    -- LEFT: accent dot
-    local logoDot = Instance.new("Frame", G2L["4"])
-    logoDot.Size = UDim2.new(0, 7, 0, 7)
-    logoDot.AnchorPoint = Vector2.new(0, 0.5)
-    logoDot.Position = UDim2.new(0.03, 0, 0.36, 0)
-    logoDot.BorderSizePixel = 0
-    logoDot.ZIndex = 10
-    library:RegisterTheme(logoDot, "BackgroundColor3", "Accent")
-    Corner(logoDot, 3)
+	-- LEFT: accent dot
+	local logoDot = Instance.new("Frame", G2L["4"])
+	logoDot.Size = UDim2.new(0, 7, 0, 7)
+	logoDot.AnchorPoint = Vector2.new(0, 0.5)
+	logoDot.Position = UDim2.new(0.03, 0, 0.36, 0)
+	logoDot.BorderSizePixel = 0
+	logoDot.ZIndex = 10
+	library:RegisterTheme(logoDot, "BackgroundColor3", "Accent")
+	Corner(logoDot, 3)
 
-    -- Brand name (G2L["5"] = "nahidwin")
-    G2L["5"] = Instance.new("TextLabel", G2L["4"])
-    G2L["5"].Name = "nahidwin"
-    G2L["5"].TextWrapped = true
-    G2L["5"].BorderSizePixel = 0
-    G2L["5"].TextSize = 14
-    G2L["5"].TextScaled = true
-    G2L["5"].BackgroundTransparency = 1
-    G2L["5"].Size = UDim2.new(0.22688, 0, 0.49057, 0)
-    G2L["5"].Position = UDim2.new(0.065, 0, 0, 0)
-    G2L["5"].TextXAlignment = Enum.TextXAlignment.Left
-    G2L["5"].Text = "PatchKids"
-    G2L["5"].ZIndex = 10
-    G2L["5"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["5"], "TextColor3", "Text")
+	-- Brand name (G2L["5"] = "nahidwin")
+	G2L["5"] = Instance.new("TextLabel", G2L["4"])
+	G2L["5"].Name = "nahidwin"
+	G2L["5"].TextWrapped = true
+	G2L["5"].BorderSizePixel = 0
+	G2L["5"].TextSize = 14
+	G2L["5"].TextScaled = true
+	G2L["5"].BackgroundTransparency = 1
+	G2L["5"].Size = UDim2.new(0.22688, 0, 0.49057, 0)
+	G2L["5"].Position = UDim2.new(0.065, 0, 0, 0)
+	G2L["5"].TextXAlignment = Enum.TextXAlignment.Left
+	G2L["5"].Text = "PatchKids"
+	G2L["5"].ZIndex = 10
+	G2L["5"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["5"], "TextColor3", "Text")
 
-    -- Version pill (G2L["6"] = "version")
-    G2L["6"] = Instance.new("TextLabel", G2L["4"])
-    G2L["6"].Name = "version"
-    G2L["6"].TextWrapped = true
-    G2L["6"].BorderSizePixel = 0
-    G2L["6"].TextSize = 14
-    G2L["6"].TextScaled = true
-    G2L["6"].BackgroundTransparency = 0.6
-    G2L["6"].Size = UDim2.new(0.1, 0, 0.36, 0)
-    G2L["6"].Position = UDim2.new(0.065, 0, 0.55, 0)
-    G2L["6"].Text = "v" .. tostring(V)
-    G2L["6"].ZIndex = 10
-    G2L["6"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["6"], "BackgroundColor3", "MainBackground")
-    library:RegisterTheme(G2L["6"], "TextColor3", "Text")
-    Corner(G2L["6"], 3)
+	-- Version pill (G2L["6"] = "version")
+	G2L["6"] = Instance.new("TextLabel", G2L["4"])
+	G2L["6"].Name = "version"
+	G2L["6"].TextWrapped = true
+	G2L["6"].BorderSizePixel = 0
+	G2L["6"].TextSize = 14
+	G2L["6"].TextScaled = true
+	G2L["6"].BackgroundTransparency = 0.6
+	G2L["6"].Size = UDim2.new(0.1, 0, 0.36, 0)
+	G2L["6"].Position = UDim2.new(0.065, 0, 0.55, 0)
+	G2L["6"].Text = "v" .. tostring(V)
+	G2L["6"].ZIndex = 10
+	G2L["6"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["6"], "BackgroundColor3", "MainBackground")
+	library:RegisterTheme(G2L["6"], "TextColor3", "Text")
+	Corner(G2L["6"], 3)
 
-    -- CENTER: game name (G2L["7"] = "gamename")
-    G2L["7"] = Instance.new("TextLabel", G2L["4"])
-    G2L["7"].Name = "gamename"
-    G2L["7"].TextWrapped = true
-    G2L["7"].BorderSizePixel = 0
-    G2L["7"].TextSize = 14
-    G2L["7"].TextXAlignment = Enum.TextXAlignment.Left
-    G2L["7"].TextScaled = true
-    G2L["7"].BackgroundTransparency = 1
-    G2L["7"].Size = UDim2.new(0.35, 0, 0.62264, 0)
-    G2L["7"].AnchorPoint = Vector2.new(0.5, 0)
-    G2L["7"].Position = UDim2.new(0.5, 0, 0.08, 0)
-    G2L["7"].Text = "player rng"
-    G2L["7"].ZIndex = 10
-    G2L["7"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["7"], "TextColor3", "Text")
+	-- CENTER: game name (G2L["7"] = "gamename")
+	G2L["7"] = Instance.new("TextLabel", G2L["4"])
+	G2L["7"].Name = "gamename"
+	G2L["7"].TextWrapped = true
+	G2L["7"].BorderSizePixel = 0
+	G2L["7"].TextSize = 14
+	G2L["7"].TextXAlignment = Enum.TextXAlignment.Left
+	G2L["7"].TextScaled = true
+	G2L["7"].BackgroundTransparency = 1
+	G2L["7"].Size = UDim2.new(0.35, 0, 0.62264, 0)
+	G2L["7"].AnchorPoint = Vector2.new(0.5, 0)
+	G2L["7"].Position = UDim2.new(0.5, 0, 0.08, 0)
+	G2L["7"].Text = "player rng"
+	G2L["7"].ZIndex = 10
+	G2L["7"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["7"], "TextColor3", "Text")
 
-    -- Detail accent underline (G2L["8"] = "detail")
-    G2L["8"] = Instance.new("Frame", G2L["4"])
-    G2L["8"].Name = "detail"
-    G2L["8"].ZIndex = 699999
-    G2L["8"].BorderSizePixel = 0
-    G2L["8"].Size = UDim2.new(0.35, 0, 0.06, 0)
-    G2L["8"].AnchorPoint = Vector2.new(0.5, 0)
-    G2L["8"].Position = UDim2.new(0.5, 0, 0.8, 0)
-    library:RegisterTheme(G2L["8"], "BackgroundColor3", "Accent")
-    Corner(G2L["8"], 2)
+	-- Detail accent underline (G2L["8"] = "detail")
+	G2L["8"] = Instance.new("Frame", G2L["4"])
+	G2L["8"].Name = "detail"
+	G2L["8"].ZIndex = 699999
+	G2L["8"].BorderSizePixel = 0
+	G2L["8"].Size = UDim2.new(0.35, 0, 0.06, 0)
+	G2L["8"].AnchorPoint = Vector2.new(0.5, 0)
+	G2L["8"].Position = UDim2.new(0.5, 0, 0.8, 0)
+	library:RegisterTheme(G2L["8"], "BackgroundColor3", "Accent")
+	Corner(G2L["8"], 2)
 
-    -- RIGHT: Minimize button (G2L["a"] = "min")
-    G2L["a"] = Instance.new("TextButton", G2L["4"])
-    G2L["a"].Name = "min"
-    G2L["a"].TextWrapped = true
-    G2L["a"].BorderSizePixel = 0
-    G2L["a"].TextSize = 60
-    G2L["a"].TextScaled = true
-    G2L["a"].TextYAlignment = Enum.TextYAlignment.Bottom
-    G2L["a"].BackgroundTransparency = 0.5
-    G2L["a"].Size = UDim2.new(0.0733, 0, 0.81132, 0)
-    G2L["a"].Position = UDim2.new(0.9267, 0, -0.97331, 0)
-    G2L["a"].Text = ""
-    G2L["a"].ZIndex = 1000
-    G2L["a"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["a"], "BackgroundColor3", "MainBackground")
-    library:RegisterTheme(G2L["a"], "TextColor3", "Text")
-    Corner(G2L["a"], 6)
+	-- RIGHT: Minimize button (G2L["a"] = "min")
+	G2L["a"] = Instance.new("TextButton", G2L["4"])
+	G2L["a"].Name = "min"
+	G2L["a"].TextWrapped = true
+	G2L["a"].BorderSizePixel = 0
+	G2L["a"].TextSize = 60
+	G2L["a"].TextScaled = true
+	G2L["a"].TextYAlignment = Enum.TextYAlignment.Bottom
+	G2L["a"].BackgroundTransparency = 0.5
+	G2L["a"].Size = UDim2.new(0.0733, 0, 0.81132, 0)
+	G2L["a"].Position = UDim2.new(0.9267, 0, -0.97331, 0)
+	G2L["a"].Text = ""
+	G2L["a"].ZIndex = 1000
+	G2L["a"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["a"], "BackgroundColor3", "MainBackground")
+	library:RegisterTheme(G2L["a"], "TextColor3", "Text")
+	Corner(G2L["a"], 6)
 
-    -- ImageLabel inside min (G2L["b"], preserved)
-    G2L["b"] = Instance.new("ImageLabel", G2L["a"])
-    G2L["b"].BorderSizePixel = 0
-    G2L["b"].ScaleType = Enum.ScaleType.Fit
-    G2L["b"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    G2L["b"].AnchorPoint = Vector2.new(0.5, 0.5)
-    G2L["b"].Image = "rbxassetid://10002373478"
-    G2L["b"].Size = UDim2.new(1, 0, 1, 0)
-    G2L["b"].Position = UDim2.new(0.5, 0, 0.5, 0)
-    G2L["b"].BackgroundTransparency = 1
+	-- ImageLabel inside min (G2L["b"], preserved)
+	G2L["b"] = Instance.new("ImageLabel", G2L["a"])
+	G2L["b"].BorderSizePixel = 0
+	G2L["b"].ScaleType = Enum.ScaleType.Fit
+	G2L["b"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	G2L["b"].AnchorPoint = Vector2.new(0.5, 0.5)
+	G2L["b"].Image = "rbxassetid://10002373478"
+	G2L["b"].Size = UDim2.new(1, 0, 1, 0)
+	G2L["b"].Position = UDim2.new(0.5, 0, 0.5, 0)
+	G2L["b"].BackgroundTransparency = 1
 
-    G2L["c"] = Instance.new("UIScale", G2L["b"])
-    G2L["c"].Scale = 1.2
+	G2L["c"] = Instance.new("UIScale", G2L["b"])
+	G2L["c"].Scale = 1.2
 
-    G2L["d"] = Instance.new("UICorner", G2L["a"])
-    G2L["d"].CornerRadius = UDim.new(1, 0)
+	G2L["d"] = Instance.new("UICorner", G2L["a"])
+	G2L["d"].CornerRadius = UDim.new(1, 0)
 
-    G2L["e"] = Instance.new("UIAspectRatioConstraint", G2L["a"])
+	G2L["e"] = Instance.new("UIAspectRatioConstraint", G2L["a"])
 
-    -- Move button (G2L["10"] = "Move")
-    G2L["10"] = Instance.new("TextButton", G2L["2"])
-    G2L["10"].BorderSizePixel = 0
-    G2L["10"].TextSize = 14
-    library:RegisterTheme(G2L["10"], "TextColor3", "MainBackground")
-    G2L["10"].BackgroundTransparency = 1
-    G2L["10"].Size = UDim2.new(0.9356, 0, 0.1461, 0)
-    G2L["10"].Text = ""
-    G2L["10"].Name = "Move"
-    G2L["10"].Position = UDim2.new(0, 0, -0.04444, 0)
+	-- Move button (G2L["10"] = "Move")
+	G2L["10"] = Instance.new("TextButton", G2L["2"])
+	G2L["10"].BorderSizePixel = 0
+	G2L["10"].TextSize = 14
+	library:RegisterTheme(G2L["10"], "TextColor3", "MainBackground")
+	G2L["10"].BackgroundTransparency = 1
+	G2L["10"].Size = UDim2.new(0.9356, 0, 0.1461, 0)
+	G2L["10"].Text = ""
+	G2L["10"].Name = "Move"
+	G2L["10"].Position = UDim2.new(0, 0, -0.04444, 0)
 
-    -- ── TABS (G2L["11"]) ──────────────────────
-    G2L["11"] = Instance.new("ScrollingFrame", G2L["2"])
-    G2L["11"].Active = true
-    G2L["11"].BorderSizePixel = 0
-    G2L["11"].Name = "Tabs"
-    G2L["11"].BackgroundTransparency = 1
-    G2L["11"].AutomaticCanvasSize = Enum.AutomaticSize.Y
-    G2L["11"].Size = UDim2.new(0.24799, 0, 0.79259, 0)
-    library:RegisterTheme(G2L["11"], "ScrollBarImageColor3", "MainBackground")
-    G2L["11"].Position = UDim2.new(0, 0, 0.16049, 0)
-    G2L["11"].ScrollBarThickness = 2
-    G2L["11"].ScrollingDirection = Enum.ScrollingDirection.Y
-    Padding(G2L["11"], 6, 6, 6, 6)
+	-- ── TABS (G2L["11"]) ──────────────────────
+	G2L["11"] = Instance.new("ScrollingFrame", G2L["2"])
+	G2L["11"].Active = true
+	G2L["11"].BorderSizePixel = 0
+	G2L["11"].Name = "Tabs"
+	G2L["11"].BackgroundTransparency = 1
+	G2L["11"].AutomaticCanvasSize = Enum.AutomaticSize.Y
+	G2L["11"].Size = UDim2.new(0.24799, 0, 0.79259, 0)
+	library:RegisterTheme(G2L["11"], "ScrollBarImageColor3", "MainBackground")
+	G2L["11"].Position = UDim2.new(0, 0, 0.16049, 0)
+	G2L["11"].ScrollBarThickness = 2
+	G2L["11"].ScrollingDirection = Enum.ScrollingDirection.Y
+	Padding(G2L["11"], 6, 6, 6, 6)
 
-    G2L["12"] = Instance.new("UIListLayout", G2L["11"])
-    G2L["12"].HorizontalAlignment = Enum.HorizontalAlignment.Center
-    G2L["12"].Padding = UDim.new(0.025, 0)
-    G2L["12"].SortOrder = Enum.SortOrder.LayoutOrder
+	G2L["12"] = Instance.new("UIListLayout", G2L["11"])
+	G2L["12"].HorizontalAlignment = Enum.HorizontalAlignment.Center
+	G2L["12"].Padding = UDim.new(0.025, 0)
+	G2L["12"].SortOrder = Enum.SortOrder.LayoutOrder
 
-    -- Divider (G2L["14"] = "ya")
-    G2L["14"] = Instance.new("Frame", G2L["2"])
-    G2L["14"].ZIndex = 10
-    G2L["14"].BorderSizePixel = 0
-    library:RegisterTheme(G2L["14"], "BackgroundColor3", "Stroke")
-    G2L["14"].AnchorPoint = Vector2.new(0.5, 0.5)
-    G2L["14"].ClipsDescendants = true
-    G2L["14"].Size = UDim2.new(0.005, 0, 1, 0)
-    G2L["14"].Position = UDim2.new(0.26247, 0, 0.50172, 0)
-    G2L["14"].Name = "ya"
-    G2L["14"].ZIndex = 11
-    G2L["15"] = Instance.new("UICorner", G2L["14"])
-    G2L["15"].CornerRadius = UDim.new(2, 0)
+	-- Divider (G2L["14"] = "ya")
+	G2L["14"] = Instance.new("Frame", G2L["2"])
+	G2L["14"].ZIndex = 10
+	G2L["14"].BorderSizePixel = 0
+	library:RegisterTheme(G2L["14"], "BackgroundColor3", "Stroke")
+	G2L["14"].AnchorPoint = Vector2.new(0.5, 0.5)
+	G2L["14"].ClipsDescendants = true
+	G2L["14"].Size = UDim2.new(0.005, 0, 1, 0)
+	G2L["14"].Position = UDim2.new(0.26247, 0, 0.50172, 0)
+	G2L["14"].Name = "ya"
+	G2L["14"].ZIndex = 11
+	G2L["15"] = Instance.new("UICorner", G2L["14"])
+	G2L["15"].CornerRadius = UDim.new(2, 0)
 
-    -- NewTabs folder (G2L["17"])
-    G2L["17"] = Instance.new("Folder", G2L["2"])
-    G2L["17"].Name = "NewTabs"
+	-- NewTabs folder (G2L["17"])
+	G2L["17"] = Instance.new("Folder", G2L["2"])
+	G2L["17"].Name = "NewTabs"
 
-    -- ── PROFILE FOOTER ────────────────────────
-    G2L["profile"] = Instance.new("Frame", G2L["2"])
-    G2L["profile"].ZIndex = 12
-    G2L["profile"].BorderSizePixel = 0
-    library:RegisterTheme(G2L["profile"], "BackgroundColor3", "MainBackground")
-    G2L["profile"].Size = UDim2.new(0.99944, 0, 0.14344, 0)
-    G2L["profile"].Position = UDim2.new(0, 0, 0.856, 0)
-    G2L["profile"].BackgroundTransparency = 0.1
-    G2L["profile"].Name = "Profile"
+	-- ── PROFILE FOOTER ────────────────────────
+	G2L["profile"] = Instance.new("Frame", G2L["2"])
+	G2L["profile"].ZIndex = 12
+	G2L["profile"].BorderSizePixel = 0
+	library:RegisterTheme(G2L["profile"], "BackgroundColor3", "MainBackground")
+	G2L["profile"].Size = UDim2.new(0.99944, 0, 0.14344, 0)
+	G2L["profile"].Position = UDim2.new(0, 0, 0.856, 0)
+	G2L["profile"].BackgroundTransparency = 0.1
+	G2L["profile"].Name = "Profile"
 
-    local profLine = Instance.new("Frame", G2L["profile"])
-    profLine.Size = UDim2.new(1, 0, 0, 1)
-    profLine.BorderSizePixel = 0
-    library:RegisterTheme(profLine, "BackgroundColor3", "Stroke")
+	local profLine = Instance.new("Frame", G2L["profile"])
+	profLine.Size = UDim2.new(1, 0, 0, 1)
+	profLine.BorderSizePixel = 0
+	library:RegisterTheme(profLine, "BackgroundColor3", "Stroke")
 
-    G2L["icon"] = Instance.new("ImageLabel", G2L["profile"])
-    G2L["icon"].BorderSizePixel = 0
-    library:RegisterTheme(G2L["icon"], "BackgroundColor3", "Secondary")
-    G2L["icon"].AnchorPoint = Vector2.new(0, 0.5)
-    G2L["icon"].Size = UDim2.new(0.0787, 0, 0.8871, 0)
-    G2L["icon"].BackgroundTransparency = 0.2
-    G2L["icon"].Name = "Icon"
-    G2L["icon"].Position = UDim2.new(0.015, 0, 0.5, 0)
-    Corner(G2L["icon"], 99)
-    Instance.new("UIAspectRatioConstraint", G2L["icon"])
-    local iconStroke = Stroke(G2L["icon"], 1, 0)
-    library:RegisterTheme(iconStroke, "Color", "Accent")
+	G2L["icon"] = Instance.new("ImageLabel", G2L["profile"])
+	G2L["icon"].BorderSizePixel = 0
+	library:RegisterTheme(G2L["icon"], "BackgroundColor3", "Secondary")
+	G2L["icon"].AnchorPoint = Vector2.new(0, 0.5)
+	G2L["icon"].Size = UDim2.new(0.0787, 0, 0.8871, 0)
+	G2L["icon"].BackgroundTransparency = 0.2
+	G2L["icon"].Name = "Icon"
+	G2L["icon"].Position = UDim2.new(0.015, 0, 0.5, 0)
+	Corner(G2L["icon"], 99)
+	Instance.new("UIAspectRatioConstraint", G2L["icon"])
+	local iconStroke = Stroke(G2L["icon"], 1, 0)
+	library:RegisterTheme(iconStroke, "Color", "Accent")
 
-    G2L["user"] = Instance.new("TextLabel", G2L["profile"])
-    G2L["user"].TextWrapped = true
-    G2L["user"].BorderSizePixel = 0
-    G2L["user"].TextSize = 14
-    G2L["user"].TextXAlignment = Enum.TextXAlignment.Left
-    G2L["user"].TextScaled = true
-    G2L["user"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["user"], "TextColor3", "Text")
-    G2L["user"].BackgroundTransparency = 1
-    G2L["user"].AnchorPoint = Vector2.new(0.5, 0.5)
-    G2L["user"].Size = UDim2.new(0.43519, 0, 0.5, 0)
-    G2L["user"].Text = "Max20CharactersLong!"
-    G2L["user"].Name = "User"
-    G2L["user"].Position = UDim2.new(0.32022, 0, 0.33871, 0)
+	G2L["user"] = Instance.new("TextLabel", G2L["profile"])
+	G2L["user"].TextWrapped = true
+	G2L["user"].BorderSizePixel = 0
+	G2L["user"].TextSize = 14
+	G2L["user"].TextXAlignment = Enum.TextXAlignment.Left
+	G2L["user"].TextScaled = true
+	G2L["user"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["user"], "TextColor3", "Text")
+	G2L["user"].BackgroundTransparency = 1
+	G2L["user"].AnchorPoint = Vector2.new(0.5, 0.5)
+	G2L["user"].Size = UDim2.new(0.43519, 0, 0.5, 0)
+	G2L["user"].Text = "Max20CharactersLong!"
+	G2L["user"].Name = "User"
+	G2L["user"].Position = UDim2.new(0.32022, 0, 0.33871, 0)
 
-    G2L["paid"] = Instance.new("TextLabel", G2L["profile"])
-    G2L["paid"].TextWrapped = true
-    G2L["paid"].BorderSizePixel = 0
-    G2L["paid"].TextSize = 14
-    G2L["paid"].TextXAlignment = Enum.TextXAlignment.Left
-    G2L["paid"].TextScaled = true
-    G2L["paid"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Italic)
-    G2L["paid"].TextColor3 = Color3.fromRGB(255, 255, 255)
-    G2L["paid"].BackgroundTransparency = 1
-    G2L["paid"].AnchorPoint = Vector2.new(0.5, 0.5)
-    G2L["paid"].Size = UDim2.new(0.21451, 0, 0.41519, 0)
-    G2L["paid"].Visible = false
-    G2L["paid"].Text = "Premium"
-    G2L["paid"].Name = "Paid"
-    G2L["paid"].Position = UDim2.new(0.20988, 0, 0.79631, 0)
-    local a67 = Instance.new("UIGradient", G2L["paid"])
-    a67.Rotation = 45; a67.Offset = Vector2.new(-0.1, 0)
-    a67.Color = ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(122,88,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(122,88,255))}
+	G2L["paid"] = Instance.new("TextLabel", G2L["profile"])
+	G2L["paid"].TextWrapped = true
+	G2L["paid"].BorderSizePixel = 0
+	G2L["paid"].TextSize = 14
+	G2L["paid"].TextXAlignment = Enum.TextXAlignment.Left
+	G2L["paid"].TextScaled = true
+	G2L["paid"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Italic)
+	G2L["paid"].TextColor3 = Color3.fromRGB(255, 255, 255)
+	G2L["paid"].BackgroundTransparency = 1
+	G2L["paid"].AnchorPoint = Vector2.new(0.5, 0.5)
+	G2L["paid"].Size = UDim2.new(0.21451, 0, 0.41519, 0)
+	G2L["paid"].Visible = false
+	G2L["paid"].Text = "Premium"
+	G2L["paid"].Name = "Paid"
+	G2L["paid"].Position = UDim2.new(0.20988, 0, 0.79631, 0)
+	local a67 = Instance.new("UIGradient", G2L["paid"])
+	a67.Rotation = 45; a67.Offset = Vector2.new(-0.1, 0)
+	a67.Color = ColorSequence.new{ColorSequenceKeypoint.new(0,Color3.fromRGB(122,88,255)),ColorSequenceKeypoint.new(1,Color3.fromRGB(122,88,255))}
 
-    G2L["6.7"] = Instance.new("TextLabel", G2L["profile"])
-    G2L["6.7"].TextWrapped = true
-    G2L["6.7"].BorderSizePixel = 0
-    G2L["6.7"].TextSize = 14
-    G2L["6.7"].TextXAlignment = Enum.TextXAlignment.Left
-    G2L["6.7"].TextScaled = true
-    G2L["6.7"].BackgroundTransparency = 1
-    G2L["6.7"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Italic)
-    G2L["6.7"].TextColor3 = Color3.fromRGB(141, 255, 145)
-    G2L["6.7"].AnchorPoint = Vector2.new(0.5, 0.5)
-    G2L["6.7"].Size = UDim2.new(0.12963, 0, 0.41519, 0)
-    G2L["6.7"].Visible = false
-    G2L["6.7"].Text = "Free"
-    G2L["6.7"].Name = "Free"
-    G2L["6.7"].Position = UDim2.new(0.16744, 0, 0.79631, 0)
+	G2L["6.7"] = Instance.new("TextLabel", G2L["profile"])
+	G2L["6.7"].TextWrapped = true
+	G2L["6.7"].BorderSizePixel = 0
+	G2L["6.7"].TextSize = 14
+	G2L["6.7"].TextXAlignment = Enum.TextXAlignment.Left
+	G2L["6.7"].TextScaled = true
+	G2L["6.7"].BackgroundTransparency = 1
+	G2L["6.7"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Italic)
+	G2L["6.7"].TextColor3 = Color3.fromRGB(141, 255, 145)
+	G2L["6.7"].AnchorPoint = Vector2.new(0.5, 0.5)
+	G2L["6.7"].Size = UDim2.new(0.12963, 0, 0.41519, 0)
+	G2L["6.7"].Visible = false
+	G2L["6.7"].Text = "Free"
+	G2L["6.7"].Name = "Free"
+	G2L["6.7"].Position = UDim2.new(0.16744, 0, 0.79631, 0)
 
-    -- ── MAX BUTTON (G2L["18"]) ────────────────
-    G2L["18"] = Instance.new("TextButton", G2L["1"])
-    G2L["18"].TextWrapped = true
-    G2L["18"].BorderSizePixel = 0
-    G2L["18"].TextSize = 14
-    G2L["18"].TextScaled = true
-    library:RegisterTheme(G2L["18"], "TextColor3", "Text")
-    library:RegisterTheme(G2L["18"], "BackgroundColor3", "MainBackground")
-    G2L["18"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-    G2L["18"].AnchorPoint = Vector2.new(0.5, 0.5)
-    G2L["18"].BackgroundTransparency = 0.4
-    G2L["18"].Size = UDim2.new(0.06756, 0, 0.11524, 0)
-    G2L["18"].Text = "PatchKids"
-    G2L["18"].Name = "max"
-    G2L["18"].Visible = false
-    G2L["18"].Position = UDim2.new(0.93978, 0, 0.15691, 0)
-    G2L["19"] = Instance.new("UICorner", G2L["18"])
+	-- ── MAX BUTTON (G2L["18"]) ────────────────
+	G2L["18"] = Instance.new("TextButton", G2L["1"])
+	G2L["18"].TextWrapped = true
+	G2L["18"].BorderSizePixel = 0
+	G2L["18"].TextSize = 14
+	G2L["18"].TextScaled = true
+	library:RegisterTheme(G2L["18"], "TextColor3", "Text")
+	library:RegisterTheme(G2L["18"], "BackgroundColor3", "MainBackground")
+	G2L["18"].FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+	G2L["18"].AnchorPoint = Vector2.new(0.5, 0.5)
+	G2L["18"].BackgroundTransparency = 0.4
+	G2L["18"].Size = UDim2.new(0.06756, 0, 0.11524, 0)
+	G2L["18"].Text = "PatchKids"
+	G2L["18"].Name = "max"
+	G2L["18"].Visible = false
+	G2L["18"].Position = UDim2.new(0.93978, 0, 0.15691, 0)
+	G2L["19"] = Instance.new("UICorner", G2L["18"])
 
-    -- ── NOTIFY FRAME (G2L["1a"]) ──────────────
-    G2L["1a"] = Instance.new("ScrollingFrame", G2L["1"])
-    G2L["1a"].Active = true
-    G2L["1a"].BorderSizePixel = 0
-    G2L["1a"].ScrollingEnabled = false
-    G2L["1a"].Name = "NotifyFrame"
-    G2L["1a"].ScrollBarImageTransparency = 1
-    G2L["1a"].AutomaticCanvasSize = Enum.AutomaticSize.Y
-    G2L["1a"].ClipsDescendants = false
-    G2L["1a"].Size = UDim2.new(0.18166, 0, 0.26149, 0)
-    library:RegisterTheme(G2L["1a"], "ScrollBarImageColor3", "MainBackground")
-    G2L["1a"].Position = UDim2.new(0.81139, 0, 0.368, 0)
-    G2L["1a"].BackgroundTransparency = 1
-    G2L["1b"] = Instance.new("UIListLayout", G2L["1a"])
-    G2L["1b"].HorizontalAlignment = Enum.HorizontalAlignment.Right
-    G2L["1b"].Padding = UDim.new(0.025, 0)
-    G2L["1b"].VerticalAlignment = Enum.VerticalAlignment.Bottom
-    G2L["1b"].SortOrder = Enum.SortOrder.LayoutOrder
-    G2L["1c"] = Instance.new("Frame", G2L["1a"])
-    G2L["1c"].BorderSizePixel = 0
-    library:RegisterTheme(G2L["1c"], "BackgroundColor3", "MainBackground")
-    G2L["1c"].Size = UDim2.new(0.75044, 0, 0.02541, 0)
-    G2L["1c"].Position = UDim2.new(0.12478, 0, 0, 0)
-    G2L["1c"].Name = "Space"
-    G2L["1c"].BackgroundTransparency = 1
+	-- ── NOTIFY FRAME (G2L["1a"]) ──────────────
+	G2L["1a"] = Instance.new("ScrollingFrame", G2L["1"])
+	G2L["1a"].Active = true
+	G2L["1a"].BorderSizePixel = 0
+	G2L["1a"].ScrollingEnabled = false
+	G2L["1a"].Name = "NotifyFrame"
+	G2L["1a"].ScrollBarImageTransparency = 1
+	G2L["1a"].AutomaticCanvasSize = Enum.AutomaticSize.Y
+	G2L["1a"].ClipsDescendants = false
+	G2L["1a"].Size = UDim2.new(0.18166, 0, 0.26149, 0)
+	library:RegisterTheme(G2L["1a"], "ScrollBarImageColor3", "MainBackground")
+	G2L["1a"].Position = UDim2.new(0.81139, 0, 0.368, 0)
+	G2L["1a"].BackgroundTransparency = 1
+	G2L["1b"] = Instance.new("UIListLayout", G2L["1a"])
+	G2L["1b"].HorizontalAlignment = Enum.HorizontalAlignment.Right
+	G2L["1b"].Padding = UDim.new(0.025, 0)
+	G2L["1b"].VerticalAlignment = Enum.VerticalAlignment.Bottom
+	G2L["1b"].SortOrder = Enum.SortOrder.LayoutOrder
+	G2L["1c"] = Instance.new("Frame", G2L["1a"])
+	G2L["1c"].BorderSizePixel = 0
+	library:RegisterTheme(G2L["1c"], "BackgroundColor3", "MainBackground")
+	G2L["1c"].Size = UDim2.new(0.75044, 0, 0.02541, 0)
+	G2L["1c"].Position = UDim2.new(0.12478, 0, 0, 0)
+	G2L["1c"].Name = "Space"
+	G2L["1c"].BackgroundTransparency = 1
 
-    -- ── LOADING SCREEN (G2L["1d"]) ────────────
-    G2L["1d"] = Instance.new("Frame", G2L["1"])
-    G2L["1d"].BorderSizePixel = 0
-    library:RegisterTheme(G2L["1d"], "BackgroundColor3", "MainBackground")
-    G2L["1d"].AnchorPoint = Vector2.new(0.5, 0)
-    G2L["1d"].Size = UDim2.new(0.429, 0, 0.563, 0)
-    G2L["1d"].Position = UDim2.new(0.5, 0, 0.25244, 0)
-    G2L["1d"].Name = "loading"
-    G2L["1d"].BackgroundTransparency = 0.2
-    Corner(G2L["1d"], 12)
+	-- ── LOADING SCREEN (G2L["1d"]) ────────────
+	G2L["1d"] = Instance.new("Frame", G2L["1"])
+	G2L["1d"].BorderSizePixel = 0
+	library:RegisterTheme(G2L["1d"], "BackgroundColor3", "MainBackground")
+	G2L["1d"].AnchorPoint = Vector2.new(0.5, 0)
+	G2L["1d"].Size = UDim2.new(0.429, 0, 0.563, 0)
+	G2L["1d"].Position = UDim2.new(0.5, 0, 0.25244, 0)
+	G2L["1d"].Name = "loading"
+	G2L["1d"].BackgroundTransparency = 0.2
+	Corner(G2L["1d"], 12)
 
-    G2L["1e"] = Instance.new("UIStroke", G2L["1d"])
-    G2L["1e"].Transparency = 0.15
-    G2L["1e"].Thickness = 2
-    library:RegisterTheme(G2L["1e"], "Color", "Outer")
+	G2L["1e"] = Instance.new("UIStroke", G2L["1d"])
+	G2L["1e"].Transparency = 0.15
+	G2L["1e"].Thickness = 2
+	library:RegisterTheme(G2L["1e"], "Color", "Outer")
 
-    G2L["1f"] = Instance.new("UIScale", G2L["1d"])
-    G2L["1f"].Scale = 0
+	G2L["1f"] = Instance.new("UIScale", G2L["1d"])
+	G2L["1f"].Scale = 0
 
-    -- Loading Move
-    G2L["20"] = Instance.new("TextButton", G2L["1d"])
-    G2L["20"].BorderSizePixel = 0
-    G2L["20"].TextSize = 14
-    library:RegisterTheme(G2L["20"], "TextColor3", "MainBackground")
-    G2L["20"].BackgroundTransparency = 1
-    G2L["20"].Size = UDim2.new(0.9356, 0, 0.1461, 0)
-    G2L["20"].Text = ""
-    G2L["20"].Name = "Move"
-    G2L["20"].Position = UDim2.new(0, 0, -0.04444, 0)
+	-- Loading Move
+	G2L["20"] = Instance.new("TextButton", G2L["1d"])
+	G2L["20"].BorderSizePixel = 0
+	G2L["20"].TextSize = 14
+	library:RegisterTheme(G2L["20"], "TextColor3", "MainBackground")
+	G2L["20"].BackgroundTransparency = 1
+	G2L["20"].Size = UDim2.new(0.9356, 0, 0.1461, 0)
+	G2L["20"].Text = ""
+	G2L["20"].Name = "Move"
+	G2L["20"].Position = UDim2.new(0, 0, -0.04444, 0)
 
-    -- Loading topbar (G2L["21"]) — same style as main topbar
-    G2L["21"] = Instance.new("Frame", G2L["1d"])
-    G2L["21"].BorderSizePixel = 0
-    library:RegisterTheme(G2L["21"], "BackgroundColor3", "Secondary")
-    G2L["21"].Size = UDim2.new(1, 0, 0.13086, 0)
-    G2L["21"].Position = UDim2.new(-0.00158, 0, -0.00205, 0)
-    G2L["21"].Name = "topbar"
-    G2L["21"].BackgroundTransparency = 0.15
-    G2L["21"].ZIndex = 10
-    Corner(G2L["21"], 10)
+	-- Loading topbar (G2L["21"]) — same style as main topbar
+	G2L["21"] = Instance.new("Frame", G2L["1d"])
+	G2L["21"].BorderSizePixel = 0
+	library:RegisterTheme(G2L["21"], "BackgroundColor3", "Secondary")
+	G2L["21"].Size = UDim2.new(1, 0, 0.13086, 0)
+	G2L["21"].Position = UDim2.new(-0.00158, 0, -0.00205, 0)
+	G2L["21"].Name = "topbar"
+	G2L["21"].BackgroundTransparency = 0.15
+	G2L["21"].ZIndex = 10
+	Corner(G2L["21"], 10)
 
-    local loadFill = Instance.new("Frame", G2L["21"])
-    loadFill.Size = UDim2.new(1,0,0.5,0); loadFill.Position = UDim2.new(0,0,0.5,0)
-    loadFill.BorderSizePixel = 0; loadFill.BackgroundTransparency = 0.15
-    library:RegisterTheme(loadFill, "BackgroundColor3", "Secondary")
+	local loadFill = Instance.new("Frame", G2L["21"])
+	loadFill.Size = UDim2.new(1,0,0.5,0); loadFill.Position = UDim2.new(0,0,0.5,0)
+	loadFill.BorderSizePixel = 0; loadFill.BackgroundTransparency = 0.15
+	library:RegisterTheme(loadFill, "BackgroundColor3", "Secondary")
 
-    local loadLine = Instance.new("Frame", G2L["21"])
-    loadLine.Size = UDim2.new(1,0,0,1); loadLine.Position = UDim2.new(0,0,1,-1)
-    loadLine.BorderSizePixel = 0
-    library:RegisterTheme(loadLine, "BackgroundColor3", "Stroke")
+	local loadLine = Instance.new("Frame", G2L["21"])
+	loadLine.Size = UDim2.new(1,0,0,1); loadLine.Position = UDim2.new(0,0,1,-1)
+	loadLine.BorderSizePixel = 0
+	library:RegisterTheme(loadLine, "BackgroundColor3", "Stroke")
 
-    local loadDot = Instance.new("Frame", G2L["21"])
-    loadDot.Size = UDim2.new(0.03,0,0.5,0); loadDot.AnchorPoint = Vector2.new(0,0.5)
-    loadDot.Position = UDim2.new(0.03,0,0.5,0); loadDot.BorderSizePixel = 0
-    library:RegisterTheme(loadDot, "BackgroundColor3", "Accent")
-    Corner(loadDot, 3); Instance.new("UIAspectRatioConstraint", loadDot)
+	local loadDot = Instance.new("Frame", G2L["21"])
+	loadDot.Size = UDim2.new(0.03,0,0.5,0); loadDot.AnchorPoint = Vector2.new(0,0.5)
+	loadDot.Position = UDim2.new(0.03,0,0.5,0); loadDot.BorderSizePixel = 0
+	library:RegisterTheme(loadDot, "BackgroundColor3", "Accent")
+	Corner(loadDot, 3); Instance.new("UIAspectRatioConstraint", loadDot)
 
-    G2L["drag2"] = Instance.new("TextButton", G2L["21"])
-    G2L["drag2"].Name = "draggable"
-    G2L["drag2"].Size = UDim2.new(1,0,1,0)
-    G2L["drag2"].BackgroundTransparency = 1
-    G2L["drag2"].ZIndex = 9999999
-    G2L["drag2"].Text = ""
+	G2L["drag2"] = Instance.new("TextButton", G2L["21"])
+	G2L["drag2"].Name = "draggable"
+	G2L["drag2"].Size = UDim2.new(1,0,1,0)
+	G2L["drag2"].BackgroundTransparency = 1
+	G2L["drag2"].ZIndex = 9999999
+	G2L["drag2"].Text = ""
 
-    -- Loading topbar labels (all Names preserved)
-    G2L["22"] = Instance.new("TextLabel", G2L["21"])
-    G2L["22"].TextWrapped=true; G2L["22"].BorderSizePixel=0; G2L["22"].TextSize=14
-    G2L["22"].TextScaled=true; G2L["22"].BackgroundTransparency=1
-    G2L["22"].AnchorPoint=Vector2.new(0.5,1)
-    G2L["22"].Size=UDim2.new(0.22688,0,0.49057,0)
-    G2L["22"].Text="PatchKids"; G2L["22"].Name="TITLE"
-    G2L["22"].Position=UDim2.new(0.49913,0,2.39623,0)
-    G2L["22"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Bold,Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["22"],"TextColor3","Text")
+	-- Loading topbar labels (all Names preserved)
+	G2L["22"] = Instance.new("TextLabel", G2L["21"])
+	G2L["22"].TextWrapped=true; G2L["22"].BorderSizePixel=0; G2L["22"].TextSize=14
+	G2L["22"].TextScaled=true; G2L["22"].BackgroundTransparency=1
+	G2L["22"].AnchorPoint=Vector2.new(0.5,1)
+	G2L["22"].Size=UDim2.new(0.22688,0,0.49057,0)
+	G2L["22"].Text="PatchKids"; G2L["22"].Name="TITLE"
+	G2L["22"].Position=UDim2.new(0.49913,0,2.39623,0)
+	G2L["22"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Bold,Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["22"],"TextColor3","Text")
 
-    G2L["23"] = Instance.new("TextLabel", G2L["21"])
-    G2L["23"].TextWrapped=true; G2L["23"].BorderSizePixel=0; G2L["23"].TextSize=14
-    G2L["23"].TextScaled=true; G2L["23"].BackgroundTransparency=1
-    G2L["23"].AnchorPoint=Vector2.new(0.5,1)
-    G2L["23"].Size=UDim2.new(0.22688,0,0.26415,0)
-    G2L["23"].Text="v"..tostring(V); G2L["23"].Name="version"
-    G2L["23"].Position=UDim2.new(0.49913,0,2.86792,0)
-    G2L["23"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium,Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["23"],"TextColor3","Text")
+	G2L["23"] = Instance.new("TextLabel", G2L["21"])
+	G2L["23"].TextWrapped=true; G2L["23"].BorderSizePixel=0; G2L["23"].TextSize=14
+	G2L["23"].TextScaled=true; G2L["23"].BackgroundTransparency=1
+	G2L["23"].AnchorPoint=Vector2.new(0.5,1)
+	G2L["23"].Size=UDim2.new(0.22688,0,0.26415,0)
+	G2L["23"].Text="v"..tostring(V); G2L["23"].Name="version"
+	G2L["23"].Position=UDim2.new(0.49913,0,2.86792,0)
+	G2L["23"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium,Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["23"],"TextColor3","Text")
 
-    G2L["24"] = Instance.new("TextLabel", G2L["21"])
-    G2L["24"].TextWrapped=true; G2L["24"].BorderSizePixel=0; G2L["24"].TextSize=14
-    G2L["24"].TextScaled=true; G2L["24"].BackgroundTransparency=1
-    G2L["24"].AnchorPoint=Vector2.new(0.5,1)
-    G2L["24"].Size=UDim2.new(0.63351,0,0.92453,0)
-    G2L["24"].Text="loading..."; G2L["24"].Name="loadingui"
-    G2L["24"].Position=UDim2.new(0.50087,0,3.98113,0)
-    G2L["24"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Regular,Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["24"],"TextColor3","Text")
-    G2L["25"]=Instance.new("UIScale",G2L["24"]); G2L["25"].Scale=0
+	G2L["24"] = Instance.new("TextLabel", G2L["21"])
+	G2L["24"].TextWrapped=true; G2L["24"].BorderSizePixel=0; G2L["24"].TextSize=14
+	G2L["24"].TextScaled=true; G2L["24"].BackgroundTransparency=1
+	G2L["24"].AnchorPoint=Vector2.new(0.5,1)
+	G2L["24"].Size=UDim2.new(0.63351,0,0.92453,0)
+	G2L["24"].Text="loading..."; G2L["24"].Name="loadingui"
+	G2L["24"].Position=UDim2.new(0.50087,0,3.98113,0)
+	G2L["24"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Regular,Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["24"],"TextColor3","Text")
+	G2L["25"]=Instance.new("UIScale",G2L["24"]); G2L["25"].Scale=0
 
-    G2L["26"] = Instance.new("TextLabel", G2L["21"])
-    G2L["26"].TextWrapped=true; G2L["26"].BorderSizePixel=0; G2L["26"].TextSize=14
-    G2L["26"].TextScaled=true; G2L["26"].BackgroundTransparency=1
-    G2L["26"].AnchorPoint=Vector2.new(0.5,1)
-    G2L["26"].Size=UDim2.new(0.63351,0,0.77358,0)
-    G2L["26"].Text="key:"; G2L["26"].Name="key"
-    G2L["26"].Position=UDim2.new(0.50087,0,3.83019,0)
-    G2L["26"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium,Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["26"],"TextColor3","Text")
-    G2L["27"]=Instance.new("UIScale",G2L["26"])
+	G2L["26"] = Instance.new("TextLabel", G2L["21"])
+	G2L["26"].TextWrapped=true; G2L["26"].BorderSizePixel=0; G2L["26"].TextSize=14
+	G2L["26"].TextScaled=true; G2L["26"].BackgroundTransparency=1
+	G2L["26"].AnchorPoint=Vector2.new(0.5,1)
+	G2L["26"].Size=UDim2.new(0.63351,0,0.77358,0)
+	G2L["26"].Text="key:"; G2L["26"].Name="key"
+	G2L["26"].Position=UDim2.new(0.50087,0,3.83019,0)
+	G2L["26"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Medium,Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["26"],"TextColor3","Text")
+	G2L["27"]=Instance.new("UIScale",G2L["26"])
 
-    G2L["28"] = Instance.new("TextBox", G2L["21"])
-    G2L["28"].BorderSizePixel=0; G2L["28"].TextWrapped=true; G2L["28"].TextSize=14
-    G2L["28"].TextScaled=true; G2L["28"].BackgroundTransparency=0.4
-    G2L["28"].Size=UDim2.new(0.41885,0,0.71698,0)
-    G2L["28"].Position=UDim2.new(0.29145,0,3.98113,0)
-    G2L["28"].Text=""; G2L["28"].PlaceholderText="Enter key..."
-    G2L["28"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Regular,Enum.FontStyle.Italic)
-    library:RegisterTheme(G2L["28"],"BackgroundColor3","Secondary")
-    library:RegisterTheme(G2L["28"],"TextColor3","Text")
-    Corner(G2L["28"],6)
-    G2L["29"]=Instance.new("UICorner",G2L["28"])
-    G2L["2a"]=Instance.new("UIScale",G2L["28"])
+	G2L["28"] = Instance.new("TextBox", G2L["21"])
+	G2L["28"].BorderSizePixel=0; G2L["28"].TextWrapped=true; G2L["28"].TextSize=14
+	G2L["28"].TextScaled=true; G2L["28"].BackgroundTransparency=0.4
+	G2L["28"].Size=UDim2.new(0.41885,0,0.71698,0)
+	G2L["28"].Position=UDim2.new(0.29145,0,3.98113,0)
+	G2L["28"].Text=""; G2L["28"].PlaceholderText="Enter key..."
+	G2L["28"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Regular,Enum.FontStyle.Italic)
+	library:RegisterTheme(G2L["28"],"BackgroundColor3","Secondary")
+	library:RegisterTheme(G2L["28"],"TextColor3","Text")
+	Corner(G2L["28"],6)
+	G2L["29"]=Instance.new("UICorner",G2L["28"])
+	G2L["2a"]=Instance.new("UIScale",G2L["28"])
 
-    G2L["2b"] = Instance.new("TextLabel", G2L["21"])
-    G2L["2b"].TextWrapped=true; G2L["2b"].BorderSizePixel=0; G2L["2b"].TextSize=14
-    G2L["2b"].TextScaled=true; G2L["2b"].BackgroundTransparency=1
-    G2L["2b"].AnchorPoint=Vector2.new(0.5,1)
-    G2L["2b"].Size=UDim2.new(0.63351,0,0.5283,0)
-    G2L["2b"].Text="Free key: Release"; G2L["2b"].Name="keyfree"
-    G2L["2b"].Position=UDim2.new(0.50087,0,0.5283,0)
-    G2L["2b"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Regular,Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["2b"],"TextColor3","Text")
-    G2L["2c"]=Instance.new("UIScale",G2L["2b"])
+	G2L["2b"] = Instance.new("TextLabel", G2L["21"])
+	G2L["2b"].TextWrapped=true; G2L["2b"].BorderSizePixel=0; G2L["2b"].TextSize=14
+	G2L["2b"].TextScaled=true; G2L["2b"].BackgroundTransparency=1
+	G2L["2b"].AnchorPoint=Vector2.new(0.5,1)
+	G2L["2b"].Size=UDim2.new(0.63351,0,0.5283,0)
+	G2L["2b"].Text="Free key: Release"; G2L["2b"].Name="keyfree"
+	G2L["2b"].Position=UDim2.new(0.50087,0,0.5283,0)
+	G2L["2b"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Regular,Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["2b"],"TextColor3","Text")
+	G2L["2c"]=Instance.new("UIScale",G2L["2b"])
 
-    G2L["2d"] = Instance.new("TextButton", G2L["21"])
-    G2L["2d"].TextWrapped=true; G2L["2d"].TextStrokeTransparency=0
-    G2L["2d"].BorderSizePixel=0; G2L["2d"].TextSize=60; G2L["2d"].TextScaled=true
-    G2L["2d"].TextYAlignment=Enum.TextYAlignment.Bottom
-    G2L["2d"].BackgroundTransparency=0.4
-    G2L["2d"].Size=UDim2.new(0.24782,0,0.81132,0)
-    G2L["2d"].Text=""; G2L["2d"].Name="checkkey"
-    G2L["2d"].Position=UDim2.new(0.37522,0,4.93235,0)
-    G2L["2d"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Bold,Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["2d"],"BackgroundColor3","Secondary")
-    library:RegisterTheme(G2L["2d"],"TextStrokeColor3","Secondary")
-    library:RegisterTheme(G2L["2d"],"TextColor3","Text")
-    G2L["2e"]=Instance.new("UICorner",G2L["2d"]); G2L["2e"].CornerRadius=UDim.new(1,0)
+	G2L["2d"] = Instance.new("TextButton", G2L["21"])
+	G2L["2d"].TextWrapped=true; G2L["2d"].TextStrokeTransparency=0
+	G2L["2d"].BorderSizePixel=0; G2L["2d"].TextSize=60; G2L["2d"].TextScaled=true
+	G2L["2d"].TextYAlignment=Enum.TextYAlignment.Bottom
+	G2L["2d"].BackgroundTransparency=0.4
+	G2L["2d"].Size=UDim2.new(0.24782,0,0.81132,0)
+	G2L["2d"].Text=""; G2L["2d"].Name="checkkey"
+	G2L["2d"].Position=UDim2.new(0.37522,0,4.93235,0)
+	G2L["2d"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Bold,Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["2d"],"BackgroundColor3","Secondary")
+	library:RegisterTheme(G2L["2d"],"TextStrokeColor3","Secondary")
+	library:RegisterTheme(G2L["2d"],"TextColor3","Text")
+	G2L["2e"]=Instance.new("UICorner",G2L["2d"]); G2L["2e"].CornerRadius=UDim.new(1,0)
 
-    G2L["2f"] = Instance.new("TextLabel", G2L["2d"])
-    G2L["2f"].TextWrapped=true; G2L["2f"].TextStrokeTransparency=0
-    G2L["2f"].BorderSizePixel=0; G2L["2f"].TextSize=14; G2L["2f"].TextScaled=true
-    G2L["2f"].BackgroundTransparency=1
-    G2L["2f"].Size=UDim2.new(1,0,0.69767,0)
-    G2L["2f"].Text="check key"
-    G2L["2f"].Position=UDim2.new(0,0,0.13953,0)
-    G2L["2f"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Bold,Enum.FontStyle.Normal)
-    library:RegisterTheme(G2L["2f"],"TextColor3","Text")
+	G2L["2f"] = Instance.new("TextLabel", G2L["2d"])
+	G2L["2f"].TextWrapped=true; G2L["2f"].TextStrokeTransparency=0
+	G2L["2f"].BorderSizePixel=0; G2L["2f"].TextSize=14; G2L["2f"].TextScaled=true
+	G2L["2f"].BackgroundTransparency=1
+	G2L["2f"].Size=UDim2.new(1,0,0.69767,0)
+	G2L["2f"].Text="check key"
+	G2L["2f"].Position=UDim2.new(0,0,0.13953,0)
+	G2L["2f"].FontFace=Font.new("rbxasset://fonts/families/GothamSSm.json",Enum.FontWeight.Bold,Enum.FontStyle.Normal)
+	library:RegisterTheme(G2L["2f"],"TextColor3","Text")
 
-    G2L["30"]=Instance.new("UIAspectRatioConstraint",G2L["1d"])
-    G2L["30"].AspectRatio=1.5
+	G2L["30"]=Instance.new("UIAspectRatioConstraint",G2L["1d"])
+	G2L["30"].AspectRatio=1.5
 
-    library.CreatedUI = G2L["1"]
-    return G2L["1"]
+	library.CreatedUI = G2L["1"]
+	return G2L["1"]
 end
 
 return library
