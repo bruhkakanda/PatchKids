@@ -2087,14 +2087,19 @@ local script = G2L["47"];
 		API.mainframe.Visible = false
 	end)
 	
+	local ogRadius = script.Parent.UICorner.CornerRadius
+local ogBackground = script.Parent.BackgroundColor3
+	
 	script.Parent.MouseEnter:Connect(function()
 		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundTransparency = .2}):Play()
-		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(.1,0)}):Play()
+		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(0.025,0)}):Play()
 	end)
 	
 	script.Parent.MouseLeave:Connect(function()
 		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundTransparency = .4}):Play()
-		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(1,0)}):Play()
+		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundColor3 = ogBackground}):Play()
+		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = ogRadius}):Play()
 	end)
 end;
 task.spawn(C_47);
@@ -2161,7 +2166,7 @@ local script = G2L["5f"];
 
 			game.TweenService:Create(c.key.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
 			game.TweenService:Create(c.TextBox.UIScale,TweenInfo.new(0),{Scale = 0}):Play()
-			game.TweenService:Create(c.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
+			game.TweenService:Create(c.Parent.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
 			m.New("Correct key!",2)
 
 			game.TweenService:Create(script.Parent.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
@@ -2185,7 +2190,7 @@ local script = G2L["5f"];
 		elseif c.TextBox.Text == KEY then
 			game.TweenService:Create(c.key.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
 			game.TweenService:Create(c.TextBox.UIScale,TweenInfo.new(0),{Scale = 0}):Play()
-			game.TweenService:Create(c.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
+			game.TweenService:Create(c.Parent.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
 			m.New("Correct key!",2)
 			game.TweenService:Create(script.Parent.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
 			wait(.1)
@@ -2212,17 +2217,20 @@ task.spawn(C_5f);
 
 local function C_72()
 local script = G2L["72"];
+
+local ogRadius = script.Parent.UICorner.CornerRadius
+local ogBackground = script.Parent.BackgroundColor3
 	
 	script.Parent.MouseEnter:Connect(function()
 		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundTransparency = .2}):Play()
 		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(.1,0)}):Play()
+		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(0.025,0)}):Play()
 	end)
 	
 	script.Parent.MouseLeave:Connect(function()
 		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundTransparency = .4}):Play()
-		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(83, 83, 83)}):Play()
-		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(1,0)}):Play()
+		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundColor3 = ogBackground}):Play()
+		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = ogRadius}):Play()
 	end)
 end;
 task.spawn(C_72);
