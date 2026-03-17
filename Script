@@ -2083,6 +2083,7 @@ task.spawn(C_43);
 -- StarterGui.PK_API.mainframe.topbar.min.LocalScript
 local function C_47()
 local script = G2L["47"];
+script.Parent.ZIndex = 999999999
 	script.Parent.Activated:Connect(function()
 		API.mainframe.Visible = false
 	end)
@@ -2092,13 +2093,11 @@ local ogBackground = script.Parent.BackgroundColor3
 	
 	script.Parent.MouseEnter:Connect(function()
 		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundTransparency = .2}):Play()
-		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
 		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(0.025,0)}):Play()
 	end)
 	
 	script.Parent.MouseLeave:Connect(function()
 		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundTransparency = .4}):Play()
-		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundColor3 = ogBackground}):Play()
 		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = ogRadius}):Play()
 	end)
 end;
