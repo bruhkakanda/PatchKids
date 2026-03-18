@@ -2004,8 +2004,6 @@ local function C_4()
 
 	local universal = require(script.Universal)
 
-	NewNotification.New("Welcome to PatchKids!")
-
 	local version = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/version"))()
 	if clientVersion == version then
 		NewNotification.New("PatchKids is up-to-date.")
@@ -2144,11 +2142,11 @@ local function C_5f()
 	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
 	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
 		c.TextBox.Text = KEY
-		API.mainframe.Profile.Paid.Visible = true
-		API.mainframe.Profile.Free.Visible = false
+		API.mainframe.Profile.Main.Paid.Visible = true
+		API.mainframe.Profile.Main.Free.Visible = false
 	else
-		API.mainframe.Profile.Free.Visible = true
-		API.mainframe.Profile.Paid.Visible = false
+		API.mainframe.Profile.Main.Free.Visible = true
+		API.mainframe.Profile.Main.Paid.Visible = false
 	end
 	
 	c.Parent.loadingui.Visible = true
@@ -2178,8 +2176,8 @@ local function C_5f()
 
 			local content, isReady = game.Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
 
-			API.mainframe.Profile.User.Text = game.Players.LocalPlayer.Name
-			API.mainframe.Profile.Icon.Image = content
+			API.mainframe.Profile.Main.User.Text = game.Players.LocalPlayer.Name
+			API.mainframe.Profile.Main.Icon.Image = content
 
 			script.Parent:Destroy()
 		elseif c.TextBox.Text == KEY then
@@ -2199,8 +2197,8 @@ local function C_5f()
 
 			local content, isReady = game.Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
 
-			API.mainframe.Profile.User.Text = game.Players.LocalPlayer.Name
-			API.mainframe.Profile.Icon.Image = content
+			API.mainframe.Profile.Main.User.Text = game.Players.LocalPlayer.Name
+			API.mainframe.Profile.Main.Icon.Image = content
 
 			script.Parent:Destroy()
 		else
