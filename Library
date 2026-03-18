@@ -406,7 +406,7 @@ library.CreateTemplates = function()
 	local G2L = {};
 
 	-- StarterGui.Templates
-	G2L["1"] = {}
+	G2L["1"] = Instance.new("ScreenGui")
 
 
 	-- StarterGui.Templates.Template
