@@ -389,6 +389,13 @@ C = Text, Color
 ]]
 
 library.AddThemesToTemplate = function(template)
+	if template:HasTag("A") then
+			library:RegisterTheme(template, "BackgroundColor3", "Third")
+		elseif template:HasTag("B") then
+			library:RegisterTheme(template, "Color", "Stroke")
+		elseif template:HasTag("C") then
+			library:RegisterTheme(template, "TextColor3", "Text")
+		end
 	for _, child in template:GetDescendants() do
 		if child:HasTag("A") then
 			library:RegisterTheme(child, "BackgroundColor3", "Third")
@@ -982,7 +989,7 @@ library.CreateHUD = function(V)
 
 	-- StarterGui.PK_API.mainframe.Profile.UICorner
 	G2L["c"] = Instance.new("UICorner", G2L["canvas"]);
-	G2L["c"]["CornerRadius"] = UDim.new(0.4, 0);
+	G2L["c"]["CornerRadius"] = UDim.new(0.05, 0);
 
 
 	-- StarterGui.PK_API.mainframe.Profile.UIStroke
