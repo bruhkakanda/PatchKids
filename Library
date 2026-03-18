@@ -413,7 +413,6 @@ library.CreateTemplates = function()
 	G2L["2"] = Instance.new("Frame", G2L["1"]);
 	G2L["2"]["Visible"] = false;
 	G2L["2"]["BorderSizePixel"] = 0;
-	G2L["2"]["BackgroundColor3"] = Color3.fromRGB(67, 67, 67);
 	G2L["2"]["Size"] = UDim2.new(0.8, 0, 0.14, 0);
 	G2L["2"]["Position"] = UDim2.new(0.16405, 0, 0.8, 0);
 	G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -546,7 +545,6 @@ library.CreateTemplates = function()
 	G2L["d"]["TextScaled"] = true;
 	G2L["d"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 	G2L["d"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-	G2L["d"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 	G2L["d"]["BackgroundTransparency"] = 1;
 	G2L["d"]["Size"] = UDim2.new(0.7, 0, 1, 0);
 	G2L["d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -579,7 +577,6 @@ library.CreateTemplates = function()
 	G2L["10"] = Instance.new("Frame", G2L["1"]);
 	G2L["10"]["Visible"] = false;
 	G2L["10"]["BorderSizePixel"] = 0;
-	G2L["10"]["BackgroundColor3"] = Color3.fromRGB(67, 67, 67);
 	G2L["10"]["Size"] = UDim2.new(0.8, 0, 0.14, 0);
 	G2L["10"]["Position"] = UDim2.new(0.16405, 0, 0.20494, 0);
 	G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -621,7 +618,6 @@ library.CreateTemplates = function()
 	G2L["13"]["TextScaled"] = true;
 	G2L["13"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 	G2L["13"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-	G2L["13"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 	G2L["13"]["BackgroundTransparency"] = 1;
 	G2L["13"]["Size"] = UDim2.new(0.7, 0, 1, 0);
 	G2L["13"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
@@ -814,7 +810,6 @@ library.CreateTemplates = function()
 	G2L["27"]["TextSize"] = 14;
 	G2L["27"]["TextScaled"] = true;
 	G2L["27"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-	G2L["27"]["BackgroundColor3"] = Color3.fromRGB(31, 31, 31);
 	G2L["27"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 	G2L["27"]["ZIndex"] = 10000;
 	G2L["27"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
@@ -873,7 +868,7 @@ library.CreateHUD = function(V)
 
 	-- StarterGui.PK_API.mainframe.Profile
 	G2L["canvas"] = Instance.new("CanvasGroup", G2L["2"]);
-	G2L["canvas"]["Visible"] = false;
+	G2L["canvas"]["Visible"] = true;
 	G2L["canvas"]["ZIndex"] = 12;
 	G2L["canvas"]["BorderSizePixel"] = 0;
 	G2L["canvas"]["BackgroundColor3"] = Color3.fromRGB(67, 67, 67);
@@ -986,7 +981,7 @@ library.CreateHUD = function(V)
 
 
 	-- StarterGui.PK_API.mainframe.Profile.UICorner
-	G2L["c"] = Instance.new("UICorner", G2L["3"]);
+	G2L["c"] = Instance.new("UICorner", G2L["canvas"]);
 	G2L["c"]["CornerRadius"] = UDim.new(0.4, 0);
 
 
