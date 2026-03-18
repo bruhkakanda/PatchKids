@@ -1,4 +1,4 @@
---// New Library \\--
+--// Original Library \\--
 local library = {}
 local RunService = game:GetService("RunService")   
 local UserInputService = game:GetService("UserInputService")
@@ -382,11 +382,34 @@ function library.ToggleDragging()
 	library.DraggingEnabled = not library.DraggingEnabled
 end
 
+--[[
+A = Third, BackgroundColor3
+B = Stroke, Color
+C = Text, Color
+]]
+
+library.AddThemesToTemplate = function(template)
+	for _, child in template:GetDescendants() do
+		if child:HasTag("A") then
+			library:RegisterTheme(child, "BackgroundColor3", "Third")
+		elseif child:HasTag("B") then
+			library:RegisterTheme(child, "Color", "Stroke")
+		elseif child:HasTag("C") then
+			library:RegisterTheme(child, "Color", "Text")
+		end
+	end
+end
+
 library.CreateTemplates = function()
+
+	local CollectionService = game:GetService("CollectionService");
 	local G2L = {};
 
-	G2L["1"] = {};
+	-- StarterGui.Templates
+	G2L["1"] = {}
 
+
+	-- StarterGui.Templates.Template
 	G2L["2"] = Instance.new("Frame", G2L["1"]);
 	G2L["2"]["Visible"] = false;
 	G2L["2"]["BorderSizePixel"] = 0;
@@ -397,6 +420,8 @@ library.CreateTemplates = function()
 	G2L["2"]["Name"] = [[Template]];
 	G2L["2"]["BackgroundTransparency"] = 0.4;
 
+	-- Tags
+	CollectionService:AddTag(G2L["2"], [[A]]);
 
 	-- StarterGui.Templates.Template.Execute
 	G2L["3"] = Instance.new("TextButton", G2L["2"]);
@@ -480,10 +505,10 @@ library.CreateTemplates = function()
 	G2L["8"]["BorderSizePixel"] = 0;
 	G2L["8"]["TextSize"] = 14;
 	G2L["8"]["TextScaled"] = true;
-	G2L["8"]["BackgroundColor3"] = Color3.fromRGB(44, 44, 44);
+	G2L["8"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 	G2L["8"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 	G2L["8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-	G2L["8"]["BackgroundTransparency"] = 0.5;
+	G2L["8"]["BackgroundTransparency"] = 0.7;
 	G2L["8"]["Size"] = UDim2.new(0.12, 0, 0.865, 0);
 	G2L["8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 	G2L["8"]["Text"] = [[...]];
@@ -529,6 +554,8 @@ library.CreateTemplates = function()
 	G2L["d"]["Name"] = [[Title]];
 	G2L["d"]["Position"] = UDim2.new(0.01844, 0, 0, 0);
 
+	-- Tags
+	CollectionService:AddTag(G2L["d"], [[C]]);
 
 	-- StarterGui.Templates.Template.Button
 	G2L["e"] = Instance.new("ImageButton", G2L["2"]);
@@ -559,6 +586,8 @@ library.CreateTemplates = function()
 	G2L["10"]["Name"] = [[TemplateToggle]];
 	G2L["10"]["BackgroundTransparency"] = 0.4;
 
+	-- Tags
+	CollectionService:AddTag(G2L["10"], [[A]]);
 
 	-- StarterGui.Templates.TemplateToggle.UICorner
 	G2L["11"] = Instance.new("UICorner", G2L["10"]);
@@ -600,6 +629,8 @@ library.CreateTemplates = function()
 	G2L["13"]["Name"] = [[Title]];
 	G2L["13"]["Position"] = UDim2.new(0.01844, 0, 0, 0);
 
+	-- Tags
+	CollectionService:AddTag(G2L["13"], [[C]]);
 
 	-- StarterGui.Templates.TemplateToggle.ExecuteString
 	G2L["14"] = Instance.new("TextLabel", G2L["10"]);
@@ -794,6 +825,8 @@ library.CreateTemplates = function()
 	G2L["27"]["Visible"] = false;
 	G2L["27"]["Position"] = UDim2.new(0.85078, 0, 0.41298, 0);
 
+	-- Tags
+	CollectionService:AddTag(G2L["27"], [[A]]);
 
 	-- StarterGui.Templates.MovingButton.UICorner
 	G2L["28"] = Instance.new("UICorner", G2L["27"]);
