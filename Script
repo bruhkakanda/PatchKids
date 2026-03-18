@@ -366,6 +366,8 @@ G2L_MODULES[G2L["5"]] = {
 			clone.Title.Text = Title
 			clone.Desc.Text = Desc
 			clone.Parent = script.Parent.Parent.NewTabs[tab]
+			clone.Title.Size = UDim2.fromScale(0.7,1)
+			clone.Visible = true
 
 			local currentKey = nil
 			local listening = false
@@ -421,8 +423,9 @@ G2L_MODULES[G2L["5"]] = {
 			clone.Parent = script.Parent.Parent.NewTabs[tab]
 			clone.Keybind.Visible = false
 			clone.KeybindTitle.Visible = false
-			clone.Title.Size = UDim2.fromScale(1,1)
+			clone.Title.Size = UDim2.fromScale(0.7,1)
 			clone.Title.Position = UDim2.new(0,0,0,0)
+			clone.Visible = true
 			return clone.Execute
 		end
 
@@ -432,6 +435,7 @@ G2L_MODULES[G2L["5"]] = {
 			clone.Name = "Title"
 			clone.Title.Text = Title
 			clone.Parent = script.Parent.Parent.NewTabs[tab]
+			clone.Visible = true
 
 
 
@@ -522,6 +526,7 @@ G2L_MODULES[G2L["2a"]] = {
 		function module.New(TabName)
 			local newTab = GeneratedTemplates.TemplateTab:Clone()
 			newTab.Label.Text = TabName
+			newTab.Label.Visible = false
 			newTab.Name = TabName
 			newTab.Parent = script.Parent.Parent.NewTabs
 			local tabButton = script.TemplateButton:Clone()
