@@ -548,7 +548,7 @@ library.CreateTemplates = function()
 	G2L["d"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 	G2L["d"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 	G2L["d"]["BackgroundTransparency"] = 1;
-	G2L["d"]["Size"] = UDim2.new(0.67776, 0, 1, 0);
+	G2L["d"]["Size"] = UDim2.new(0.7, 0, 1, 0);
 	G2L["d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 	G2L["d"]["Text"] = [[Autofarm]];
 	G2L["d"]["Name"] = [[Title]];
@@ -623,7 +623,7 @@ library.CreateTemplates = function()
 	G2L["13"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 	G2L["13"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 	G2L["13"]["BackgroundTransparency"] = 1;
-	G2L["13"]["Size"] = UDim2.new(0.67776, 0, 1, 0);
+	G2L["13"]["Size"] = UDim2.new(0.7, 0, 1, 0);
 	G2L["13"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 	G2L["13"]["Text"] = [[Autofarm]];
 	G2L["13"]["Name"] = [[Title]];
@@ -794,6 +794,7 @@ library.CreateTemplates = function()
 	G2L["25"]["Text"] = [[Universal]];
 	G2L["25"]["Name"] = [[Label]];
 	G2L["25"]["Position"] = UDim2.new(0, 0, -0, 0);
+	G2L["25"]["Visible"] = false;
 
 
 	-- StarterGui.Templates.TemplateTab.Label.Frame
