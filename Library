@@ -395,7 +395,7 @@ library.AddThemesToTemplate = function(template)
 		elseif child:HasTag("B") then
 			library:RegisterTheme(child, "Color", "Stroke")
 		elseif child:HasTag("C") then
-			library:RegisterTheme(child, "Color", "Text")
+			library:RegisterTheme(child, "TextColor3", "Text")
 		end
 	end
 end
