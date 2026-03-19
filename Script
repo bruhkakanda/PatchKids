@@ -347,6 +347,8 @@ G2L_MODULES[G2L["5"]] = {
 			}
 		}
 
+		local RunService = game:GetService("RunService")
+		local TweenService = game:GetService("TweenService")
 		local player = game.Players.LocalPlayer
 		local mouse = player:GetMouse()
 
@@ -428,6 +430,8 @@ G2L_MODULES[G2L["5"]] = {
 			clone.Visible = true
 			return clone.Execute
 		end
+		
+		
 
 		function module.NewToggle(Title,Desc,tab)
 			local clone = GeneratedTemplates.TemplateToggle:Clone()
@@ -462,6 +466,120 @@ G2L_MODULES[G2L["5"]] = {
 			library.AddDraggingTo(new, Drags, "Button_" .. Title)
 
 			return new
+		end
+		
+		function module.NewSlider(Title, Min, Max, Default, Tab, Callback)
+			local clone = GeneratedTemplates.SliderTemplate:Clone()
+			library.AddThemesToTemplate(clone)
+			clone.Name = Title
+
+			local Slider = clone:WaitForChild("Slider")
+			local Moving = Slider:WaitForChild("Moving")
+			local Info = Moving:WaitForChild("Info")
+			local InfoScale = Info:WaitForChild("UIScale")
+			local TitleLabel = clone:WaitForChild("Title")
+
+			local SNAP_INCREMENT = 0
+			local INFO_HIDE_DELAY = 1.5
+			local isDragging = false
+			local hideInfoThread = nil
+			local currentValue = math.clamp(Default, Min, Max)
+
+			TitleLabel.Text = Title
+			Info.Text = string.format("%.2f", currentValue)
+			InfoScale.Scale = 0
+			clone.Parent = script.Parent.Parent.NewTabs[Tab]
+
+			local defaultAlpha = (currentValue - Min) / (Max - Min)
+			Moving.Position = UDim2.new(defaultAlpha, 0, 0.5, 0)
+
+			local function tweenScale(target)
+				TweenService:Create(InfoScale, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {
+					Scale = target
+				}):Play()
+			end
+
+			local function showInfo()
+				if hideInfoThread then
+					task.cancel(hideInfoThread)
+					hideInfoThread = nil
+				end
+				tweenScale(1)
+			end
+
+			local function scheduleHideInfo()
+				if hideInfoThread then task.cancel(hideInfoThread) end
+				hideInfoThread = task.delay(INFO_HIDE_DELAY, function()
+					tweenScale(0)
+					hideInfoThread = nil
+				end)
+			end
+
+			local function updateSlider(inputX)
+				local absPos = Slider.AbsolutePosition
+				local absSize = Slider.AbsoluteSize
+
+				local relX = math.clamp(inputX - absPos.X, 0, absSize.X)
+				local alpha = relX / absSize.X
+
+				currentValue = Min + alpha * (Max - Min)
+				currentValue = math.clamp(currentValue, Min, Max)
+
+				Moving.Position = UDim2.new(alpha, 0, 0.5, 0)
+				Info.Text = string.format("%.2f", currentValue)
+
+				if Callback then Callback(currentValue) end
+			end
+
+			local function beginDrag()
+				isDragging = true
+				showInfo()
+			end
+
+			Moving.InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1
+					or input.UserInputType == Enum.UserInputType.Touch then
+					beginDrag()
+				end
+			end)
+
+			Slider.InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1
+					or input.UserInputType == Enum.UserInputType.Touch then
+					beginDrag()
+					updateSlider(UserInputService:GetMouseLocation().X)
+				end
+			end)
+
+			RunService.RenderStepped:Connect(function()
+				if not isDragging then return end
+				updateSlider(UserInputService:GetMouseLocation().X)
+			end)
+
+			UserInputService.InputEnded:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1
+					or input.UserInputType == Enum.UserInputType.Touch then
+					if isDragging then
+						isDragging = false
+						scheduleHideInfo()
+					end
+				end
+			end)
+
+			clone.Visible = true
+
+			return {
+				SetValue = function(value)
+					currentValue = math.clamp(value, Min, Max)
+					local alpha = (currentValue - Min) / (Max - Min)
+					Moving.Position = UDim2.new(alpha, 0, 0.5, 0)
+					Info.Text = tostring(currentValue)
+					if Callback then Callback(currentValue) end
+				end,
+				GetValue = function()
+					return currentValue
+				end
+			}
 		end
 
 		return module
@@ -2091,7 +2209,7 @@ task.spawn(C_43);
 local function C_47()
 	local script = G2L["47"];
 	script.Parent.ZIndex = 999999999
-	
+
 	script.Parent.Activated:Connect(function()
 		API.mainframe.Visible = false
 	end)
@@ -2135,7 +2253,7 @@ local function C_5f()
 
 	local KEY = "key-" .. tostring(game:GetService("HttpService"):GenerateGUID(false))
 	local freeKey = "Release"
-	
+
 	script.Parent.topbar.welcome.Text = "Welcome, " .. game.Players.LocalPlayer.DisplayName .. "!"
 
 	wait(2)
@@ -2153,7 +2271,7 @@ local function C_5f()
 		API.mainframe.Profile.Profile.Free.Visible = true
 		API.mainframe.Profile.Profile.Paid.Visible = false
 	end
-	
+
 	c.Parent.loadingui.Visible = true
 
 
