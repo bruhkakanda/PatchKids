@@ -1,4 +1,4 @@
---t2
+--t3
 local G2L = {};
 
 local lockedButtons = false
@@ -427,7 +427,7 @@ G2L_MODULES[G2L["5"]] = {
 			clone.KeybindTitle.Visible = false
 			clone.Title.Size = UDim2.fromScale(0.7,1)
 			clone.Title.Position = UDim2.new(0,0,0,0)
-			clone.Button.Position = clone.KeybindTitle.Position
+			clone.Button.Position = UDim2.fromScale(clone.Button.Position.X.Scale + 0.15, 0.5)
 			clone.Visible = true
 			return clone.Execute
 		end
