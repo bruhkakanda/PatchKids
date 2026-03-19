@@ -390,12 +390,12 @@ C = Text, Color
 
 library.AddThemesToTemplate = function(template)
 	if template:HasTag("A") then
-			library:RegisterTheme(template, "BackgroundColor3", "Third")
-		elseif template:HasTag("B") then
-			library:RegisterTheme(template, "Color", "Stroke")
-		elseif template:HasTag("C") then
-			library:RegisterTheme(template, "TextColor3", "Text")
-		end
+		library:RegisterTheme(template, "BackgroundColor3", "Third")
+	elseif template:HasTag("B") then
+		library:RegisterTheme(template, "Color", "Stroke")
+	elseif template:HasTag("C") then
+		library:RegisterTheme(template, "TextColor3", "Text")
+	end
 	for _, child in template:GetDescendants() do
 		if child:HasTag("A") then
 			library:RegisterTheme(child, "BackgroundColor3", "Third")
@@ -848,7 +848,127 @@ library.CreateTemplates = function()
 	G2L["2a"] = Instance.new("UIAspectRatioConstraint", G2L["27"]);
 	G2L["2a"]["AspectRatio"] = 1.3;
 
+	G2L["2b"] = Instance.new("Frame", G2L["1"]);
+	G2L["2b"]["BorderSizePixel"] = 0;
+	G2L["2b"]["BackgroundColor3"] = Color3.fromRGB(67, 67, 67);
+	G2L["2b"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+	G2L["2b"]["Size"] = UDim2.new(0.8, 0, 0.24, 0);
+	G2L["2b"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
+	G2L["2b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["2b"]["Name"] = [[SliderTemplate]];
+	G2L["2b"]["BackgroundTransparency"] = 0.4;
 
+	-- Tags
+	CollectionService:AddTag(G2L["2b"], [[A]]);
+
+	-- StarterGui.Templates.SliderTemplate.UICorner
+	G2L["2c"] = Instance.new("UICorner", G2L["2b"]);
+	G2L["2c"]["CornerRadius"] = UDim.new(0.2, 0);
+
+
+	-- StarterGui.Templates.SliderTemplate.UIStroke
+	G2L["2d"] = Instance.new("UIStroke", G2L["2b"]);
+	G2L["2d"]["Transparency"] = 0.5;
+	G2L["2d"]["Color"] = Color3.fromRGB(101, 101, 101);
+
+
+	-- StarterGui.Templates.SliderTemplate.Title
+	G2L["2e"] = Instance.new("TextLabel", G2L["2b"]);
+	G2L["2e"]["TextWrapped"] = true;
+	G2L["2e"]["BorderSizePixel"] = 0;
+	G2L["2e"]["TextSize"] = 14;
+	G2L["2e"]["TextScaled"] = true;
+	G2L["2e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["2e"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+	G2L["2e"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["2e"]["BackgroundTransparency"] = 1;
+	G2L["2e"]["Size"] = UDim2.new(1, 0, 0.35, 0);
+	G2L["2e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["2e"]["Text"] = [[GUI Scale]];
+	G2L["2e"]["Name"] = [[Title]];
+
+	-- Tags
+	CollectionService:AddTag(G2L["2e"], [[C]]);
+
+	-- StarterGui.Templates.SliderTemplate.Slider
+	G2L["2f"] = Instance.new("Frame", G2L["2b"]);
+	G2L["2f"]["BorderSizePixel"] = 0;
+	G2L["2f"]["BackgroundColor3"] = Color3.fromRGB(67, 67, 67);
+	G2L["2f"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+	G2L["2f"]["Size"] = UDim2.new(0.75, 0, 0.2, 0);
+	G2L["2f"]["Position"] = UDim2.new(0.5, 0, 0.55, 0);
+	G2L["2f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["2f"]["Name"] = [[Slider]];
+
+	-- Tags
+	CollectionService:AddTag(G2L["2f"], [[A]]);
+
+	-- StarterGui.Templates.SliderTemplate.Slider.UIStroke
+	G2L["30"] = Instance.new("UIStroke", G2L["2f"]);
+	G2L["30"]["Transparency"] = 0.5;
+	G2L["30"]["Color"] = Color3.fromRGB(101, 101, 101);
+
+
+	-- StarterGui.Templates.SliderTemplate.Slider.UICorner
+	G2L["31"] = Instance.new("UICorner", G2L["2f"]);
+	G2L["31"]["CornerRadius"] = UDim.new(0.5, 0);
+
+
+	-- StarterGui.Templates.SliderTemplate.Slider.UIGradient
+	G2L["32"] = Instance.new("UIGradient", G2L["2f"]);
+	G2L["32"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(211, 211, 211)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(211, 211, 211))};
+
+
+	-- StarterGui.Templates.SliderTemplate.Slider.Moving
+	G2L["33"] = Instance.new("Frame", G2L["2f"]);
+	G2L["33"]["BorderSizePixel"] = 0;
+	G2L["33"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["33"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+	G2L["33"]["Size"] = UDim2.new(1.5, 0, 1.5, 0);
+	G2L["33"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
+	G2L["33"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["33"]["Name"] = [[Moving]];
+
+
+	-- StarterGui.Templates.SliderTemplate.Slider.Moving.UIAspectRatioConstraint
+	G2L["34"] = Instance.new("UIAspectRatioConstraint", G2L["33"]);
+
+
+
+	-- StarterGui.Templates.SliderTemplate.Slider.Moving.UICorner
+	G2L["35"] = Instance.new("UICorner", G2L["33"]);
+	G2L["35"]["CornerRadius"] = UDim.new(1, 0);
+
+
+	-- StarterGui.Templates.SliderTemplate.Slider.Moving.UIStroke
+	G2L["36"] = Instance.new("UIStroke", G2L["33"]);
+	G2L["36"]["Transparency"] = 0.5;
+	G2L["36"]["Color"] = Color3.fromRGB(31, 31, 31);
+
+
+	-- StarterGui.Templates.SliderTemplate.Slider.Moving.Info
+	G2L["37"] = Instance.new("TextLabel", G2L["33"]);
+	G2L["37"]["TextWrapped"] = true;
+	G2L["37"]["BorderSizePixel"] = 0;
+	G2L["37"]["TextSize"] = 14;
+	G2L["37"]["TextScaled"] = true;
+	G2L["37"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["37"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+	G2L["37"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["37"]["BackgroundTransparency"] = 1;
+	G2L["37"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+	G2L["37"]["Size"] = UDim2.new(2, 0, 1, 0);
+	G2L["37"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["37"]["Text"] = [[0.9]];
+	G2L["37"]["Name"] = [[Info]];
+	G2L["37"]["Position"] = UDim2.new(0.5, 0, 1.5, 0);
+
+	-- Tags
+	CollectionService:AddTag(G2L["37"], [[C]]);
+
+	-- StarterGui.Templates.SliderTemplate.Slider.Moving.Info.UIScale
+	G2L["38"] = Instance.new("UIScale", G2L["37"]);
+	G2L["38"]["Scale"] = 0;
 
 	return G2L["1"]
 end
@@ -885,7 +1005,7 @@ library.CreateHUD = function(V)
 	G2L["canvas"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 	G2L["canvas"]["Name"] = [[Profile]];
 	G2L["canvas"]["BackgroundTransparency"] = 1;
-	
+
 	G2L["3"] = Instance.new("Frame", G2L["canvas"]);
 	G2L["3"]["ZIndex"] = 12;
 	G2L["3"]["BorderSizePixel"] = 0;
@@ -1100,7 +1220,7 @@ library.CreateHUD = function(V)
 	G2L["19"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 	G2L["19"]["ClipsDescendants"] = true;
 	G2L["19"]["Size"] = UDim2.new(0.005, 0, 0.8, 0);
-	G2L["19"]["Position"] = UDim2.new(0.26247, 0, 0.50172, 0);
+	G2L["19"]["Position"] = UDim2.new(0.276, 0, 0.5, 0);
 	G2L["19"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 	G2L["19"]["Name"] = [[ya]];
 	G2L["19"]["BackgroundTransparency"] = 0.2;
