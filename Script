@@ -683,6 +683,8 @@ G2L_MODULES[G2L["33"]] = {
 		local script = G2L["33"];local module = {}
 
 		module.Start = function()
+			local player = game.Players.LocalPlayer
+
 			local newwindow = require(script.Parent.NewWindow)
 			local NewNotification = require(script.Parent.NewNotification)
 			local tab = require(script.Parent.NewTab)
@@ -691,18 +693,25 @@ G2L_MODULES[G2L["33"]] = {
 			local FlyScript = require(script.Fly)
 
 			local newTab = tab.New("Universal", 0)
-			newwindow.NewTitle("Universal", "Universal")
+			newwindow.NewTitle("Player", "Universal")
+
+			local WalkSpeedSlider = newwindow.NewSlider("Walk Speed", 16, 50, 16, "Universal", function(value)
+				local char = player.Character
+				if char and char.Parent and char:FindFirstChild("Humanoid") then
+					local hum = char.Humanoid
+					hum.WalkSpeed = value
+				end
+			end)
+
 			local Fly = newwindow.NewToggle("Fly","G to toggle","Universal")
-			local ButtonLock = newwindow.NewToggle("Button Lock","Lock buttons","Universal")
+
+			local FlySpeedSlider = newwindow.NewSlider("Fly Speed", 1, 5, 1, "Universal", function(value)
+				FlyScript.ChangeSpeed(value)
+			end)
 
 			Fly.Activated:Connect(function()
 				Fly.Toggle.Value = not Fly.Toggle.Value
 				FlyScript.Toggle()
-			end)
-
-			ButtonLock.Activated:Connect(function()
-				ButtonLock.Toggle.Value = not ButtonLock.Toggle.Value
-				library.ToggleDragging()
 			end)
 
 		end
@@ -715,142 +724,186 @@ G2L_MODULES[G2L["34"]] = {
 	Closure = function()
 		local script = G2L["34"];local module = {}
 
+		module.FlySpeed = 1
+
 		local Players = game:GetService("Players")
+		local UserInputService = game:GetService("UserInputService")
 		local RunService = game:GetService("RunService")
-		local UIS = game:GetService("UserInputService")
 
-		local player = Players.LocalPlayer
-		local camera = workspace.CurrentCamera
-		local gui = player:WaitForChild("PlayerGui")
+		-- // Player
+		local Player = Players.LocalPlayer
 
-		local character = player.Character or player.CharacterAdded:Wait()
-		local humanoid = character:WaitForChild("Humanoid")
-		local hrp = character:WaitForChild("HumanoidRootPart")
+		local SMOOTHNESS = 0.15
 
-		local flying = false
-		local speed = 90
-		local bv
-		local bg
-		local input = {W=0,A=0,S=0,D=0}
-		local mobileInput = Vector3.zero
-		local isMobile = false
-		local lastSafePosition
-		local collisionCooldown = 0
-
-		if UIS.TouchEnabled and not UIS.KeyboardEnabled then
-			isMobile = true
+		-- // State
+		local isFlying = false
+		local flyConnection = nil
+		local bodyVelocity = nil
+		local bodyGyro = nil
+		local function getCharacter() return Player.Character end
+		local function getHRP()
+			local char = getCharacter()
+			return char and char:FindFirstChild("HumanoidRootPart")
+		end
+		local function getHumanoid()
+			local char = getCharacter()
+			return char and char:FindFirstChildOfClass("Humanoid")
 		end
 
+		-- // Mobile detection
+		local isMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled
 
+		-- // Mobile GUI
+		local screenGui = Instance.new("ScreenGui")
+		screenGui.Name = "JoyStick_______Helper"
+		screenGui.ResetOnSpawn = false
+		screenGui.IgnoreGuiInset = true
+		screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		screenGui.Parent = Player.PlayerGui
 
-		local function toggle()
-			flying = not flying
-			if flying then
-				humanoid.PlatformStand = true
-				humanoid.AutoRotate = false
-				humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
+		local joystickHolder = nil
+		local joystickThumb = nil
+		local joystickOrigin = nil
+		local joystickDelta = Vector2.zero
+		local JOYSTICK_RADIUS = 60
 
+		local function createJoystick()
+			joystickHolder = Instance.new("Frame")
+			joystickHolder.Size = UDim2.new(0, JOYSTICK_RADIUS * 2, 0, JOYSTICK_RADIUS * 2)
+			joystickHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			joystickHolder.BackgroundTransparency = 0.7
+			joystickHolder.AnchorPoint = Vector2.new(0.5, 0.5)
+			joystickHolder.Visible = false
+			joystickHolder.Parent = screenGui
+			joystickHolder.BackgroundTransparency = 1
+			Instance.new("UICorner", joystickHolder).CornerRadius = UDim.new(1, 0)
 
-				bv = Instance.new("BodyVelocity")
-				bv.MaxForce = Vector3.new(1e20,1e20,1e20)
-				bv.Velocity = Vector3.zero
-				bv.Parent = hrp
-
-
-				bg = Instance.new("BodyGyro")
-				bg.MaxTorque = Vector3.new(1e20,1e20,1e20)
-				bg.P = 10000
-				bg.D = 1000
-				bg.Parent = hrp
-
-				lastSafePosition = hrp.Position
-				collisionCooldown = 0
-			else
-				if bv then bv:Destroy() bv = nil end
-				if bg then bg:Destroy() bg = nil end
-				humanoid.PlatformStand = false
-				humanoid.AutoRotate = true
-			end
+			joystickThumb = Instance.new("Frame")
+			joystickThumb.BackgroundTransparency = 1
+			joystickThumb.Parent = joystickHolder
+			Instance.new("UICorner", joystickThumb).CornerRadius = UDim.new(1, 0)
 		end
 
-		UIS.InputBegan:Connect(function(i,gp)
-			if gp then return end
-			if i.KeyCode == Enum.KeyCode.W then input.W = 1 end
-			if i.KeyCode == Enum.KeyCode.S then input.S = 1 end
-			if i.KeyCode == Enum.KeyCode.A then input.A = 1 end
-			if i.KeyCode == Enum.KeyCode.D then input.D = 1 end
-			if i.KeyCode == Enum.KeyCode.G then
-				toggle()
-			end
-		end)
+		createJoystick()
 
-		UIS.InputEnded:Connect(function(i)
-			if i.KeyCode == Enum.KeyCode.W then input.W = 0 end
-			if i.KeyCode == Enum.KeyCode.S then input.S = 0 end
-			if i.KeyCode == Enum.KeyCode.A then input.A = 0 end
-			if i.KeyCode == Enum.KeyCode.D then input.D = 0 end
-		end)
+		if isMobile then
+			local activeTouchId = nil
 
-		RunService.RenderStepped:Connect(function()
-			if not flying or not bv or not bg then return end
+			UserInputService.TouchStarted:Connect(function(input, gameProcessed)
+				if activeTouchId then return end
+				local pos = input.Position
+				-- only activate on left half of screen
+				if pos.X > workspace.CurrentCamera.ViewportSize.X / 2 then return end
 
-			if collisionCooldown > 0 then
-				collisionCooldown = collisionCooldown - 1
-			end
+				activeTouchId = input
 
-			local camCF = camera.CFrame
-			local dir
+				joystickOrigin = Vector2.new(pos.X, pos.Y)
+				joystickHolder.Position = UDim2.new(0, pos.X, 0, pos.Y)
+				joystickHolder.Visible = isFlying
+			end)
 
-			if isMobile then
-				if humanoid.MoveDirection.Magnitude > 0 then
-					dir = camCF.RightVector * mobileInput.X + camCF.LookVector * mobileInput.Z
+			UserInputService.TouchMoved:Connect(function(input)
+				if input ~= activeTouchId then return end
+				local pos = Vector2.new(input.Position.X, input.Position.Y)
+				local delta = pos - joystickOrigin
+				local clamped = delta.Magnitude > JOYSTICK_RADIUS
+					and delta.Unit * JOYSTICK_RADIUS
+					or delta
+
+				joystickThumb.Position = UDim2.new(0.5, clamped.X, 0.5, clamped.Y)
+				joystickDelta = clamped / JOYSTICK_RADIUS  -- normalized -1 to 1
+			end)
+
+			UserInputService.TouchEnded:Connect(function(input)
+				if input ~= activeTouchId then return end
+				activeTouchId = nil
+				joystickDelta = Vector2.zero
+				joystickThumb.Position = UDim2.new(0.5, 0, 0.5, 0)
+				joystickHolder.Visible = false
+			end)
+		end
+
+		local function stopFlying()
+			isFlying = false
+
+			if flyConnection then flyConnection:Disconnect(); flyConnection = nil end
+			if bodyVelocity then bodyVelocity:Destroy(); bodyVelocity = nil end
+			if bodyGyro then bodyGyro:Destroy(); bodyGyro = nil end
+
+			local humanoid = getHumanoid()
+			if humanoid then humanoid.PlatformStand = false end
+
+			if joystickHolder then joystickHolder.Visible = false end
+			joystickDelta = Vector2.zero
+		end
+
+		-- // Start flying
+		local function startFlying()
+			local hrp = getHRP()
+			local humanoid = getHumanoid()
+			if not hrp or not humanoid then return end
+
+			isFlying = true
+			humanoid.PlatformStand = true
+
+			bodyVelocity = Instance.new("BodyVelocity")
+			bodyVelocity.Velocity = Vector3.zero
+			bodyVelocity.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+			bodyVelocity.Parent = hrp
+
+			bodyGyro = Instance.new("BodyGyro")
+			bodyGyro.MaxTorque = Vector3.new(1e5, 1e5, 1e5)
+			bodyGyro.D = 100
+			bodyGyro.CFrame = hrp.CFrame
+			bodyGyro.Parent = hrp
+
+			local targetVelocity = Vector3.zero
+
+			flyConnection = RunService.RenderStepped:Connect(function()
+				local hrp2 = getHRP()
+				if not hrp2 or not isFlying then stopFlying() return end
+
+				local cam = workspace.CurrentCamera
+				local cf = cam.CFrame
+				local camLook  = cf.LookVector
+				local camRight = Vector3.new(cf.RightVector.X, 0, cf.RightVector.Z).Unit
+
+				local moveDir = Vector3.zero
+
+				if isMobile then
+					-- Joystick: X = strafe, Y = forward/back
+					moveDir = (camRight * joystickDelta.X) + (camLook * -joystickDelta.Y)
 				else
-					dir = Vector3.zero
+					if UserInputService:IsKeyDown(Enum.KeyCode.W) then moveDir += camLook  end
+					if UserInputService:IsKeyDown(Enum.KeyCode.S) then moveDir -= camLook  end
+					if UserInputService:IsKeyDown(Enum.KeyCode.A) then moveDir -= camRight end
+					if UserInputService:IsKeyDown(Enum.KeyCode.D) then moveDir += camRight end
+					if UserInputService:IsKeyDown(Enum.KeyCode.E) then moveDir += Vector3.new(0, 1, 0) end
+					if UserInputService:IsKeyDown(Enum.KeyCode.Q) then moveDir -= Vector3.new(0, 1, 0) end
 				end
-			else
-				dir = camCF.LookVector * (input.W - input.S) + camCF.RightVector * (input.D - input.A)
-			end
 
-			if dir.Magnitude > 0 then
-				dir = dir.Unit
-			end
-
-			local nextPosition = hrp.Position + dir * speed * 0.016
-			local raycastParams = RaycastParams.new()
-			raycastParams.FilterDescendantsInstances = {character}
-			raycastParams.FilterType = Enum.RaycastFilterType.Exclude
-
-			local raycastResult = workspace:Raycast(hrp.Position, nextPosition - hrp.Position, raycastParams)
-
-			if raycastResult and raycastResult.Distance < 2 then
-				if collisionCooldown == 0 then
-					bv.Velocity = Vector3.zero
-
-					local bounceDir = (hrp.Position - raycastResult.Position).Unit
-					if bounceDir.Magnitude > 0 then
-						bv.Velocity = bounceDir * speed * 0.3
-					end
-
-					collisionCooldown = 30
+				if moveDir.Magnitude > 0 then
+					moveDir = moveDir.Unit * (module.FlySpeed * 40)
 				end
-			else
-				bv.Velocity = dir * speed
+
+				targetVelocity = targetVelocity:Lerp(moveDir, SMOOTHNESS)
+				bodyVelocity.Velocity = targetVelocity
+				bodyGyro.CFrame = cf
+			end)
+		end
+
+		-- // Toggle
+		local function toggleFly()
+			if isFlying then stopFlying() else startFlying() end
+		end
+
+		local function changeSpeed(speed)
+			module.FlySpeed = speed
+		end
 
 
-				if dir.Magnitude > 0.1 then
-					lastSafePosition = hrp.Position
-				end
-			end
-
-
-			local lookDir = Vector3.new(camCF.LookVector.X, camCF.LookVector.Y, camCF.LookVector.Z).Unit
-			if lookDir.Magnitude > 0 then
-				bg.CFrame = CFrame.new(hrp.Position, hrp.Position + lookDir)
-			end
-		end)
-
-
-		module.Toggle = toggle
+		module.Toggle = toggleFly
+		module.ChangeSpeed = changeSpeed
 
 		return module
 
@@ -2195,6 +2248,13 @@ local function C_4()
 	local GUIScale = newwindow.NewSlider("UI Scale", 0.4, 0.6, 0.5, "Settings", function(value)
 		local size = UDim2.fromScale(value, value)
 		API.mainframe.Size = size
+	end)
+
+	local ButtonLock = newwindow.NewToggle("Button Lock","Lock buttons","Settings")
+
+	ButtonLock.Activated:Connect(function()
+		ButtonLock.Toggle.Value = not ButtonLock.Toggle.Value
+		library.ToggleDragging()
 	end)
 
 	default.Activated:Connect(function()
