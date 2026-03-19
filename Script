@@ -1,10 +1,15 @@
-
+--t1
 local G2L = {};
 
 local lockedButtons = false
+local UserInputService = game:GetService("UserInputService")
+local Drags = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
+print("library never failed to load - just useless info")
+local clientVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/version"))()
+local API = library.CreateHUD(tostring(clientVersion))
 
-local API = library.CreateHUD(2.15)
+local GeneratedTemplates = library.CreateTemplates()
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -23,260 +28,7 @@ G2L["5"]["Name"] = [[NewWindow]];
 
 
 -- StarterGui.PK_API.mainframe.Loader.NewWindow.Template
-G2L["6"] = Instance.new("Frame", G2L["5"]);
-G2L["6"]["BorderSizePixel"] = 0;
-G2L["6"]["BackgroundColor3"] = Color3.fromRGB(84, 84, 84);
-G2L["6"]["Size"] = UDim2.new(0.6719, 0, 0.1284, 0);
-G2L["6"]["Position"] = UDim2.new(0.16405, 0, 0.8, 0);
-G2L["6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["6"]["Name"] = [[Template]];
-G2L["6"]["BackgroundTransparency"] = 0.4;
 
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.Template.UICorner
-G2L["7"] = Instance.new("UICorner", G2L["6"]);
-G2L["7"]["CornerRadius"] = UDim.new(0.2, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.Template.Execute
-G2L["8"] = Instance.new("TextButton", G2L["6"]);
-G2L["8"]["TextWrapped"] = true;
-G2L["8"]["BorderSizePixel"] = 0;
-G2L["8"]["TextSize"] = 14;
-G2L["8"]["TextScaled"] = true;
-G2L["8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["8"]["BackgroundColor3"] = Color3.fromRGB(255, 11, 3);
-G2L["8"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["8"]["BackgroundTransparency"] = 1;
-G2L["8"]["Size"] = UDim2.new(0.97922, 0, 0.86538, 0);
-G2L["8"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["8"]["Text"] = [[]];
-G2L["8"]["Name"] = [[Execute]];
-G2L["8"]["Position"] = UDim2.new(0.02078, 0, 0.05769, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.Template.Desc
-G2L["9"] = Instance.new("TextLabel", G2L["6"]);
-G2L["9"]["TextWrapped"] = true;
-G2L["9"]["BorderSizePixel"] = 0;
-G2L["9"]["TextSize"] = 14;
-G2L["9"]["TextScaled"] = true;
-G2L["9"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["9"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["9"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["9"]["BackgroundTransparency"] = 1;
-G2L["9"]["Size"] = UDim2.new(0.45195, 0, 0.48077, 0);
-G2L["9"]["Visible"] = false;
-G2L["9"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["9"]["Text"] = [[Autofarm]];
-G2L["9"]["Name"] = [[Desc]];
-G2L["9"]["Position"] = UDim2.new(0.02078, 0, 0.51923, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.Template.Title
-G2L["a"] = Instance.new("TextLabel", G2L["6"]);
-G2L["a"]["TextWrapped"] = true;
-G2L["a"]["BorderSizePixel"] = 0;
-G2L["a"]["TextSize"] = 14;
-G2L["a"]["TextScaled"] = true;
-G2L["a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["a"]["BackgroundTransparency"] = 1;
-G2L["a"]["Size"] = UDim2.new(1, 0, 1, 0);
-G2L["a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["a"]["Text"] = [[Autofarm]];
-G2L["a"]["Name"] = [[Title]];
-G2L["a"]["Position"] = UDim2.new(0, 0, 0, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.Template.ExecuteString
-G2L["b"] = Instance.new("TextLabel", G2L["6"]);
-G2L["b"]["TextWrapped"] = true;
-G2L["b"]["BorderSizePixel"] = 0;
-G2L["b"]["TextSize"] = 14;
-G2L["b"]["TextScaled"] = true;
-G2L["b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["b"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["b"]["BackgroundTransparency"] = 1;
-G2L["b"]["Size"] = UDim2.new(0.45195, 0, 0.48077, 0);
-G2L["b"]["Visible"] = false;
-G2L["b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["b"]["Text"] = [[Autofarm]];
-G2L["b"]["Name"] = [[ExecuteString]];
-G2L["b"]["Position"] = UDim2.new(0.02078, 0, 0.51923, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.Template.UIStroke
-G2L["c"] = Instance.new("UIStroke", G2L["6"]);
-G2L["c"]["Thickness"] = 2;
-G2L["c"]["Color"] = Color3.fromRGB(255, 255, 255);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle
-G2L["d"] = Instance.new("Frame", G2L["5"]);
-G2L["d"]["BorderSizePixel"] = 0;
-G2L["d"]["BackgroundColor3"] = Color3.fromRGB(84, 84, 84);
-G2L["d"]["Size"] = UDim2.new(0.6719, 0, 0.1284, 0);
-G2L["d"]["Position"] = UDim2.new(0.16405, 0, 0.20494, 0);
-G2L["d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["d"]["Name"] = [[TemplateToggle]];
-G2L["d"]["BackgroundTransparency"] = 0.4;
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.UICorner
-G2L["e"] = Instance.new("UICorner", G2L["d"]);
-G2L["e"]["CornerRadius"] = UDim.new(0.2, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Desc
-G2L["f"] = Instance.new("TextLabel", G2L["d"]);
-G2L["f"]["TextWrapped"] = true;
-G2L["f"]["BorderSizePixel"] = 0;
-G2L["f"]["TextSize"] = 14;
-G2L["f"]["TextScaled"] = true;
-G2L["f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["f"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["f"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["f"]["BackgroundTransparency"] = 1;
-G2L["f"]["Size"] = UDim2.new(0.45195, 0, 0.48077, 0);
-G2L["f"]["Visible"] = false;
-G2L["f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["f"]["Text"] = [[Autofarm]];
-G2L["f"]["Name"] = [[Desc]];
-G2L["f"]["Position"] = UDim2.new(0.02078, 0, 0.51923, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Title
-G2L["10"] = Instance.new("TextLabel", G2L["d"]);
-G2L["10"]["TextWrapped"] = true;
-G2L["10"]["BorderSizePixel"] = 0;
-G2L["10"]["TextSize"] = 14;
-G2L["10"]["TextScaled"] = true;
-G2L["10"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["10"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["10"]["BackgroundTransparency"] = 1;
-G2L["10"]["Size"] = UDim2.new(0.6962, 0, 1, 0);
-G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["10"]["Text"] = [[Autofarm]];
-G2L["10"]["Name"] = [[Title]];
-G2L["10"]["Position"] = UDim2.new(0, 0, 0, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.ExecuteString
-G2L["11"] = Instance.new("TextLabel", G2L["d"]);
-G2L["11"]["TextWrapped"] = true;
-G2L["11"]["BorderSizePixel"] = 0;
-G2L["11"]["TextSize"] = 14;
-G2L["11"]["TextScaled"] = true;
-G2L["11"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["11"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["11"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["11"]["BackgroundTransparency"] = 1;
-G2L["11"]["Size"] = UDim2.new(0.45195, 0, 0.48077, 0);
-G2L["11"]["Visible"] = false;
-G2L["11"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["11"]["Text"] = [[Autofarm]];
-G2L["11"]["Name"] = [[ExecuteString]];
-G2L["11"]["Position"] = UDim2.new(0.02078, 0, 0.51923, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute
-G2L["12"] = Instance.new("TextButton", G2L["d"]);
-G2L["12"]["TextWrapped"] = true;
-G2L["12"]["BorderSizePixel"] = 0;
-G2L["12"]["TextSize"] = 14;
-G2L["12"]["TextScaled"] = true;
-G2L["12"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["12"]["BackgroundColor3"] = Color3.fromRGB(144, 144, 144);
-G2L["12"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["12"]["Size"] = UDim2.new(0.18336, 0, 0.74407, 0);
-G2L["12"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["12"]["Text"] = [[]];
-G2L["12"]["Name"] = [[Execute]];
-G2L["12"]["Position"] = UDim2.new(0.73766, 0, 0.10622, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.UICorner
-G2L["13"] = Instance.new("UICorner", G2L["12"]);
-G2L["13"]["CornerRadius"] = UDim.new(1, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.Frame
-G2L["14"] = Instance.new("Frame", G2L["12"]);
-G2L["14"]["BorderSizePixel"] = 0;
-G2L["14"]["BackgroundColor3"] = Color3.fromRGB(255, 39, 39);
-G2L["14"]["Size"] = UDim2.new(1.2, 0, 1.2, 0);
-G2L["14"]["Position"] = UDim2.new(0, 0, -0.1052, 0);
-G2L["14"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.Frame.UICorner
-G2L["15"] = Instance.new("UICorner", G2L["14"]);
-G2L["15"]["CornerRadius"] = UDim.new(1, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.Frame.UIAspectRatioConstraint
-G2L["16"] = Instance.new("UIAspectRatioConstraint", G2L["14"]);
-
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.Toggle
-G2L["17"] = Instance.new("BoolValue", G2L["12"]);
-G2L["17"]["Name"] = [[Toggle]];
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.Off
-G2L["18"] = Instance.new("Frame", G2L["12"]);
-G2L["18"]["Visible"] = false;
-G2L["18"]["BorderSizePixel"] = 0;
-G2L["18"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["18"]["Size"] = UDim2.new(1.2, 0, 1.2, 0);
-G2L["18"]["Position"] = UDim2.new(0, 0, -0.1052, 0);
-G2L["18"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["18"]["Name"] = [[Off]];
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.Off.UICorner
-G2L["19"] = Instance.new("UICorner", G2L["18"]);
-G2L["19"]["CornerRadius"] = UDim.new(1, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.Off.UIAspectRatioConstraint
-G2L["1a"] = Instance.new("UIAspectRatioConstraint", G2L["18"]);
-
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.On
-G2L["1b"] = Instance.new("Frame", G2L["12"]);
-G2L["1b"]["Visible"] = false;
-G2L["1b"]["BorderSizePixel"] = 0;
-G2L["1b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["1b"]["Size"] = UDim2.new(1.2, 0, 1.2, 0);
-G2L["1b"]["Position"] = UDim2.new(0.5, 0, -0.1052, 0);
-G2L["1b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["1b"]["Name"] = [[On]];
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.On.UICorner
-G2L["1c"] = Instance.new("UICorner", G2L["1b"]);
-G2L["1c"]["CornerRadius"] = UDim.new(1, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.Execute.On.UIAspectRatioConstraint
-G2L["1d"] = Instance.new("UIAspectRatioConstraint", G2L["1b"]);
-
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.TemplateToggle.UIStroke
-G2L["1e"] = Instance.new("UIStroke", G2L["d"]);
-G2L["1e"]["Thickness"] = 2;
-G2L["1e"]["Color"] = Color3.fromRGB(255, 255, 255);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewWindow.max
 G2L["1f"] = Instance.new("TextButton", G2L["5"]);
 G2L["1f"]["TextWrapped"] = true;
 G2L["1f"]["BorderSizePixel"] = 0;
@@ -519,6 +271,8 @@ G2L["38"]["Name"] = [[94373736738199]];
 -- StarterGui.PK_API.mainframe.Loader.Gamesloader.75084962946572
 G2L["385"] = Instance.new("ModuleScript", G2L["35"]);
 G2L["385"]["Name"] = [[75084962946572]];
+G2L["PPT"] = Instance.new("ModuleScript", G2L["35"]);
+G2L["PPT"]["Name"] = [[125229766573493]];
 
 
 -- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291
@@ -541,12 +295,6 @@ G2L["3c"] = Instance.new("ModuleScript", G2L["39"]);
 G2L["3c"]["Name"] = [[shoot]];
 
 
--- StarterGui.PK_API.mainframe.topbar.version.LocalScript
-G2L["41"] = Instance.new("LocalScript", API.mainframe.topbar.version);
-
-
-
-
 -- StarterGui.PK_API.mainframe.topbar.gamename.LocalScript
 G2L["43"] = Instance.new("LocalScript", API.mainframe.topbar.gamename);
 
@@ -556,32 +304,18 @@ G2L["47"] = Instance.new("LocalScript", API.mainframe.topbar.min);
 
 
 
--- StarterGui.PK_API.mainframe.Move.LocalScript
-G2L["4e"] = Instance.new("LocalScript", API.mainframe.Move);
+library.AddDraggingTo2(API.mainframe.topbar.draggable, API.mainframe, Drags, "mainframe")
 
 
-
--- StarterGui.PK_API.mainframe.Move.Holding
-G2L["4f"] = Instance.new("BoolValue", API.mainframe.Move);
-G2L["4f"]["Name"] = [[Holding]];
-
-
--- StarterGui.PK_API.max.LocalScript
+library.AddDraggingTo(API.max, Drags, "Max_1")
 G2L["58"] = Instance.new("LocalScript", API.max);
-
-
-
--- StarterGui.PK_API.max.Moving
-G2L["59"] = Instance.new("LocalScript", API.max);
-G2L["59"]["Name"] = [[Moving]];
 
 
 -- StarterGui.PK_API.loading.LocalScript
 G2L["5f"] = Instance.new("LocalScript", API.loading);
 
 
--- StarterGui.PK_API.loading.Move.LocalScript
-G2L["63"] = Instance.new("LocalScript", API.loading.Move);
+library.AddDraggingTo2(API.loading.topbar.draggable, API.loading, Drags, "loading")
 
 -- StarterGui.PK_API.loading.topbar.checkkey.LocalScript
 G2L["72"] = Instance.new("LocalScript", API.loading.topbar.checkkey);
@@ -591,442 +325,491 @@ G2L["72"] = Instance.new("LocalScript", API.loading.topbar.checkkey);
 local G2L_REQUIRE = require;
 local G2L_MODULES = {};
 local function require(Module:ModuleScript)
-    local ModuleState = G2L_MODULES[Module];
-    if ModuleState then
-        if not ModuleState.Required then
-            ModuleState.Required = true;
-            ModuleState.Value = ModuleState.Closure();
-        end
-        return ModuleState.Value;
-    end;
-    return G2L_REQUIRE(Module);
+	local ModuleState = G2L_MODULES[Module];
+	if ModuleState then
+		if not ModuleState.Required then
+			ModuleState.Required = true;
+			ModuleState.Value = ModuleState.Closure();
+		end
+		return ModuleState.Value;
+	end;
+	return G2L_REQUIRE(Module);
 end
 
 G2L_MODULES[G2L["5"]] = {
-Closure = function()
-    local script = G2L["5"];local module = {
-	Icons = {
-		Autofarm = "rbxassetid://11896729962"
-	};
-	Buttons = {
-		
-	}
-}
+	Closure = function()
+		local script = G2L["5"];local module = {
+			Icons = {
+				Autofarm = "rbxassetid://11896729962"
+			};
+			Buttons = {
 
-local player = game.Players.LocalPlayer
-local mouse = player:GetMouse()
+			}
+		}
 
-function module.NewTitle(Title,tab)
-	local clone = script.Parent.Parent.NewTabs[tab].Label:Clone()
-	clone.Name = "NEWTITLE: " .. Title
-	clone.Text = Title
-	clone.Parent = script.Parent.Parent.NewTabs[tab]
+		local player = game.Players.LocalPlayer
+		local mouse = player:GetMouse()
 
-	clone.Visible = true
-end
+		function module.NewTitle(Title,tab)
+			local clone = script.Parent.Parent.NewTabs[tab].Label:Clone()
+			clone.Name = "NEWTITLE: " .. Title
+			clone.Text = Title
+			clone.Parent = script.Parent.Parent.NewTabs[tab]
 
-function module.NewWindow(Title,Desc,tab)
-	local clone = script.Template:Clone()
-	clone.Name = "Title"
-	clone.Title.Text = Title
-	clone.Desc.Text = Desc
-	clone.Parent = script.Parent.Parent.NewTabs[tab]
-	return clone.Execute
-end
-
-function module.NewToggle(Title,Desc,tab)
-	local clone = script.TemplateToggle:Clone()
-	clone.Name = "Title"
-	clone.Title.Text = Title
-	clone.Desc.Text = Desc
-	clone.Parent = script.Parent.Parent.NewTabs[tab]
-	
-	clone.Execute.Toggle.Changed:Connect(function()
-		if clone.Execute.Toggle.Value then
-			game.TweenService:Create(clone.Execute.Frame,TweenInfo.new(.1),{Position = clone.Execute.On.Position}):Play()
-			game.TweenService:Create(clone.Execute.Frame,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(31, 255, 6)}):Play()
-		else
-			game.TweenService:Create(clone.Execute.Frame,TweenInfo.new(.1),{Position = clone.Execute.Off.Position}):Play()
-			game.TweenService:Create(clone.Execute.Frame,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 38, 38)}):Play()
+			clone.Visible = true
 		end
-	end)
-	
-	return clone.Execute
-end
 
-function module.NewButton(Title)
-	local new = script.max:Clone()
-	new.Name = Title
-	new.Text = Title
-	new.Parent = script.Parent.Parent.Parent
-	new.Visible = true
-	module.Buttons[Title] = new
-	
-	new.MouseButton1Down:Connect(function()
-		new:AddTag("Hold")
-	end)
-	
-	new.MouseButton1Up:Connect(function()
-		new:RemoveTag("Hold")
-	end)
-	
-	
-	return new
-end
+		function module.NewWindowV2(Title,Desc,tab,Func)
+			local clone = GeneratedTemplates.Template:Clone()
+			library.AddThemesToTemplate(clone)
+			clone.Name = Title
+			clone.Title.Text = Title
+			clone.Desc.Text = Desc
+			clone.Parent = script.Parent.Parent.NewTabs[tab]
+			clone.Title.Size = UDim2.fromScale(0.7,1)
+			clone.Visible = true
 
-game:GetService("RunService").RenderStepped:Connect(function()
-	for index, button in module.Buttons do
-		if button:HasTag("Hold") and not lockedButtons then
-			button.Position = UDim2.new(0, mouse.X, 0, mouse.Y)
+			local currentKey = nil
+			local listening = false
+
+			clone.KeybindTitle.Text = "Set key"
+
+			clone.Keybind.Activated:Connect(function()
+				if listening then return end
+				listening = true
+
+				clone.KeybindTitle.Text = "..."
+
+				local connection
+				connection = UserInputService.InputBegan:Connect(function(input, gpe)
+					if gpe then return end
+					if input.UserInputType ~= Enum.UserInputType.Keyboard then return end
+
+					if input.KeyCode == Enum.KeyCode.Escape then
+						clone.KeybindTitle.Text = "None"
+						listening = false
+						connection:Disconnect()
+						return
+					end
+
+					currentKey = input.KeyCode
+					clone.KeybindTitle.Text = currentKey.Name
+
+					listening = false
+					connection:Disconnect()
+				end)
+			end)
+
+			clone.Execute.Activated:Connect(Func)
+
+			UserInputService.InputBegan:Connect(function(input, gpe)
+				if gpe then return end
+				if listening then return end
+				if not currentKey then return end
+				if input.UserInputType ~= Enum.UserInputType.Keyboard then return end
+
+				if input.KeyCode == currentKey then
+					Func()
+				end
+			end)
 		end
-	end
-end)
 
-return module
+		function module.NewWindow(Title,Desc,tab)
+			local clone = GeneratedTemplates.Template:Clone()
+			library.AddThemesToTemplate(clone)
+			clone.Name = "Title"
+			clone.Title.Text = Title
+			clone.Desc.Text = Desc
+			clone.Parent = script.Parent.Parent.NewTabs[tab]
+			clone.Keybind.Visible = false
+			clone.KeybindTitle.Visible = false
+			clone.Title.Size = UDim2.fromScale(0.7,1)
+			clone.Title.Position = UDim2.new(0,0,0,0)
+			clone.Visible = true
+			return clone.Execute
+		end
 
-end;
+		function module.NewToggle(Title,Desc,tab)
+			local clone = GeneratedTemplates.TemplateToggle:Clone()
+			library.AddThemesToTemplate(clone)
+			clone.Name = "Title"
+			clone.Title.Text = Title
+			clone.Parent = script.Parent.Parent.NewTabs[tab]
+			clone.Visible = true
+
+
+
+			clone.Execute.Toggle.Changed:Connect(function()
+				if clone.Execute.Toggle.Value then
+					game.TweenService:Create(clone.Execute.Frame,TweenInfo.new(.1),{Position = clone.Execute.On.Position}):Play()
+					game.TweenService:Create(clone.Execute.Frame,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(31, 255, 6)}):Play()
+				else
+					game.TweenService:Create(clone.Execute.Frame,TweenInfo.new(.1),{Position = clone.Execute.Off.Position}):Play()
+					game.TweenService:Create(clone.Execute.Frame,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 38, 38)}):Play()
+				end
+			end)
+
+			return clone.Execute
+		end
+
+		function module.NewButton(Title)
+			local new = GeneratedTemplates.MovingButton:Clone()
+			library.AddThemesToTemplate(new)
+			new.Name = Title
+			new.Text = Title
+			new.Parent = script.Parent.Parent.Parent
+			new.Visible = true
+			library.AddDraggingTo(new, Drags, "Button_" .. Title)
+
+			return new
+		end
+
+		return module
+
+	end;
 };
 G2L_MODULES[G2L["22"]] = {
-Closure = function()
-    local script = G2L["22"];local module = {
-	Icons = {
-		Autofarm = "rbxassetid://11896729962"
-	}
-}
+	Closure = function()
+		local script = G2L["22"];local module = {
+			Icons = {
+				Autofarm = "rbxassetid://11896729962"
+			}
+		}
 
-function module.New(Title,cd)
-	task.spawn(function()
-	local clone = script.Template:Clone()
-	clone.Name = "Title"
-	clone.Title.Text = Title
-	clone.Parent = script.Parent.Parent.Parent.NotifyFrame
-	clone.AnchorPoint = Vector2.new(1,.5)
-	game.TweenService:Create(clone,TweenInfo.new(.15),{Size = UDim2.new(1, 0,0.42, 0)}):Play()
-	wait(.15)
-	clone.AnchorPoint = Vector2.new(.5,1)
-	script.Parent.Parent.Parent.NotifyFrame.UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-	wait(.1)
-	if cd then
-		game.TweenService:Create(clone.Bar,TweenInfo.new(cd),{Size = UDim2.new(.9,0,0.065, 0)}):Play()
-	else
-			game.TweenService:Create(clone.Bar,TweenInfo.new(5),{Size = UDim2.new(.9,0,0.065, 0)}):Play()
-	end
-	game.TweenService:Create(clone.UIScale,TweenInfo.new(.1),{Scale = 1}):Play()
-		if cd then
-			wait(cd)
-		else
-			wait(5)
+		function module.New(Title,cd)
+			task.spawn(function()
+				local clone = script.Template:Clone()
+				clone.Name = "Title"
+				clone.Title.Text = Title
+				clone.Parent = script.Parent.Parent.Parent.NotifyFrame
+				clone.AnchorPoint = Vector2.new(1,.5)
+				game.TweenService:Create(clone,TweenInfo.new(.15),{Size = UDim2.new(1, 0,0.42, 0)}):Play()
+				wait(.15)
+				clone.AnchorPoint = Vector2.new(.5,1)
+				script.Parent.Parent.Parent.NotifyFrame.UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+				wait(.1)
+				if cd then
+					game.TweenService:Create(clone.Bar,TweenInfo.new(cd),{Size = UDim2.new(.9,0,0.065, 0)}):Play()
+				else
+					game.TweenService:Create(clone.Bar,TweenInfo.new(5),{Size = UDim2.new(.9,0,0.065, 0)}):Play()
+				end
+				game.TweenService:Create(clone.UIScale,TweenInfo.new(.1),{Scale = 1}):Play()
+				if cd then
+					wait(cd)
+				else
+					wait(5)
+				end
+				game.TweenService:Create(clone.UIScale,TweenInfo.new(.2),{Scale = .8}):Play()
+				game.TweenService:Create(clone,TweenInfo.new(.15),{BackgroundTransparency = .5}):Play()
+				wait(.2)
+				clone.AnchorPoint = Vector2.new(1,.5)
+				script.Parent.Parent.Parent.NotifyFrame.UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+				game.TweenService:Create(clone,TweenInfo.new(.15),{Size = UDim2.new(0, 0,0.42, 0)}):Play()
+				game.TweenService:Create(clone.Bar,TweenInfo.new(.1),{Size = UDim2.new(0,0,0.065, 0)}):Play()
+				wait(.2)
+				clone:Destroy()
+			end)
 		end
-	game.TweenService:Create(clone.UIScale,TweenInfo.new(.2),{Scale = .8}):Play()
-	game.TweenService:Create(clone,TweenInfo.new(.15),{BackgroundTransparency = .5}):Play()
-	wait(.2)
-	clone.AnchorPoint = Vector2.new(1,.5)
-	script.Parent.Parent.Parent.NotifyFrame.UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
-	game.TweenService:Create(clone,TweenInfo.new(.15),{Size = UDim2.new(0, 0,0.42, 0)}):Play()
-	game.TweenService:Create(clone.Bar,TweenInfo.new(.1),{Size = UDim2.new(0,0,0.065, 0)}):Play()
-	wait(.2)
-	clone:Destroy()
-	end)
-end
 
-return module
+		return module
 
-end;
+	end;
 };
 G2L_MODULES[G2L["2a"]] = {
-Closure = function()
-    local script = G2L["2a"];local module = {
-	Icons = {
-		Autofarm = "rbxassetid://11896729962"
-	}
-}
+	Closure = function()
+		local script = G2L["2a"];local module = {
+			Icons = {
+				Autofarm = "rbxassetid://11896729962"
+			}
+		}
 
-function module.New(TabName)
-	local newTab = script.TemplateTab:Clone()
-	newTab.Label.Text = TabName
-	newTab.Name = TabName
-	newTab.Parent = script.Parent.Parent.NewTabs
-	local tabButton = script.TemplateButton:Clone()
-	tabButton.Name = TabName
-	tabButton.Title.Text = TabName
-	tabButton.Parent = script.Parent.Parent.Tabs
-	
-	tabButton.ChangeTabs.Activated:Connect(function()
-		for i,v in pairs(script.Parent.Parent.NewTabs:GetChildren()) do
-			v.Visible = false
+		function module.New(TabName)
+			local newTab = GeneratedTemplates.TemplateTab:Clone()
+			newTab.Label.Text = TabName
+			newTab.Label.Visible = false
+			newTab.Name = TabName
+			newTab.Parent = script.Parent.Parent.NewTabs
+			local tabButton = script.TemplateButton:Clone()
+			tabButton.Name = TabName
+			tabButton.Title.Text = TabName
+			tabButton.Parent = script.Parent.Parent.Tabs
+
+			tabButton.ChangeTabs.Activated:Connect(function()
+				for i,v in pairs(script.Parent.Parent.NewTabs:GetChildren()) do
+					v.Visible = false
+				end
+				script.Parent.Parent.NewTabs:FindFirstChild(TabName).Visible = true
+			end)
+
+			tabButton.ChangeTabs.MouseEnter:Connect(function()
+				game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundTransparency = .2}):Play()
+				game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+				game.TweenService:Create(tabButton.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(.1,0)}):Play()
+			end)
+
+			tabButton.ChangeTabs.MouseLeave:Connect(function()
+				game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundTransparency = .4}):Play()
+				game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(83, 83, 83)}):Play()
+				game.TweenService:Create(tabButton.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(1,0)}):Play()
+			end)
 		end
-		script.Parent.Parent.NewTabs:FindFirstChild(TabName).Visible = true
-	end)
 
-	tabButton.ChangeTabs.MouseEnter:Connect(function()
-		game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundTransparency = .2}):Play()
-		game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-		game.TweenService:Create(tabButton.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(.1,0)}):Play()
-	end)
+		return module
 
-	tabButton.ChangeTabs.MouseLeave:Connect(function()
-		game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundTransparency = .4}):Play()
-		game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(83, 83, 83)}):Play()
-		game.TweenService:Create(tabButton.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(1,0)}):Play()
-	end)
-end
-
-return module
-
-end;
+	end;
 };
 G2L_MODULES[G2L["33"]] = {
-Closure = function()
-    local script = G2L["33"];local module = {}
+	Closure = function()
+		local script = G2L["33"];local module = {}
 
-module.Start = function()
-	local newwindow = require(script.Parent.NewWindow)
-	local NewNotification = require(script.Parent.NewNotification)
-	local tab = require(script.Parent.NewTab)
+		module.Start = function()
+			local newwindow = require(script.Parent.NewWindow)
+			local NewNotification = require(script.Parent.NewNotification)
+			local tab = require(script.Parent.NewTab)
 
 
-	local FlyScript = require(script.Fly)
+			local FlyScript = require(script.Fly)
 
-	local newTab = tab.New("Universal")
-	newwindow.NewTitle("Universal", "Universal")
-	local Fly = newwindow.NewToggle("Fly","G to toggle","Universal")
-	local ButtonLock = newwindow.NewToggle("Button Lock","Lock buttons","Universal")
+			local newTab = tab.New("Universal", 0)
+			newwindow.NewTitle("Universal", "Universal")
+			local Fly = newwindow.NewToggle("Fly","G to toggle","Universal")
+			local ButtonLock = newwindow.NewToggle("Button Lock","Lock buttons","Universal")
 
-	Fly.Activated:Connect(function()
-		Fly.Toggle.Value = not Fly.Toggle.Value
-		FlyScript.Toggle()
-	end)
+			Fly.Activated:Connect(function()
+				Fly.Toggle.Value = not Fly.Toggle.Value
+				FlyScript.Toggle()
+			end)
 
-ButtonLock.Activated:Connect(function()
-		ButtonLock.Toggle.Value = not Fly.Toggle.Value
-		lockedButtons = not lockedButtons
-	end)
+			ButtonLock.Activated:Connect(function()
+				ButtonLock.Toggle.Value = not ButtonLock.Toggle.Value
+				library.ToggleDragging()
+			end)
 
-end
+		end
 
-return module
+		return module
 
-end;
+	end;
 };
 G2L_MODULES[G2L["34"]] = {
-Closure = function()
-    local script = G2L["34"];local module = {}
+	Closure = function()
+		local script = G2L["34"];local module = {}
 
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local UIS = game:GetService("UserInputService")
+		local Players = game:GetService("Players")
+		local RunService = game:GetService("RunService")
+		local UIS = game:GetService("UserInputService")
 
-local player = Players.LocalPlayer
-local camera = workspace.CurrentCamera
-local gui = player:WaitForChild("PlayerGui")
+		local player = Players.LocalPlayer
+		local camera = workspace.CurrentCamera
+		local gui = player:WaitForChild("PlayerGui")
 
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:WaitForChild("Humanoid")
-local hrp = character:WaitForChild("HumanoidRootPart")
+		local character = player.Character or player.CharacterAdded:Wait()
+		local humanoid = character:WaitForChild("Humanoid")
+		local hrp = character:WaitForChild("HumanoidRootPart")
 
-local flying = false
-local speed = 90
-local bv
-local bg
-local input = {W=0,A=0,S=0,D=0}
-local mobileInput = Vector3.zero
-local isMobile = false
-local lastSafePosition
-local collisionCooldown = 0
+		local flying = false
+		local speed = 90
+		local bv
+		local bg
+		local input = {W=0,A=0,S=0,D=0}
+		local mobileInput = Vector3.zero
+		local isMobile = false
+		local lastSafePosition
+		local collisionCooldown = 0
 
-if UIS.TouchEnabled and not UIS.KeyboardEnabled then
-	isMobile = true
-end
-
-
-
-local function toggle()
-	flying = not flying
-	if flying then
-		humanoid.PlatformStand = true
-		humanoid.AutoRotate = false
-		humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
-
-
-		bv = Instance.new("BodyVelocity")
-		bv.MaxForce = Vector3.new(1e20,1e20,1e20)
-		bv.Velocity = Vector3.zero
-		bv.Parent = hrp
-
-
-		bg = Instance.new("BodyGyro")
-		bg.MaxTorque = Vector3.new(1e20,1e20,1e20)
-		bg.P = 10000
-		bg.D = 1000
-		bg.Parent = hrp
-
-		lastSafePosition = hrp.Position
-		collisionCooldown = 0
-	else
-		if bv then bv:Destroy() bv = nil end
-		if bg then bg:Destroy() bg = nil end
-		humanoid.PlatformStand = false
-		humanoid.AutoRotate = true
-	end
-end
-
-UIS.InputBegan:Connect(function(i,gp)
-	if gp then return end
-	if i.KeyCode == Enum.KeyCode.W then input.W = 1 end
-	if i.KeyCode == Enum.KeyCode.S then input.S = 1 end
-	if i.KeyCode == Enum.KeyCode.A then input.A = 1 end
-	if i.KeyCode == Enum.KeyCode.D then input.D = 1 end
-	if i.KeyCode == Enum.KeyCode.G then
-		toggle()
-	end
-end)
-
-UIS.InputEnded:Connect(function(i)
-	if i.KeyCode == Enum.KeyCode.W then input.W = 0 end
-	if i.KeyCode == Enum.KeyCode.S then input.S = 0 end
-	if i.KeyCode == Enum.KeyCode.A then input.A = 0 end
-	if i.KeyCode == Enum.KeyCode.D then input.D = 0 end
-end)
-
-RunService.RenderStepped:Connect(function()
-	if not flying or not bv or not bg then return end
-
-	if collisionCooldown > 0 then
-		collisionCooldown = collisionCooldown - 1
-	end
-
-	local camCF = camera.CFrame
-	local dir
-
-	if isMobile then
-		if humanoid.MoveDirection.Magnitude > 0 then
-			dir = camCF.RightVector * mobileInput.X + camCF.LookVector * mobileInput.Z
-		else
-			dir = Vector3.zero
+		if UIS.TouchEnabled and not UIS.KeyboardEnabled then
+			isMobile = true
 		end
-	else
-		dir = camCF.LookVector * (input.W - input.S) + camCF.RightVector * (input.D - input.A)
-	end
 
-	if dir.Magnitude > 0 then
-		dir = dir.Unit
-	end
 
-	local nextPosition = hrp.Position + dir * speed * 0.016
-	local raycastParams = RaycastParams.new()
-	raycastParams.FilterDescendantsInstances = {character}
-	raycastParams.FilterType = Enum.RaycastFilterType.Exclude
 
-	local raycastResult = workspace:Raycast(hrp.Position, nextPosition - hrp.Position, raycastParams)
+		local function toggle()
+			flying = not flying
+			if flying then
+				humanoid.PlatformStand = true
+				humanoid.AutoRotate = false
+				humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
 
-	if raycastResult and raycastResult.Distance < 2 then
-		if collisionCooldown == 0 then
-			bv.Velocity = Vector3.zero
 
-			local bounceDir = (hrp.Position - raycastResult.Position).Unit
-			if bounceDir.Magnitude > 0 then
-				bv.Velocity = bounceDir * speed * 0.3
+				bv = Instance.new("BodyVelocity")
+				bv.MaxForce = Vector3.new(1e20,1e20,1e20)
+				bv.Velocity = Vector3.zero
+				bv.Parent = hrp
+
+
+				bg = Instance.new("BodyGyro")
+				bg.MaxTorque = Vector3.new(1e20,1e20,1e20)
+				bg.P = 10000
+				bg.D = 1000
+				bg.Parent = hrp
+
+				lastSafePosition = hrp.Position
+				collisionCooldown = 0
+			else
+				if bv then bv:Destroy() bv = nil end
+				if bg then bg:Destroy() bg = nil end
+				humanoid.PlatformStand = false
+				humanoid.AutoRotate = true
+			end
+		end
+
+		UIS.InputBegan:Connect(function(i,gp)
+			if gp then return end
+			if i.KeyCode == Enum.KeyCode.W then input.W = 1 end
+			if i.KeyCode == Enum.KeyCode.S then input.S = 1 end
+			if i.KeyCode == Enum.KeyCode.A then input.A = 1 end
+			if i.KeyCode == Enum.KeyCode.D then input.D = 1 end
+			if i.KeyCode == Enum.KeyCode.G then
+				toggle()
+			end
+		end)
+
+		UIS.InputEnded:Connect(function(i)
+			if i.KeyCode == Enum.KeyCode.W then input.W = 0 end
+			if i.KeyCode == Enum.KeyCode.S then input.S = 0 end
+			if i.KeyCode == Enum.KeyCode.A then input.A = 0 end
+			if i.KeyCode == Enum.KeyCode.D then input.D = 0 end
+		end)
+
+		RunService.RenderStepped:Connect(function()
+			if not flying or not bv or not bg then return end
+
+			if collisionCooldown > 0 then
+				collisionCooldown = collisionCooldown - 1
 			end
 
-			collisionCooldown = 30
-		end
-	else
-		bv.Velocity = dir * speed
+			local camCF = camera.CFrame
+			local dir
+
+			if isMobile then
+				if humanoid.MoveDirection.Magnitude > 0 then
+					dir = camCF.RightVector * mobileInput.X + camCF.LookVector * mobileInput.Z
+				else
+					dir = Vector3.zero
+				end
+			else
+				dir = camCF.LookVector * (input.W - input.S) + camCF.RightVector * (input.D - input.A)
+			end
+
+			if dir.Magnitude > 0 then
+				dir = dir.Unit
+			end
+
+			local nextPosition = hrp.Position + dir * speed * 0.016
+			local raycastParams = RaycastParams.new()
+			raycastParams.FilterDescendantsInstances = {character}
+			raycastParams.FilterType = Enum.RaycastFilterType.Exclude
+
+			local raycastResult = workspace:Raycast(hrp.Position, nextPosition - hrp.Position, raycastParams)
+
+			if raycastResult and raycastResult.Distance < 2 then
+				if collisionCooldown == 0 then
+					bv.Velocity = Vector3.zero
+
+					local bounceDir = (hrp.Position - raycastResult.Position).Unit
+					if bounceDir.Magnitude > 0 then
+						bv.Velocity = bounceDir * speed * 0.3
+					end
+
+					collisionCooldown = 30
+				end
+			else
+				bv.Velocity = dir * speed
 
 
-		if dir.Magnitude > 0.1 then
-			lastSafePosition = hrp.Position
-		end
-	end
+				if dir.Magnitude > 0.1 then
+					lastSafePosition = hrp.Position
+				end
+			end
 
 
-	local lookDir = Vector3.new(camCF.LookVector.X, camCF.LookVector.Y, camCF.LookVector.Z).Unit
-	if lookDir.Magnitude > 0 then
-		bg.CFrame = CFrame.new(hrp.Position, hrp.Position + lookDir)
-	end
-end)
+			local lookDir = Vector3.new(camCF.LookVector.X, camCF.LookVector.Y, camCF.LookVector.Z).Unit
+			if lookDir.Magnitude > 0 then
+				bg.CFrame = CFrame.new(hrp.Position, hrp.Position + lookDir)
+			end
+		end)
 
 
-module.Toggle = toggle
+		module.Toggle = toggle
 
-return module
+		return module
 
-end;
+	end;
 };
 G2L_MODULES[G2L["36"]] = {
-Closure = function()
-    local script = G2L["36"];local newwindow = require(script.Parent.Parent.NewWindow)
-local NewNotification = require(script.Parent.Parent.NewNotification)
+	Closure = function()
+		local script = G2L["36"];local newwindow = require(script.Parent.Parent.NewWindow)
+		local NewNotification = require(script.Parent.Parent.NewNotification)
 
-local tab = require(script.Parent.Parent.NewTab)
+		local tab = require(script.Parent.Parent.NewTab)
 
-local module = {}
+		local module = {}
 
-function module.Start()
-	local newTab = tab.New("Main")
-	local window = newwindow.NewWindow("Auto Roll","Rolls automaticly without a visual.","Main")
+		function module.Start()
+			local newTab = tab.New("Main")
+			local window = newwindow.NewWindow("Auto Roll","Rolls automaticly without a visual.","Main")
 
-	window.Activated:Connect(function()
-		window.Visible = false
-		pcall(function()
-			NewNotification.New("If you want to stop you cant you have to leave the game.")
-		end)
-		game.UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
-		script.Parent.Parent.Parent.UIScale.Scale = 0
-		game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.BottomButtons.Roll.Size = UDim2.new(1, 0, 10, 0)
-		while wait(0.5) do
-			--mouse1click()
+			window.Activated:Connect(function()
+				window.Visible = false
+				pcall(function()
+					NewNotification.New("If you want to stop you cant you have to leave the game.")
+				end)
+				game.UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+				script.Parent.Parent.Parent.UIScale.Scale = 0
+				game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.BottomButtons.Roll.Size = UDim2.new(1, 0, 10, 0)
+				while wait(0.5) do
+					--mouse1click()
+				end
+			end)
 		end
-	end)
-end
 
-return module
+		return module
 
-end;
+	end;
 };
 G2L_MODULES[G2L["37"]] = {
-Closure = function()
-    local script = G2L["37"];local newwindow = require(script.Parent.Parent.NewWindow)
-local NewNotification = require(script.Parent.Parent.NewNotification)
-local db = false
+	Closure = function()
+		local script = G2L["37"];local newwindow = require(script.Parent.Parent.NewWindow)
+		local NewNotification = require(script.Parent.Parent.NewNotification)
+		local db = false
 
-local tab = require(script.Parent.Parent.NewTab)
+		local tab = require(script.Parent.Parent.NewTab)
 
-local module = {}
+		local module = {}
 
-function module.Start()
-	local newTab = tab.New("Main")
-	local window = newwindow.NewToggle("Auto Eat","yup","Main")
-	
-	window.Activated:Connect(function()
-		if db == false then
-			db = true
-			if window.Toggle.Value == false then
-				window.Toggle.Value = true
-				game.TweenService:Create(window.Frame,TweenInfo.new(.1),{Position = window.On.Position}):Play()
-				wait(.1)
-				db = false
-			elseif window.Toggle.Value == true then
-				window.Toggle.Value = false
-				game.TweenService:Create(window.Frame,TweenInfo.new(.1),{Position = window.Off.Position}):Play()
-				wait(.1)
-				db = false
+		function module.Start()
+			local newTab = tab.New("Main")
+			local window = newwindow.NewToggle("Auto Eat","yup","Main")
+
+			window.Activated:Connect(function()
+				if db == false then
+					db = true
+					if window.Toggle.Value == false then
+						window.Toggle.Value = true
+						game.TweenService:Create(window.Frame,TweenInfo.new(.1),{Position = window.On.Position}):Play()
+						wait(.1)
+						db = false
+					elseif window.Toggle.Value == true then
+						window.Toggle.Value = false
+						game.TweenService:Create(window.Frame,TweenInfo.new(.1),{Position = window.Off.Position}):Play()
+						wait(.1)
+						db = false
+					end
+				end
+			end)
+
+			while wait(.2) do
+				if window.Toggle.Value == true then
+					game.Players.LocalPlayer.Character.PrimaryPart.Anchored = false
+					local args = {
+						[1] = false,
+						[2] = false
+					}
+					game:GetService("Players").LocalPlayer.Character.Events.Grab:FireServer(unpack(args))
+					game:GetService("Players").LocalPlayer.Character.Events.Eat:FireServer()
+				end
 			end
 		end
-	end)
-	
-	while wait(.2) do
-		if window.Toggle.Value == true then
-			game.Players.LocalPlayer.Character.PrimaryPart.Anchored = false
-			local args = {
-				[1] = false,
-				[2] = false
-			}
-			game:GetService("Players").LocalPlayer.Character.Events.Grab:FireServer(unpack(args))
-			game:GetService("Players").LocalPlayer.Character.Events.Eat:FireServer()
-		end
-	end
-end
 
 --[[
 	while wait(.1) do
@@ -1040,1030 +823,1326 @@ end
 		end
 		end]]
 
-return module
+		return module
 
-end;
+	end;
 };
 G2L_MODULES[G2L["38"]] = {
-Closure = function()
-    local script = G2L["38"];local newwindow = require(script.Parent.Parent.NewWindow)
-local NewNotification = require(script.Parent.Parent.NewNotification)
-local db = false
+	Closure = function()
+		local script = G2L["38"];local newwindow = require(script.Parent.Parent.NewWindow)
+		local NewNotification = require(script.Parent.Parent.NewNotification)
+		local db = false
 
-local tab = require(script.Parent.Parent.NewTab)
+		local tab = require(script.Parent.Parent.NewTab)
 
-local module = {}
+		local module = {}
 
-function module.Start()
-	local newTab = tab.New("Main")
-	local window = newwindow.NewWindow("TP to end","tp","Main")
+		function module.Start()
+			local newTab = tab.New("Main")
+			local window = newwindow.NewWindow("TP to end","tp","Main")
 
-	window.Activated:Connect(function()
-		game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-43,539,-120.3)))
-	end)
-end
+			window.Activated:Connect(function()
+				game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-43,539,-120.3)))
+			end)
+		end
 
-return module
+		return module
 
-end;
+	end;
 };
 G2L_MODULES[G2L["39"]] = {
-Closure = function()
-    local script = G2L["39"];local newwindow = require(script.Parent.Parent.NewWindow)
-local NewNotification = require(script.Parent.Parent.NewNotification)
-local tab = require(script.Parent.Parent.NewTab)
+	Closure = function()
+		local script = G2L["39"];local newwindow = require(script.Parent.Parent.NewWindow)
+		local NewNotification = require(script.Parent.Parent.NewNotification)
+		local tab = require(script.Parent.Parent.NewTab)
 
--- Esp Stuff
-local Rep = game.ReplicatedStorage
+		-- Esp Stuff
+		local Rep = game.ReplicatedStorage
 
-local EspModule = require(script.Esp)
-local AFModule = require(script.Autofarm)
-local shootModule = require(script.shoot)
--- End
--- Cham Stuff
+		local EspModule = require(script.Esp)
+		local AFModule = require(script.Autofarm)
+		local shootModule = require(script.shoot)
+		-- End
+		-- Cham Stuff
 
-local db = false
-local toggleEsp = false
-local toggleAF = false
+		local db = false
+		local toggleEsp = false
+		local toggleAF = false
 
-local module = {}
+		local module = {}
 
-local function getClosestPlayer()
-	local Players = game:GetService("Players")
-	local localPlayer = Players.LocalPlayer
-	local character = localPlayer.Character
-	if not character then return nil end
+		local function getClosestPlayer()
+			local Players = game:GetService("Players")
+			local localPlayer = Players.LocalPlayer
+			local character = localPlayer.Character
+			if not character then return nil end
 
-	local root = character:WaitForChild("HumanoidRootPart")
+			local root = character:WaitForChild("HumanoidRootPart")
 
-	local closestPlayer = nil
-	local closestDistance = math.huge
+			local closestPlayer = nil
+			local closestDistance = math.huge
 
-	for _, player in ipairs(Players:GetPlayers()) do
-		if player ~= localPlayer and player.Character then
-			local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
-			local hrp = player.Character:FindFirstChild("HumanoidRootPart")
+			for _, player in ipairs(Players:GetPlayers()) do
+				if player ~= localPlayer and player.Character then
+					local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+					local hrp = player.Character:FindFirstChild("HumanoidRootPart")
 
-			if humanoid and hrp and humanoid.Health > 0 then
-				local distance = (hrp.Position - root.Position).Magnitude
+					if humanoid and hrp and humanoid.Health > 0 then
+						local distance = (hrp.Position - root.Position).Magnitude
 
-				if distance < closestDistance then
-					closestDistance = distance
-					closestPlayer = player
-				end
-			end
-		end
-	end
-
-	return closestPlayer, closestDistance
-end
-
-local function findMurderer(roles)
-	for i, v in roles do
-		if v.Role and v.Role == "Murderer" then
-			if game.Players:FindFirstChild(i) then
-				return game.Players[i]
-			end
-		end
-	end
-
-	return nil
-end
-
-function module.Start()
-
-	local newTab = tab.New("Main")
-
-	newwindow.NewTitle("Visuals", "Main")
-	local Esp = newwindow.NewToggle("Player Esp!","esp","Main")
-
-	newwindow.NewTitle("Sheriff", "Main")
-	local grabgun = newwindow.NewWindow("Grab Gun", "gun grabber", "Main")
-	local TPSHOOT = newwindow.NewWindow("TP Shoot Murderer", "", "Main")
-
-	newwindow.NewTitle("Murderer", "Main")
-	local killclosest1 = newwindow.NewWindow("Kill closest player", "", "Main")
-	local KILLALL = newwindow.NewWindow("Kill all", "", "Main")
-
-	newwindow.NewTitle("Autofarm", "Main")
-	local Autofarm = newwindow.NewWindow("Alpha Autofarm","Autofarm coins!","Main")
-
-	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
-	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
-		
-			local premiumTab = tab.New("Premium", 9)
-			newwindow.NewTitle("- Premium Sheriff -", "Premium")
-			local premiumGrabber = newwindow.NewWindow("Fast Gun Grab", "gun grabber", "Premium")
-
-			newwindow.NewTitle("- Premium Murderer -", "Premium")
-
-			local silentKillClosest = newwindow.NewWindow("Silent Kill Closest", "", "Premium")
-
-			newwindow.NewTitle("- Fun -", "Premium")
-
-			local flingMurderer = newwindow.NewWindow("Fling Murderer", "", "Premium")
-
-			flingMurderer.Activated:Connect(function()
-				NewNotification.New("You can't access this feature or this feature is not completed yet!", 1)
-			end)
-
-			silentKillClosest.Activated:Connect(function()
-				local closestTarget = getClosestPlayer()
-				if closestTarget then
-					if game.Players.LocalPlayer.Backpack:FindFirstChild("Knife") then
-						local args = {
-						closestTarget.Character.PrimaryPart
-					}
-					game.Players.LocalPlayer.Backpack.Knife.Events.KnifeStabbed:FireServer()
-					game.Players.LocalPlayer.Backpack.Knife.Events.HandleTouched:FireServer(unpack(args))
-					end
-				end
-			end)
-
-			premiumGrabber.Activated:Connect(function()
-				local gun = workspace:FindFirstChild("GunDrop", true)
-				if gun then
-					firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, gun, 0)
-					task.wait(0.1)
-					local hasGunNow = game.Players.LocalPlayer.Backpack:FindFirstChild("Gun")
-					if hasGunNow then
-						NewNotification.New("Successfuly Grabbed GunDrop!", 1.5)
-					end
-				else
-					NewNotification.New("GunDrop not found!", 1)
-				end
-			end)
-	end
-	
-	local int_gun = newwindow.NewButton("Grab Gun 🔫")
-	local silentAim = newwindow.NewButton("Sheriff Silent Aim")
-	local killclosestButton = newwindow.NewButton("Kill closest 🔪")
-	game.TweenService:Create(Esp.Frame,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 39, 39)}):Play()
-	task.spawn(function()
-		AFModule.Start()
-	end)
-
-	Esp.Activated:Connect(function()
-		if db == false then
-			db = true
-			if Esp.Toggle.Value == false then
-				Esp.Toggle.Value = true
-				toggleEsp = true
-				wait(.1)
-				db = false
-			elseif Esp.Toggle.Value == true then
-				toggleEsp = false
-				Esp.Toggle.Value = false
-				wait(.1)
-				db = false
-			end
-		end
-	end)
-	
-	Autofarm.Activated:Connect(function()
-		if toggleAF then
-			toggleAF = false
-			AFModule.toggle(false)
-		else
-			AFModule.toggle(true)
-			toggleAF = true
-		end
-	end)
-	
-	grabgun.Activated:Connect(function()
-		if workspace:FindFirstChild("GunDrop", true) then
-			local lastPos = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
-			game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Jump = true
-			game.Players.LocalPlayer.Character:PivotTo(workspace:FindFirstChild("GunDrop", true).CFrame)
-			task.wait(0.1)
-			game.Players.LocalPlayer.Character:PivotTo(lastPos)
-			NewNotification.New("Grabbed Gun!", 1.5)
-		else
-			NewNotification.New("No gun found!", 1.5)
-		end
-	end)
-
-	killclosestButton.Activated:Connect(function()
-		local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
-		local yourData = roles[game.Players.LocalPlayer.Name]
-		local root = game.Players.LocalPlayer.Character.PrimaryPart
-
-		if yourData then
-			local yourRole = yourData.Role
-			if yourRole == "Murderer" then
-				local isInBackpack = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
-				if isInBackpack then
-					isInBackpack.Parent = game.Players.LocalPlayer.Character
-				end
-				local closestTarget = getClosestPlayer()
-				if closestTarget then
-					local args = {
-						closestTarget.Character.PrimaryPart
-					}
-					game.Players.LocalPlayer.Character.Knife.Events.KnifeStabbed:FireServer()
-					game.Players.LocalPlayer.Character.Knife.Events.HandleTouched:FireServer(unpack(args))
-
-				end
-			else
-				NewNotification.New("You are not the murderer!", 1.5)
-			end
-		end
-	end)
-
-	KILLALL.Activated:Connect(function()
-		local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
-		local yourData = roles[game.Players.LocalPlayer.Name]
-		local root = game.Players.LocalPlayer.Character.PrimaryPart
-
-		if yourData then
-			local yourRole = yourData.Role
-			if yourRole == "Murderer" then
-				local isInBackpack = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
-				if isInBackpack then
-					isInBackpack.Parent = game.Players.LocalPlayer.Character
-				end
-				
-					for i, v in game.Players:GetPlayers() do
-						if v ~= game.Players.LocalPlayer then
-							local args = {
-						v.Character.PrimaryPart
-					}
-					game.Players.LocalPlayer.Character.Knife.Events.KnifeStabbed:FireServer()
-					game.Players.LocalPlayer.Character.Knife.Events.HandleTouched:FireServer(unpack(args))
+						if distance < closestDistance then
+							closestDistance = distance
+							closestPlayer = player
 						end
 					end
-			else
-				NewNotification.New("You are not the murderer!", 1.5)
-			end
-		end
-	end)
-
-	killclosest1.Activated:Connect(function()
-		local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
-		local yourData = roles[game.Players.LocalPlayer.Name]
-		local root = game.Players.LocalPlayer.Character.PrimaryPart
-
-		if yourData then
-			local yourRole = yourData.Role
-			if yourRole == "Murderer" then
-				local isInBackpack = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
-				if isInBackpack then
-					isInBackpack.Parent = game.Players.LocalPlayer.Character
 				end
-				local closestTarget = getClosestPlayer()
-				if closestTarget then
-					local args = {
-						closestTarget.Character.PrimaryPart
-					}
-					game.Players.LocalPlayer.Character.Knife.Events.KnifeStabbed:FireServer()
-					game.Players.LocalPlayer.Character.Knife.Events.HandleTouched:FireServer(unpack(args))
-				end
-			else
-				NewNotification.New("You are not the murderer!", 1.5)
 			end
+
+			return closestPlayer, closestDistance
 		end
-	end)
 
-	TPSHOOT.Activated:Connect(function()
-		local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
-		local yourData = roles[game.Players.LocalPlayer.Name]
-		local root = game.Players.LocalPlayer.Character
-		local player = game.Players.LocalPlayer
-
-		if yourData then
-			local yourRole = yourData.Role
-			if yourRole == "Sheriff" or yourRole == "Hero" then
-				local murderer = findMurderer(roles)
-				if murderer then
-					local lastPos = root.PrimaryPart.CFrame
-					local targetPrimary = murderer.Character.PrimaryPart
-					root:PivotTo(targetPrimary.CFrame * CFrame.new(0,0,4))
-					local args = {}
-					args[1] = root.RightHand.CFrame
-					args[2] = targetPrimary.CFrame
-
-					local backpackGun = player.Backpack:FindFirstChild("Gun")
-					if backpackGun then
-						backpackGun.Parent = root
+		local function findMurderer(roles)
+			for i, v in roles do
+				if v.Role and v.Role == "Murderer" then
+					if game.Players:FindFirstChild(i) then
+						return game.Players[i]
 					end
+				end
+			end
 
-					local gun = root:FindFirstChild("Gun")
+			return nil
+		end
+
+		local function predictPosition(part, ping)
+			local toMS = ping * 10
+
+			local timeInterval = toMS * 0.405
+
+			return part.Position + part.Velocity * timeInterval
+		end
+
+		function module.Start()
+
+			local newTab = tab.New("Main")
+
+			newwindow.NewTitle("Visuals", "Main")
+			local Esp = newwindow.NewToggle("Player Esp!","esp","Main")
+
+			newwindow.NewTitle("Sheriff", "Main")
+			local grabgun = newwindow.NewWindow("Grab Gun", "gun grabber", "Main")
+			local TPSHOOT = newwindow.NewWindow("TP Shoot Murderer", "", "Main")
+			local ShootMurd = newwindow.NewWindowV2("Shoot Murderer", "", "Main", function()
+				shootModule.Shoot()
+			end)
+
+			newwindow.NewTitle("Murderer", "Main")
+			local killclosest1 = newwindow.NewWindow("Kill closest player", "", "Main")
+			local KILLALL = newwindow.NewWindowV2("Kill all", "", "Main", function()
+				local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+				local yourData = roles[game.Players.LocalPlayer.Name]
+				local root = game.Players.LocalPlayer.Character.PrimaryPart
+
+				if yourData then
+					local yourRole = yourData.Role
+					if yourRole == "Murderer" then
+						local isInBackpack = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
+						if isInBackpack then
+							isInBackpack.Parent = game.Players.LocalPlayer.Character
+						end
+
+						for i, v in game.Players:GetPlayers() do
+							if v ~= game.Players.LocalPlayer then
+								local args = {
+									v.Character.PrimaryPart
+								}
+								game.Players.LocalPlayer.Character.Knife.Events.KnifeStabbed:FireServer()
+								game.Players.LocalPlayer.Character.Knife.Events.HandleTouched:FireServer(unpack(args))
+							end
+						end
+					else
+						NewNotification.New("You are not the murderer!", 1.5)
+					end
+				end
+			end)
+
+			newwindow.NewTitle("Teleports", "Main")
+			local MapTP = newwindow.NewWindow("Teleport to map", "", "Main")
+			local LobbyTP = newwindow.NewWindow("Teleport to lobby", "", "Main")
+
+			newwindow.NewTitle("Autofarm", "Main")
+
+			local Autofarm = newwindow.NewToggle("Autofarm","Autofarm coins!","Main")
+
+			task.spawn(function()
+				AFModule.Start()
+			end)
+
+			Autofarm.Activated:Connect(function()
+				if toggleAF then
+					toggleAF = false
+					Autofarm.Toggle.Value = false
+					AFModule.toggle(false)
+				else
+					Autofarm.Toggle.Value = true
+					AFModule.toggle(true)
+					toggleAF = true
+				end
+			end)
+
+			local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
+			if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
+				local premiumTab = tab.New("Premium", 9)
+
+				newwindow.NewTitle("- Premium Sheriff -", "Premium")
+
+				local premiumGrabber = newwindow.NewWindowV2("Fast Gun Grab", "gun grabber", "Premium", function()
+					local gun = workspace:FindFirstChild("GunDrop", true)
 					if gun then
-						gun.Shoot:FireServer(unpack(args))
-
-						task.wait(0.2)
-						root.PrimaryPart:PivotTo(lastPos)
+						firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, gun, 0)
+						task.wait(0.1)
+						local hasGunNow = game.Players.LocalPlayer.Backpack:FindFirstChild("Gun")
+						if hasGunNow then
+							NewNotification.New("Successfuly Grabbed GunDrop!", 1.5)
+						end
+					else
+						NewNotification.New("GunDrop not found!", 1)
 					end
+				end)
+				local autograb = newwindow.NewToggle("Auto Fast Gun Grab", "", "Premium")
+				autograb.Activated:Connect(function()
+					autograb.Toggle.Value = not autograb.Toggle.Value
+				end)
+
+				local instaShoot = newwindow.NewWindowV2("Instant Shoot Murderer", "", "Premium", function()
+					local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+					local yourData = roles[game.Players.LocalPlayer.Name]
+					local player = game.Players.LocalPlayer
+
+					local murd = findMurderer(roles)
+					if murd and murd.Character and murd.Character:FindFirstChild("HumanoidRootPart") then
+						local target = murd.Character
+						local myChar = player.Character
+
+						local predictedPos = predictPosition(target.PrimaryPart, player:GetNetworkPing())
+
+						local args = {
+							target.HumanoidRootPart.CFrame,
+							CFrame.new(predictedPos)
+						}
+
+						local backpackGun = player.Backpack:FindFirstChild("Gun")
+
+						if backpackGun then
+							backpackGun.Parent = myChar
+						end
+
+						local gun = myChar:FindFirstChild("Gun")
+						if gun then
+							gun.Shoot:FireServer(unpack(args))
+						end
+					end
+				end)
+
+				local premiumGrabberButton = newwindow.NewButton("Fast Gun Grab")
+
+				newwindow.NewTitle("- Premium Murderer -", "Premium")
+
+				local silentKillClosest = newwindow.NewWindowV2("Silent Kill Closest", "", "Premium", function()
+					local closestTarget = getClosestPlayer()
+					if closestTarget then
+						if game.Players.LocalPlayer.Backpack:FindFirstChild("Knife") then
+							local args = {
+								closestTarget.Character.PrimaryPart
+							}
+							game.Players.LocalPlayer.Backpack.Knife.Events.KnifeStabbed:FireServer()
+							game.Players.LocalPlayer.Backpack.Knife.Events.HandleTouched:FireServer(unpack(args))
+						else
+							NewNotification.New("Unequip your knife!")
+						end
+					end
+				end)
+
+
+				newwindow.NewTitle("- Fun -", "Premium")
+
+				local flingMurderer = newwindow.NewWindow("Fling Murderer", "", "Premium")
+
+				newwindow.NewTitle("- Coins -", "Premium")
+
+				local coinAura = newwindow.NewToggle("Coin Aura", "", "Premium")
+
+				newwindow.NewTitle("- Boxes -", "Premium")
+
+				local autoUnbox = newwindow.NewToggle("Auto Unbox Valentines Box", "", "Premium")
+
+				coinAura.Activated:Connect(function()
+					coinAura.Toggle.Value = not coinAura.Toggle.Value
+				end)
+				autoUnbox.Activated:Connect(function()
+					autoUnbox.Toggle.Value = not autoUnbox.Toggle.Value
+				end)
+
+				flingMurderer.Activated:Connect(function()
+					NewNotification.New("You can't access this feature or this feature is not completed yet!", 1)
+				end)
+
+				premiumGrabberButton.Activated:Connect(function()
+					local gun = workspace:FindFirstChild("GunDrop", true)
+					if gun then
+						firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, gun, 0)
+						task.wait(0.1)
+						local hasGunNow = game.Players.LocalPlayer.Backpack:FindFirstChild("Gun")
+						if hasGunNow then
+							NewNotification.New("Successfuly Grabbed GunDrop!", 1.5)
+						end
+					else
+						NewNotification.New("GunDrop not found!", 1)
+					end
+				end)
+
+				task.spawn(function()
+					while task.wait(0.2) do
+						if autoUnbox.Toggle.Value then
+							local args = {
+								"Valentines2026Box",
+								"MysteryBox",
+								"ValentinesKey2026"
+							}
+							game.ReplicatedStorage.Remotes.Shop.OpenCrate:InvokeServer()
+						end
+						if autograb.Toggle.Value then
+							local gun = workspace:FindFirstChild("GunDrop", true)
+							if gun then
+								firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, gun, 0)
+								task.wait(0.1)
+								local hasGunNow = game.Players.LocalPlayer.Backpack:FindFirstChild("Gun")
+								if hasGunNow then
+									NewNotification.New("Successfuly Grabbed GunDrop!", 1.5)
+								end
+							end
+						end
+						if coinAura.Toggle.Value then
+							local char = game.Players.LocalPlayer.Character
+							if char and char.Parent and  char:FindFirstChild("HumanoidRootPart") then
+								local root = char.PrimaryPart
+								local CoinContainers = workspace:FindFirstChild("CoinContainer", true)
+								if CoinContainers then
+									for _, coinAura in CoinContainers:GetChildren() do
+										if coinAura and coinAura:FindFirstChild("CoinVisual") and coinAura:FindFirstChild("CoinVisual"):FindFirstChild("MainCoin") then
+											if coinAura:FindFirstChild("CoinVisual") then
+												if coinAura.CoinVisual:FindFirstChild("MainCoin") then
+													if coinAura.CoinVisual.MainCoin.Transparency == 0 then
+														if game:GetService("UserInputService").TouchEnabled then
+															local dist = (root.Position - coinAura.Position).Magnitude
+															if dist < 4 then
+																coinAura.Position = root.Position
+															end
+														else
+															firetouchinterest(root, coinAura, 0)
+														end
+													end
+												end
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+				end)
+			end
+
+			local silentAim = newwindow.NewButton("Shoot Murderer")
+			local killclosestButton = newwindow.NewButton("Kill closest 🔪")
+
+			if not table.find(premiumUsers, game.Players.LocalPlayer.Name) then
+				local int_gun = newwindow.NewButton("Grab Gun 🔫")
+				int_gun.Activated:Connect(function()
+					if workspace:FindFirstChild("GunDrop", true) then
+						local lastPos = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
+						game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Jump = true
+						game.Players.LocalPlayer.Character:PivotTo(workspace:FindFirstChild("GunDrop", true).CFrame)
+						task.wait(0.1)
+						game.Players.LocalPlayer.Character:PivotTo(lastPos)
+						NewNotification.New("Grabbed Gun!", 1.5)
+					else
+						NewNotification.New("No gun found!", 1.5)
+					end
+				end)
+			end
+
+			Esp.Activated:Connect(function()
+				if db == false then
+					db = true
+					if Esp.Toggle.Value == false then
+						Esp.Toggle.Value = true
+						toggleEsp = true
+						wait(.1)
+						db = false
+					elseif Esp.Toggle.Value == true then
+						toggleEsp = false
+						Esp.Toggle.Value = false
+						wait(.1)
+						db = false
+					end
+				end
+			end)
+
+			LobbyTP.Activated:Connect(function()
+				local lobby = workspace:FindFirstChild("Lobby") or workspace:FindFirstChild("RegularLobby")
+				if lobby then
+					local spawns = lobby:FindFirstChild("Spawns")
+					if spawns then
+						local rCF = spawns:GetChildren()[math.random(1, #spawns:GetChildren())].CFrame + Vector3.new(0,2,0)
+						game.Players.LocalPlayer.Character:PivotTo(rCF)
+					else
+						NewNotification.New("Parts not found!", 1.5)
+					end
+				else
+					NewNotification.New("Lobby not found!", 1.5)
+				end
+			end)
+
+			MapTP.Activated:Connect(function()
+				local map = workspace:FindFirstChild("CoinContainer", true) or workspace:FindFirstChild("CoinAreas", true)
+				if map then
+					local spawns = map.Parent:FindFirstChild("Spawns")
+					if spawns then
+						local rCF = spawns:GetChildren()[math.random(1, #spawns:GetChildren())].CFrame + Vector3.new(0,2,0)
+						game.Players.LocalPlayer.Character:PivotTo(rCF)
+					else
+						NewNotification.New("Parts not found!", 1.5)
+					end
+				else
+					NewNotification.New("Map not found!", 1.5)
+				end
+			end)
+
+			grabgun.Activated:Connect(function()
+				if workspace:FindFirstChild("GunDrop", true) then
+					local lastPos = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
+					game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Jump = true
+					game.Players.LocalPlayer.Character:PivotTo(workspace:FindFirstChild("GunDrop", true).CFrame)
+					task.wait(0.1)
+					game.Players.LocalPlayer.Character:PivotTo(lastPos)
+					NewNotification.New("Grabbed Gun!", 1.5)
+				else
+					NewNotification.New("No gun found!", 1.5)
+				end
+			end)
+
+			killclosestButton.Activated:Connect(function()
+				local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+				local yourData = roles[game.Players.LocalPlayer.Name]
+				local root = game.Players.LocalPlayer.Character.PrimaryPart
+
+				if yourData then
+					local yourRole = yourData.Role
+					if yourRole == "Murderer" then
+						local isInBackpack = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
+						if isInBackpack then
+							isInBackpack.Parent = game.Players.LocalPlayer.Character
+						end
+						local closestTarget = getClosestPlayer()
+						if closestTarget then
+							local args = {
+								closestTarget.Character.PrimaryPart
+							}
+							game.Players.LocalPlayer.Character.Knife.Events.KnifeStabbed:FireServer()
+							game.Players.LocalPlayer.Character.Knife.Events.HandleTouched:FireServer(unpack(args))
+
+						end
+					else
+						NewNotification.New("You are not the murderer!", 1.5)
+					end
+				end
+			end)
+
+			killclosest1.Activated:Connect(function()
+				local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+				local yourData = roles[game.Players.LocalPlayer.Name]
+				local root = game.Players.LocalPlayer.Character.PrimaryPart
+
+				if yourData then
+					local yourRole = yourData.Role
+					if yourRole == "Murderer" then
+						local isInBackpack = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
+						if isInBackpack then
+							isInBackpack.Parent = game.Players.LocalPlayer.Character
+						end
+						local closestTarget = getClosestPlayer()
+						if closestTarget then
+							local args = {
+								closestTarget.Character.PrimaryPart
+							}
+							game.Players.LocalPlayer.Character.Knife.Events.KnifeStabbed:FireServer()
+							game.Players.LocalPlayer.Character.Knife.Events.HandleTouched:FireServer(unpack(args))
+						end
+					else
+						NewNotification.New("You are not the murderer!", 1.5)
+					end
+				end
+			end)
+
+			TPSHOOT.Activated:Connect(function()
+				local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+				local yourData = roles[game.Players.LocalPlayer.Name]
+				local root = game.Players.LocalPlayer.Character
+				local player = game.Players.LocalPlayer
+
+				if yourData then
+					local yourRole = yourData.Role
+					if yourRole == "Sheriff" or yourRole == "Hero" then
+						local murderer = findMurderer(roles)
+						if murderer then
+							local lastPos = root.PrimaryPart.CFrame
+							local targetPrimary = murderer.Character.PrimaryPart
+							root:PivotTo(targetPrimary.CFrame * CFrame.new(0,0,4))
+							local args = {}
+							args[1] = root.RightHand.CFrame
+							args[2] = targetPrimary.CFrame
+
+							local backpackGun = player.Backpack:FindFirstChild("Gun")
+							if backpackGun then
+								backpackGun.Parent = root
+							end
+
+							local gun = root:FindFirstChild("Gun")
+							if gun then
+								gun.Shoot:FireServer(unpack(args))
+
+								task.wait(0.2)
+								root.PrimaryPart:PivotTo(lastPos)
+							end
+						end
+					end
+				end
+			end)
+
+			silentAim.Activated:Connect(function()
+				shootModule.Shoot()
+			end)
+
+
+			while task.wait(1) do
+				if toggleEsp then
+
+
+					EspModule.CreateLabel()
+					EspModule.UpdateLabel()
+					EspModule.ForceCreate("GunDrop")
+
+				else
+					EspModule.ClearAll()
 				end
 			end
 		end
-	end)
 
-	int_gun.Activated:Connect(function()
-		if workspace:FindFirstChild("GunDrop", true) then
-			local lastPos = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
-			game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Jump = true
-			game.Players.LocalPlayer.Character:PivotTo(workspace:FindFirstChild("GunDrop", true).CFrame)
-			task.wait(0.1)
-			game.Players.LocalPlayer.Character:PivotTo(lastPos)
-			NewNotification.New("Grabbed Gun!", 1.5)
-		else
-			NewNotification.New("No gun found!", 1.5)
-		end
-	end)
-	
-	silentAim.Activated:Connect(function()
-		shootModule.Shoot()
-	end)
-	
-	
-	while task.wait(1) do
-		if toggleEsp then
-			
-
-				EspModule.CreateLabel()
-				EspModule.UpdateLabel()
-				EspModule.ForceCreate("GunDrop")
-
-		else
-			EspModule.ClearAll()
-			end
-	end
-end
-
-return module
-end;
+		return module
+	end;
 };
 
 G2L_MODULES[G2L["385"]] = {
-Closure = function()
-    local script = G2L["385"];local newwindow = require(script.Parent.Parent.NewWindow)
-local NewNotification = require(script.Parent.Parent.NewNotification)
-local tab = require(script.Parent.Parent.NewTab)
+	Closure = function()
+		local script = G2L["385"];local newwindow = require(script.Parent.Parent.NewWindow)
+		local NewNotification = require(script.Parent.Parent.NewNotification)
+		local tab = require(script.Parent.Parent.NewTab)
 
--- Esp Stuff
-local Rep = game.ReplicatedStorage
--- End
--- Cham Stuff
+		-- Esp Stuff
+		local Rep = game.ReplicatedStorage
+		-- End
+		-- Cham Stuff
 
-local module = {}
+		local module = {}
 
-local function getClosestPlayer()
-	local Players = game:GetService("Players")
-	local localPlayer = Players.LocalPlayer
-	local character = localPlayer.Character
-	if not character then return nil end
+		local function getClosestPlayer()
+			local Players = game:GetService("Players")
+			local localPlayer = Players.LocalPlayer
+			local character = localPlayer.Character
+			if not character then return nil end
 
-	local root = character:WaitForChild("HumanoidRootPart")
+			local root = character:WaitForChild("HumanoidRootPart")
 
-	local closestPlayer = nil
-	local closestDistance = math.huge
+			local closestPlayer = nil
+			local closestDistance = math.huge
 
-	for _, player in ipairs(Players:GetPlayers()) do
-		if player ~= localPlayer and player.Character then
-			local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
-			local hrp = player.Character:FindFirstChild("HumanoidRootPart")
+			for _, player in ipairs(Players:GetPlayers()) do
+				if player ~= localPlayer and player.Character then
+					local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+					local hrp = player.Character:FindFirstChild("HumanoidRootPart")
 
-			if humanoid and hrp and humanoid.Health > 0 then
-				local distance = (hrp.Position - root.Position).Magnitude
+					if humanoid and hrp and humanoid.Health > 0 then
+						local distance = (hrp.Position - root.Position).Magnitude
 
-				if distance < closestDistance then
-					closestDistance = distance
-					closestPlayer = player
+						if distance < closestDistance then
+							closestDistance = distance
+							closestPlayer = player
+						end
+					end
+				end
+			end
+
+			return closestPlayer, closestDistance
+		end
+
+
+		function module.Start()
+
+			local newTab = tab.New("Main")
+			local shootClosest = newwindow.NewWindow("Shoot Closest - R", "gun grabber", "Main") -- FireWeapon(spotfrom, hit)
+			local killclosest1 = newwindow.NewWindow("Knife Closest", "", "Main") -- HitEvent
+
+			local shootClosestButton = newwindow.NewButton("Shoot Closest")
+			local killclosestButton = newwindow.NewButton("Kill closest 🔪")
+			local player = game.Players.LocalPlayer
+			local root = player.Character.PrimaryPart
+
+			game.UserInputService.InputBegan:Connect(function(key)
+				if key.KeyCode == Enum.KeyCode.R then
+					local hasGunInBackpack = player.Backpack:FindFirstChild("FireWeapon", true)
+					if hasGunInBackpack then
+						hasGunInBackpack.Parent.Parent = player.Character
+					end
+
+					local closest = getClosestPlayer()
+					if closest then
+
+						local args = {}
+						args[1] = vector.create(closest.Character.UpperTorso.Position.X,closest.Character.UpperTorso.Position.Y,closest.Character.UpperTorso.Position.Z)
+						args[2] = closest.Character.Head
+
+						player.Character:FindFirstChild("FireWeapon", true):FireServer(unpack(args))
+					end
+				end
+			end)
+
+			shootClosest.Activated:Connect(function()
+				local hasGunInBackpack = player.Backpack:FindFirstChild("FireWeapon", true)
+				if hasGunInBackpack then
+					hasGunInBackpack.Parent.Parent = player.Character
+				end
+
+				local closest = getClosestPlayer()
+				if closest then
+
+					local args = {}
+					args[1] = vector.create(closest.Character.UpperTorso.Position.X,closest.Character.UpperTorso.Position.Y,closest.Character.UpperTorso.Position.Z)
+					args[2] = closest.Character.Head
+
+					player.Character:FindFirstChild("FireWeapon", true):FireServer(unpack(args))
+				end
+			end)
+			shootClosestButton.Activated:Connect(function()
+				local hasGunInBackpack = player.Backpack:FindFirstChild("FireWeapon", true)
+				if hasGunInBackpack then
+					hasGunInBackpack.Parent.Parent = player.Character
+				end
+
+				local closest = getClosestPlayer()
+				if closest then
+
+					local args = {}
+					args[1] = vector.create(closest.Character.UpperTorso.Position.X,closest.Character.UpperTorso.Position.Y,closest.Character.UpperTorso.Position.Z)
+					args[2] = closest.Character.Head
+
+					player.Character:FindFirstChild("FireWeapon", true):FireServer(unpack(args))
+				end
+			end)
+
+
+			killclosest1.Activated:Connect(function()
+				local hasGunInBackpack = player.Backpack:FindFirstChild("HitEvent", true)
+				if hasGunInBackpack then
+					hasGunInBackpack.Parent.Parent = player.Character
+				end
+
+				local closest = getClosestPlayer()
+				if closest then
+					local targetCFrame = CFrame.new(
+						root.Position + (root.CFrame.LookVector * 2),
+						root.Position + (root.CFrame.LookVector * (2 + 1))
+					)
+
+					closest.Character:PivotTo(targetCFrame)
+					player.Character:FindFirstChild("HitEvent", true):FireServer()
+				end
+			end)
+
+			killclosestButton.Activated:Connect(function()
+				local hasGunInBackpack = player.Backpack:FindFirstChild("HitEvent", true)
+				if hasGunInBackpack then
+					hasGunInBackpack.Parent.Parent = player.Character
+				end
+
+				local closest = getClosestPlayer()
+				if closest then
+					local targetCFrame = CFrame.new(
+						root.Position + (root.CFrame.LookVector * 2),
+						root.Position + (root.CFrame.LookVector * (2 + 1))
+					)
+
+					closest.Character:PivotTo(targetCFrame)
+					player.Character:FindFirstChild("HitEvent", true):FireServer()
+				end
+			end)
+		end
+
+		return module
+	end;
+};
+
+G2L_MODULES[G2L["PPT"]] = {
+	Closure = function()
+		local script = G2L["PPT"];local newwindow = require(script.Parent.Parent.NewWindow)
+		local NewNotification = require(script.Parent.Parent.NewNotification)
+		local tab = require(script.Parent.Parent.NewTab)
+
+		-- Esp Stuff
+		local Rep = game.ReplicatedStorage
+		-- End
+		-- Cham Stuff
+
+		local module = {}
+
+		local function tp()
+			-- SHOUTOUT TO GRY_630
+
+			local player = game.Players.LocalPlayer
+
+			local folder = workspace.ItemSpawners.Experiments:GetChildren()
+			for _, v in folder do
+				if v:IsA("Model") then
+					local root = v.PrimaryPart
+					if not root then continue end
+
+					local prompt = root:FindFirstChild("PickupPrompt")
+					if not prompt then continue end
+					local char = player.Character
+					if not char:FindFirstChild("HumanoidRootPart") then continue end
+
+					prompt.HoldDuration = 0
+
+					char:PivotTo(root.CFrame)
+
+					task.wait(0.3)
+
+					fireproximityprompt(prompt)
+
+					task.wait(0.1)
+					char:PivotTo(CFrame.new(0,0,0))
+
+					task.wait(0.5)
 				end
 			end
 		end
-	end
 
-	return closestPlayer, closestDistance
-end
+		local function tpCelestial()
+			-- SHOUTOUT TO GRY_630
 
+			local player = game.Players.LocalPlayer
 
-function module.Start()
+			local folder = workspace.ItemSpawners:GetDescendants()
+			for _, v in folder do
+				if v:IsA("Model") then
+					local root = v.PrimaryPart
+					if not root then continue end
 
-	local newTab = tab.New("Main")
-	local shootClosest = newwindow.NewWindow("Shoot Closest - R", "gun grabber", "Main") -- FireWeapon(spotfrom, hit)
-	local killclosest1 = newwindow.NewWindow("Knife Closest", "", "Main") -- HitEvent
-	
-	local shootClosestButton = newwindow.NewButton("Shoot Closest")
-	local killclosestButton = newwindow.NewButton("Kill closest 🔪")
-	local player = game.Players.LocalPlayer
-	local root = player.Character.PrimaryPart
+					local prompt = root:FindFirstChild("PickupPrompt")
+					if not prompt then continue end
+					local char = player.Character
+					if not char:FindFirstChild("HumanoidRootPart") then continue end
+					local board = v:FindFirstChild("InfoGUI")
+					if not board then continue end
+					local mutation = board.TextLabels.Mutation
+					if mutation.Text ~= "Celestial" then continue end
 
-	game.UserInputService.InputBegan:Connect(function(key)
-		if key.KeyCode == Enum.KeyCode.R then
-			local hasGunInBackpack = player.Backpack:FindFirstChild("FireWeapon", true)
-		if hasGunInBackpack then
-			hasGunInBackpack.Parent.Parent = player.Character
+					prompt.HoldDuration = 0
+
+					char:PivotTo(root.CFrame)
+
+					task.wait(0.3)
+
+					fireproximityprompt(prompt)
+
+					task.wait(0.1)
+					char:PivotTo(CFrame.new(0,0,0))
+
+					task.wait(0.5)
+				end
+			end
 		end
 
-		local closest = getClosestPlayer()
-		if closest then
+		function module.Start()
 
-			local args = {}
-			args[1] = vector.create(closest.Character.UpperTorso.Position.X,closest.Character.UpperTorso.Position.Y,closest.Character.UpperTorso.Position.Z)
-			args[2] = closest.Character.Head
+			local newTab = tab.New("Main")
+			newwindow.NewTitle("Grabber", "Main")
+			local get = newwindow.NewWindow("Get all Experiments", "", "Main")
+			local getC = newwindow.NewWindow("Get all celestials", "", "Main")
+			local cButton = newwindow.NewButton("Get all celestials")
 
-			player.Character:FindFirstChild("FireWeapon", true):FireServer(unpack(args))
-		end
-		end
-	end)
-	
-	shootClosest.Activated:Connect(function()
-		local hasGunInBackpack = player.Backpack:FindFirstChild("FireWeapon", true)
-		if hasGunInBackpack then
-			hasGunInBackpack.Parent.Parent = player.Character
+			get.Activated:Connect(tp)
+
+			cButton.Activated:Connect(tpCelestial)
+			getC.Activated:Connect(tpCelestial)
 		end
 
-		local closest = getClosestPlayer()
-		if closest then
-
-			local args = {}
-			args[1] = vector.create(closest.Character.UpperTorso.Position.X,closest.Character.UpperTorso.Position.Y,closest.Character.UpperTorso.Position.Z)
-			args[2] = closest.Character.Head
-
-			player.Character:FindFirstChild("FireWeapon", true):FireServer(unpack(args))
-		end
-	end)
-	shootClosestButton.Activated:Connect(function()
-		local hasGunInBackpack = player.Backpack:FindFirstChild("FireWeapon", true)
-		if hasGunInBackpack then
-			hasGunInBackpack.Parent.Parent = player.Character
-		end
-
-		local closest = getClosestPlayer()
-		if closest then
-
-			local args = {}
-			args[1] = vector.create(closest.Character.UpperTorso.Position.X,closest.Character.UpperTorso.Position.Y,closest.Character.UpperTorso.Position.Z)
-			args[2] = closest.Character.Head
-
-			player.Character:FindFirstChild("FireWeapon", true):FireServer(unpack(args))
-		end
-	end)
-
-
-	killclosest1.Activated:Connect(function()
-		local hasGunInBackpack = player.Backpack:FindFirstChild("HitEvent", true)
-		if hasGunInBackpack then
-			hasGunInBackpack.Parent.Parent = player.Character
-		end
-
-		local closest = getClosestPlayer()
-		if closest then
-			local targetCFrame = CFrame.new(
-					root.Position + (root.CFrame.LookVector * 2),
-					root.Position + (root.CFrame.LookVector * (2 + 1))
-					)
-
-					closest.Character:PivotTo(targetCFrame)
-			player.Character:FindFirstChild("HitEvent", true):FireServer()
-		end
-	end)
-
-	killclosestButton.Activated:Connect(function()
-		local hasGunInBackpack = player.Backpack:FindFirstChild("HitEvent", true)
-		if hasGunInBackpack then
-			hasGunInBackpack.Parent.Parent = player.Character
-		end
-
-		local closest = getClosestPlayer()
-		if closest then
-			local targetCFrame = CFrame.new(
-					root.Position + (root.CFrame.LookVector * 2),
-					root.Position + (root.CFrame.LookVector * (2 + 1))
-					)
-
-					closest.Character:PivotTo(targetCFrame)
-			player.Character:FindFirstChild("HitEvent", true):FireServer()
-		end
-	end)
-end
-
-return module
-end;
+		return module
+	end;
 };
+
 
 G2L_MODULES[G2L["3a"]] = {
-Closure = function()
-    local script = G2L["3a"];local module = {Toggle = false}
-local NewNotification = require(script.Parent.Parent.Parent.NewNotification)
+	Closure = function()
+		local script = G2L["3a"];local module = {Toggle = false}
+		local NewNotification = require(script.Parent.Parent.Parent.NewNotification)
 
-local TOGGLE = false
-local noclip = false
-local LOCKED_Y = nil
-local canReset = true
+		local TOGGLE = false
+		local noclip = false
+		local LOCKED_Y = nil
+		local canReset = true
 
-local SPEED = 20
+		local SPEED = 20
 
-local NO_COIN_TIMEOUT = 5
-local lastCoinSeen = os.clock()
+		local NO_COIN_TIMEOUT = 5
+		local lastCoinSeen = os.clock()
 
-local humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
+		local humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
 
-module.toggle = function(toggle)
-	TOGGLE = toggle
-	if toggle then
-		noclip = true
-		workspace.Gravity = 0
-		humanoid.PlatformStand = true
-	else
-		noclip = false
-		workspace.Gravity = 196.2
-		humanoid.PlatformStand = false
-	end
-end
-
-game["Run Service"].Stepped:Connect(function()
-	if noclip then
-		for _, v in game.Players.LocalPlayer.Character:GetDescendants() do
-			if v:IsA("BasePart") then
-				v.CanCollide = false
-			end
-		end
-	end
-end)
-
-
-local function getClosestCoin(root)
-	local closestCoin = nil
-	local closestDist = math.huge
-
-	for _, v in workspace:GetDescendants() do
-		if v.Name == "Coin_Server" then
-			local coin = v:FindFirstChild("CoinVisual")
-			if coin then
-				local dist = (coin.Position - root.Position).Magnitude
-				if dist < closestDist then
-					closestDist = dist
-					closestCoin = coin
-				end
-			end
-		end
-	end
-
-	return closestCoin, closestDist
-end
-
-module.Start = function()
-	while task.wait(0.2) do
-		if TOGGLE then
-		
-			local char = game.Players.LocalPlayer.Character
-			local humanoid = char:WaitForChild("Humanoid")
-			local root = char.PrimaryPart
-			
-
-			local coin, distance = getClosestCoin(root)
-
-			if not coin then
-
-				if os.clock() - lastCoinSeen < NO_COIN_TIMEOUT then
-					continue
-				else
-					if canReset then
-						noclip = false
-						humanoid.PlatformStand = false
-						workspace.Gravity = 196.2
-						game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health = 0
-						canReset = false
-					end
-				end
-			else
-				canReset = true
-				lastCoinSeen = os.clock()
+		module.toggle = function(toggle)
+			TOGGLE = toggle
+			if toggle then
 				noclip = true
-				humanoid.PlatformStand = true
 				workspace.Gravity = 0
+				humanoid.PlatformStand = true
+			else
+				noclip = false
+				workspace.Gravity = 196.2
+				humanoid.PlatformStand = false
 			end
-
-	
-			lastCoinSeen = os.clock()
-
-			if coin and coin.Parent then
-				if not coin:FindFirstChild("Highlight") then
-					local h = Instance.new("Highlight")
-					h.Parent = coin
-					h.FillColor = Color3.fromRGB(255, 0, 0)
-					h.OutlineColor = Color3.fromRGB(0, 0, 0)
-				end
-				
-				if not LOCKED_Y then
-					LOCKED_Y = root.Position.Y
-				end
-
-				local targetY = coin.Position.Y - 1.5
-				if math.abs(targetY - LOCKED_Y) > 0.1 then
-					LOCKED_Y = targetY -- move Y to coin's Y
-				end
-				local targetCFrame =
-					CFrame.new(coin.Position.X, LOCKED_Y, coin.Position.Z) *
-					CFrame.Angles(math.rad(90), 0, 0)
-
-				while true do
-					local dt = task.wait(0.01)
-
-					-- coin was collected by someone else
-					if not coin or not coin.Parent or not coin.Parent.Parent then
-						break
-					end
-
-					local currentPos = root.Position
-					local targetPos = Vector3.new(
-						coin.Position.X,
-						LOCKED_Y,
-						coin.Position.Z
-					)
-
-					local direction = targetPos - currentPos
-					local dist = direction.Magnitude
-
-					if dist > 0 then
-						local step = math.min(SPEED * dt, dist)
-						local newPos = currentPos + direction.Unit * step
-						root.CFrame = CFrame.new(newPos) * CFrame.Angles(math.rad(90), 0, 0)
-					end
-
-					if dist < 4 then
-						coin.CFrame = CFrame.new(Vector3.new(coin.Position.X, targetY, coin.Position.Z))
-					end
-
-					if dist < 1 then
-						break
-					end
-				end
-			end
-
-		else
-			workspace.Gravity = 196.2
-			noclip = false
-			local char = game.Players.LocalPlayer.Character
-			if char then
-				char.Humanoid.PlatformStand = false
-			end
-			LOCKED_Y = nil -- reset when turning off
 		end
-	end
-end
+
+		game["Run Service"].Stepped:Connect(function()
+			if noclip then
+				for _, v in game.Players.LocalPlayer.Character:GetDescendants() do
+					if v:IsA("BasePart") then
+						v.CanCollide = false
+					end
+				end
+			end
+		end)
 
 
-return module
+		local function getClosestCoin(root)
+			local closestCoin = nil
+			local closestDist = math.huge
 
-end;
+			local CoinContainer = workspace:FindFirstChild("CoinContainer", true)
+
+			if CoinContainer then
+				for _, v in CoinContainer:GetChildren() do
+					local coin = v:FindFirstChild("CoinVisual")
+					if coin and coin:FindFirstChild("MainCoin") then
+						if coin.MainCoin.Transparency == 0 then
+							local dist = (coin.Position - root.Position).Magnitude
+							if dist < closestDist then
+								closestDist = dist
+								closestCoin = coin
+							end
+						end
+					end
+				end
+			end
+
+			return closestCoin, closestDist
+		end
+
+		module.Start = function()
+			while task.wait(0.2) do
+				if TOGGLE then
+					local char = game.Players.LocalPlayer.Character
+					if char and char.Parent and char:FindFirstChild("Humanoid") then
+						local humanoid = char:WaitForChild("Humanoid")
+						local root = char.PrimaryPart
+
+
+						local coinVisual, distance = getClosestCoin(root)
+						local coin = nil
+
+						if coinVisual then
+							if coinVisual.Parent then
+								if coinVisual:FindFirstChild("MainCoin") then
+									coin = coinVisual.Parent
+								end
+							end
+						end
+
+						if not coinVisual or not coinVisual.Parent then
+
+							if os.clock() - lastCoinSeen < NO_COIN_TIMEOUT then
+								continue
+							else
+								if canReset then
+									noclip = false
+									humanoid.PlatformStand = false
+									workspace.Gravity = 196.2
+									humanoid.Health = 0
+									canReset = false
+								end
+							end
+						else
+							canReset = true
+							lastCoinSeen = os.clock()
+							noclip = true
+							humanoid.PlatformStand = true
+							workspace.Gravity = 0
+						end
+
+
+						lastCoinSeen = os.clock()
+
+						if coin and coin.Parent then
+
+							if not LOCKED_Y then
+								LOCKED_Y = root.Position.Y
+							end
+
+							local targetY = coin.Position.Y - (coin.Size.Y / 2) - 2
+							if math.abs(targetY - LOCKED_Y) > 0.1 then
+								LOCKED_Y = targetY -- move Y to coin's Y
+							end
+							local targetCFrame =
+								CFrame.new(coin.Position.X, LOCKED_Y, coin.Position.Z) *
+								CFrame.Angles(math.rad(90), 0, 0)
+
+							while true do
+								local dt = task.wait(0.01)
+
+								if not coinVisual or not coinVisual.Parent then
+									break
+								end
+
+								if coinVisual:FindFirstChild("MainCoin") then
+									if coinVisual.MainCoin.Transparency ~= 0 then
+										break
+									end
+								end
+
+								if not TOGGLE then
+									break
+								end
+
+								local CoinContainers = workspace:FindFirstChild("CoinContainer", true)
+								if CoinContainers then
+									for _, coinAura in CoinContainers:GetChildren() do
+										if coinAura and coinAura:FindFirstChild("CoinVisual") and coinAura:FindFirstChild("CoinVisual"):FindFirstChild("MainCoin") then
+											if coinAura:FindFirstChild("CoinVisual") then
+												if coinAura.CoinVisual:FindFirstChild("MainCoin") then
+													if coinAura.CoinVisual.MainCoin.Transparency == 0 then
+														local dist = (root.Position - coinAura.Position).Magnitude
+														if dist < 5 then
+															coinAura.Position = root.Position
+														end
+													end
+												end
+											end
+										end
+									end
+								end
+
+								local currentPos = root.Position
+								local targetPos = Vector3.new(
+									coin.Position.X,
+									LOCKED_Y,
+									coin.Position.Z
+								)
+
+								local direction = targetPos - currentPos
+								local dist = direction.Magnitude
+
+								if dist > 0 then
+									local step = math.min(SPEED * dt, dist)
+									local newPos = currentPos + direction.Unit * step
+									root.CFrame = CFrame.new(newPos) * CFrame.Angles(math.rad(90), 0, 0)
+								end
+
+								if dist < 0.5 then
+									break
+								end
+							end
+						end
+					end
+				else
+					workspace.Gravity = 196.2
+					noclip = false
+					local char = game.Players.LocalPlayer.Character
+					if char and char:FindFirstChild("Humanoid") then
+						char.Humanoid.PlatformStand = false
+					end
+					LOCKED_Y = nil
+				end
+			end
+		end
+
+
+		return module
+
+	end;
 };
 G2L_MODULES[G2L["3b"]] = {
-Closure = function()
-    local script = G2L["3b"];local module = {}
+	Closure = function()
+		local script = G2L["3b"];local module = {}
 
 
-local function IsAlive(v)
-		
-if not v.Killed and not v.Dead then
-			return true
-		else
-			return nil
+		local function IsAlive(v)
+
+			if not v.Killed and not v.Dead then
+				return true
+			else
+				return nil
+			end
 		end
-end
 
-function module.CreateLabel()
-		for i, v in pairs(game.Players:GetChildren()) do
-		if (v ~= game.Players.LocalPlayer and v and v.Parent and v.Character and v.Character:FindFirstChild("Head")) and not v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") then
-				local billboard = Instance.new("BillboardGui", v.Character.Head)
+		function module.CreateLabel()
+			for i, v in pairs(game.Players:GetChildren()) do
+				if (v ~= game.Players.LocalPlayer and v and v.Parent and v.Character and v.Character:FindFirstChild("Head")) and not v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") then
+					local billboard = Instance.new("BillboardGui", v.Character.Head)
+					billboard.Size = UDim2.new(4,0,1,0)
+					billboard.ExtentsOffset = Vector3.new(0, 2, 0)
+					billboard.AlwaysOnTop = true
+					local text =  Instance.new("TextLabel", billboard)         
+					text.Size = UDim2.new(1,0,1,0)
+					text.BackgroundTransparency = 1
+
+					local newHighlight = Instance.new("Highlight", v.Character)
+					newHighlight.Name = "ESPH"
+					newHighlight.FillColor = Color3.fromRGB(196,196,196)
+				end
+			end
+		end
+
+		function module.ForceCreate(Part)
+			local part = workspace:FindFirstChild(Part,true)
+			if part then
+				local billboard = Instance.new("BillboardGui", part)
 				billboard.Size = UDim2.new(4,0,1,0)
 				billboard.ExtentsOffset = Vector3.new(0, 2, 0)
 				billboard.AlwaysOnTop = true
 				local text =  Instance.new("TextLabel", billboard)         
 				text.Size = UDim2.new(1,0,1,0)
 				text.BackgroundTransparency = 1
-				
-				local newHighlight = Instance.new("Highlight", v.Character)
-			newHighlight.Name = "ESPH"
-			newHighlight.FillColor = Color3.fromRGB(196,196,196)
+				text.Text = Part
+				text.TextColor3 = Color3.new(0.250980, 0.019608, 0.678431)
 			end
 		end
-end
 
-function module.ForceCreate(Part)
-	local part = workspace:FindFirstChild(Part,true)
-	if part then
-		local billboard = Instance.new("BillboardGui", part)
-		billboard.Size = UDim2.new(4,0,1,0)
-		billboard.ExtentsOffset = Vector3.new(0, 2, 0)
-		billboard.AlwaysOnTop = true
-		local text =  Instance.new("TextLabel", billboard)         
-		text.Size = UDim2.new(1,0,1,0)
-		text.BackgroundTransparency = 1
-		text.Text = Part
-		text.TextColor3 = Color3.new(0.250980, 0.019608, 0.678431)
-	end
-end
+		function module.UpdateLabel()
+			local Rep = game.ReplicatedStorage
+			local PlayerRoles = Rep:FindFirstChild("GetPlayerData", true):InvokeServer()
+			for i, v in game.Players:GetChildren() do
+				if (v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head")) and v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") and v.Character:FindFirstChild("ESPH") then
+					local text =  v.Character:WaitForChild("Head").BillboardGui.TextLabel
+					local highlight : Highlight = v.Character:WaitForChild("ESPH")
+					text.Text = v.Name
+					if PlayerRoles[v.Name] then
+						local ROLE = PlayerRoles[v.Name].Role
+						if ROLE == "Sheriff" and IsAlive(PlayerRoles[v.Name]) then
+							text.TextColor3 = Color3.fromRGB(0, 0, 225)
+							highlight.FillColor = Color3.fromRGB(0,0,255)
+						end
 
-function module.UpdateLabel()
-	local Rep = game.ReplicatedStorage
-	local PlayerRoles = Rep:FindFirstChild("GetPlayerData", true):InvokeServer()
-	for i, v in game.Players:GetChildren() do
-		if (v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head")) and v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") and v.Character:FindFirstChild("ESPH") then
-			local text =  v.Character:WaitForChild("Head").BillboardGui.TextLabel
-			local highlight : Highlight = v.Character:WaitForChild("ESPH")
-			text.Text = v.Name
-			if PlayerRoles[v.Name] then
-				local ROLE = PlayerRoles[v.Name].Role
-				if ROLE == "Sheriff" and IsAlive(PlayerRoles[v.Name]) then
-					text.TextColor3 = Color3.fromRGB(0, 0, 225)
-					highlight.FillColor = Color3.fromRGB(0,0,255)
+						if ROLE == "Murderer" and IsAlive(PlayerRoles[v.Name]) then
+							text.TextColor3 = Color3.fromRGB(225, 0, 0)
+							highlight.FillColor = Color3.fromRGB(255,0,0)
+						end
+
+						if ROLE == "Innocent" and IsAlive(PlayerRoles[v.Name]) then 
+							text.TextColor3 = Color3.fromRGB(0, 225, 0)
+							highlight.FillColor = Color3.fromRGB(0,255,0)
+						end 
+
+						if ROLE == "Hero" and IsAlive(PlayerRoles[v.Name]) then
+							text.TextColor3 = Color3.fromRGB(255, 225, 0)
+							highlight.FillColor = Color3.fromRGB(255,255,0)
+						end
+					end
 				end
-
-				if ROLE == "Murderer" and IsAlive(PlayerRoles[v.Name]) then
-					text.TextColor3 = Color3.fromRGB(225, 0, 0)
-					highlight.FillColor = Color3.fromRGB(255,0,0)
-				end
-
-				if ROLE == "Innocent" and IsAlive(PlayerRoles[v.Name]) then 
-					text.TextColor3 = Color3.fromRGB(0, 225, 0)
-					highlight.FillColor = Color3.fromRGB(0,255,0)
-				end 
-
-				if ROLE == "Hero" and IsAlive(PlayerRoles[v.Name]) then
-					text.TextColor3 = Color3.fromRGB(255, 225, 0)
-					highlight.FillColor = Color3.fromRGB(255,255,0)
-				end
-		end
-		end
-	end
-end
-
-function module.ClearAll()
-	for i, v in game.Players:GetPlayers() do
-		if (v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head")) and v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") and v.Parent then
-			v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui"):Destroy()
-			if v.Character:FindFirstChild("ESPH") then
-				v.Character:FindFirstChild("ESPH"):Destroy()
 			end
 		end
-	end
-end
 
-return module
+		function module.ClearAll()
+			for i, v in game.Players:GetPlayers() do
+				if (v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head")) and v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui") and v.Parent then
+					v.Character:WaitForChild("Head"):FindFirstChild("BillboardGui"):Destroy()
+					if v.Character:FindFirstChild("ESPH") then
+						v.Character:FindFirstChild("ESPH"):Destroy()
+					end
+				end
+			end
+		end
 
-end;
+		return module
+
+	end;
 };
 G2L_MODULES[G2L["3c"]] = {
-Closure = function()
-    local script = G2L["3c"];local module = {}
+	Closure = function()
+		local script = G2L["3c"];local module = {}
 
-local SilentAIMEnabled = false
+		local SilentAIMEnabled = false
 
-module.toggle = function(toggle)
-	SilentAIMEnabled = toggle
-end
-
-local function getRoles()
-	local Rep = game.ReplicatedStorage
-	local roles = Rep:FindFirstChild("GetPlayerData", true):InvokeServer()
-	local ROLES
-	
-	for i,v in roles do
-		if v.Role == "Murderer" then
-			ROLES = game.Players:FindFirstChild(i)
+		module.toggle = function(toggle)
+			SilentAIMEnabled = toggle
 		end
-	end
-	
-	
-	return ROLES
+
+		local function getRoles()
+			local Rep = game.ReplicatedStorage
+			local roles = Rep:FindFirstChild("GetPlayerData", true):InvokeServer()
+			local ROLES
+
+			for i,v in roles do
+				if v.Role == "Murderer" then
+					ROLES = game.Players:FindFirstChild(i)
+				end
+			end
+
+
+			return ROLES
+		end
+
+		local lastVelocity = Vector3.zero
+		local Stats = game:GetService("Stats")
+		local RunService = game:GetService("RunService")
+		local Players = game:GetService("Players")
+		local player = Players.LocalPlayer
+
+		local FIXED_PING = 0.06
+		local VELOCITY_CLAMP = 80
+		local SMOOTHING = 0.7
+
+		local function predictPosition(part, ping)
+			local toMS = ping * 10
+
+			local timeInterval = toMS * 0.405
+
+			return part.Position + part.Velocity * timeInterval
+		end
+
+
+		function module.Shoot()
+			local target = getRoles()
+			if not target or not target.Character then return end
+
+			local root = target.Character:FindFirstChild("HumanoidRootPart")
+			local humanoid = target.Character:FindFirstChildOfClass("Humanoid")
+			local myChar = player.Character
+			if not root or not humanoid or not myChar then return end
+
+			local hand = myChar:WaitForChild("RightHand")
+
+			local predictedPos = predictPosition(root, player:GetNetworkPing())
+
+			local args = {
+				hand.CFrame,
+				CFrame.new(predictedPos)
+			}
+
+			local backpackGun = player.Backpack:FindFirstChild("Gun")
+			if backpackGun then
+				backpackGun.Parent = myChar
+			end
+
+			local gun = myChar:FindFirstChild("Gun")
+			if gun then
+				gun.Shoot:FireServer(unpack(args))
+			end
+		end
+--[[
+local ball = Instance.new("Part", workspace)
+ball.Anchored = true
+ball.CanCollide = false
+ball.Material = Enum.Material.Neon
+ball.BrickColor = BrickColor.new("Green")
+ball.Shape = Enum.PartType.Ball
+ball.Size = Vector3.new(1,1,1)
+
+game:GetService("RunService").RenderStepped:Connect(function()
+local target = getRoles()
+	if target and target.Character then 
+local root = target.Character:FindFirstChild("HumanoidRootPart")
+if root then
+if not ball then
+ball = Instance.new("Part", workspace)
+ball.Anchored = true
+ball.CanCollide = false
+ball.Material = Enum.Material.Neon
+ball.BrickColor = BrickColor.new("Green")
+ball.Shape = Enum.PartType.Ball
+ball.Size = Vector3.new(1,1,1)
 end
-
-local lastVelocity = Vector3.zero
-local Stats = game:GetService("Stats")
-local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-
-local FIXED_PING = 0.06
-local VELOCITY_CLAMP = 80
-local SMOOTHING = 0.7
-
-local function predictPosition(root, humanoid)
-	local velocity = root.AssemblyLinearVelocity
-
-	velocity = lastVelocity:Lerp(velocity, SMOOTHING)
-	lastVelocity = velocity
-
-	if velocity.Magnitude > VELOCITY_CLAMP then
-		velocity = velocity.Unit * VELOCITY_CLAMP
-	end
-
-	local yMultiplier = 0.15
-	local state = humanoid:GetState()
-
-	if state == Enum.HumanoidStateType.Jumping then
-		yMultiplier = 0.25
-	elseif state == Enum.HumanoidStateType.Freefall then
-		yMultiplier = 0.05
-	end
-
-	return root.Position + Vector3.new(
-		velocity.X * FIXED_PING,
-		velocity.Y * FIXED_PING * yMultiplier,
-		velocity.Z * FIXED_PING
-	)
+local predictedPos = predictPosition(root, player:GetNetworkPing())
+ball.Position = predictedPos
 end
-
-
-function module.Shoot()
-	local target = getRoles()
-	if not target or not target.Character then return end
-
-	local root = target.Character:FindFirstChild("HumanoidRootPart")
-	local humanoid = target.Character:FindFirstChildOfClass("Humanoid")
-	local myChar = player.Character
-	if not root or not humanoid or not myChar then return end
-
-	local hand = myChar:WaitForChild("RightHand")
-
-	local predictedPos = predictPosition(root, humanoid)
-
-	local args = {
-		hand.CFrame,
-		CFrame.new(predictedPos)
-	}
-
-	local backpackGun = player.Backpack:FindFirstChild("Gun")
-	if backpackGun then
-		backpackGun.Parent = myChar
-	end
-
-	local gun = myChar:FindFirstChild("Gun")
-	if gun then
-		gun.Shoot:FireServer(unpack(args))
-	end
 end
+end)
+]]
 
+		return module
 
-return module
-
-end;
+	end;
 };
 -- StarterGui.PK_API.mainframe.LocalScript
 local function C_3()
-local script = G2L["3"];
+	local script = G2L["3"];
 	_G.key = "nil"
 	script.Parent.UIScale.Scale = 0
-	
+
 end;
 task.spawn(C_3);
 -- StarterGui.PK_API.mainframe.Loader
 local function C_4()
-local script = G2L["4"];
+	local script = G2L["4"];
 	local UserInputService = game:GetService("UserInputService")
 	wait(2)
 	local newwindow = require(script.NewWindow)
 	local NewNotification = require(script.NewNotification)
 	local tab = require(script.NewTab)
-	
+
 	local universal = require(script.Universal)
-	
-	NewNotification.New("Welcome to PatchKids!")
-	
+
+	local version = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/version"))()
+	if clientVersion == version then
+		NewNotification.New("PatchKids is up-to-date.")
+	end
+
 	UserInputService.InputBegan:Connect(function(input, p)
 		if not p then
 			if input.KeyCode == Enum.KeyCode.Q then
 				script.Parent.Visible = not script.Parent.Visible
+				local version = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/version"))()
+				if clientVersion < version then
+					NewNotification.New("PatchKids updated. Your Script is OUTDATED!")
+				end
 			end
 		end
 	end)
-	
+
 	universal.Start()
-	
-	if script.Gamesloader:FindFirstChild(game.PlaceId) then
-		for i,v in script.Gamesloader:GetChildren() do
-			if v.Name ~= tostring(game.PlaceId) then
+
+	task.spawn(function()
+		if script.Gamesloader:FindFirstChild(game.PlaceId) then
+			for i,v in script.Gamesloader:GetChildren() do
+				if v.Name ~= tostring(game.PlaceId) then
+					v:Destroy()
+				end
+			end
+
+			local r = require(script.Gamesloader:FindFirstChild(game.PlaceId))
+			r.Start()
+		else
+			for i,v in script.Gamesloader:GetChildren() do
 				v:Destroy()
 			end
 		end
-		
-		local r = require(script.Gamesloader:FindFirstChild(game.PlaceId))
-		r.Start()
-	else
-		for i,v in script.Gamesloader:GetChildren() do
-			v:Destroy()
-		end
+	end)
+
+	task.wait(0.5)
+	local ThemesTab = tab.New("Settings", 10)
+
+	newwindow.NewTitle("Themes", "Settings")
+
+	local default = newwindow.NewWindow("Default Theme", "", "Settings")
+	local valentines = newwindow.NewWindow("Valentines Theme", "", "Settings")
+	local ocean = newwindow.NewWindow("Ocean Theme", "", "Settings")
+
+
+	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
+	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
+		newwindow.NewTitle(" - Premium Themes - ", "Settings")
+
+		local space = newwindow.NewWindow("Space Theme", "", "Settings")
+		space.Activated:Connect(function()
+			library:ApplyTheme("Space")
+		end)
+
+		local cyber = newwindow.NewWindow("Cyber Theme", "", "Settings")
+		cyber.Activated:Connect(function()
+			library:ApplyTheme("Cyber")
+		end)
 	end
+
+	local GUIScale = newwindow.NewSlider("UI Scale", 0.4, 0.6, 0.5, "Settings", function(value)
+		local size = UDim2.fromScale(value, value)
+		API.mainframe.Size = size
+	end)
+
+	default.Activated:Connect(function()
+		library:ApplyTheme("Default")
+	end)
+	valentines.Activated:Connect(function()
+		library:ApplyTheme("Valentines")
+	end)
+	ocean.Activated:Connect(function()
+		library:ApplyTheme("Ocean")
+	end)
 end;
 task.spawn(C_4);
--- StarterGui.PK_API.mainframe.topbar.version.LocalScript
-local function C_41()
-local script = G2L["41"];
-	script.Parent.Text = "v"..script.Parent.Parent.Parent.Parent:GetAttribute("version")
-end;
-task.spawn(C_41);
 -- StarterGui.PK_API.mainframe.topbar.gamename.LocalScript
 local function C_43()
-local script = G2L["43"];
-	script.Parent.Text = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+	local script = G2L["43"];
+	script.Parent.Text = game:GetService("MarketplaceService"):GetProductInfoAsync(game.PlaceId).Name
 end;
 task.spawn(C_43);
 -- StarterGui.PK_API.mainframe.topbar.min.LocalScript
 local function C_47()
-local script = G2L["47"];
+	local script = G2L["47"];
+	script.Parent.ZIndex = 999999999
+	
 	script.Parent.Activated:Connect(function()
-		game.TweenService:Create(script.Parent.Parent.Parent.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
-	end)
-	
-	script.Parent.MouseEnter:Connect(function()
-		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundTransparency = .2}):Play()
-		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(.1,0)}):Play()
-	end)
-	
-	script.Parent.MouseLeave:Connect(function()
-		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundTransparency = .4}):Play()
-		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(1,0)}):Play()
+		API.mainframe.Visible = false
 	end)
 end;
 task.spawn(C_47);
--- StarterGui.PK_API.mainframe.Move.LocalScript
-local function C_4e()
-local script = G2L["4e"];
-	local player = game.Players.LocalPlayer
-	local mouse = player:GetMouse()
-	
-	script.Parent.MouseButton1Down:Connect(function()
-		script.Parent.Holding.Value = true
-	end)
-	
-	script.Parent.MouseButton1Up:Connect(function()
-		script.Parent.Holding.Value = false
-	end)
-	
-	mouse.Move:Connect(function()
-		if script.Parent.Holding.Value == true then
-			script.Parent.Parent.Position = UDim2.new(0,mouse.X,0,mouse.Y)
-		end
-	end)
-end;
-task.spawn(C_4e);
+
 -- StarterGui.PK_API.max.LocalScript
 local function C_58()
-local script = G2L["58"];
+	local script = G2L["58"];
 	script.Parent.Activated:Connect(function()
 		script.Parent.Activated:Connect(function()
-			game.TweenService:Create(script.Parent.Parent.mainframe.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
+			API.mainframe.Visible = true
 		end)
 	end)
 end;
 task.spawn(C_58);
--- StarterGui.PK_API.max.Moving
-local function C_59()
-local script = G2L["59"];
-	local player = game.Players.LocalPlayer
-	local mouse = player:GetMouse()
-	
-	local isHolding = false
-	
-	script.Parent.MouseButton1Down:Connect(function()
-		isHolding = true
-	end)
-	
-	script.Parent.MouseButton1Up:Connect(function()
-		isHolding = false
-	end)
-	
-	mouse.Move:Connect(function()
-		if isHolding == true then
-			script.Parent.Position = UDim2.new(0,mouse.X,0,mouse.Y)
-		end
-	end)
-end;
-task.spawn(C_59);
 -- StarterGui.PK_API.loading.LocalScript
 
 function SendMessage(url, message)
-    local http = game:GetService("HttpService")
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
-    local data = {
-        ["content"] = message
-    }
-    local body = http:JSONEncode(data)
-    local response = request({
-        Url = url,
-        Method = "POST",
-        Headers = headers,
-        Body = body
-    })
-    print("Sent")
+	local http = game:GetService("HttpService")
+	local headers = {
+		["Content-Type"] = "application/json"
+	}
+	local data = {
+		["content"] = message
+	}
+	local body = http:JSONEncode(data)
+	local response = request({
+		Url = url,
+		Method = "POST",
+		Headers = headers,
+		Body = body
+	})
 end
 
 local function C_5f()
-local script = G2L["5f"];
+	local script = G2L["5f"];
 	script.Parent.UIScale.Scale = 0
 	local m = require(script.Parent.Parent.mainframe.Loader.NewNotification)
 	local c = script.Parent.topbar
-	-- RANDOM UUID
-	
+
 	local KEY = "key-" .. tostring(game:GetService("HttpService"):GenerateGUID(false))
 	local freeKey = "Release"
 	
+	script.Parent.topbar.welcome.Text = "Welcome, " .. game.Players.LocalPlayer.DisplayName .. "!"
+
 	wait(2)
 	game.TweenService:Create(script.Parent.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
 	if _G.key == "nil" then
@@ -2073,14 +2152,24 @@ local script = G2L["5f"];
 	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
 	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
 		c.TextBox.Text = KEY
+		API.mainframe.Profile.Profile.Paid.Visible = true
+		API.mainframe.Profile.Profile.Free.Visible = false
+	else
+		API.mainframe.Profile.Profile.Free.Visible = true
+		API.mainframe.Profile.Profile.Paid.Visible = false
 	end
+	
+	c.Parent.loadingui.Visible = true
+
+
+
 	script.Parent.topbar.checkkey.Activated:Connect(function()
 		if c.TextBox.Text == freeKey then
 
 
 			game.TweenService:Create(c.key.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
 			game.TweenService:Create(c.TextBox.UIScale,TweenInfo.new(0),{Scale = 0}):Play()
-			game.TweenService:Create(c.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
+			game.TweenService:Create(c.Parent.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
 			m.New("Correct key!",2)
 
 			game.TweenService:Create(script.Parent.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
@@ -2089,20 +2178,38 @@ local script = G2L["5f"];
 			script.Parent.Parent.max.Visible = true
 			wait(.1)
 
-			SendMessage("https://discord.com/api/webhooks/1462855648667631768/xNIGC7JNcNR1zxhmGWzjyUDn_Hiq4Bd5Irbb3kUPbYVDHY1p9mFT7BVMkhVB5MXDCFAg", game.Players.LocalPlayer.Name .. " executed PatchKids at: " .. os.date("%x", 906000490))
+
+
+			local userId = game.Players.LocalPlayer.UserId
+			local thumbnailType = Enum.ThumbnailType.HeadShot
+			local thumbnailSize = Enum.ThumbnailSize.Size420x420
+
+			local content, isReady = game.Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
+
+			API.mainframe.Profile.Profile.User.Text = game.Players.LocalPlayer.Name
+			API.mainframe.Profile.Profile.Icon.Image = content
 
 			script.Parent:Destroy()
 		elseif c.TextBox.Text == KEY then
 			game.TweenService:Create(c.key.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
 			game.TweenService:Create(c.TextBox.UIScale,TweenInfo.new(0),{Scale = 0}):Play()
-			game.TweenService:Create(c.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
+			game.TweenService:Create(c.Parent.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
 			m.New("Correct key!",2)
-			m.New("Welcome " .. game.Players.LocalPlayer.DisplayName .. "!",2)
 			game.TweenService:Create(script.Parent.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
 			wait(.1)
 			game.TweenService:Create(script.Parent.Parent.mainframe.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
 			script.Parent.Parent.max.Visible = true
 			wait(.1)
+
+			local userId = game.Players.LocalPlayer.UserId
+			local thumbnailType = Enum.ThumbnailType.HeadShot
+			local thumbnailSize = Enum.ThumbnailSize.Size420x420
+
+			local content, isReady = game.Players:GetUserThumbnailAsync(userId, thumbnailType, thumbnailSize)
+
+			API.mainframe.Profile.Profile.User.Text = game.Players.LocalPlayer.Name
+			API.mainframe.Profile.Profile.Icon.Image = content
+
 			script.Parent:Destroy()
 		else
 			m.New("Incorrect key!",2)
@@ -2110,53 +2217,25 @@ local script = G2L["5f"];
 	end)
 end;
 task.spawn(C_5f);
--- StarterGui.PK_API.loading.Move.LocalScript
-local function C_63()
-local script = G2L["63"];
-	local player = game.Players.LocalPlayer
-	local mouse = player:GetMouse()
-	
-	local isHolding = false
-	
-	script.Parent.MouseButton1Down:Connect(function()
-		isHolding = true
-	end)
-	
-	script.Parent.MouseButton1Up:Connect(function()
-		isHolding = false
-	end)
-	
-	mouse.Move:Connect(function()
-		if isHolding == true then
-			script.Parent.Parent.Position = UDim2.new(0,mouse.X,0,mouse.Y)
-		end
-	end)
-end;
-task.spawn(C_63);
--- StarterGui.PK_API.loading.topbar.version.LocalScript
-local function C_67()
-local script = G2L["67"];
-	script.Parent.Text = "v"..script.Parent.Parent.Parent.Parent:GetAttribute("version")
-end;
-task.spawn(C_67);
--- StarterGui.PK_API.loading.topbar.checkkey.LocalScript
+
 local function C_72()
-local script = G2L["72"];
-	
+	local script = G2L["72"];
+
+	local ogRadius = script.Parent.UICorner.CornerRadius
+	local ogBackground = script.Parent.BackgroundColor3
+
 	script.Parent.MouseEnter:Connect(function()
 		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundTransparency = .2}):Play()
 		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(.1,0)}):Play()
+		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(0.1,0)}):Play()
 	end)
-	
+
 	script.Parent.MouseLeave:Connect(function()
 		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundTransparency = .4}):Play()
-		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(83, 83, 83)}):Play()
-		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(1,0)}):Play()
+		game.TweenService:Create(script.Parent,TweenInfo.new(.1),{BackgroundColor3 = ogBackground}):Play()
+		game.TweenService:Create(script.Parent.UICorner,TweenInfo.new(.1),{CornerRadius = ogRadius}):Play()
 	end)
 end;
 task.spawn(C_72);
 
 return G2L["1"], require;
-
--- OLDDDD
