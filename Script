@@ -1,4 +1,4 @@
---t4
+--t5
 local G2L = {};
 
 local lockedButtons = false
@@ -378,9 +378,9 @@ G2L_MODULES[G2L["5"]] = {
 					if not CreatedButton then
 						CreatedButton = module.NewButton(Title)
 						CreatedButton.Activated:Connect(Func)
-						TweenService:Create(clone.Button, TweenInfo.new(0.25), {BackgroundColor3 = Color3.fromRGB(186, 255, 183)}):Play()
+						TweenService:Create(clone.Button, TweenInfo.new(0.25), {ImageColor3 = Color3.fromRGB(186, 255, 183)}):Play()
 					else
-						TweenService:Create(clone.Button, TweenInfo.new(0.25), {BackgroundColor3 = Color3.fromRGB(255,255,255)}):Play()
+						TweenService:Create(clone.Button, TweenInfo.new(0.25), {ImageColor3 = Color3.fromRGB(255,255,255)}):Play()
 						library.RemoveDrag(Drags, "Button_" .. Title)
 
 						CreatedButton:Destroy()
@@ -457,9 +457,9 @@ G2L_MODULES[G2L["5"]] = {
 					if not CreatedButton then
 						CreatedButton = module.NewButton(Title)
 						CreatedButton.Activated:Connect(buttonFunc)
-						TweenService:Create(clone.Button, TweenInfo.new(0.25), {BackgroundColor3 = Color3.fromRGB(186, 255, 183)}):Play()
+						TweenService:Create(clone.Button, TweenInfo.new(0.25), {ImageColor3 = Color3.fromRGB(186, 255, 183)}):Play()
 					else
-						TweenService:Create(clone.Button, TweenInfo.new(0.25), {BackgroundColor3 = Color3.fromRGB(255,255,255)}):Play()
+						TweenService:Create(clone.Button, TweenInfo.new(0.25), {ImageColor3 = Color3.fromRGB(255,255,255)}):Play()
 						library.RemoveDrag(Drags, "Button_" .. Title)
 
 						CreatedButton:Destroy()
@@ -1350,6 +1350,31 @@ G2L_MODULES[G2L["39"]] = {
 						local gun = myChar:FindFirstChild("Gun")
 						if gun then
 							gun.Shoot:FireServer(unpack(args))
+						end
+					end
+				end)
+
+				local silentShoot = newwindow.NewWindowV2("Silent Shoot Murderer", "", "Premium", function()
+					local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+					local yourData = roles[game.Players.LocalPlayer.Name]
+					local player = game.Players.LocalPlayer
+
+					local murd = findMurderer(roles)
+					if murd and murd.Character and murd.Character:FindFirstChild("HumanoidRootPart") then
+						local target = murd.Character
+						local myChar = player.Character
+
+						local predictedPos = predictPosition(target.PrimaryPart, player:GetNetworkPing())
+
+						local args = {
+							target.HumanoidRootPart.CFrame,
+							CFrame.new(predictedPos)
+						}
+
+						local backpackGun = player.Backpack:FindFirstChild("Gun")
+
+						if backpackGun then
+							backpackGun.Shoot:FireServer(unpack(args))
 						end
 					end
 				end)
