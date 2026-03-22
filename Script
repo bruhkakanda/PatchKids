@@ -451,12 +451,10 @@ G2L_MODULES[G2L["5"]] = {
 			clone.Visible = true
 			clone.Button.Visible = false
 
-			local CreatedButton = CreatedButtons[Title]
-
 			if buttonFunc then
 				clone.Button.Visible = true
 				clone.Button.Activated:Connect(function()
-					if not CreatedButton then
+					if not CreatedButtons[Title] then
 						local newButton = module.NewButton(Title)
 
 						CreatedButtons[Title] = newButton
@@ -467,7 +465,7 @@ G2L_MODULES[G2L["5"]] = {
 						TweenService:Create(clone.Button, TweenInfo.new(0.25), {ImageColor3 = Color3.fromRGB(255,255,255)}):Play()
 						library.RemoveDrag(Drags, "Button_" .. Title)
 
-						CreatedButton:Destroy()
+						CreatedButtons[Title]:Destroy()
 						CreatedButtons[Title] = nil
 					end
 				end)
