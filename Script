@@ -4,6 +4,7 @@ local G2L = {};
 local lockedButtons = false
 local UserInputService = game:GetService("UserInputService")
 local Drags = {}
+local CreatedButtons = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 print("library never failed to load - just useless info")
 local clientVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/version"))()
@@ -435,7 +436,6 @@ G2L_MODULES[G2L["5"]] = {
 		end
 
 		function module.NewWindow(Title,Desc,tab, buttonFunc)
-			local CreatedButton = nil
 
 			local clone = GeneratedTemplates.Template:Clone()
 			library.AddThemesToTemplate(clone)
@@ -451,19 +451,24 @@ G2L_MODULES[G2L["5"]] = {
 			clone.Visible = true
 			clone.Button.Visible = false
 
+			local CreatedButton = CreatedButtons[Title]
+
 			if buttonFunc then
 				clone.Button.Visible = true
 				clone.Button.Activated:Connect(function()
 					if not CreatedButton then
-						CreatedButton = module.NewButton(Title)
-						CreatedButton.Activated:Connect(buttonFunc)
+						local newButton = module.NewButton(Title)
+
+						CreatedButtons[Title] = newButton
+
+						newButton.Activated:Connect(buttonFunc)
 						TweenService:Create(clone.Button, TweenInfo.new(0.25), {ImageColor3 = Color3.fromRGB(186, 255, 183)}):Play()
 					else
 						TweenService:Create(clone.Button, TweenInfo.new(0.25), {ImageColor3 = Color3.fromRGB(255,255,255)}):Play()
 						library.RemoveDrag(Drags, "Button_" .. Title)
 
 						CreatedButton:Destroy()
-						CreatedButton = nil
+						CreatedButtons[Title] = nil
 					end
 				end)
 				clone.Execute.Activated:Connect(buttonFunc)
@@ -2217,6 +2222,7 @@ local function C_4()
 	newwindow.NewTitle("Themes", "Settings")
 
 	local default = newwindow.NewWindow("Default Theme", "", "Settings")
+	local light = newwindow.NewWindow("Light Theme", "", "Settings")
 	local valentines = newwindow.NewWindow("Valentines Theme", "", "Settings")
 	local ocean = newwindow.NewWindow("Ocean Theme", "", "Settings")
 
@@ -2252,6 +2258,9 @@ local function C_4()
 
 	default.Activated:Connect(function()
 		library:ApplyTheme("Default")
+	end)
+	light.Activated:Connect(function()
+		library:ApplyTheme("Light")
 	end)
 	valentines.Activated:Connect(function()
 		library:ApplyTheme("Valentines")
