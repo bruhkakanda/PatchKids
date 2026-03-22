@@ -1,4 +1,4 @@
---t5
+--t6
 local G2L = {};
 
 local lockedButtons = false
@@ -754,6 +754,15 @@ G2L_MODULES[G2L["33"]] = {
 			local FlySpeedSlider = newwindow.NewSlider("Fly Speed", 1, 5, 1, "Universal", function(value)
 				FlyScript.ChangeSpeed(value)
 			end)
+
+			UserInputService.InputBegan:Connect(function(input, p)
+		if not p then
+			if input.KeyCode == Enum.KeyCode.G then
+				Fly.Toggle.Value = not Fly.Toggle.Value
+				FlyScript.Toggle()
+			end
+		end
+	end)
 
 			Fly.Activated:Connect(function()
 				Fly.Toggle.Value = not Fly.Toggle.Value
