@@ -26,6 +26,16 @@ library.Themes = {
 		Stroke = Color3.fromRGB(30,30,30),
 		Outer = Color3.fromRGB(30,30,30),
 	},
+	
+	Light = {
+		MainBackground = Color3.fromRGB(210, 210, 210),
+		Third = Color3.fromRGB(230,230,230),
+		Accent = Color3.fromRGB(255, 137, 139),
+		Text = Color3.fromRGB(25, 25, 25),
+		Secondary = Color3.fromRGB(180, 180, 180),
+		Stroke = Color3.fromRGB(150,150,150),
+		Outer = Color3.fromRGB(150,150,150),
+	},
 
 	Valentines = {
 		MainBackground = Color3.fromRGB(255, 126, 199), 
