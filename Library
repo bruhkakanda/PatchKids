@@ -480,7 +480,7 @@ library.Notification = function()
 	
 	
 	return G2L["2"]
-end)
+end
 
 library.AddThemesToTemplate = function(template)
 	if template:HasTag("A") then
