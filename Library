@@ -1,4 +1,4 @@
---// Original Library \\--5
+--// Original Library \\--53
 local library = {}
 local RunService = game:GetService("RunService")   
 local UserInputService = game:GetService("UserInputService")
@@ -1497,25 +1497,20 @@ library.CreateHUD = function(V)
 
 
 	-- StarterGui.PK_API.NotifyFrame
-	G2L["30"] = Instance.new("ScrollingFrame", G2L["1"]);
-	G2L["30"]["Active"] = true;
+	G2L["30"] = Instance.new("Frame", G2L["1"]);
 	G2L["30"]["BorderSizePixel"] = 0;
-	G2L["30"]["ScrollingEnabled"] = false;
 	G2L["30"]["Name"] = [[NotifyFrame]];
-	G2L["30"]["ScrollBarImageTransparency"] = 1;
-	G2L["30"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 	G2L["30"]["ClipsDescendants"] = false;
-	G2L["30"]["Size"] = UDim2.new(0.18166, 0, 0.26149, 0);
-	G2L["30"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
-	G2L["30"]["Position"] = UDim2.new(0.81139, 0, 0.368, 0);
+	G2L["30"]["Size"] = UDim2.new(1,0,1,0);
+	G2L["30"]["Position"] = UDim2.new(0,0,0,0);
 	G2L["30"]["BackgroundTransparency"] = 1;
 
 
 	-- StarterGui.PK_API.NotifyFrame.UIListLayout
 	G2L["31"] = Instance.new("UIListLayout", G2L["30"]);
-	G2L["31"]["HorizontalAlignment"] = Enum.HorizontalAlignment.Right;
+	G2L["31"]["HorizontalAlignment"] = Enum.HorizontalAlignment.Center;
 	G2L["31"]["Padding"] = UDim.new(0.025, 0);
-	G2L["31"]["VerticalAlignment"] = Enum.VerticalAlignment.Bottom;
+	G2L["31"]["VerticalAlignment"] = Enum.VerticalAlignment.Top;
 	G2L["31"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 
 
