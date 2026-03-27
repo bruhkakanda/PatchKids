@@ -1,4 +1,4 @@
---// Original Library \\--
+--// Original Library \\--5
 local library = {}
 local RunService = game:GetService("RunService")   
 local UserInputService = game:GetService("UserInputService")
@@ -398,7 +398,7 @@ B = Stroke, Color
 C = Text, Color
 ]]
 
-library.Notification = function()
+function library.Notification()
 		
 	local G2L = {};
 	
@@ -406,7 +406,7 @@ library.Notification = function()
 	-- StarterGui.ScreenGui.Template
 	G2L["2"] = Instance.new("CanvasGroup");
 	G2L["2"]["BorderSizePixel"] = 0;
-	library:RegisterTheme(G2L["2], "BackgroundColor3", "Third")
+	library:RegisterTheme(G2L["2], "BackgroundColor3", "Third");
 	G2L["2"]["AnchorPoint"] = Vector2.new(0.5, 0);
 	G2L["2"]["Size"] = UDim2.new(0.2, 0, 0.05, 0);
 	G2L["2"]["Position"] = UDim2.new(0.2, 0, 0.05, 0);
@@ -423,7 +423,7 @@ library.Notification = function()
 	-- StarterGui.ScreenGui.Template.UIStroke
 	G2L["4"] = Instance.new("UIStroke", G2L["2"]);
 	G2L["4"]["Thickness"] = 2;
-	library:RegisterTheme(G2L["4], "Color", "Stroke")
+	library:RegisterTheme(G2L["4], "Color", "Stroke");
 	
 	
 	-- StarterGui.ScreenGui.Template.Bar
