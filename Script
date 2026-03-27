@@ -1,4 +1,4 @@
---t6
+--t7
 local G2L = {};
 
 local lockedButtons = false
@@ -64,73 +64,6 @@ G2L["21"]["ApplyStrokeMode"] = Enum.ApplyStrokeMode.Border;
 G2L["22"] = Instance.new("ModuleScript", G2L["4"]);
 G2L["22"]["Name"] = [[NewNotification]];
 
-
--- StarterGui.PK_API.mainframe.Loader.NewNotification.Template
-G2L["23"] = Instance.new("Frame", G2L["22"]);
-G2L["23"]["BorderSizePixel"] = 0;
-G2L["23"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["23"]["AnchorPoint"] = Vector2.new(1, 0.5);
-G2L["23"]["Size"] = UDim2.new(0, 0, 0.42005, 0);
-G2L["23"]["Position"] = UDim2.new(0.93482, 0, 0.47201, 0);
-G2L["23"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["23"]["Name"] = [[Template]];
-G2L["23"]["BackgroundTransparency"] = 0.25;
-
-
--- StarterGui.PK_API.mainframe.Loader.NewNotification.Template.Title
-G2L["24"] = Instance.new("TextLabel", G2L["23"]);
-G2L["24"]["TextWrapped"] = true;
-G2L["24"]["BorderSizePixel"] = 0;
-G2L["24"]["TextSize"] = 14;
-G2L["24"]["TextXAlignment"] = Enum.TextXAlignment.Left;
-G2L["24"]["TextScaled"] = true;
-G2L["24"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["24"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["24"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["24"]["BackgroundTransparency"] = 1;
-G2L["24"]["Size"] = UDim2.new(0.76967, 0, 0.62632, 0);
-G2L["24"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["24"]["Text"] = [[You Rolled: Common]];
-G2L["24"]["Name"] = [[Title]];
-G2L["24"]["Position"] = UDim2.new(0.23032, 0, 0.18569, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewNotification.Template.UIScale
-G2L["25"] = Instance.new("UIScale", G2L["23"]);
-G2L["25"]["Scale"] = 0.8;
-
-
--- StarterGui.PK_API.mainframe.Loader.NewNotification.Template.UICorner
-G2L["26"] = Instance.new("UICorner", G2L["23"]);
-G2L["26"]["CornerRadius"] = UDim.new(0.1, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewNotification.Template.ImageLabel
-G2L["27"] = Instance.new("ImageLabel", G2L["23"]);
-G2L["27"]["BorderSizePixel"] = 0;
-G2L["27"]["ScaleType"] = Enum.ScaleType.Fit;
-G2L["27"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["27"]["Image"] = [[rbxassetid://16913919379]];
-G2L["27"]["Size"] = UDim2.new(0.19191, 0, 0.75323, 0);
-G2L["27"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["27"]["BackgroundTransparency"] = 1;
-G2L["27"]["Position"] = UDim2.new(0, 0, 0.11976, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewNotification.Template.Bar
-G2L["28"] = Instance.new("Frame", G2L["23"]);
-G2L["28"]["BorderSizePixel"] = 0;
-G2L["28"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["28"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
-G2L["28"]["Size"] = UDim2.new(0, 0, 0.0646, 0);
-G2L["28"]["Position"] = UDim2.new(0.49942, 0, 0.94592, 0);
-G2L["28"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["28"]["Name"] = [[Bar]];
-
-
--- StarterGui.PK_API.mainframe.Loader.NewNotification.Template.Bar.UICorner
-G2L["29"] = Instance.new("UICorner", G2L["28"]);
-G2L["29"]["CornerRadius"] = UDim.new(100, 0);
 
 
 -- StarterGui.PK_API.mainframe.Loader.NewTab
@@ -643,16 +576,18 @@ G2L_MODULES[G2L["22"]] = {
 
 		function module.New(Title,cd)
 			task.spawn(function()
-				local clone = script.Template:Clone()
+				local clone = library.Notification()
+				clone.UIScale.Scale = 0
+				clone.GroupTransparency = 1
+				clone.UIStroke.Transparency = 1
+
 				clone.Name = "Title"
 				clone.Title.Text = Title
 				clone.Parent = script.Parent.Parent.Parent.NotifyFrame
-				clone.AnchorPoint = Vector2.new(1,.5)
-				game.TweenService:Create(clone,TweenInfo.new(.15),{Size = UDim2.new(1, 0,0.42, 0)}):Play()
+				game.TweenService:Create(clone.UIScale,TweenInfo.new(.15),{Scale = 1}):Play()
+				game.TweenService:Create(clone,TweenInfo.new(.25),{GroupTransparency = 0}):Play()
+				game.TweenService:Create(clone.UIStroke,TweenInfo.new(.25),{Transparency = 0.25}):Play()
 				wait(.15)
-				clone.AnchorPoint = Vector2.new(.5,1)
-				script.Parent.Parent.Parent.NotifyFrame.UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-				wait(.1)
 				if cd then
 					game.TweenService:Create(clone.Bar,TweenInfo.new(cd),{Size = UDim2.new(.9,0,0.065, 0)}):Play()
 				else
@@ -664,13 +599,9 @@ G2L_MODULES[G2L["22"]] = {
 				else
 					wait(5)
 				end
-				game.TweenService:Create(clone.UIScale,TweenInfo.new(.2),{Scale = .8}):Play()
-				game.TweenService:Create(clone,TweenInfo.new(.15),{BackgroundTransparency = .5}):Play()
-				wait(.2)
-				clone.AnchorPoint = Vector2.new(1,.5)
-				script.Parent.Parent.Parent.NotifyFrame.UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
-				game.TweenService:Create(clone,TweenInfo.new(.15),{Size = UDim2.new(0, 0,0.42, 0)}):Play()
-				game.TweenService:Create(clone.Bar,TweenInfo.new(.1),{Size = UDim2.new(0,0,0.065, 0)}):Play()
+				game.TweenService:Create(clone.UIScale,TweenInfo.new(.2),{Scale = 0.1}):Play()
+				game.TweenService:Create(clone,TweenInfo.new(.15),{GroupTransparency = 1}):Play()
+				game.TweenService:Create(clone.UIStroke,TweenInfo.new(.15),{Transparency = 1}):Play()
 				wait(.2)
 				clone:Destroy()
 			end)
@@ -2332,8 +2263,8 @@ local function C_5f()
 	local m = require(script.Parent.Parent.mainframe.Loader.NewNotification)
 	local c = script.Parent.topbar
 
-	local KEY = "key-" .. tostring(game:GetService("HttpService"):GenerateGUID(false))
-	local freeKey = "Release"
+	local freeKey = "FREE"
+	local KEY = "FREE"
 
 	script.Parent.topbar.welcome.Text = "Welcome, " .. game.Players.LocalPlayer.DisplayName .. "!"
 
@@ -2351,6 +2282,78 @@ local function C_5f()
 	else
 		API.mainframe.Profile.Profile.Free.Visible = true
 		API.mainframe.Profile.Profile.Paid.Visible = false
+	end
+
+	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
+		local SAVE_FOLDER  = "PatchKids"
+		local SAVE_FILE    = "PatchKids/%s.key"
+
+		local Players      = game:GetService("Players")
+		local TweenService = game:GetService("TweenService")
+
+		local player   = Players.LocalPlayer
+		local username = player.Name
+		local filePath = SAVE_FILE:format(username)
+
+		local function ensureFolder()
+			if not isfolder(SAVE_FOLDER) then
+				makefolder(SAVE_FOLDER)
+			end
+		end
+
+		local function hasSavedKey()
+			return isfile(filePath)
+		end
+
+		local function loadSavedKey()
+			if isfile(filePath) then
+				return readfile(filePath)
+			end
+			return nil
+		end
+
+		local function generateKey()
+			local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+			local hex = ""
+			for i = 1, 16 do
+				local idx = math.random(1, #chars)
+				hex = hex .. chars:sub(idx, idx)
+			end
+			return ("PK-%s-%s"):format(username:upper(), hex)
+		end
+
+		local function saveKey(key)
+			ensureFolder()
+			writefile(filePath, key)
+		end
+
+		local function runPayload(key)
+			if key then
+
+			end
+
+		end
+
+		 local saved = loadSavedKey()
+			if saved then
+				task.wait(0.5)
+
+				runPayload(nil)
+				return
+			end
+
+			-- Step 4: Whitelisted but no key yet — generate and save one
+			
+			task.wait(0.6)
+
+			local key = generateKey()
+			local saveOk, saveErr = pcall(saveKey, key)
+
+			if not saveOk then
+				return
+			end
+
+			runPayload(key)
 	end
 
 	c.Parent.loadingui.Visible = true
