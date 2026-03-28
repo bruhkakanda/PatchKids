@@ -123,55 +123,6 @@ G2L["2e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 
 
 -- StarterGui.PK_API.mainframe.Loader.NewTab.TemplateButton
-G2L["2f"] = Instance.new("Frame", G2L["2a"]);
-G2L["2f"]["BorderSizePixel"] = 0;
-G2L["2f"]["BackgroundColor3"] = Color3.fromRGB(84, 84, 84);
-G2L["2f"]["Size"] = UDim2.new(0.79027, 0, 0.11674, 0);
-G2L["2f"]["Position"] = UDim2.new(0.08513, 0, 0, 0);
-G2L["2f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["2f"]["Name"] = [[TemplateButton]];
-G2L["2f"]["BackgroundTransparency"] = 0.4;
-
-
--- StarterGui.PK_API.mainframe.Loader.NewTab.TemplateButton.ChangeTabs
-G2L["30"] = Instance.new("TextButton", G2L["2f"]);
-G2L["30"]["TextWrapped"] = true;
-G2L["30"]["BorderSizePixel"] = 0;
-G2L["30"]["TextSize"] = 14;
-G2L["30"]["TextScaled"] = true;
-G2L["30"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["30"]["BackgroundColor3"] = Color3.fromRGB(255, 11, 3);
-G2L["30"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["30"]["BackgroundTransparency"] = 1;
-G2L["30"]["Size"] = UDim2.new(0.97922, 0, 0.86538, 0);
-G2L["30"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["30"]["Text"] = [[]];
-G2L["30"]["Name"] = [[ChangeTabs]];
-G2L["30"]["Position"] = UDim2.new(0.02078, 0, 0.05769, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewTab.TemplateButton.Title
-G2L["31"] = Instance.new("TextLabel", G2L["2f"]);
-G2L["31"]["TextWrapped"] = true;
-G2L["31"]["TextStrokeTransparency"] = 0;
-G2L["31"]["BorderSizePixel"] = 0;
-G2L["31"]["TextSize"] = 14;
-G2L["31"]["TextScaled"] = true;
-G2L["31"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["31"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["31"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
-G2L["31"]["BackgroundTransparency"] = 1;
-G2L["31"]["Size"] = UDim2.new(1, 0, 0.80041, 0);
-G2L["31"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["31"]["Text"] = [[Universal]];
-G2L["31"]["Name"] = [[Title]];
-G2L["31"]["Position"] = UDim2.new(0, 0, 0.09979, 0);
-
-
--- StarterGui.PK_API.mainframe.Loader.NewTab.TemplateButton.UICorner
-G2L["32"] = Instance.new("UICorner", G2L["2f"]);
-G2L["32"]["CornerRadius"] = UDim.new(1, 0);
-
 
 -- StarterGui.PK_API.mainframe.Loader.Universal
 G2L["33"] = Instance.new("ModuleScript", G2L["4"]);
@@ -618,17 +569,19 @@ G2L_MODULES[G2L["2a"]] = {
 			}
 		}
 
-		function module.New(TabName, val)
+		function module.New(TabName, val, icon)
 			local newTab = GeneratedTemplates.TemplateTab:Clone()
 			newTab.Label.Text = TabName
 			newTab.Label.Visible = false
 			newTab.Name = TabName
 			newTab.Parent = script.Parent.Parent.NewTabs
-			local tabButton = script.TemplateButton:Clone()
+			local tabButton = GeneratedTemplates.TabButton:Clone()
 			tabButton.Name = TabName
 			tabButton.Title.Text = TabName
 			tabButton.Parent = script.Parent.Parent.Tabs
 			tabButton.LayoutOrder = val or 1
+			library.AddThemesToTemplate(tabButton)
+			tabButton.ImageLabel.Image = icon or 0
 
 			tabButton.ChangeTabs.Activated:Connect(function()
 				for i,v in pairs(script.Parent.Parent.NewTabs:GetChildren()) do
