@@ -1064,6 +1064,83 @@ library.CreateTemplates = function()
 	G2L["38"] = Instance.new("UIScale", G2L["37"]);
 	G2L["38"]["Scale"] = 0;
 
+-- StarterGui.Templates.TabButton
+G2L["39"] = Instance.new("Frame", G2L["1"]);
+G2L["39"]["Visible"] = false;
+G2L["39"]["BorderSizePixel"] = 0;
+G2L["39"]:AddTag("A")
+G2L["39"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+G2L["39"]["Size"] = UDim2.new(0.9, 0, 0.12, 0);
+G2L["39"]["Position"] = UDim2.new(0.08513, 0, 0, 0);
+G2L["39"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["39"]["Name"] = [[TabButton]];
+G2L["39"]["BackgroundTransparency"] = 0.2;
+
+
+-- StarterGui.Templates.TabButton.ChangeTabs
+G2L["3a"] = Instance.new("TextButton", G2L["39"]);
+G2L["3a"]["TextWrapped"] = true;
+G2L["3a"]["BorderSizePixel"] = 0;
+G2L["3a"]["TextSize"] = 14;
+G2L["3a"]["TextScaled"] = true;
+G2L["3a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["3a"]["BackgroundColor3"] = Color3.fromRGB(255, 11, 3);
+G2L["3a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["3a"]["BackgroundTransparency"] = 1;
+G2L["3a"]["Size"] = UDim2.new(0.97922, 0, 0.86538, 0);
+G2L["3a"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["3a"]["Text"] = [[]];
+G2L["3a"]["Name"] = [[ChangeTabs]];
+G2L["3a"]["Position"] = UDim2.new(0.02078, 0, 0.05769, 0);
+
+
+-- StarterGui.Templates.TabButton.Title
+G2L["3b"] = Instance.new("TextLabel", G2L["39"]);
+G2L["3b"]["TextWrapped"] = true;
+G2L["3b"]["BorderSizePixel"] = 0;
+G2L["3b"]["TextSize"] = 14;
+G2L["3b"]["TextScaled"] = true;
+G2L["3b"]:AddTag("C")
+G2L["3b"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["3b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["3b"]["BackgroundTransparency"] = 1;
+G2L["3b"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+G2L["3b"]["Size"] = UDim2.new(0.69618, 0, 0.80041, 0);
+G2L["3b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["3b"]["Text"] = [[Universal]];
+G2L["3b"]["Name"] = [[Title]];
+G2L["3b"]["Position"] = UDim2.new(0.60213, 0, 0.5, 0);
+
+
+-- StarterGui.Templates.TabButton.UICorner
+G2L["3c"] = Instance.new("UICorner", G2L["39"]);
+G2L["3c"]["CornerRadius"] = UDim.new(0.2, 0);
+
+
+-- StarterGui.Templates.TabButton.UIGradient
+G2L["3d"] = Instance.new("UIGradient", G2L["39"]);
+G2L["3d"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(141, 141, 141)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(141, 141, 141))};
+
+
+-- StarterGui.Templates.TabButton.UIStroke
+G2L["3e"] = Instance.new("UIStroke", G2L["39"]);
+G2L["3e"]["Transparency"] = 0.5;
+G2L["3e"]["Color"] = Color3.fromRGB(101, 101, 101);
+G2L["3e"]["BorderStrokePosition"] = Enum.BorderStrokePosition.Inner;
+
+
+-- StarterGui.Templates.TabButton.ImageLabel
+G2L["3f"] = Instance.new("ImageLabel", G2L["39"]);
+G2L["3f"]["BorderSizePixel"] = 0;
+G2L["3f"]["ScaleType"] = Enum.ScaleType.Fit;
+G2L["3f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["3f"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+G2L["3f"]["Image"] = [[rbxasset://textures/ui/GuiImagePlaceholder.png]];
+G2L["3f"]["Size"] = UDim2.new(0.25404, 0, 1, 0);
+G2L["3f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["3f"]["BackgroundTransparency"] = 1;
+G2L["3f"]["Position"] = UDim2.new(0.12702, 0, 0.5, 0);
+
 	return G2L["1"]
 end
 
