@@ -1,4 +1,4 @@
---t71
+--t721
 local G2L = {};
 
 local lockedButtons = false
@@ -2335,29 +2335,25 @@ local function C_5f()
 
 		 local saved = loadSavedKey()
 			if saved then
-				task.wait(0.5)
-				m.New("Loaded Saved Premium Key!",2)
-				runPayload(nil)
-				KEY = saved
-				c.TextBox.Text = KEY
-				return
+					task.wait(0.5)
+					m.New("Loaded Saved Premium Key!",2)
+					runPayload(nil)
+					KEY = saved
+					c.TextBox.Text = KEY
+				else
+					m.New("Generating your Premium Key...",2)
+					task.wait(0.6)
+		
+					local key = generateKey()
+					local saveOk, saveErr = pcall(saveKey, key)
+		
+					if saveOk then
+						m.New("Your Premium Key has been generated.",1)
+						KEY = key
+						c.TextBox.Text = KEY
+						runPayload(key)
+					end
 			end
-
-			-- Step 4: Whitelisted but no key yet — generate and save one
-			m.New("Generating your Premium Key...",2)
-			task.wait(0.6)
-
-			local key = generateKey()
-			local saveOk, saveErr = pcall(saveKey, key)
-
-			if not saveOk then
-				return
-			end
-
-			m.New("Your Premium Key has been generated.",1)
-			KEY = key
-			c.TextBox.Text = KEY
-			runPayload(key)
 	end
 
 	c.Parent.loadingui.Visible = true
