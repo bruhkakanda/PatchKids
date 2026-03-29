@@ -1,4 +1,4 @@
---6
+--6.
 local G2L = {};
 
 local lockedButtons = false
