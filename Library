@@ -1068,13 +1068,14 @@ library.CreateTemplates = function()
 G2L["39"] = Instance.new("Frame", G2L["1"]);
 G2L["39"]["Visible"] = false;
 G2L["39"]["BorderSizePixel"] = 0;
-G2L["39"]:AddTag("A")
 G2L["39"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
 G2L["39"]["Size"] = UDim2.new(0.9, 0, 0.12, 0);
 G2L["39"]["Position"] = UDim2.new(0.08513, 0, 0, 0);
 G2L["39"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["39"]["Name"] = [[TabButton]];
 G2L["39"]["BackgroundTransparency"] = 0.2;
+
+CollectionService:AddTag(G2L["39"], [[A]]);
 
 
 -- StarterGui.Templates.TabButton.ChangeTabs
@@ -1100,7 +1101,6 @@ G2L["3b"]["TextWrapped"] = true;
 G2L["3b"]["BorderSizePixel"] = 0;
 G2L["3b"]["TextSize"] = 14;
 G2L["3b"]["TextScaled"] = true;
-G2L["3b"]:AddTag("C")
 G2L["3b"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
 G2L["3b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["3b"]["BackgroundTransparency"] = 1;
@@ -1110,6 +1110,8 @@ G2L["3b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["3b"]["Text"] = [[Universal]];
 G2L["3b"]["Name"] = [[Title]];
 G2L["3b"]["Position"] = UDim2.new(0.60213, 0, 0.5, 0);
+
+CollectionService:AddTag(G2L["3b"], [[C]]);
 
 
 -- StarterGui.Templates.TabButton.UICorner
