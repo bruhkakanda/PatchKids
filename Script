@@ -1,4 +1,4 @@
---___
+--6
 local G2L = {};
 
 local lockedButtons = false
@@ -584,6 +584,7 @@ G2L_MODULES[G2L["2a"]] = {
 			tabButton.Title.Text = TabName
 			tabButton.Parent = script.Parent.Parent.Tabs
 			tabButton.LayoutOrder = val or 1
+			tabButton.Visible = true
 			library.AddThemesToTemplate(tabButton)
 			local Image = module.Icons[TabName]
 			if Image then
