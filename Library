@@ -1,4 +1,4 @@
---// Original Library \\--53
+--2
 local library = {}
 local RunService = game:GetService("RunService")   
 local UserInputService = game:GetService("UserInputService")
@@ -1767,7 +1767,7 @@ library.CreateHUD = function(V)
 	G2L["41"]["AnchorPoint"] = Vector2.new(0.5, 1);
 	G2L["41"]["Size"] = UDim2.new(0.63351, 0, 0.5283, 0);
 	G2L["41"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-	G2L["41"]["Text"] = [[Free key: Release]];
+	G2L["41"]["Text"] = [[Free key: FREE]];
 	G2L["41"]["Name"] = [[keyfree]];
 	G2L["41"]["Position"] = UDim2.new(0.50087, 0, 7.51377, 0);
 
