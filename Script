@@ -1,4 +1,4 @@
---t721
+--6
 local G2L = {};
 
 local lockedButtons = false
@@ -565,7 +565,11 @@ G2L_MODULES[G2L["2a"]] = {
 	Closure = function()
 		local script = G2L["2a"];local module = {
 			Icons = {
-				Autofarm = "rbxassetid://11896729962"
+				Main = "rbxassetid://130068439240504",
+				Settings = "rbxassetid://7059346373",
+				Universal = "rbxassetid://99625725727957",
+				Premium = "rbxassetid://73852594182151",
+				Event = "rbxassetid://16426213685"
 			}
 		}
 
@@ -581,7 +585,12 @@ G2L_MODULES[G2L["2a"]] = {
 			tabButton.Parent = script.Parent.Parent.Tabs
 			tabButton.LayoutOrder = val or 1
 			library.AddThemesToTemplate(tabButton)
-			tabButton.ImageLabel.Image = icon or 0
+			local Image = module.Icons[TabName]
+			if Image then
+				tabButton.ImageLabel.Image = Image
+			end
+
+			local tabColor = tabButton.BackgroundColor3
 
 			tabButton.ChangeTabs.Activated:Connect(function()
 				for i,v in pairs(script.Parent.Parent.NewTabs:GetChildren()) do
@@ -591,15 +600,18 @@ G2L_MODULES[G2L["2a"]] = {
 			end)
 
 			tabButton.ChangeTabs.MouseEnter:Connect(function()
-				game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundTransparency = .2}):Play()
-				game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
-				game.TweenService:Create(tabButton.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(.1,0)}):Play()
+				tabColor = tabButton.BackgroundColor3
+
+				local r, g, b = tabColor.R, tabColor.G, tabColor.B
+				local h, s, v = Color3.toHSV(tabColor)
+
+				local lightColor = Color3.fromHSV(h, s * 0.8, math.min(v + 0.2, 1))
+
+				game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundColor3 = lightColor}):Play()
 			end)
 
 			tabButton.ChangeTabs.MouseLeave:Connect(function()
-				game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundTransparency = .4}):Play()
-				game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundColor3 = Color3.fromRGB(83, 83, 83)}):Play()
-				game.TweenService:Create(tabButton.UICorner,TweenInfo.new(.1),{CornerRadius = UDim.new(1,0)}):Play()
+				game.TweenService:Create(tabButton,TweenInfo.new(.1),{BackgroundColor3 = tabColor}):Play()
 			end)
 		end
 
