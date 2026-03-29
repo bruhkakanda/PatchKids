@@ -1,4 +1,4 @@
---6.
+--6
 local G2L = {};
 
 local lockedButtons = false
@@ -589,7 +589,7 @@ G2L_MODULES[G2L["2a"]] = {
 			local Image = module.Icons[TabName]
 			if Image then
 				tabButton.ImageLabel.Image = Image[1]
-				tabButton.Size = UDim2.fromScale(tabButton.Size.X.Scale, Image[2])
+				tabButton.ImageLabel.Size = UDim2.fromScale(tabButton.ImageLabel.Size.X.Scale, Image[2])
 			end
 
 			local tabColor = tabButton.BackgroundColor3
