@@ -1,4 +1,4 @@
---6
+--___
 local G2L = {};
 
 local lockedButtons = false
@@ -565,11 +565,11 @@ G2L_MODULES[G2L["2a"]] = {
 	Closure = function()
 		local script = G2L["2a"];local module = {
 			Icons = {
-				Main = "rbxassetid://130068439240504",
-				Settings = "rbxassetid://7059346373",
-				Universal = "rbxassetid://99625725727957",
-				Premium = "rbxassetid://73852594182151",
-				Event = "rbxassetid://16426213685"
+				Main = {"rbxassetid://130068439240504", 0.8},
+				Settings = {"rbxassetid://7059346373", 1},
+				Universal = {"rbxassetid://99625725727957", 0.75},
+				Premium = {"rbxassetid://73852594182151", 1},
+				Event = {"rbxassetid://16426213685", 0.9}
 			}
 		}
 
@@ -587,7 +587,8 @@ G2L_MODULES[G2L["2a"]] = {
 			library.AddThemesToTemplate(tabButton)
 			local Image = module.Icons[TabName]
 			if Image then
-				tabButton.ImageLabel.Image = Image
+				tabButton.ImageLabel.Image = Image[1]
+				tabButton.Size = UDim2.fromScale(tabButton.Size.X.Scale, Image[2])
 			end
 
 			local tabColor = tabButton.BackgroundColor3
