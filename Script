@@ -1,4 +1,4 @@
---6
+--0
 local G2L = {};
 
 local lockedButtons = false
@@ -203,7 +203,7 @@ G2L["5f"] = Instance.new("LocalScript", API.loading);
 library.AddDraggingTo2(API.loading.topbar.draggable, API.loading, Drags, "loading")
 
 -- StarterGui.PK_API.loading.topbar.checkkey.LocalScript
-G2L["72"] = Instance.new("LocalScript", API.loading.topbar.checkkey);
+G2L["72"] = Instance.new("LocalScript", API.loading.topbar.List.checkkey);
 
 
 -- Require G2L wrapper
@@ -2225,24 +2225,38 @@ end
 
 local function C_5f()
 	local script = G2L["5f"];
+
 	script.Parent.UIScale.Scale = 0
 	local m = require(script.Parent.Parent.mainframe.Loader.NewNotification)
-	local c = script.Parent.topbar
+	local c = API.loading.topbar
+	local list = c.List
 
 	local freeKey = "FREE"
 	local KEY = "FREE"
 
-	script.Parent.topbar.welcome.Text = "Welcome, " .. game.Players.LocalPlayer.DisplayName .. "!"
+	list.welcome.Text = "Welcome, " .. game.Players.LocalPlayer.DisplayName .. "!"
+
+	local function setFetch(icon,text, textColor)
+		local colors = {
+			White = Color3.fromRGB(255,255,255);
+			Red = Color3.fromRGB(255, 105, 97);
+			Green = Color3.fromRGB(119, 221, 119)
+		}
+
+		list.Fetch.Icon.Text = icon
+		list.Fetch.Icon.TextColor3 = colors[textColor] or colors["White"]
+		list.Fetch.txt.Text = text
+	end
 
 	wait(2)
 	game.TweenService:Create(script.Parent.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
 	if _G.key == "nil" then
-		c.TextBox.Text = freeKey
+		list.TextBox.Text = freeKey
 	end
 
 	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
 	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
-		c.TextBox.Text = KEY
+		list.TextBox.Text = KEY
 		API.mainframe.Profile.Profile.Paid.Visible = true
 		API.mainframe.Profile.Profile.Free.Visible = false
 	else
@@ -2306,7 +2320,7 @@ local function C_5f()
 					m.New("Loaded Saved Premium Key!",2)
 					runPayload(nil)
 					KEY = saved
-					c.TextBox.Text = KEY
+					list.TextBox.Text = KEY
 				else
 					m.New("Generating your Premium Key...",2)
 					task.wait(0.6)
@@ -2317,24 +2331,28 @@ local function C_5f()
 					if saveOk then
 						m.New("Your Premium Key has been generated.",1)
 						KEY = key
-						c.TextBox.Text = KEY
+						list.TextBox.Text = KEY
 						runPayload(key)
 					end
 			end
 	end
 
-	c.Parent.loadingui.Visible = true
+	API.loading.loadingui.Visible = true
 
 
 
-	script.Parent.topbar.checkkey.Activated:Connect(function()
-		if c.TextBox.Text == freeKey then
-
-
-			game.TweenService:Create(c.key.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
-			game.TweenService:Create(c.TextBox.UIScale,TweenInfo.new(0),{Scale = 0}):Play()
+	list.checkkey.Activated:Connect(function()
+		if list.TextBox.Text == freeKey then
+			list.checkkey.Visible = false
+			list.Fetch.Visible = true
+			setFetch("⌛", "Checking whitelist...", "White")
+			task.wait(0.25)
+			setFetch("ⓧ", "Unable to find user, Using free key", "Red")
+			task.wait(0.5)
+			setFetch("✓", "Sucessfully fetched functions.", "Green")
+			tab.wait(0.5)
+			list.Visible = false
 			game.TweenService:Create(c.Parent.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
-			m.New("Correct key!",2)
 			task.wait(2)
 			game.TweenService:Create(script.Parent.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
 			wait(.1)
@@ -2355,10 +2373,18 @@ local function C_5f()
 
 			script.Parent:Destroy()
 		elseif c.TextBox.Text == KEY then
-			game.TweenService:Create(c.key.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
-			game.TweenService:Create(c.TextBox.UIScale,TweenInfo.new(0),{Scale = 0}):Play()
+			list.checkkey.Visible = false
+			list.Fetch.Visible = true
+			setFetch("⌛", "Checking whitelist...", "White")
+			task.wait(0.5)
+			setFetch("✓", "Fetched whitelist!", "Green")
+			task.wait(0.25)
+			setFetch("⌛", "Fetching Premium...", "White")
+			task.wait(0.8)
+			setFetch("✓", "Sucessfully fetched premium and free functions!", "Green")
+			tab.wait(0.5)
+			list.Visible = false
 			game.TweenService:Create(c.Parent.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
-			m.New("Correct key!",2)
 			task.wait(2)
 			game.TweenService:Create(script.Parent.UIScale,TweenInfo.new(.2),{Scale = 0}):Play()
 			wait(.1)
@@ -2377,7 +2403,7 @@ local function C_5f()
 
 			script.Parent:Destroy()
 		else
-			m.New("Incorrect key!",2)
+			m.New("This PatchKids Key is not valid!",2)
 		end
 	end)
 end;
