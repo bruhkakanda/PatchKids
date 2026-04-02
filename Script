@@ -2372,7 +2372,7 @@ local function C_5f()
 			API.mainframe.Profile.Profile.Icon.Image = content
 
 			script.Parent:Destroy()
-		elseif c.TextBox.Text == KEY then
+		elseif list.TextBox.Text == KEY then
 			list.checkkey.Visible = false
 			list.Fetch.Visible = true
 			setFetch("⌛", "Checking whitelist...", "White")
