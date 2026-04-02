@@ -1,4 +1,4 @@
---0
+--1
 local G2L = {};
 
 local lockedButtons = false
@@ -2350,7 +2350,7 @@ local function C_5f()
 			setFetch("ⓧ", "Unable to find user, Using free key", "Red")
 			task.wait(0.5)
 			setFetch("✓", "Sucessfully fetched functions.", "Green")
-			tab.wait(0.5)
+			task.wait(0.5)
 			list.Visible = false
 			game.TweenService:Create(c.Parent.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
 			task.wait(2)
@@ -2382,7 +2382,7 @@ local function C_5f()
 			setFetch("⌛", "Fetching Premium...", "White")
 			task.wait(0.8)
 			setFetch("✓", "Sucessfully fetched premium and free functions!", "Green")
-			tab.wait(0.5)
+			task.wait(0.5)
 			list.Visible = false
 			game.TweenService:Create(c.Parent.loadingui.UIScale,TweenInfo.new(.2),{Scale = 1}):Play()
 			task.wait(2)
