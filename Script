@@ -1,4 +1,4 @@
---1
+--2
 local G2L = {};
 
 local lockedButtons = false
@@ -2226,6 +2226,13 @@ end
 local function C_5f()
 	local script = G2L["5f"];
 
+	local function tw(text,t,w)
+		for i = 0, #text,t do
+			t.Text = string.sub(text,t, 1, i)
+			task.wait(w)
+		end
+	end
+
 	script.Parent.UIScale.Scale = 0
 	local m = require(script.Parent.Parent.mainframe.Loader.NewNotification)
 	local c = API.loading.topbar
@@ -2234,7 +2241,10 @@ local function C_5f()
 	local freeKey = "FREE"
 	local KEY = "FREE"
 
-	list.welcome.Text = "Welcome, " .. game.Players.LocalPlayer.DisplayName .. "!"
+	list.welcome.Text = ""
+
+	tw("Welcome, " .. game.Players.LocalPlayer.DisplayName .. "!",list.welcome, 0.02)
+	task.wait(1)
 
 	local function setFetch(icon,text, textColor)
 		local colors = {
@@ -2245,7 +2255,8 @@ local function C_5f()
 
 		list.Fetch.Icon.Text = icon
 		list.Fetch.Icon.TextColor3 = colors[textColor] or colors["White"]
-		list.Fetch.txt.Text = text
+		list.Fetch.txt.Text = ""
+		tw(text,list.Fetch.txt,0.05)
 	end
 
 	wait(2)
