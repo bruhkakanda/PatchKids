@@ -2227,8 +2227,8 @@ local function C_5f()
 	local script = G2L["5f"];
 
 	local function tw(text,t,w)
-		for i = 0, #text,t do
-			t.Text = string.sub(text,t, 1, i)
+		for i = 1, #text do
+			t.Text = string.sub(text, 1, i)
 			task.wait(w)
 		end
 	end
