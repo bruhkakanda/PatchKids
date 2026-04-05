@@ -1,4 +1,4 @@
---2
+--3
 local G2L = {};
 
 local lockedButtons = false
@@ -2242,8 +2242,6 @@ local function C_5f()
 	local KEY = "FREE"
 
 	list.welcome.Text = ""
-
-	tw("Welcome, " .. game.Players.LocalPlayer.DisplayName .. "!",list.welcome, 0.02)
 	task.wait(1)
 
 	local function setFetch(icon,text, textColor)
@@ -2256,7 +2254,7 @@ local function C_5f()
 		list.Fetch.Icon.Text = icon
 		list.Fetch.Icon.TextColor3 = colors[textColor] or colors["White"]
 		list.Fetch.txt.Text = ""
-		tw(text,list.Fetch.txt,0.05)
+		tw(text,list.Fetch.txt,0.01)
 	end
 
 	wait(2)
@@ -2304,7 +2302,7 @@ local function C_5f()
 		end
 
 		local function generateKey()
-			local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+			local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz_"
 			local hex = ""
 			for i = 1, 16 do
 				local idx = math.random(1, #chars)
@@ -2349,6 +2347,8 @@ local function C_5f()
 	end
 
 	API.loading.loadingui.Visible = true
+
+	tw("Welcome, " .. game.Players.LocalPlayer.DisplayName .. "!",list.welcome, 0.02)
 
 
 
