@@ -1,4 +1,4 @@
---3
+--2
 local G2L = {};
 
 local lockedButtons = false
@@ -1048,373 +1048,464 @@ G2L_MODULES[G2L["39"]] = {
 
 		function module.Start()
 
-			local newTab = tab.New("Main")
+	-- ============================================================
+	-- TAB SETUP
+	-- ============================================================
+	local newTab = tab.New("Main")
 
-			newwindow.NewTitle("Visuals", "Main")
-			local Esp = newwindow.NewToggle("Player Esp!","esp","Main")
+	-- ============================================================
+	-- VISUALS
+	-- ============================================================
+	newwindow.NewTitle("Visuals", "Main")
+	local Esp = newwindow.NewToggle("Player Esp!", "esp", "Main")
 
-			newwindow.NewTitle("Sheriff", "Main")
+	-- ============================================================
+	-- SHERIFF
+	-- ============================================================
+	newwindow.NewTitle("Sheriff", "Main")
 
-			local grabgun = newwindow.NewWindow("Grab Gun", "gun grabber", "Main", function()
-				if workspace:FindFirstChild("GunDrop", true) then
-					local lastPos = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
-					game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Jump = true
-					game.Players.LocalPlayer.Character:PivotTo(workspace:FindFirstChild("GunDrop", true).CFrame)
-					task.wait(0.1)
-					game.Players.LocalPlayer.Character:PivotTo(lastPos)
-					NewNotification.New("Grabbed Gun!", 1.5)
-				else
-					NewNotification.New("No gun found!", 1.5)
-				end
-			end)
+	local grabgun = newwindow.NewWindow("Grab Gun", "gun grabber", "Main", function()
+		if workspace:FindFirstChild("GunDrop", true) then
+			local lastPos = game.Players.LocalPlayer.Character.PrimaryPart.CFrame
+			game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Jump = true
+			game.Players.LocalPlayer.Character:PivotTo(workspace:FindFirstChild("GunDrop", true).CFrame)
+			task.wait(0.1)
+			game.Players.LocalPlayer.Character:PivotTo(lastPos)
+			NewNotification.New("Grabbed Gun!", 1.5)
+		else
+			NewNotification.New("No gun found!", 1.5)
+		end
+	end)
 
-			local TPSHOOT = newwindow.NewWindow("TP Shoot Murderer", "", "Main", function()
-				local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
-				local yourData = roles[game.Players.LocalPlayer.Name]
-				local root = game.Players.LocalPlayer.Character
-				local player = game.Players.LocalPlayer
+	local TPSHOOT = newwindow.NewWindow("TP Shoot Murderer", "", "Main", function()
+		local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+		local yourData = roles[game.Players.LocalPlayer.Name]
+		local root = game.Players.LocalPlayer.Character
+		local player = game.Players.LocalPlayer
 
-				if yourData then
-					local yourRole = yourData.Role
-					if yourRole == "Sheriff" or yourRole == "Hero" then
-						local murderer = findMurderer(roles)
-						if murderer then
-							local lastPos = root.PrimaryPart.CFrame
-							local targetPrimary = murderer.Character.PrimaryPart
-							root:PivotTo(targetPrimary.CFrame * CFrame.new(0,0,4))
-							local args = {}
-							args[1] = root.RightHand.CFrame
-							args[2] = targetPrimary.CFrame
+		if yourData then
+			local yourRole = yourData.Role
+			if yourRole == "Sheriff" or yourRole == "Hero" then
+				local murderer = findMurderer(roles)
+				if murderer then
+					local lastPos = root.PrimaryPart.CFrame
+					local targetPrimary = murderer.Character.PrimaryPart
 
-							local backpackGun = player.Backpack:FindFirstChild("Gun")
-							if backpackGun then
-								backpackGun.Parent = root
-							end
+					root:PivotTo(targetPrimary.CFrame * CFrame.new(0, 0, 4))
 
-							local gun = root:FindFirstChild("Gun")
-							if gun then
-								gun.Shoot:FireServer(unpack(args))
+					local args = {
+						root.RightHand.CFrame,
+						targetPrimary.CFrame
+					}
 
-								task.wait(0.2)
-								root.PrimaryPart:PivotTo(lastPos)
-							end
-						end
+					local backpackGun = player.Backpack:FindFirstChild("Gun")
+					if backpackGun then
+						backpackGun.Parent = root
 					end
-				end
-			end)
 
-			local ShootMurd = newwindow.NewWindowV2("Shoot Murderer", "", "Main", function()
-				shootModule.Shoot()
-			end)
-
-			newwindow.NewTitle("Murderer", "Main")
-			local killclosest1 = newwindow.NewWindowV2("Kill closest player", "", "Main", function()
-				local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
-				local yourData = roles[game.Players.LocalPlayer.Name]
-				local root = game.Players.LocalPlayer.Character.PrimaryPart
-
-				if yourData then
-					local yourRole = yourData.Role
-					if yourRole == "Murderer" then
-						local isInBackpack = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
-						if isInBackpack then
-							isInBackpack.Parent = game.Players.LocalPlayer.Character
-						end
-						local closestTarget = getClosestPlayer()
-						if closestTarget then
-							local args = {
-								closestTarget.Character.PrimaryPart
-							}
-							game.Players.LocalPlayer.Character.Knife.Events.KnifeStabbed:FireServer()
-							game.Players.LocalPlayer.Character.Knife.Events.HandleTouched:FireServer(unpack(args))
-						end
-					else
-						NewNotification.New("You are not the murderer!", 1.5)
-					end
-				end
-			end)
-
-			local KILLALL = newwindow.NewWindowV2("Kill all", "", "Main", function()
-				local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
-				local yourData = roles[game.Players.LocalPlayer.Name]
-				local root = game.Players.LocalPlayer.Character.PrimaryPart
-				if yourData then
-					local yourRole = yourData.Role
-					if yourRole == "Murderer" then
-						local isInBackpack = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
-						if isInBackpack then
-							isInBackpack.Parent = game.Players.LocalPlayer.Character
-						end
-
-						for i, v in game.Players:GetPlayers() do
-							if v ~= game.Players.LocalPlayer then
-								local args = {
-									v.Character.PrimaryPart
-								}
-								game.Players.LocalPlayer.Character.Knife.Events.KnifeStabbed:FireServer()
-								game.Players.LocalPlayer.Character.Knife.Events.HandleTouched:FireServer(unpack(args))
-							end
-						end
-					else
-						NewNotification.New("You are not the murderer!", 1.5)
-					end
-				end
-			end)
-
-			newwindow.NewTitle("Teleports", "Main")
-			local MapTP = newwindow.NewWindow("Teleport to map", "", "Main", function()
-				local map = workspace:FindFirstChild("CoinContainer", true) or workspace:FindFirstChild("CoinAreas", true)
-				if map then
-					local spawns = map.Parent:FindFirstChild("Spawns")
-					if spawns then
-						local rCF = spawns:GetChildren()[math.random(1, #spawns:GetChildren())].CFrame + Vector3.new(0,2,0)
-						game.Players.LocalPlayer.Character:PivotTo(rCF)
-					else
-						NewNotification.New("Parts not found!", 1.5)
-					end
-				else
-					NewNotification.New("Map not found!", 1.5)
-				end
-			end)
-
-			local LobbyTP = newwindow.NewWindow("Teleport to lobby", "", "Main", function()
-				local lobby = workspace:FindFirstChild("Lobby") or workspace:FindFirstChild("RegularLobby")
-				if lobby then
-					local spawns = lobby:FindFirstChild("Spawns")
-					if spawns then
-						local rCF = spawns:GetChildren()[math.random(1, #spawns:GetChildren())].CFrame + Vector3.new(0,2,0)
-						game.Players.LocalPlayer.Character:PivotTo(rCF)
-					else
-						NewNotification.New("Parts not found!", 1.5)
-					end
-				else
-					NewNotification.New("Lobby not found!", 1.5)
-				end
-			end)
-
-			newwindow.NewTitle("Autofarm", "Main")
-
-			local Autofarm = newwindow.NewToggle("Autofarm","Autofarm coins!","Main")
-
-			task.spawn(function()
-				AFModule.Start()
-			end)
-
-			Autofarm.Activated:Connect(function()
-				if toggleAF then
-					toggleAF = false
-					Autofarm.Toggle.Value = false
-					AFModule.toggle(false)
-				else
-					Autofarm.Toggle.Value = true
-					AFModule.toggle(true)
-					toggleAF = true
-				end
-			end)
-
-			local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
-			if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
-				local premiumTab = tab.New("Premium", 9)
-
-				newwindow.NewTitle("- Premium Sheriff -", "Premium")
-
-				local premiumGrabber = newwindow.NewWindowV2("Fast Gun Grab", "gun grabber", "Premium", function()
-					local gun = workspace:FindFirstChild("GunDrop", true)
+					local gun = root:FindFirstChild("Gun")
 					if gun then
-						firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, gun, 0)
-						task.wait(0.1)
-						local hasGunNow = game.Players.LocalPlayer.Backpack:FindFirstChild("Gun")
-						if hasGunNow then
-							NewNotification.New("Successfuly Grabbed GunDrop!", 1.5)
-						end
-					else
-						NewNotification.New("GunDrop not found!", 1)
+						gun.Shoot:FireServer(unpack(args))
+						task.wait(0.2)
+						root.PrimaryPart:PivotTo(lastPos)
 					end
-				end)
-				local autograb = newwindow.NewToggle("Auto Fast Gun Grab", "", "Premium")
-				autograb.Activated:Connect(function()
-					autograb.Toggle.Value = not autograb.Toggle.Value
-				end)
+				end
+			end
+		end
+	end)
 
-				local instaShoot = newwindow.NewWindowV2("Instant Shoot Murderer", "", "Premium", function()
-					local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
-					local yourData = roles[game.Players.LocalPlayer.Name]
-					local player = game.Players.LocalPlayer
+	local ShootMurd = newwindow.NewWindowV2("Shoot Murderer", "", "Main", function()
+		shootModule.Shoot()
+	end)
 
-					local murd = findMurderer(roles)
-					if murd and murd.Character and murd.Character:FindFirstChild("HumanoidRootPart") then
-						local target = murd.Character
-						local myChar = player.Character
+	-- ============================================================
+	-- MURDERER
+	-- ============================================================
+	newwindow.NewTitle("Murderer", "Main")
 
-						local predictedPos = predictPosition(target.PrimaryPart, player:GetNetworkPing())
+	local killclosest1 = newwindow.NewWindowV2("Kill closest player", "", "Main", function()
+		local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+		local yourData = roles[game.Players.LocalPlayer.Name]
 
-						local args = {
-							target.HumanoidRootPart.CFrame,
-							CFrame.new(predictedPos)
-						}
+		if yourData then
+			local yourRole = yourData.Role
+			if yourRole == "Murderer" then
+				local isInBackpack = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
+				if isInBackpack then
+					isInBackpack.Parent = game.Players.LocalPlayer.Character
+				end
 
-						local backpackGun = player.Backpack:FindFirstChild("Gun")
+				local closestTarget = getClosestPlayer()
+				if closestTarget then
+					local args = { closestTarget.Character.PrimaryPart }
+					game.Players.LocalPlayer.Character.Knife.Events.KnifeStabbed:FireServer()
+					game.Players.LocalPlayer.Character.Knife.Events.HandleTouched:FireServer(unpack(args))
+				end
+			else
+				NewNotification.New("You are not the murderer!", 1.5)
+			end
+		end
+	end)
 
-						if backpackGun then
-							backpackGun.Parent = myChar
-						end
+	local KILLALL = newwindow.NewWindowV2("Kill all", "", "Main", function()
+		local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+		local yourData = roles[game.Players.LocalPlayer.Name]
 
-						local gun = myChar:FindFirstChild("Gun")
-						if gun then
-							gun.Shoot:FireServer(unpack(args))
-						end
+		if yourData then
+			local yourRole = yourData.Role
+			if yourRole == "Murderer" then
+				local player = game.Players.LocalPlayer
+				local char = player.Character
+
+				local isInBackpack = player.Backpack:FindFirstChild("Knife")
+				if isInBackpack then
+					isInBackpack.Parent = char
+				end
+
+				local knife = char.Knife
+				for _, v in game.Players:GetPlayers() do
+					if v ~= player then
+						local args = { v.Character.PrimaryPart }
+						knife.Events.KnifeStabbed:FireServer()
+						knife.Events.HandleTouched:FireServer(unpack(args))
 					end
-				end)
+				end
+			else
+				NewNotification.New("You are not the murderer!", 1.5)
+			end
+		end
+	end)
 
-				local silentShoot = newwindow.NewWindowV2("Silent Shoot Murderer", "", "Premium", function()
-					local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
-					local yourData = roles[game.Players.LocalPlayer.Name]
-					local player = game.Players.LocalPlayer
+	-- ============================================================
+	-- TELEPORTS
+	-- ============================================================
+	newwindow.NewTitle("Teleports", "Main")
 
-					local murd = findMurderer(roles)
-					if murd and murd.Character and murd.Character:FindFirstChild("HumanoidRootPart") then
-						local target = murd.Character
-						local myChar = player.Character
+	local MapTP = newwindow.NewWindow("Teleport to map", "", "Main", function()
+		local map = workspace:FindFirstChild("CoinContainer", true) or workspace:FindFirstChild("CoinAreas", true)
+		if map then
+			local spawns = map.Parent:FindFirstChild("Spawns")
+			if spawns then
+				local rCF = spawns:GetChildren()[math.random(1, #spawns:GetChildren())].CFrame + Vector3.new(0, 2, 0)
+				game.Players.LocalPlayer.Character:PivotTo(rCF)
+			else
+				NewNotification.New("Parts not found!", 1.5)
+			end
+		else
+			NewNotification.New("Map not found!", 1.5)
+		end
+	end)
 
-						local predictedPos = predictPosition(target.PrimaryPart, player:GetNetworkPing())
+	local LobbyTP = newwindow.NewWindow("Teleport to lobby", "", "Main", function()
+		local lobby = workspace:FindFirstChild("Lobby") or workspace:FindFirstChild("RegularLobby")
+		if lobby then
+			local spawns = lobby:FindFirstChild("Spawns")
+			if spawns then
+				local rCF = spawns:GetChildren()[math.random(1, #spawns:GetChildren())].CFrame + Vector3.new(0, 2, 0)
+				game.Players.LocalPlayer.Character:PivotTo(rCF)
+			else
+				NewNotification.New("Parts not found!", 1.5)
+			end
+		else
+			NewNotification.New("Lobby not found!", 1.5)
+		end
+	end)
 
-						local args = {
-							target.HumanoidRootPart.CFrame,
-							CFrame.new(predictedPos)
-						}
+	-- ============================================================
+	-- AUTOFARM
+	-- ============================================================
+	newwindow.NewTitle("Autofarm", "Main")
 
-						local backpackGun = player.Backpack:FindFirstChild("Gun")
+	local Autofarm = newwindow.NewToggle("Autofarm", "Autofarm coins!", "Main")
 
-						if backpackGun then
-							backpackGun.Shoot:FireServer(unpack(args))
-						end
+	task.spawn(function()
+		AFModule.Start()
+	end)
+
+	Autofarm.Activated:Connect(function()
+		if toggleAF then
+			toggleAF = false
+			Autofarm.Toggle.Value = false
+			AFModule.toggle(false)
+		else
+			toggleAF = true
+			Autofarm.Toggle.Value = true
+			AFModule.toggle(true)
+		end
+	end)
+
+	-- ============================================================
+	-- PREMIUM
+	-- ============================================================
+	local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
+	local isPremium = table.find(premiumUsers, game.Players.LocalPlayer.Name) ~= nil
+
+	local autograb, coinAura
+
+	if isPremium then
+		local premiumTab = tab.New("Premium", 9)
+
+		-- PREMIUM SHERIFF --
+		newwindow.NewTitle("- Premium Sheriff -", "Premium")
+
+		local premiumGrabber = newwindow.NewWindowV2("Fast Gun Grab", "gun grabber", "Premium", function()
+			local gun = workspace:FindFirstChild("GunDrop", true)
+			if gun then
+				firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, gun, 0)
+				task.wait(0.1)
+				if game.Players.LocalPlayer.Backpack:FindFirstChild("Gun") then
+					NewNotification.New("Successfuly Grabbed GunDrop!", 1.5)
+				end
+			else
+				NewNotification.New("GunDrop not found!", 1)
+			end
+		end)
+
+		autograb = newwindow.NewToggle("Auto Fast Gun Grab", "", "Premium")
+		autograb.Activated:Connect(function()
+			autograb.Toggle.Value = not autograb.Toggle.Value
+		end)
+
+		local instaShoot = newwindow.NewWindowV2("Instant Shoot Murderer", "", "Premium", function()
+			local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+			local player = game.Players.LocalPlayer
+			local myChar = player.Character
+
+			local murd = findMurderer(roles)
+			if murd and murd.Character and murd.Character:FindFirstChild("HumanoidRootPart") then
+				local target = murd.Character
+				local predictedPos = predictPosition(target.PrimaryPart, player:GetNetworkPing())
+				local args = {
+					target.HumanoidRootPart.CFrame,
+					CFrame.new(predictedPos)
+				}
+
+				local backpackGun = player.Backpack:FindFirstChild("Gun")
+				if backpackGun then
+					backpackGun.Parent = myChar
+				end
+
+				local gun = myChar:FindFirstChild("Gun")
+				if gun then
+					gun.Shoot:FireServer(unpack(args))
+				end
+			end
+		end)
+
+		local silentShoot = newwindow.NewWindowV2("Silent Shoot Murderer", "", "Premium", function()
+			local roles = game.ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
+			local player = game.Players.LocalPlayer
+			local myChar = player.Character
+
+			local murd = findMurderer(roles)
+			if murd and murd.Character and murd.Character:FindFirstChild("HumanoidRootPart") then
+				local target = murd.Character
+				local predictedPos = predictPosition(target.PrimaryPart, player:GetNetworkPing())
+				local args = {
+					target.HumanoidRootPart.CFrame,
+					CFrame.new(predictedPos)
+				}
+
+				local backpackGun = player.Backpack:FindFirstChild("Gun")
+				if backpackGun then
+					backpackGun.Shoot:FireServer(unpack(args))
+				end
+			end
+		end)
+
+		-- PREMIUM MURDERER --
+		newwindow.NewTitle("- Premium Murderer -", "Premium")
+
+		local silentKillClosest = newwindow.NewWindowV2("Silent Kill Closest", "", "Premium", function()
+			local closestTarget = getClosestPlayer()
+			if closestTarget then
+				local knife = game.Players.LocalPlayer.Backpack:FindFirstChild("Knife")
+				if knife then
+					local args = { closestTarget.Character.PrimaryPart }
+					knife.Events.KnifeStabbed:FireServer()
+					knife.Events.HandleTouched:FireServer(unpack(args))
+				else
+					NewNotification.New("Unequip your knife!")
+				end
+			end
+		end)
+
+		-- FUN --
+		newwindow.NewTitle("- Fun -", "Premium")
+		local flingMurderer = newwindow.NewWindow("Fling Murderer", "", "Premium")
+		flingMurderer.Activated:Connect(function()
+			NewNotification.New("You can't access this feature or this feature is not completed yet!", 1)
+		end)
+
+		-- COINS --
+		newwindow.NewTitle("- Coins -", "Premium")
+		coinAura = newwindow.NewToggle("Coin Aura", "", "Premium")
+		coinAura.Activated:Connect(function()
+			coinAura.Toggle.Value = not coinAura.Toggle.Value
+		end)
+	end
+
+	-- ============================================================
+	-- ESP TOGGLE
+	-- ============================================================
+	Esp.Activated:Connect(function()
+		if db == false then
+			db = true
+			if Esp.Toggle.Value == false then
+				Esp.Toggle.Value = true
+				toggleEsp = true
+			else
+				Esp.Toggle.Value = false
+				toggleEsp = false
+			end
+			task.wait(0.1)
+			db = false
+		end
+	end)
+	
+	-- ============================================================
+	-- EVENT TAB
+	-- ============================================================
+
+	local function SendMessage(url, message)
+		local http = game:GetService("HttpService")
+		local headers = {
+			["Content-Type"] = "application/json"
+		}
+		local data = {
+			["content"] = message
+		}
+		local body = http:JSONEncode(data)
+		local response = request({
+			Url = url,
+			Method = "POST",
+			Headers = headers,
+			Body = body
+		})
+	end
+
+	tab.New("Event", 8)
+	newwindow.NewTitle("Valentine's Event", "Event")
+	local autoUnbox = newwindow.NewToggle("Auto Unbox Valentines Box", "", "Event")
+	autoUnbox.Activated:Connect(function()
+		autoUnbox.Toggle.Value = not autoUnbox.Toggle.Value
+	end)
+
+	newwindow.NewTitle("Webhooks", "Event")
+	local webhook = getgenv().wh or ""
+	local webhookEnabled = false
+
+	local newSendWebhooksToggle = newwindow.NewToggle("Send Info to webhook", "", "Event")
+	newSendWebhooksToggle.Activated:Connect(function()
+		newSendWebhooksToggle.Toggle.Value = not newSendWebhooksToggle.Toggle.Value
+		if webhook == "" then
+			NewNotification.New("No webhook found.", 1)
+			NewNotification.New("To add a webhook, put this infront of the code.", 3)
+			NewNotification.New("getgenv().wh = 'YourWebhookLink'	replace the placeholder with your webhook.", 3)
+			return
+		end
+
+		webhookEnabled = newSendWebhooksToggle.Toggle.Value
+	end)
+
+	-- ============================================================
+	-- UNIFIED RUNSERVICE LOOP
+	-- ============================================================
+	local RunService = game:GetService("RunService")
+	local UserInputService = game:GetService("UserInputService")
+	local player = game.Players.LocalPlayer
+
+	local espTimer    = 0
+	local unboxTimer  = 0
+	local coinTimer   = 0
+
+	local ESP_INTERVAL    = 1
+	local UNBOX_INTERVAL  = 5
+	local COIN_INTERVAL   = 0.2
+
+	RunService.Heartbeat:Connect(function(dt)
+		espTimer   = espTimer   + dt
+		unboxTimer = unboxTimer + dt
+		coinTimer  = coinTimer  + dt
+
+		if unboxTimer >= UNBOX_INTERVAL then
+			unboxTimer = 0
+			if autoUnbox.Toggle.Value == true then
+				local args = {
+					"Valentines2026Box",
+					"MysteryBox",
+					"ValentinesKey2026"
+				}
+				local unboxResult = game.ReplicatedStorage.Remotes.Shop.OpenCrate:InvokeServer(unpack(args))
+				if unboxResult then
+					if webhookEnabled and webhook ~= "" then
+						local msg = player.Name .." unboxed: " .. unboxResult
+						SendMessage(webhook, msg)
 					end
-				end)
+				end
+			end
+		end
 
-				newwindow.NewTitle("- Premium Murderer -", "Premium")
+		-- ESP (every 1s)
+		if espTimer >= ESP_INTERVAL then
+			espTimer = 0
+			if toggleEsp then
+				EspModule.CreateLabel()
+				EspModule.UpdateLabel()
+				EspModule.ForceCreate("GunDrop")
+			else
+				EspModule.ClearAll()
+			end
+		end
 
-				local silentKillClosest = newwindow.NewWindowV2("Silent Kill Closest", "", "Premium", function()
-					local closestTarget = getClosestPlayer()
-					if closestTarget then
-						if game.Players.LocalPlayer.Backpack:FindFirstChild("Knife") then
-							local args = {
-								closestTarget.Character.PrimaryPart
-							}
-							game.Players.LocalPlayer.Backpack.Knife.Events.KnifeStabbed:FireServer()
-							game.Players.LocalPlayer.Backpack.Knife.Events.HandleTouched:FireServer(unpack(args))
-						else
-							NewNotification.New("Unequip your knife!")
-						end
+		-- Premium only section
+		if isPremium then
+
+			-- Auto Grab Gun (no delay, runs every frame)
+			if autograb and autograb.Toggle.Value then
+				local gun = workspace:FindFirstChild("GunDrop", true)
+				if gun then
+					firetouchinterest(player.Character.PrimaryPart, gun, 0)
+					local hasGun = player.Backpack:FindFirstChild("Gun")
+					if hasGun then
+						NewNotification.New("Successfuly Grabbed GunDrop!", 1.5)
 					end
-				end)
+				end
+			end
 
+			-- Auto Unbox (every 0.2s)
 
-				newwindow.NewTitle("- Fun -", "Premium")
-
-				local flingMurderer = newwindow.NewWindow("Fling Murderer", "", "Premium")
-
-				newwindow.NewTitle("- Coins -", "Premium")
-
-				local coinAura = newwindow.NewToggle("Coin Aura", "", "Premium")
-
-				newwindow.NewTitle("- Boxes -", "Premium")
-
-				local autoUnbox = newwindow.NewToggle("Auto Unbox Valentines Box", "", "Premium")
-
-				coinAura.Activated:Connect(function()
-					coinAura.Toggle.Value = not coinAura.Toggle.Value
-				end)
-				autoUnbox.Activated:Connect(function()
-					autoUnbox.Toggle.Value = not autoUnbox.Toggle.Value
-				end)
-
-				flingMurderer.Activated:Connect(function()
-					NewNotification.New("You can't access this feature or this feature is not completed yet!", 1)
-				end)
-
-				task.spawn(function()
-					while task.wait(0.2) do
-						if autoUnbox.Toggle.Value then
-							local args = {
-								"Valentines2026Box",
-								"MysteryBox",
-								"ValentinesKey2026"
-							}
-							game.ReplicatedStorage.Remotes.Shop.OpenCrate:InvokeServer()
-						end
-						if autograb.Toggle.Value then
-							local gun = workspace:FindFirstChild("GunDrop", true)
-							if gun then
-								firetouchinterest(game.Players.LocalPlayer.Character.PrimaryPart, gun, 0)
-								task.wait(0.1)
-								local hasGunNow = game.Players.LocalPlayer.Backpack:FindFirstChild("Gun")
-								if hasGunNow then
-									NewNotification.New("Successfuly Grabbed GunDrop!", 1.5)
-								end
-							end
-						end
-						if coinAura.Toggle.Value then
-							local char = game.Players.LocalPlayer.Character
-							if char and char.Parent and  char:FindFirstChild("HumanoidRootPart") then
-								local root = char.PrimaryPart
-								local CoinContainers = workspace:FindFirstChild("CoinContainer", true)
-								if CoinContainers then
-									for _, coinAura in CoinContainers:GetChildren() do
-										if coinAura and coinAura:FindFirstChild("CoinVisual") and coinAura:FindFirstChild("CoinVisual"):FindFirstChild("MainCoin") then
-											if coinAura:FindFirstChild("CoinVisual") then
-												if coinAura.CoinVisual:FindFirstChild("MainCoin") then
-													if coinAura.CoinVisual.MainCoin.Transparency == 0 then
-														if game:GetService("UserInputService").TouchEnabled then
-															local dist = (root.Position - coinAura.Position).Magnitude
-															if dist < 4 then
-																coinAura.Position = root.Position
-															end
-														else
-															firetouchinterest(root, coinAura, 0)
-														end
-													end
-												end
-											end
+			-- Coin Aura (every 0.2s)
+			if coinTimer >= COIN_INTERVAL then
+				coinTimer = 0
+				if coinAura and coinAura.Toggle.Value then
+					local char = player.Character
+					if char and char.Parent and char:FindFirstChild("HumanoidRootPart") then
+						local root = char.PrimaryPart
+						local CoinContainers = workspace:FindFirstChild("CoinContainer", true)
+						if CoinContainers then
+							for _, coin in CoinContainers:GetChildren() do
+								local visual = coin:FindFirstChild("CoinVisual")
+								local mainCoin = visual and visual:FindFirstChild("MainCoin")
+								if mainCoin and mainCoin.Transparency == 0 then
+									if UserInputService.TouchEnabled then
+										if (root.Position - coin.Position).Magnitude < 4 then
+											coin.Position = root.Position
 										end
+									else
+										firetouchinterest(root, coin, 0)
 									end
 								end
 							end
 						end
 					end
-				end)
-			end
-
-			Esp.Activated:Connect(function()
-				if db == false then
-					db = true
-					if Esp.Toggle.Value == false then
-						Esp.Toggle.Value = true
-						toggleEsp = true
-						wait(.1)
-						db = false
-					elseif Esp.Toggle.Value == true then
-						toggleEsp = false
-						Esp.Toggle.Value = false
-						wait(.1)
-						db = false
-					end
-				end
-			end)
-
-
-			while task.wait(1) do
-				if toggleEsp then
-
-
-					EspModule.CreateLabel()
-					EspModule.UpdateLabel()
-					EspModule.ForceCreate("GunDrop")
-
-				else
-					EspModule.ClearAll()
 				end
 			end
-		end
+
+		end -- end isPremium
+	end)
+
+end
 
 		return module
 	end;
@@ -2204,24 +2295,6 @@ local function C_58()
 	end)
 end;
 task.spawn(C_58);
--- StarterGui.PK_API.loading.LocalScript
-
-function SendMessage(url, message)
-	local http = game:GetService("HttpService")
-	local headers = {
-		["Content-Type"] = "application/json"
-	}
-	local data = {
-		["content"] = message
-	}
-	local body = http:JSONEncode(data)
-	local response = request({
-		Url = url,
-		Method = "POST",
-		Headers = headers,
-		Body = body
-	})
-end
 
 local function C_5f()
 	local script = G2L["5f"];
