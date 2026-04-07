@@ -1,4 +1,4 @@
---5
+--6
 local G2L = {};
 
 local lockedButtons = false
@@ -590,6 +590,9 @@ G2L_MODULES[G2L["2a"]] = {
 			if Image then
 				tabButton.ImageLabel.Image = Image[1]
 				tabButton.ImageLabel.Size = UDim2.fromScale(tabButton.ImageLabel.Size.X.Scale, Image[2])
+			end
+			if TabName == "Main" then
+				newTab.CanvasSize = UDim2.new(0,0,0,3)
 			end
 
 			local tabColor = tabButton.BackgroundColor3
