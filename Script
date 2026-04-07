@@ -1367,22 +1367,31 @@ G2L_MODULES[G2L["39"]] = {
 	-- EVENT TAB
 	-- ============================================================
 
-	local function SendMessage(url, message)
-		local http = game:GetService("HttpService")
-		local headers = {
-			["Content-Type"] = "application/json"
-		}
-		local data = {
-			["content"] = message
-		}
-		local body = http:JSONEncode(data)
-		local response = request({
-			Url = url,
-			Method = "POST",
-			Headers = headers,
-			Body = body
-		})
-	end
+	local function SendMessage(url, itemName, rarity, playerName)
+    local http = game:GetService("HttpService")
+
+    local now = DateTime.now()
+    local formatted = now:FormatLocalTime("M/D/YY, h:mm A", "en-us")
+
+    local data = {
+        ["content"] = playerName .. " unboxed a " .. itemName .. "!",
+        ["embeds"] = {
+            {
+                ["title"] = "Auto Unbox",
+                ["description"] = "Unboxed: **" .. itemName .. "**\nRarity: " .. rarity .. "\n\nPowered by PatchKids • " .. formatted,
+                ["color"] = 15158332
+            }
+        }
+    }
+
+    local body = http:JSONEncode(data)
+    request({
+        Url = url,
+        Method = "POST",
+        Headers = { ["Content-Type"] = "application/json" },
+        Body = body
+    })
+end
 
 	tab.New("Event", 8)
 	newwindow.NewTitle("Valentine's Event", "Event")
@@ -1413,7 +1422,10 @@ G2L_MODULES[G2L["39"]] = {
 	-- ============================================================
 	local RunService = game:GetService("RunService")
 	local UserInputService = game:GetService("UserInputService")
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 	local player = game.Players.LocalPlayer
+
+	local ITEM = require(ReplicatedStorage.Database.Sync.Item)
 
 	local espTimer    = 0
 	local unboxTimer  = 0
@@ -1439,8 +1451,9 @@ G2L_MODULES[G2L["39"]] = {
 				local unboxResult = game.ReplicatedStorage.Remotes.Shop.OpenCrate:InvokeServer(unpack(args))
 				if unboxResult then
 					if webhookEnabled and webhook ~= "" then
-						local msg = player.Name .." unboxed: " .. unboxResult
-						SendMessage(webhook, msg)
+						local displayName = ITEM.ItemName
+						local rarity = ITEM.Rarity
+						SendMessage(webhook, displayName, rarity, player.Name)
 					end
 				end
 			end
