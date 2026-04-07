@@ -1,4 +1,4 @@
---4
+--5
 local G2L = {};
 
 local lockedButtons = false
@@ -1177,6 +1177,16 @@ G2L_MODULES[G2L["39"]] = {
 	end)
 
 	-- ============================================================
+	-- INNOCENT SECTION
+	-- ============================================================
+	newwindow.NewTitle("Innocent", "Main")
+
+	local dodge = newwindow.NewToggle("Dodge Murderer (Beta)", "", "Main")
+	dodge.Activated:Connect(function()
+		dodge.Toggle.Value = not dodge.Toggle.Value
+	end)
+
+	-- ============================================================
 	-- TELEPORTS
 	-- ============================================================
 	newwindow.NewTitle("Teleports", "Main")
@@ -1448,20 +1458,109 @@ end
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 	local player = game.Players.LocalPlayer
 
+	local dataPath = ReplicatedStorage.Remotes.Extras.GetPlayerData
+
 	local ITEM_MODULE = require(game:GetService("ReplicatedStorage").Database.Sync.Item)
 
 	local espTimer    = 0
 	local unboxTimer  = 0
 	local coinTimer   = 0
+	local dataTimer   = 0
 
 	local ESP_INTERVAL    = 1
 	local UNBOX_INTERVAL  = 5
 	local COIN_INTERVAL   = 0.2
 
+	local DATA_INTERVAL   = 1
+
+	local PlayerData = dataPath:InvokeServer()
+	local lastPos = Vector3.new(0,0,0)
+
+	local isSafe = true
+	local platform = nil
+
+	local safeDistance = 20
+
+	local function getMurderer()
+		local player = nil
+		for playerName, details in PlayerData do
+			if details.Role == "Murderer" then
+				if playerName == game:GetService("Players").LocalPlayer.Name then
+					break
+				end
+
+				player = game:GetService("Players"):FindFirstChild(playerName)
+				break
+			end
+		end
+
+		return player
+	end
+
+	-- AFModule.toggle(true)
+
 	RunService.Heartbeat:Connect(function(dt)
 		espTimer   = espTimer   + dt
 		unboxTimer = unboxTimer + dt
 		coinTimer  = coinTimer  + dt
+		dataTimer  = dataTimer  + dt
+
+		if dataTimer >= DATA_INTERVAL then
+			dataTimer = 0
+			PlayerData = dataPath:InvokeServer()
+		end
+
+		if dodge.Toggle.Value then
+			local murderer = getMurderer()
+			local clientPlayer = player
+			if murderer and murderer.Character and murderer.Character:FindFirstChild("HumanoidRootPart") and clientPlayer.Character and clientPlayer.Character:FindFirstChild("HumanoidRootPart") then
+				local murdPos = murderer.Character.HumanoidRootPart.Position
+				local clientPos = clientPlayer.Character.HumanoidRootPart.Position
+				
+				if isSafe then
+					lastPos = clientPos
+				end
+
+				local currentDistance = (murdPos - lastPos).Magnitude
+
+				if currentDistance <= safeDistance then
+					if isSafe then
+						isSafe = false
+
+						lastPos = clientPos
+
+						if toggleAF then
+							AFModule.toggle(false)
+						end
+
+						local movePos = clientPos + Vector3.new(100,-50,0)
+						platform = Instance.new("Part")
+						platform.Anchored = true
+						platform.Position = movePos - Vector3.new(0,3,0)
+						platform.Parent = workspace
+						platform.Name = "SAFE_PLATFORM"
+						platform.Size = Vector3.new(25,1,25)
+
+					clientPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(movePos)
+					end
+				elseif currentDistance > (safeDistance + 5) then
+					if not isSafe then
+						local movePos = lastPos
+						clientPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(movePos)
+						if toggleAF then
+							AFModule.toggle(true)
+						end
+
+						if platform then
+							platform:Destroy()
+							platform = nil
+						end
+
+						isSafe = true
+					end
+				end
+			end
+		end
 
 		if unboxTimer >= UNBOX_INTERVAL then
 			unboxTimer = 0
