@@ -1417,6 +1417,29 @@ end
 		webhookEnabled = newSendWebhooksToggle.Toggle.Value
 	end)
 
+	function FixName(id)
+	    local base = id:gsub("_(%d+)$", "")
+	    
+	    local parts = {}
+	    for part in string.gmatch(base, "[^_]+") do
+	        table.insert(parts, part)
+	    end
+	    
+	    if #parts == 1 then
+	        return parts[1]
+	    end
+	    
+	    local typeCode = parts[2]
+	    
+	    if typeCode == "K" then
+	        return parts[1] .. " Knife"
+	    elseif typeCode == "G" then
+	        return parts[1] .. " Gun"
+	    else
+	        return parts[1]
+	    end
+	end
+
 	-- ============================================================
 	-- UNIFIED RUNSERVICE LOOP
 	-- ============================================================
@@ -1457,7 +1480,8 @@ end
 							local rarity = info.Rarity
 							SendMessage(webhook, displayName, rarity, player.Name)
 						else
-							SendMessage(webhook, unboxResult, "norarity", player.Name)
+							local fixedName = FixName(unboxResult)
+							SendMessage(webhook, fixedName, "Unknown", player.Name)
 						end
 					end
 				end
