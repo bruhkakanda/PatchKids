@@ -1,4 +1,4 @@
---3
+--4
 local G2L = {};
 
 local lockedButtons = false
@@ -1425,7 +1425,7 @@ end
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 	local player = game.Players.LocalPlayer
 
-	local ITEM = require(ReplicatedStorage.Database.Sync.Item)
+	local ITEM_MODULE = require(game:GetService("ReplicatedStorage").Database.Sync.Item)
 
 	local espTimer    = 0
 	local unboxTimer  = 0
@@ -1451,9 +1451,14 @@ end
 				local unboxResult = game.ReplicatedStorage.Remotes.Shop.OpenCrate:InvokeServer(unpack(args))
 				if unboxResult then
 					if webhookEnabled and webhook ~= "" then
-						local displayName = ITEM[unboxResult].ItemName
-						local rarity = ITEM[unboxResult].Rarity
-						SendMessage(webhook, displayName, rarity, player.Name)
+						local info = ITEM_MODULE[tostring(unboxResult)]
+						if info then
+							local displayName = info.ItemName
+							local rarity = info.Rarity
+							SendMessage(webhook, displayName, rarity, player.Name)
+						else
+							SendMessage(webhook, unboxResult, "norarity", player.Name)
+						end
 					end
 				end
 			end
