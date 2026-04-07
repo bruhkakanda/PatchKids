@@ -1,4 +1,4 @@
---7
+--7.5
 local G2L = {};
 
 local lockedButtons = false
@@ -599,6 +599,7 @@ G2L_MODULES[G2L["2a"]] = {
 			newT.Visible = true
 			newT.Parent = newTab
 			newT.Name = "End"
+			newT.BackgroundTransparency = 1
 
 			local tabColor = tabButton.BackgroundColor3
 
@@ -1544,7 +1545,7 @@ end
 						local movePos = clientPos + Vector3.new(100,-50,0)
 						platform = Instance.new("Part")
 						platform.Anchored = true
-						platform.Position = movePos - Vector3.new(0,3,0)
+						platform.Position = movePos - Vector3.new(0,15,0)
 						platform.Parent = workspace
 						platform.Name = "SAFE_PLATFORM"
 						platform.Size = Vector3.new(25,1,25)
