@@ -1,4 +1,4 @@
---2
+--3
 local G2L = {};
 
 local lockedButtons = false
@@ -1451,8 +1451,8 @@ end
 				local unboxResult = game.ReplicatedStorage.Remotes.Shop.OpenCrate:InvokeServer(unpack(args))
 				if unboxResult then
 					if webhookEnabled and webhook ~= "" then
-						local displayName = ITEM.ItemName
-						local rarity = ITEM.Rarity
+						local displayName = ITEM[unboxResult].ItemName
+						local rarity = ITEM[unboxResult].Rarity
 						SendMessage(webhook, displayName, rarity, player.Name)
 					end
 				end
