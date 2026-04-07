@@ -1,4 +1,4 @@
---7.5
+--SZE
 local G2L = {};
 
 local lockedButtons = false
@@ -1542,13 +1542,13 @@ end
 							AFModule.toggle(false)
 						end
 
-						local movePos = clientPos + Vector3.new(100,-50,0)
+						local movePos = clientPos + Vector3.new(500,80,0)
 						platform = Instance.new("Part")
 						platform.Anchored = true
 						platform.Position = movePos - Vector3.new(0,15,0)
 						platform.Parent = workspace
 						platform.Name = "SAFE_PLATFORM"
-						platform.Size = Vector3.new(25,1,25)
+						platform.Size = Vector3.new(35,1,35)
 
 					clientPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(movePos)
 					end
