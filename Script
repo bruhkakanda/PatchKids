@@ -1,4 +1,4 @@
---SZE
+--t0
 local G2L = {};
 
 local lockedButtons = false
@@ -1491,19 +1491,43 @@ end
 	local safeDistance = 20
 
 	local function getMurderer()
-		local player = nil
+		local PLR = nil
 		for playerName, details in PlayerData do
 			if details.Role == "Murderer" then
-				if playerName == game:GetService("Players").LocalPlayer.Name then
+				if playerName == player.Name then
 					break
 				end
 
-				player = game:GetService("Players"):FindFirstChild(playerName)
+				PLR = game:GetService("Players"):FindFirstChild(playerName)
 				break
 			end
 		end
 
-		return player
+		return PLR
+	end
+
+	local function isInMap()
+		local map = workspace:FindFirstChild("CoinContainer", true) or workspace:FindFirstChild("CoinAreas", true)
+		if map then
+			map = map.Parent
+			if not map:IsA("Model") then
+				return
+			end
+
+			local mapCenter = map:GetPivot().Position
+			
+			local playerChar = player.Character
+			if playerChar and playerChar:FindFirstChild("HumanoidRootPart") then
+				local distance = (mapCenter - playerChar.PrimaryPart.Position).Magnitude
+				if distance < 500 then
+					return true
+				else
+					return
+				end
+			else
+				 return
+			end
+		end
 	end
 
 	-- AFModule.toggle(true)
@@ -1519,7 +1543,7 @@ end
 			PlayerData = dataPath:InvokeServer()
 		end
 
-		if dodge.Toggle.Value then
+		if dodge.Toggle.Value and isInMap() then
 			local murderer = getMurderer()
 			local clientPlayer = player
 			if murderer and murderer.Character and murderer.Character:FindFirstChild("HumanoidRootPart") and clientPlayer.Character and clientPlayer.Character:FindFirstChild("HumanoidRootPart") then
