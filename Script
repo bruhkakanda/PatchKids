@@ -1,4 +1,4 @@
---t0
+--t5
 local G2L = {};
 
 local lockedButtons = false
@@ -1543,7 +1543,7 @@ end
 			PlayerData = dataPath:InvokeServer()
 		end
 
-		if dodge.Toggle.Value and isInMap() then
+		if dodge.Toggle.Value then
 			local murderer = getMurderer()
 			local clientPlayer = player
 			if murderer and murderer.Character and murderer.Character:FindFirstChild("HumanoidRootPart") and clientPlayer.Character and clientPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -1557,7 +1557,7 @@ end
 				local currentDistance = (murdPos - lastPos).Magnitude
 
 				if currentDistance <= safeDistance then
-					if isSafe then
+					if isSafe and isInMap() then
 						isSafe = false
 
 						lastPos = clientPos
