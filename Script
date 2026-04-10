@@ -1,4 +1,4 @@
---t2
+--t5
 local G2L = {};
 
 local lockedButtons = false
@@ -1582,6 +1582,7 @@ end
 						clientPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(movePos)
 						if toggleAF then
 							clientPlayer.Character.HumanoidRootPart.Anchored = true
+							clientPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(movePos) - Vector3.new(0,5,0)
 							task.wait(1)
 							AFModule.toggle(true)
 						end
