@@ -1,4 +1,4 @@
---t5
+--t6
 local G2L = {};
 
 local lockedButtons = false
@@ -1946,49 +1946,61 @@ local LOCKED_Y = nil
 local canReset = true
 
 local SPEED = 20
-
 local NO_COIN_TIMEOUT = 5
 local lastCoinSeen = os.clock()
 
-local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
-local humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
 
-local function setAnchored(state)
-    local c = game.Players.LocalPlayer.Character
-    if c then
+local char = Players.LocalPlayer.Character or Players.LocalPlayer.CharacterAdded:Wait()
+local humanoid = char:WaitForChild("Humanoid")
+
+-- ─────────────────────────────────────────
+-- Noclip loop (replaces Stepped while check)
+-- ─────────────────────────────────────────
+local noclipConnection = nil
+
+local function startNoclip()
+    if noclipConnection then return end
+    noclipConnection = RunService.Stepped:Connect(function()
+        local c = Players.LocalPlayer.Character
+        if not c then return end
         for _, v in c:GetDescendants() do
             if v:IsA("BasePart") then
-                v.Anchored = state
+                v.CanCollide = false
             end
         end
+    end)
+end
+
+local function stopNoclip()
+    if noclipConnection then
+        noclipConnection:Disconnect()
+        noclipConnection = nil
     end
 end
 
+-- ─────────────────────────────────────────
+-- Toggle
+-- ─────────────────────────────────────────
 module.toggle = function(toggle)
     TOGGLE = toggle
     if toggle then
         noclip = true
+        workspace.Gravity = 0
         humanoid.PlatformStand = true
-        setAnchored(true)
+        startNoclip()
     else
         noclip = false
+        workspace.Gravity = 196.2
         humanoid.PlatformStand = false
-        setAnchored(false)
+        stopNoclip()
     end
 end
 
-game["Run Service"].Stepped:Connect(function()
-    if noclip then
-        for _, v in game.Players.LocalPlayer.Character:GetDescendants() do
-            if v:IsA("BasePart") then
-                v.CanCollide = false
-                v.Anchored = true
-            end
-        end
-    end
-end)
-
-
+-- ─────────────────────────────────────────
+-- Closest coin finder
+-- ─────────────────────────────────────────
 local function getClosestCoin(root)
     local closestCoin = nil
     local closestDist = math.huge
@@ -2013,124 +2025,154 @@ local function getClosestCoin(root)
     return closestCoin, closestDist
 end
 
-module.Start = function()
-    while task.wait(0.2) do
-        if TOGGLE then
-            local char = game.Players.LocalPlayer.Character
-            if char and char.Parent and char:FindFirstChild("Humanoid") then
-                local humanoid = char:WaitForChild("Humanoid")
-                local root = char.PrimaryPart
+-- ─────────────────────────────────────────
+-- Main loop (replaces while task.wait)
+-- ─────────────────────────────────────────
+local mainConnection = nil
+local lastTick = 0
 
-                local coinVisual, distance = getClosestCoin(root)
-                local coin = nil
+-- Inner movement loop (replaces while true + task.wait(0.01))
+local moveConnection = nil
+local currentCoinVisual = nil
+local currentCoin = nil
 
-                if coinVisual then
-                    if coinVisual.Parent then
-                        if coinVisual:FindFirstChild("MainCoin") then
-                            coin = coinVisual.Parent
-                        end
-                    end
-                end
+local function stopMoving()
+    if moveConnection then
+        moveConnection:Disconnect()
+        moveConnection = nil
+    end
+    currentCoinVisual = nil
+    currentCoin = nil
+end
 
-                if not coinVisual or not coinVisual.Parent then
-                    if os.clock() - lastCoinSeen < NO_COIN_TIMEOUT then
-                        continue
-                    else
-                        if canReset then
-                            noclip = false
-                            humanoid.PlatformStand = false
-                            setAnchored(false)
-                            humanoid.Health = 0
-                            canReset = false
-                        end
-                    end
-                else
-                    canReset = true
-                    lastCoinSeen = os.clock()
-                    noclip = true
-                    humanoid.PlatformStand = true
-                    setAnchored(true)
-                end
+local function startMoving(root, coinVisual, coin)
+    if moveConnection then return end
+    currentCoinVisual = coinVisual
+    currentCoin = coin
 
-                lastCoinSeen = os.clock()
+    moveConnection = RunService.Heartbeat:Connect(function(dt)
+        if not currentCoinVisual or not currentCoinVisual.Parent then
+            stopMoving() return
+        end
 
-                if coin and coin.Parent then
+        if currentCoinVisual:FindFirstChild("MainCoin") then
+            if currentCoinVisual.MainCoin.Transparency ~= 0 then
+                stopMoving() return
+            end
+        end
 
-                    LOCKED_Y = coin.Position.Y - (coin.Size.Y / 2) - 2
+        if not TOGGLE then
+            stopMoving() return
+        end
 
-                    while true do
-                        local dt = task.wait(0.01)
-
-                        if not coinVisual or not coinVisual.Parent then
-                            break
-                        end
-
-                        if coinVisual:FindFirstChild("MainCoin") then
-                            if coinVisual.MainCoin.Transparency ~= 0 then
-                                break
-                            end
-                        end
-
-                        if not TOGGLE then
-                            break
-                        end
-
-                        -- Pull nearby coins to player
-                        local CoinContainers = workspace:FindFirstChild("CoinContainer", true)
-                        if CoinContainers then
-                            for _, coinAura in CoinContainers:GetChildren() do
-                                if coinAura and coinAura:FindFirstChild("CoinVisual") then
-                                    local cv = coinAura.CoinVisual
-                                    if cv:FindFirstChild("MainCoin") and cv.MainCoin.Transparency == 0 then
-                                        local dist = (root.Position - coinAura.Position).Magnitude
-                                        if dist < 5 then
-                                            coinAura.Position = root.Position
-                                        end
-                                    end
-                                end
-                            end
-                        end
-
-                        local currentPos = root.Position
-                        local targetPos = Vector3.new(
-                            coin.Position.X,
-                            LOCKED_Y,
-                            coin.Position.Z
-                        )
-
-                        local direction = targetPos - currentPos
-                        local dist = direction.Magnitude
-
-                        if dist > 0.5 then
-                            local step = math.min(SPEED * dt, dist)
-                            local newPos = currentPos + direction.Unit * step
-                            -- Anchor while moving, unanchor briefly to apply CFrame
-                            setAnchored(false)
-                            root.CFrame = CFrame.new(newPos, newPos + direction.Unit) * CFrame.Angles(math.rad(90), 0, 0)
-                            setAnchored(true)
-                        else
-                            -- Reached coin, unanchor to collect it
-                            setAnchored(false)
-                            task.wait(0.1)
-                            setAnchored(true)
-                            break
+        -- Pull nearby coins to player
+        local CoinContainers = workspace:FindFirstChild("CoinContainer", true)
+        if CoinContainers then
+            for _, coinAura in CoinContainers:GetChildren() do
+                local cv = coinAura:FindFirstChild("CoinVisual")
+                if cv and cv:FindFirstChild("MainCoin") then
+                    if cv.MainCoin.Transparency == 0 then
+                        if (root.Position - coinAura.Position).Magnitude < 5 then
+                            coinAura.Position = root.Position
                         end
                     end
                 end
             end
+        end
+
+        local currentPos = root.Position
+        local targetPos = Vector3.new(currentCoin.Position.X, LOCKED_Y, currentCoin.Position.Z)
+        local direction = targetPos - currentPos
+        local dist = direction.Magnitude
+
+        if dist > 0 then
+            local step = math.min(SPEED * dt, dist)
+            local newPos = currentPos + direction.Unit * step
+            root.CFrame = CFrame.new(newPos) * CFrame.Angles(math.rad(90), 0, 0)
+        end
+
+        if dist < 0.5 then
+            stopMoving()
+        end
+    end)
+end
+
+module.Start = function()
+    mainConnection = RunService.Heartbeat:Connect(function()
+        if os.clock() - lastTick < 0.2 then return end
+        lastTick = os.clock()
+
+        if TOGGLE then
+            local c = Players.LocalPlayer.Character
+            if not (c and c.Parent and c:FindFirstChild("Humanoid")) then return end
+
+            local hum = c:WaitForChild("Humanoid")
+            local root = c.PrimaryPart
+
+            local coinVisual, distance = getClosestCoin(root)
+            local coin = nil
+
+            if coinVisual then
+                if coinVisual.Parent then
+                    if coinVisual:FindFirstChild("MainCoin") then
+                        coin = coinVisual.Parent
+                    end
+                end
+            end
+
+            if not coinVisual or not coinVisual.Parent then
+                if os.clock() - lastCoinSeen < NO_COIN_TIMEOUT then
+                    return
+                else
+                    if canReset then
+                        noclip = false
+                        hum.PlatformStand = false
+                        workspace.Gravity = 196.2
+                        hum.Health = 0
+                        canReset = false
+                        stopNoclip()
+                        stopMoving()
+                    end
+                end
+            else
+                canReset = true
+                lastCoinSeen = os.clock()
+                noclip = true
+                hum.PlatformStand = true
+                workspace.Gravity = 0
+                startNoclip()
+            end
+
+            lastCoinSeen = os.clock()
+
+            if coin and coin.Parent then
+                if not LOCKED_Y then
+                    LOCKED_Y = root.Position.Y
+                end
+
+                local targetY = coin.Position.Y - (coin.Size.Y / 2) - 2
+                if math.abs(targetY - LOCKED_Y) > 0.1 then
+                    LOCKED_Y = targetY
+                end
+
+                startMoving(root, coinVisual, coin)
+            end
         else
+            workspace.Gravity = 196.2
             noclip = false
-            setAnchored(false)
-            local char = game.Players.LocalPlayer.Character
-            if char and char:FindFirstChild("Humanoid") then
-                char.Humanoid.PlatformStand = false
+            stopNoclip()
+            stopMoving()
+            local c = Players.LocalPlayer.Character
+            if c and c:FindFirstChild("Humanoid") then
+                c.Humanoid.PlatformStand = false
             end
             LOCKED_Y = nil
         end
-    end
+    end)
 end
 
 return module
+
 	end;
 };
 G2L_MODULES[G2L["3b"]] = {
