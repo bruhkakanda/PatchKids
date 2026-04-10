@@ -1,4 +1,4 @@
---t5
+--Dandy's World game add
 local G2L = {};
 
 local lockedButtons = false
@@ -158,6 +158,8 @@ G2L["385"] = Instance.new("ModuleScript", G2L["35"]);
 G2L["385"]["Name"] = [[75084962946572]];
 G2L["PPT"] = Instance.new("ModuleScript", G2L["35"]);
 G2L["PPT"]["Name"] = [[125229766573493]];
+G2L["DW"] = Instance.new("ModuleScript", G2L["35"]);
+G2L["DW"]["Name"] = [[16552821455]]
 
 
 -- StarterGui.PK_API.mainframe.Loader.Gamesloader.142823291
@@ -1935,6 +1937,121 @@ G2L_MODULES[G2L["PPT"]] = {
 		return module
 	end;
 };
+
+-- DANDYS WORLD
+G2L_MODULES[G2L["PPT"]] = {
+	Closure = function()
+		local script = G2L["PPT"];local newwindow = require(script.Parent.Parent.NewWindow)
+		local NewNotification = require(script.Parent.Parent.NewNotification)
+		local tab = require(script.Parent.Parent.NewTab)
+		local RunService = game:GetService("RunService")
+
+		local Rep = game.ReplicatedStorage
+
+		local CurrentRoomFolder = workspace:WaitForChild("CurrentRoom")
+
+		local module = {}
+
+		local function getRoom()
+			local model = CurrentRoomFolder:FindFirstChildOfClass("Model")
+			if model then
+				return model
+			else
+				return nil
+			end
+		end
+
+		local function createHighlight(model, color)
+			if model:FindFirstChild("HighL") then return end
+			local new = Instance.new("Highlight")
+			new.FillColor = color
+			new.OutlineColor = color
+			new.OutlineTransparency = 0.25
+			new.Name = "HighL"
+			new.Parent = model
+		end
+
+		local function hasH(model)
+			return model:FindFirstChildOfClass("Highlight")
+		end
+
+		local function updateMonsterESP(room, on)
+			if room and room:FindFirstChild("Monsters") and on then
+				local folder = room.Monsters:GetChildren()
+				for _, monster in folder do
+					if not hasH(monster) then
+						createHighlight(monster, Color3.fromRGB(255, 31, 80))
+					end
+				end
+			end
+		end
+
+		local function updateGeneratorESP(room, on)
+		if room and room:FindFirstChild("Generators") and on then
+			local folder = room.Generators:GetChildren()
+			for _, gen in folder do
+				if not hasH(gen) then
+					if not gen.Stats.Completed.Value then
+						createHighlight(gen, Color3.fromRGB(160, 255, 17))
+					end
+				else
+					if gen.Stats.Completed.Value then
+						local h = gen:FindFirstChildOfClass("Highlight")
+						if h then
+							h:Destroy()
+						end
+					end
+				end
+			end
+			end
+		end
+		-- gen.Prompt.Attachment.ProximityPrompt
+
+		local function updateInstantGens(room)
+			local folder = room.Generators:GetChildren()
+			for _, gen in folder do
+				if hasH(gen) then
+					-- ltr
+				end
+			end
+		end
+
+		function module.Start()
+
+			local newTab = tab.New("Main")
+			newwindow.NewTitle("Visuals", "Main")
+
+			local MonsterESP = newwindow.NewToggle("Monsters ESP", "", "Main")
+			local GeneratorESP = newwindow.NewToggle("Generators ESP", "", "Main")
+
+			MonsterESP.Activated:Connect(function()
+				MonsterESP.Toggle.Value = not MonsterESP.Toggle.Value
+			end)
+
+			GeneratorESP.Activated:Connect(function()
+				GeneratorESP.Toggle.Value = not GeneratorESP.Toggle.Value
+			end)
+
+
+			local connection
+			connection = RunService.Heartbeat:Connect(function()
+				local room = getRoom()
+				if room then
+
+					updateMonsterESP(room, MonsterESP.Toggle.Value)
+					updateGeneratorESP(room, GeneratorESP.Toggle.Value)
+					--updateInstantGens(room)
+
+				end
+			end)
+			
+		end
+
+		return module
+	end;
+};
+
+-- DANDYS WORLD END
 
 
 G2L_MODULES[G2L["3a"]] = {
