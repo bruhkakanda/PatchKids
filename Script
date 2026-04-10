@@ -1936,201 +1936,201 @@ G2L_MODULES[G2L["PPT"]] = {
 
 G2L_MODULES[G2L["3a"]] = {
 	Closure = function()
-		local script = G2L["3a"];local module = {Toggle = false}
-		local NewNotification = require(script.Parent.Parent.Parent.NewNotification)
+		local script = G2L["3a"];
+		local module = {Toggle = false}
+local NewNotification = require(script.Parent.Parent.Parent.NewNotification)
 
-		local TOGGLE = false
-		local noclip = false
-		local LOCKED_Y = nil
-		local canReset = true
+local TOGGLE = false
+local noclip = false
+local LOCKED_Y = nil
+local canReset = true
 
-		local SPEED = 20
+local SPEED = 20
 
-		local NO_COIN_TIMEOUT = 5
-		local lastCoinSeen = os.clock()
+local NO_COIN_TIMEOUT = 5
+local lastCoinSeen = os.clock()
 
-		local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
 
-		local humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
+local function setAnchored(state)
+    local c = game.Players.LocalPlayer.Character
+    if c then
+        for _, v in c:GetDescendants() do
+            if v:IsA("BasePart") then
+                v.Anchored = state
+            end
+        end
+    end
+end
 
-		module.toggle = function(toggle)
-			TOGGLE = toggle
-			if toggle then
-				noclip = true
-				workspace.Gravity = 0
-				humanoid.PlatformStand = true
-			else
-				noclip = false
-				workspace.Gravity = 196.2
-				humanoid.PlatformStand = false
-			end
-		end
+module.toggle = function(toggle)
+    TOGGLE = toggle
+    if toggle then
+        noclip = true
+        humanoid.PlatformStand = true
+        setAnchored(true)
+    else
+        noclip = false
+        humanoid.PlatformStand = false
+        setAnchored(false)
+    end
+end
 
-		game["Run Service"].Stepped:Connect(function()
-			if noclip then
-				for _, v in game.Players.LocalPlayer.Character:GetDescendants() do
-					if v:IsA("BasePart") then
-						v.CanCollide = false
-					end
-				end
-			end
-		end)
-
-
-		local function getClosestCoin(root)
-			local closestCoin = nil
-			local closestDist = math.huge
-
-			local CoinContainer = workspace:FindFirstChild("CoinContainer", true)
-
-			if CoinContainer then
-				for _, v in CoinContainer:GetChildren() do
-					local coin = v:FindFirstChild("CoinVisual")
-					if coin and coin:FindFirstChild("MainCoin") then
-						if coin.MainCoin.Transparency == 0 then
-							local dist = (coin.Position - root.Position).Magnitude
-							if dist < closestDist then
-								closestDist = dist
-								closestCoin = coin
-							end
-						end
-					end
-				end
-			end
-
-			return closestCoin, closestDist
-		end
-
-		module.Start = function()
-			while task.wait(0.2) do
-				if TOGGLE then
-					local char = game.Players.LocalPlayer.Character
-					if char and char.Parent and char:FindFirstChild("Humanoid") then
-						local humanoid = char:WaitForChild("Humanoid")
-						local root = char.PrimaryPart
+game["Run Service"].Stepped:Connect(function()
+    if noclip then
+        for _, v in game.Players.LocalPlayer.Character:GetDescendants() do
+            if v:IsA("BasePart") then
+                v.CanCollide = false
+                v.Anchored = true
+            end
+        end
+    end
+end)
 
 
-						local coinVisual, distance = getClosestCoin(root)
-						local coin = nil
+local function getClosestCoin(root)
+    local closestCoin = nil
+    local closestDist = math.huge
 
-						if coinVisual then
-							if coinVisual.Parent then
-								if coinVisual:FindFirstChild("MainCoin") then
-									coin = coinVisual.Parent
-								end
-							end
-						end
+    local CoinContainer = workspace:FindFirstChild("CoinContainer", true)
 
-						if not coinVisual or not coinVisual.Parent then
+    if CoinContainer then
+        for _, v in CoinContainer:GetChildren() do
+            local coin = v:FindFirstChild("CoinVisual")
+            if coin and coin:FindFirstChild("MainCoin") then
+                if coin.MainCoin.Transparency == 0 then
+                    local dist = (coin.Position - root.Position).Magnitude
+                    if dist < closestDist then
+                        closestDist = dist
+                        closestCoin = coin
+                    end
+                end
+            end
+        end
+    end
 
-							if os.clock() - lastCoinSeen < NO_COIN_TIMEOUT then
-								continue
-							else
-								if canReset then
-									noclip = false
-									humanoid.PlatformStand = false
-									workspace.Gravity = 196.2
-									humanoid.Health = 0
-									canReset = false
-								end
-							end
-						else
-							canReset = true
-							lastCoinSeen = os.clock()
-							noclip = true
-							humanoid.PlatformStand = true
-							workspace.Gravity = 0
-						end
+    return closestCoin, closestDist
+end
 
+module.Start = function()
+    while task.wait(0.2) do
+        if TOGGLE then
+            local char = game.Players.LocalPlayer.Character
+            if char and char.Parent and char:FindFirstChild("Humanoid") then
+                local humanoid = char:WaitForChild("Humanoid")
+                local root = char.PrimaryPart
 
-						lastCoinSeen = os.clock()
+                local coinVisual, distance = getClosestCoin(root)
+                local coin = nil
 
-						if coin and coin.Parent then
+                if coinVisual then
+                    if coinVisual.Parent then
+                        if coinVisual:FindFirstChild("MainCoin") then
+                            coin = coinVisual.Parent
+                        end
+                    end
+                end
 
-							if not LOCKED_Y then
-								LOCKED_Y = root.Position.Y
-							end
+                if not coinVisual or not coinVisual.Parent then
+                    if os.clock() - lastCoinSeen < NO_COIN_TIMEOUT then
+                        continue
+                    else
+                        if canReset then
+                            noclip = false
+                            humanoid.PlatformStand = false
+                            setAnchored(false)
+                            humanoid.Health = 0
+                            canReset = false
+                        end
+                    end
+                else
+                    canReset = true
+                    lastCoinSeen = os.clock()
+                    noclip = true
+                    humanoid.PlatformStand = true
+                    setAnchored(true)
+                end
 
-							local targetY = coin.Position.Y - (coin.Size.Y / 2) - 2
-							if math.abs(targetY - LOCKED_Y) > 0.1 then
-								LOCKED_Y = targetY -- move Y to coin's Y
-							end
-							local targetCFrame =
-								CFrame.new(coin.Position.X, LOCKED_Y, coin.Position.Z) *
-								CFrame.Angles(math.rad(90), 0, 0)
+                lastCoinSeen = os.clock()
 
-							while true do
-								local dt = task.wait(0.01)
+                if coin and coin.Parent then
 
-								if not coinVisual or not coinVisual.Parent then
-									break
-								end
+                    LOCKED_Y = coin.Position.Y - (coin.Size.Y / 2) - 2
 
-								if coinVisual:FindFirstChild("MainCoin") then
-									if coinVisual.MainCoin.Transparency ~= 0 then
-										break
-									end
-								end
+                    while true do
+                        local dt = task.wait(0.01)
 
-								if not TOGGLE then
-									break
-								end
+                        if not coinVisual or not coinVisual.Parent then
+                            break
+                        end
 
-								local CoinContainers = workspace:FindFirstChild("CoinContainer", true)
-								if CoinContainers then
-									for _, coinAura in CoinContainers:GetChildren() do
-										if coinAura and coinAura:FindFirstChild("CoinVisual") and coinAura:FindFirstChild("CoinVisual"):FindFirstChild("MainCoin") then
-											if coinAura:FindFirstChild("CoinVisual") then
-												if coinAura.CoinVisual:FindFirstChild("MainCoin") then
-													if coinAura.CoinVisual.MainCoin.Transparency == 0 then
-														local dist = (root.Position - coinAura.Position).Magnitude
-														if dist < 5 then
-															coinAura.Position = root.Position
-														end
-													end
-												end
-											end
-										end
-									end
-								end
+                        if coinVisual:FindFirstChild("MainCoin") then
+                            if coinVisual.MainCoin.Transparency ~= 0 then
+                                break
+                            end
+                        end
 
-								local currentPos = root.Position
-								local targetPos = Vector3.new(
-									coin.Position.X,
-									LOCKED_Y,
-									coin.Position.Z
-								)
+                        if not TOGGLE then
+                            break
+                        end
 
-								local direction = targetPos - currentPos
-								local dist = direction.Magnitude
+                        -- Pull nearby coins to player
+                        local CoinContainers = workspace:FindFirstChild("CoinContainer", true)
+                        if CoinContainers then
+                            for _, coinAura in CoinContainers:GetChildren() do
+                                if coinAura and coinAura:FindFirstChild("CoinVisual") then
+                                    local cv = coinAura.CoinVisual
+                                    if cv:FindFirstChild("MainCoin") and cv.MainCoin.Transparency == 0 then
+                                        local dist = (root.Position - coinAura.Position).Magnitude
+                                        if dist < 5 then
+                                            coinAura.Position = root.Position
+                                        end
+                                    end
+                                end
+                            end
+                        end
 
-								if dist > 0 then
-									local step = math.min(SPEED * dt, dist)
-									local newPos = currentPos + direction.Unit * step
-									root.CFrame = CFrame.new(newPos) * CFrame.Angles(math.rad(90), 0, 0)
-								end
+                        local currentPos = root.Position
+                        local targetPos = Vector3.new(
+                            coin.Position.X,
+                            LOCKED_Y,
+                            coin.Position.Z
+                        )
 
-								if dist < 0.5 then
-									break
-								end
-							end
-						end
-					end
-				else
-					workspace.Gravity = 196.2
-					noclip = false
-					local char = game.Players.LocalPlayer.Character
-					if char and char:FindFirstChild("Humanoid") then
-						char.Humanoid.PlatformStand = false
-					end
-					LOCKED_Y = nil
-				end
-			end
-		end
+                        local direction = targetPos - currentPos
+                        local dist = direction.Magnitude
 
+                        if dist > 0.5 then
+                            local step = math.min(SPEED * dt, dist)
+                            local newPos = currentPos + direction.Unit * step
+                            -- Anchor while moving, unanchor briefly to apply CFrame
+                            setAnchored(false)
+                            root.CFrame = CFrame.new(newPos, newPos + direction.Unit) * CFrame.Angles(math.rad(90), 0, 0)
+                            setAnchored(true)
+                        else
+                            -- Reached coin, unanchor to collect it
+                            setAnchored(false)
+                            task.wait(0.1)
+                            setAnchored(true)
+                            break
+                        end
+                    end
+                end
+            end
+        else
+            noclip = false
+            setAnchored(false)
+            local char = game.Players.LocalPlayer.Character
+            if char and char:FindFirstChild("Humanoid") then
+                char.Humanoid.PlatformStand = false
+            end
+            LOCKED_Y = nil
+        end
+    end
+end
 
-		return module
-
+return module
 	end;
 };
 G2L_MODULES[G2L["3b"]] = {
