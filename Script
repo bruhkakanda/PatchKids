@@ -1,4 +1,4 @@
---t6
+--t2
 local G2L = {};
 
 local lockedButtons = false
@@ -1581,6 +1581,8 @@ end
 						local movePos = lastPos
 						clientPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(movePos)
 						if toggleAF then
+							clientPlayer.Character.HumanoidRootPart.Anchored = true
+							task.wait(1)
 							AFModule.toggle(true)
 						end
 
@@ -2154,6 +2156,8 @@ module.Start = function()
                 if math.abs(targetY - LOCKED_Y) > 0.1 then
                     LOCKED_Y = targetY
                 end
+
+				root.Anchored = false
 
                 startMoving(root, coinVisual, coin)
             end
