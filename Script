@@ -1,4 +1,4 @@
---Dandy's World game add1
+--Dandy's World game add2
 local G2L = {};
 
 local lockedButtons = false
@@ -1941,7 +1941,7 @@ G2L_MODULES[G2L["PPT"]] = {
 -- DANDYS WORLD
 G2L_MODULES[G2L["DW"]] = {
 	Closure = function()
-		local script = G2L["PPT"];local newwindow = require(script.Parent.Parent.NewWindow)
+		local script = G2L["DW"];local newwindow = require(script.Parent.Parent.NewWindow)
 		local NewNotification = require(script.Parent.Parent.NewNotification)
 		local tab = require(script.Parent.Parent.NewTab)
 		local RunService = game:GetService("RunService")
