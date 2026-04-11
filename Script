@@ -2606,7 +2606,7 @@ local function C_4()
 
 	local default = newwindow.NewWindow("Default Theme", "", "Settings")
 	local light = newwindow.NewWindow("Light Theme", "", "Settings")
-	local valentines = newwindow.NewWindow("Valentines Theme", "", "Settings")
+	--local valentines = newwindow.NewWindow("Valentines Theme", "", "Settings")
 	local ocean = newwindow.NewWindow("Ocean Theme", "", "Settings")
 
 
@@ -2622,6 +2622,11 @@ local function C_4()
 		local cyber = newwindow.NewWindow("Cyber Theme", "", "Settings")
 		cyber.Activated:Connect(function()
 			library:ApplyTheme("Cyber")
+		end)
+
+		local sakura = newwindow.NewWindow("Sakura Theme", "", "Settings")
+		sakura.Activated:Connect(function()
+			library:ApplyTheme("Sakura")
 		end)
 	end
 
@@ -2645,9 +2650,9 @@ local function C_4()
 	light.Activated:Connect(function()
 		library:ApplyTheme("Light")
 	end)
-	valentines.Activated:Connect(function()
-		library:ApplyTheme("Valentines")
-	end)
+	--valentines.Activated:Connect(function()
+	--	library:ApplyTheme("Valentines")
+	--end)
 	ocean.Activated:Connect(function()
 		library:ApplyTheme("Ocean")
 	end)
