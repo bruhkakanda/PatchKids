@@ -79,7 +79,18 @@ library.Themes = {
 		Outer          = Color3.fromRGB(32, 109, 121),       
 		Glow           = Color3.fromRGB(0, 255, 255),    
 		effects        = true                             
-	}
+	};
+	Sakura = {
+		MainBackground = Color3.fromRGB(255, 228, 236),
+		Third          = Color3.fromRGB(255, 192, 210),
+		Accent         = Color3.fromRGB(255, 105, 155),
+		Text           = Color3.fromRGB(80,  30,  50),
+		Secondary      = Color3.fromRGB(255, 160, 190),
+		Stroke         = Color3.fromRGB(220, 120, 155),
+		Outer          = Color3.fromRGB(220, 120, 155),
+		effects        = true,
+		sakura         = true,
+	},
 }
 
 library.CurrentTheme = library.Themes.Default
@@ -201,6 +212,91 @@ function library:AddParticles()
 	end)
 end
 
+function library:AddSakuraParticles()
+    if not library.CurrentTheme.sakura then return end
+
+    local UI = library.CreatedUI
+    if not UI then return end
+
+    local MainFrame = UI:FindFirstChild("mainframe")
+    if not MainFrame then return end
+    if MainFrame:FindFirstChild("SakuraParticles") then return end
+
+    local ParticleFolder = Instance.new("Folder")
+    ParticleFolder.Name = "SakuraParticles"
+    ParticleFolder.Parent = MainFrame
+
+    local petalColors = {
+        Color3.fromRGB(255, 183, 206),
+        Color3.fromRGB(255, 210, 225),
+        Color3.fromRGB(255, 240, 245),
+        Color3.fromRGB(255, 160, 190),
+        Color3.fromRGB(255, 130, 170),
+    }
+
+    local petalCount = 28
+    local petals = {}
+
+	for i = 1, petalCount do
+		local petal = Instance.new("ImageLabel")
+		petal.BorderSizePixel       = 0
+		petal.BackgroundTransparency = 1
+		petal.Image                 = "rbxassetid://16883247744"
+		petal.ScaleType             = Enum.ScaleType.Fit
+		petal.ImageTransparency     = math.random() * 0.3 + 0.1
+		petal.ZIndex                = 999
+
+		local size = math.random(8, 18)
+		petal.Size = UDim2.fromOffset(size, size)
+		petal.Parent = ParticleFolder
+
+		local absSize = MainFrame.AbsoluteSize
+		local startX  = math.random(0, absSize.X)
+		local startY  = math.random(-absSize.Y, absSize.Y)
+		petal.Position = UDim2.fromOffset(startX, startY)
+
+		petals[#petals + 1] = {
+			Instance   = petal,
+			X          = startX,
+			Y          = startY,
+			SpeedY     = math.random(18, 40),
+			SpeedX     = (math.random() - 0.5) * 18,
+			SwayOffset = math.random() * math.pi * 2,
+			SwaySpeed  = math.random() * 1.5 + 0.5,
+			SwayAmp    = math.random(8, 22),
+		}
+	end
+
+    local connection
+    connection = RunService.RenderStepped:Connect(function(dt)
+        if not library.CurrentTheme.sakura or not MainFrame.Parent then
+            connection:Disconnect()
+            ParticleFolder:Destroy()
+            return
+        end
+
+        local absSize = MainFrame.AbsoluteSize
+
+        for _, p in ipairs(petals) do
+            local petal = p.Instance
+            if petal then
+                p.Y += p.SpeedY * dt
+
+                local swayX = p.X + math.sin(tick() * p.SwaySpeed + p.SwayOffset) * p.SwayAmp
+
+                if p.Y > absSize.Y + 10 then
+                    p.Y = -10
+                    p.X = math.random(0, absSize.X)
+                end
+
+            	petal.Position = UDim2.fromOffset(swayX, p.Y)
+				petal.ImageTransparency =
+					0.15 + math.sin(tick() * 1.5 + p.SwayOffset) * 0.2
+            end
+        end
+    end)
+end
+
 function library:ApplyTheme(themeName)
 	local theme = library.Themes[themeName]
 	if not theme then
@@ -218,6 +314,7 @@ function library:ApplyTheme(themeName)
 	end
 
 	library:AddParticles()
+	library:AddSakuraParticles()
 end
 
 function library:RegisterTheme(instance, property, key)
