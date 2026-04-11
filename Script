@@ -1,4 +1,4 @@
---Dandy's World game add2
+--MM2 AUTOFARM UPDATE
 local G2L = {};
 
 local lockedButtons = false
@@ -1003,7 +1003,6 @@ G2L_MODULES[G2L["39"]] = {
 
 		local db = false
 		local toggleEsp = false
-		local toggleAF = false
 
 		local module = {}
 
@@ -1237,22 +1236,33 @@ G2L_MODULES[G2L["39"]] = {
 	-- ============================================================
 	newwindow.NewTitle("Autofarm", "Main")
 
-	local Autofarm = newwindow.NewToggle("Autofarm", "Autofarm coins!", "Main")
+	local toggleAF = false
+
+	local Autofarm = newwindow.NewToggle("Coin Autofarm", "", "Main")
+	local AutoReset = newwindow.NewToggle("Auto Reset", "", "Main")
+	local TPLD = newwindow.NewToggle("Teleport to lobby when done", "", "Main")
 
 	task.spawn(function()
 		AFModule.Start()
 	end)
 
 	Autofarm.Activated:Connect(function()
-		if toggleAF then
-			toggleAF = false
-			Autofarm.Toggle.Value = false
-			AFModule.toggle(false)
-		else
-			toggleAF = true
-			Autofarm.Toggle.Value = true
-			AFModule.toggle(true)
-		end
+		Autofarm.Toggle.Value = not Autofarm.Toggle.Value
+
+		toggleAF = Autofarm.Toggle.Value
+		AFModule.toggle(Autofarm.Toggle.Value)
+	end)
+
+	AutoReset.Activated:Connect(function()
+		AutoReset.Toggle.Value = not AutoReset.Toggle.Value
+
+		AFModule.Settings.CoinAutofarm.AutoReset = AutoReset.Toggle.Value
+	end)
+
+	TPLD.Activated:Connect(function()
+		TPLD.Toggle.Value = not TPLD.Toggle.Value
+
+		AFModule.Settings.CoinAutofarm.TPWhenDone = TPLD.Toggle.Value
 	end)
 
 	-- ============================================================
@@ -1264,6 +1274,11 @@ G2L_MODULES[G2L["39"]] = {
 	local autograb, coinAura
 
 	if isPremium then
+
+		task.spawn(function()
+			--AFModule.StartPathfinding() --PFT
+		end)
+
 		local premiumTab = tab.New("Premium", 9)
 
 		-- PREMIUM SHERIFF --
@@ -1582,12 +1597,14 @@ end
 					if not isSafe then
 						local movePos = lastPos
 						clientPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(movePos)
-						if toggleAF then
-							clientPlayer.Character.HumanoidRootPart.Anchored = true
-							clientPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(movePos) - Vector3.new(0,5,0)
-							task.wait(1)
-							AFModule.toggle(true)
-						end
+						task.spawn(function()
+							if toggleAF then
+								clientPlayer.Character.HumanoidRootPart.Anchored = true
+								clientPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(movePos) - Vector3.new(0,5,0)
+								task.wait(0.1)
+								AFModule.toggle(true)
+							end
+						end)
 
 						if platform then
 							platform:Destroy()
@@ -2057,7 +2074,15 @@ G2L_MODULES[G2L["DW"]] = {
 G2L_MODULES[G2L["3a"]] = {
 	Closure = function()
 		local script = G2L["3a"];
-		local module = {Toggle = false}
+		local module = {
+			Settings = {
+				CoinAutofarm = {
+					AutoReset = false;
+					TPWhenDone = false;
+				}
+			}
+		
+		}
 local NewNotification = require(script.Parent.Parent.Parent.NewNotification)
 
 local TOGGLE = false
@@ -2217,7 +2242,22 @@ local function startMoving(root, coinVisual, coin)
     end)
 end
 
+local function tpToLobby()
+	local lobby = workspace:FindFirstChild("Lobby") or workspace:FindFirstChild("RegularLobby")
+		if lobby then
+			local spawns = lobby:FindFirstChild("Spawns")
+			if spawns then
+				local rCF = spawns:GetChildren()[math.random(1, #spawns:GetChildren())].CFrame + Vector3.new(0, 2, 0)
+				game.Players.LocalPlayer.Character:PivotTo(rCF)
+			end
+		end
+end
+
 module.Start = function()
+	local this = {}
+	this.id = "CoinAutofarm"
+	this.settings = module.Settings[this.id]
+
     mainConnection = RunService.Heartbeat:Connect(function()
         if os.clock() - lastTick < 0.2 then return end
         lastTick = os.clock()
@@ -2248,7 +2288,12 @@ module.Start = function()
                         noclip = false
                         hum.PlatformStand = false
                         workspace.Gravity = 196.2
-                        hum.Health = 0
+						if this.settings.AutoReset then
+                       		hum.Health = 0
+						end
+						if this.settings.TPWhenDone then
+                       		tpToLobby()
+						end
                         canReset = false
                         stopNoclip()
                         stopMoving()
