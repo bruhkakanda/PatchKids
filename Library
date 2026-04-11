@@ -1794,7 +1794,7 @@ library.CreateHUD = function(V)
 	G2L["3b"]["AnchorPoint"] = Vector2.new(0.5, 1);
 	G2L["3b"]["Size"] = UDim2.new(0.22688, 0, 0.26415, 0);
 	G2L["3b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-	G2L["3b"]["Text"] = [[v1]];
+	G2L["3b"]["Text"] = "v" .. V;
 	G2L["3b"]["Name"] = [[version]];
 	G2L["3b"]["Position"] = UDim2.new(0.18681, 0, 0.8596, 0);
 	library:RegisterTheme(G2L["3b"], "TextColor3", "Text");
