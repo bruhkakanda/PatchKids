@@ -1627,6 +1627,8 @@ end
 				}
 				local unboxResult = game.ReplicatedStorage.Remotes.Shop.OpenCrate:InvokeServer(unpack(args))
 				if unboxResult then
+					local args2 = {unboxResult}
+					game.ReplicatedStorage.Remotes.Shop.CrateCompleted:FireServer(unpack(args))
 					if webhookEnabled and webhook ~= "" then
 						local info = ITEM_MODULE[tostring(unboxResult)]
 						if info then
