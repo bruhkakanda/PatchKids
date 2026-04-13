@@ -1403,6 +1403,8 @@ G2L_MODULES[G2L["39"]] = {
 	-- EVENT TAB
 	-- ============================================================
 
+	--[[
+
 	local function SendMessage(url, itemName, rarity, playerName)
     local http = game:GetService("HttpService")
 
@@ -1475,6 +1477,8 @@ end
 	        return parts[1]
 	    end
 	end
+
+	]]
 
 	-- ============================================================
 	-- UNIFIED RUNSERVICE LOOP
@@ -1617,6 +1621,8 @@ end
 			end
 		end
 
+		--[[  EVENT TAB LOOOPPPPP
+
 		if unboxTimer >= UNBOX_INTERVAL then
 			unboxTimer = 0
 			if autoUnbox.Toggle.Value == true then
@@ -1641,6 +1647,8 @@ end
 				end
 			end
 		end
+
+		]]
 
 		-- ESP (every 1s)
 		if espTimer >= ESP_INTERVAL then
