@@ -1,4 +1,4 @@
-
+-- a
 local G2L = {};
 
 local lockedButtons = false
@@ -663,7 +663,8 @@ G2L_MODULES[G2L["2a"]] = {
 				tabButton.ImageLabel.ImageColor3 = Color3.fromRGB(164, 157, 255)
 			end
 
-			local newT = newTab.Label:Clone()
+			if newTab:FindFirstChild("Label") then
+local newT = newTab.Label:Clone()
 			newT.Text = ""
 			newT.Size = UDim2.fromScale(1,0.3)
 			newT.LayoutOrder = 1000
@@ -671,6 +672,7 @@ G2L_MODULES[G2L["2a"]] = {
 			newT.Parent = newTab
 			newT.Name = "End"
 			newT.BackgroundTransparency = 1
+end
 
 			local tabColor = tabButton.BackgroundColor3
 
