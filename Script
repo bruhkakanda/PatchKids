@@ -1,4 +1,4 @@
---MM2 AUTOFARM UPDATE
+
 local G2L = {};
 
 local lockedButtons = false
@@ -7,10 +7,12 @@ local Drags = {}
 local CreatedButtons = {}
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/Library"))()
 print("library never failed to load - just useless info")
-local clientVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/version"))()
+local clientVersion, interfaceData = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/version"))()
 local API = library.CreateHUD(tostring(clientVersion))
 
 local GeneratedTemplates = library.CreateTemplates()
+
+local dashboard = nil
 
 
 -- StarterGui.PK_API.mainframe.LocalScript
@@ -565,22 +567,83 @@ G2L_MODULES[G2L["22"]] = {
 };
 G2L_MODULES[G2L["2a"]] = {
 	Closure = function()
-		local script = G2L["2a"];local module = {
+		local script = G2L["2a"];
+		local module = {
 			Icons = {
-				Main = {"rbxassetid://130068439240504", 0.8},
-				Settings = {"rbxassetid://7059346373", 1},
-				Universal = {"rbxassetid://99625725727957", 0.75},
-				Premium = {"rbxassetid://73852594182151", 1},
-				Event = {"rbxassetid://16426213685", 0.9}
+				Main = {"rbxassetid://11894535915", 0.75},
+				Settings = {"rbxassetid://7059346373", 0.9},
+				Universal = {"rbxassetid://110892668707325", 0.75},
+				Premium = {"rbxassetid://80837671480429", 0.9},
+				Event = {"rbxassetid://104632106227011", 0.9},
+				Home = {"rbxassetid://103432341358612", 0.75}
 			}
 		}
 
+		local function newUnderline(text, toAdd)
+			local symbol = " •"
+			local suffix = "<br/>"
+			
+			local genText = text .. suffix .. symbol .. " " .. toAdd
+			
+			return genText
+		end
+
+		local function addTitle(text, toAdd)
+			local suffix = "<br/> <br/>"
+			if text == "" then
+				suffix = ""
+			end
+			
+			local genText = text .. suffix .. "[" .. toAdd .. "]"
+			
+			return genText
+		end
+
+		module.FixDashboard = function(data)
+			local currentChange = ""
+			
+			local changelog = dashboard.Changelog
+			local Info = changelog.Info
+			local Title = changelog.Changelog
+			
+			local Header = data.Header
+			local ver = data.Version
+			local Index = data.Index
+			
+			Title.Text = ver
+			
+			for _, indexName in Index do
+				local header = Header[indexName]
+				if header then
+					local toChange = addTitle(currentChange, indexName)
+					currentChange = toChange
+					for _, log in header do
+						local toChange = newUnderline(currentChange, log)
+						currentChange = toChange
+					end
+				end
+			end
+			
+			Info.Text = currentChange
+		end
+
 		function module.New(TabName, val, icon)
-			local newTab = GeneratedTemplates.TemplateTab:Clone()
-			newTab.Label.Text = TabName
-			newTab.Label.Visible = false
-			newTab.Name = TabName
-			newTab.Parent = script.Parent.Parent.NewTabs
+			local newTab
+
+			if TabName ~= "Home" then
+				newTab = GeneratedTemplates.TemplateTab:Clone()
+				newTab.Label.Text = TabName
+				newTab.Label.Visible = false
+				newTab.Name = TabName
+				newTab.Parent = script.Parent.Parent.NewTabs
+			else
+				newTab = library.Dashboard()
+				newTab.Name = TabName
+				newTab.Parent = script.Parent.Parent.NewTabs
+
+				dashboard = newTab
+			end
+			
 			local tabButton = GeneratedTemplates.TabButton:Clone()
 			tabButton.Name = TabName
 			tabButton.Title.Text = TabName
@@ -592,6 +655,12 @@ G2L_MODULES[G2L["2a"]] = {
 			if Image then
 				tabButton.ImageLabel.Image = Image[1]
 				tabButton.ImageLabel.Size = UDim2.fromScale(tabButton.ImageLabel.Size.X.Scale, Image[2])
+			end
+			if TabName == "Home" then
+				tabButton.LayoutOrder = -10
+			elseif TabName == "Premium" then
+				tabButton.Title.TextColor3 = Color3.fromRGB(164, 157, 255)
+				tabButton.ImageLabel.ImageColor3 = Color3.fromRGB(164, 157, 255)
 			end
 
 			local newT = newTab.Label:Clone()
@@ -2607,7 +2676,6 @@ local function C_4()
 		end
 	end)
 
-	task.wait(0.5)
 	local ThemesTab = tab.New("Settings", 10)
 
 	newwindow.NewTitle("Themes", "Settings")
@@ -2664,6 +2732,9 @@ local function C_4()
 	ocean.Activated:Connect(function()
 		library:ApplyTheme("Ocean")
 	end)
+
+	local Dashboard = tab.New("Home")
+	tab.FixDashboard(interfaceData.Changelog or {})
 end;
 task.spawn(C_4);
 -- StarterGui.PK_API.mainframe.topbar.gamename.LocalScript
@@ -2743,6 +2814,8 @@ local function C_5f()
 		API.mainframe.Profile.Profile.Free.Visible = true
 		API.mainframe.Profile.Profile.Paid.Visible = false
 	end
+
+	
 
 	if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
 		local SAVE_FOLDER  = "PatchKids"
