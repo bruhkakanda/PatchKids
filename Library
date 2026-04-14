@@ -1,4 +1,4 @@
--- new loading
+-- a
 local library = {}
 local RunService = game:GetService("RunService")   
 local UserInputService = game:GetService("UserInputService")
@@ -554,7 +554,7 @@ G2L["6"]["Transparency"] = NumberSequence.new{NumberSequenceKeypoint.new(0.000, 
 -- StarterGui.ToUpdate.Dashboard.Changelog
 G2L["7"] = Instance.new("Frame", G2L["2"]);
 G2L["7"]["BorderSizePixel"] = 0;
-G2L["7"]["Size"] = UDim2.new(0.9, 0, 0.6, 0);
+G2L["7"]["Size"] = UDim2.new(0.9, 0, 1, 0);
 G2L["7"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["7"]["Name"] = [[Changelog]];
 G2L["7"]["BackgroundTransparency"] = 0.5;
@@ -623,7 +623,6 @@ G2L["d"]["RichText"] = true;
 G2L["d"]["AnchorPoint"] = Vector2.new(0.5, 0);
 G2L["d"]["Size"] = UDim2.new(0.95, 0, 0.8, 0);
 G2L["d"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["d"]["Text"] = [[[MM2] <br/> • Removed Valentines Event<br/> • Added Autofarm Safe Mode for Premium]];
 G2L["d"]["Name"] = [[Info]];
 G2L["d"]["Position"] = UDim2.new(0.5, 0, 0.2, 0);
 library:RegisterTheme(G2L["d"], "TextColor3", "Text")
