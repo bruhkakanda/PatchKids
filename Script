@@ -1,4 +1,4 @@
--- a
+-- aa
 local G2L = {};
 
 local lockedButtons = false
@@ -572,10 +572,10 @@ G2L_MODULES[G2L["2a"]] = {
 			Icons = {
 				Main = {"rbxassetid://11894535915", 0.75},
 				Settings = {"rbxassetid://7059346373", 0.9},
-				Universal = {"rbxassetid://110892668707325", 0.75},
-				Premium = {"rbxassetid://80837671480429", 0.9},
-				Event = {"rbxassetid://104632106227011", 0.9},
-				Home = {"rbxassetid://103432341358612", 0.75}
+				Universal = {"rbxassetid://102051406940109", 0.75},
+				Premium = {"rbxassetid://108595388656831", 0.9},
+				Event = {"rbxassetid://76784744831858", 0.9},
+				Home = {"rbxassetid://104608276336944", 0.75}
 			}
 		}
 
