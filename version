@@ -12,11 +12,11 @@ local interfaceData = {
         "Fixed Dodge Murderer",
 		  },
 		  Settings = {
-			  "Removed Valentine's Theme",
-        "Added <font color="rgb(164,157,255)">Premium</font> Sakura Theme"
+			"Removed Valentine's Theme",
+       		'Added <font color="rgb(164,157,255)">Premium</font> Sakura Theme'
 		  },
       Interface = {
-        "<font color="rgb(144,238,144)">Dropdown is being worked on</font>"
+        '<font color="rgb(144,238,144)">Dropdown is being worked on</font>'
       }
 	  }
   }
