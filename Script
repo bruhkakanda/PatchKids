@@ -576,6 +576,7 @@ G2L_MODULES[G2L["2a"]] = {
 				newBG.Size = UDim2.fromScale(1,1)
 				newBG.Info:Destroy()
 				newBG.Changelog:Destroy()
+				newBG.ZIndex = -10
 				
 				newBG:AddTag("A")
 				library.AddThemesToTemplate(newBG)
