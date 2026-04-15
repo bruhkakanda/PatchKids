@@ -583,6 +583,7 @@ G2L_MODULES[G2L["2a"]] = {
             local tabButton             = GeneratedTemplates.TabButton:Clone()
             tabButton.Name              = TabName
             tabButton.Title.Text        = TabName
+			tabButton.Title.TextXAlignment = Enum.TextXAlignment.Left
             tabButton.LayoutOrder       = val or 1
             tabButton.Visible           = true
             tabButton.Parent            = script.Parent.Parent.Tabs
