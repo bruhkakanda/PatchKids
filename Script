@@ -540,7 +540,7 @@ G2L_MODULES[G2L["2a"]] = {
             end
 
             changelog.Info.Text = currentChange
-			local backgroundUI = changelog.Changelog
+			local backgroundUI = changelog.BG
 
 			-- wait for UI to update
 			task.wait()
@@ -569,10 +569,13 @@ G2L_MODULES[G2L["2a"]] = {
 
 				local changelog = newTab.Changelog
 				local newBG = changelog:Clone()
+				newBG.Name = "BG"
 				newBG.Parent = changelog
 				changelog.BackgroundTransparency = 1
 				changelog.UIStroke.Enabled = false
 				newBG.Size = UDim2.fromScale(1,1)
+				newBG.Info:Destroy()
+				newBG.Changelog:Destroy()
 				
 				newBG:AddTag("A")
 				library.AddThemesToTemplate(newBG)
