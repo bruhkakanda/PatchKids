@@ -17,6 +17,7 @@ local interfaceData = {
 		  },
       Interface = {
 		'<font color="rgb(144,238,144)">Fixed Dashboard resizing</font>',
+		'<font color="rgb(144,238,144)">Fixed Tab button alignment</font>',
         '<font color="rgb(144,238,144)">Dropdown is being worked on</font>'
       }
 	  }
