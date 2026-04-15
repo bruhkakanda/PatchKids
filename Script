@@ -548,7 +548,7 @@ G2L_MODULES[G2L["2a"]] = {
 			local textBounds = changelog.Info.TextBounds
 
 			-- now you can resize background
-			backgroundUI.Size = UDim2.new(0, textBounds.X + 20, 0, textBounds.Y + 20)
+			backgroundUI.Size = UDim2.new(1, 0, 0.4, textBounds.Y)
         end
 
         -- ── New tab creator ───────────────────────────────────
