@@ -16,6 +16,7 @@ local interfaceData = {
        		'Added <font color="rgb(164,157,255)">Premium</font> Sakura Theme'
 		  },
       Interface = {
+		'<font color="rgb(144,238,144)">Fixed Dashboard resizing</font>',
         '<font color="rgb(144,238,144)">Dropdown is being worked on</font>'
       }
 	  }
