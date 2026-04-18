@@ -494,6 +494,285 @@ B = Stroke, Color
 C = Text, Color
 ]]
 
+function library.CreateDropdown()
+
+	local CollectionService = game:GetService("CollectionService");
+	local G2L = {};
+	G2L["1"] = Instance.new("ScreenGui");
+
+	G2L["2"] = Instance.new("Frame", G2L["1"]);
+	G2L["2"]["Visible"] = false;
+	G2L["2"]["BorderSizePixel"] = 0;
+	G2L["2"]["BackgroundColor3"] = Color3.fromRGB(67, 67, 67);
+	G2L["2"]["Size"] = UDim2.new(0.8, 0, 0.14, 0);
+	G2L["2"]["Position"] = UDim2.new(0.16405, 0, 0.8, 0);
+	G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["2"]["Name"] = [[DropdownTemplate]];
+	G2L["2"]["BackgroundTransparency"] = 0.4;
+
+	-- Tags
+	CollectionService:AddTag(G2L["2"], [[A]]);
+
+	-- StarterGui.ToUpdate.DropdownTemplate.UICorner
+	G2L["3"] = Instance.new("UICorner", G2L["2"]);
+	G2L["3"]["CornerRadius"] = UDim.new(0.3, 0);
+
+
+	-- StarterGui.ToUpdate.DropdownTemplate.UIStroke
+	G2L["4"] = Instance.new("UIStroke", G2L["2"]);
+	G2L["4"]["Transparency"] = 0.5;
+	G2L["4"]["Color"] = Color3.fromRGB(101, 101, 101);
+
+
+	-- StarterGui.ToUpdate.DropdownTemplate.Title
+	G2L["5"] = Instance.new("TextLabel", G2L["2"]);
+	G2L["5"]["TextWrapped"] = true;
+	G2L["5"]["BorderSizePixel"] = 0;
+	G2L["5"]["TextSize"] = 14;
+	G2L["5"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+	G2L["5"]["TextScaled"] = true;
+	G2L["5"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["5"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+	G2L["5"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["5"]["BackgroundTransparency"] = 1;
+	G2L["5"]["Size"] = UDim2.new(0.60072, 0, 0.8, 0);
+	G2L["5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["5"]["Text"] = [[Theme]];
+	G2L["5"]["Name"] = [[Title]];
+	G2L["5"]["Position"] = UDim2.new(0.01587, 0, 0.08585, 0);
+
+	-- Tags
+	CollectionService:AddTag(G2L["5"], [[C]]);
+
+	-- StarterGui.ToUpdate.DropdownTemplate.DropdownButton
+	G2L["6"] = Instance.new("Frame", G2L["2"]);
+	G2L["6"]["BorderSizePixel"] = 0;
+	G2L["6"]["BackgroundColor3"] = Color3.fromRGB(67, 67, 67);
+	G2L["6"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+	G2L["6"]["Size"] = UDim2.new(0.325, 0, 0.7, 0);
+	G2L["6"]["Position"] = UDim2.new(0.8, 0, 0.5, 0);
+	G2L["6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["6"]["Name"] = [[DropdownButton]];
+	G2L["6"]["BackgroundTransparency"] = 0.4;
+
+
+	-- StarterGui.ToUpdate.DropdownTemplate.DropdownButton.UICorner
+	G2L["7"] = Instance.new("UICorner", G2L["6"]);
+	G2L["7"]["CornerRadius"] = UDim.new(0.3, 0);
+
+
+	-- StarterGui.ToUpdate.DropdownTemplate.DropdownButton.UIStroke
+	G2L["8"] = Instance.new("UIStroke", G2L["6"]);
+	G2L["8"]["Transparency"] = 0.5;
+	G2L["8"]["Color"] = Color3.fromRGB(101, 101, 101);
+
+
+	-- StarterGui.ToUpdate.DropdownTemplate.DropdownButton.Shadow
+	G2L["9"] = Instance.new("UIGradient", G2L["6"]);
+	G2L["9"]["Name"] = [[Shadow]];
+	G2L["9"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(201, 201, 201)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(201, 201, 201))};
+
+
+	-- StarterGui.ToUpdate.DropdownTemplate.DropdownButton.Option
+	G2L["a"] = Instance.new("TextLabel", G2L["6"]);
+	G2L["a"]["TextWrapped"] = true;
+	G2L["a"]["BorderSizePixel"] = 0;
+	G2L["a"]["TextSize"] = 14;
+	G2L["a"]["TextScaled"] = true;
+	G2L["a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+	G2L["a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["a"]["BackgroundTransparency"] = 1;
+	G2L["a"]["AnchorPoint"] = Vector2.new(0, 0.5);
+	G2L["a"]["Size"] = UDim2.new(0.75, 0, 0.9, 0);
+	G2L["a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["a"]["Text"] = [[Default]];
+	G2L["a"]["Name"] = [[Option]];
+	G2L["a"]["Position"] = UDim2.new(0, 0, 0.5, 0);
+	CollectionService:AddTag(G2L["a"], [[C]]);
+
+
+	-- StarterGui.ToUpdate.DropdownTemplate.DropdownButton.Icon
+	G2L["b"] = Instance.new("ImageLabel", G2L["6"]);
+	G2L["b"]["BorderSizePixel"] = 0;
+	G2L["b"]["ScaleType"] = Enum.ScaleType.Fit;
+	G2L["b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["b"]["AnchorPoint"] = Vector2.new(1, 0.5);
+	G2L["b"]["Image"] = [[rbxassetid://126394619946416]];
+	G2L["b"]["Size"] = UDim2.new(0.25, 0, 0.7, 0);
+	G2L["b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["b"]["BackgroundTransparency"] = 1;
+	G2L["b"]["Name"] = [[Icon]];
+	G2L["b"]["Position"] = UDim2.new(1, 0, 0.5, 0);
+
+
+	-- StarterGui.ToUpdate.DropdownTemplate.DropdownButton.Button
+	G2L["c"] = Instance.new("TextButton", G2L["6"]);
+	G2L["c"]["TextWrapped"] = true;
+	G2L["c"]["BorderSizePixel"] = 0;
+	G2L["c"]["TextSize"] = 14;
+	G2L["c"]["TextScaled"] = true;
+	G2L["c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["c"]["BackgroundColor3"] = Color3.fromRGB(133, 172, 255);
+	G2L["c"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+	G2L["c"]["BackgroundTransparency"] = 1;
+	G2L["c"]["Size"] = UDim2.new(1, 0, 1, 0);
+	G2L["c"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["c"]["Text"] = [[]];
+	G2L["c"]["Name"] = [[Button]];
+
+
+	-- StarterGui.ToUpdate.DropdownTemplate.DropdownButton.Button.UICorner
+	G2L["d"] = Instance.new("UICorner", G2L["c"]);
+	G2L["d"]["CornerRadius"] = UDim.new(0.3, 0);
+
+
+	-- StarterGui.ToUpdate.DropdownTemplate.DropdownButton.UIScale
+	G2L["e"] = Instance.new("UIScale", G2L["6"]);
+
+
+
+	-- StarterGui.ToUpdate.Dropdown
+	G2L["f"] = Instance.new("Frame", G2L["1"]);
+	G2L["f"]["Visible"] = false;
+	G2L["f"]["Active"] = true;
+	G2L["f"]["BorderSizePixel"] = 0;
+	G2L["f"]["BackgroundColor3"] = Color3.fromRGB(67, 67, 67);
+	G2L["f"]["AnchorPoint"] = Vector2.new(0.5, 0);
+	G2L["f"]["ClipsDescendants"] = true;
+	G2L["f"]["Size"] = UDim2.new(0.2, 0, 0.31438, 0);
+	G2L["f"]["Position"] = UDim2.new(0.81613, 0, 0.36549, 0);
+	G2L["f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["f"]["Name"] = [[Dropdown]];
+	G2L["f"]["BackgroundTransparency"] = 0.4;
+
+	-- Tags
+	CollectionService:AddTag(G2L["f"], [[A]]);
+
+	-- StarterGui.ToUpdate.Dropdown.Shadow
+	G2L["10"] = Instance.new("UIGradient", G2L["f"]);
+	G2L["10"]["Name"] = [[Shadow]];
+	G2L["10"]["Color"] = ColorSequence.new{ColorSequenceKeypoint.new(0.000, Color3.fromRGB(171, 171, 171)),ColorSequenceKeypoint.new(1.000, Color3.fromRGB(171, 171, 171))};
+
+
+	-- StarterGui.ToUpdate.Dropdown.UICorner
+	G2L["11"] = Instance.new("UICorner", G2L["f"]);
+	G2L["11"]["CornerRadius"] = UDim.new(0.1, 0);
+
+
+	-- StarterGui.ToUpdate.Dropdown.UIStroke
+	G2L["12"] = Instance.new("UIStroke", G2L["f"]);
+	G2L["12"]["Transparency"] = 0.5;
+	G2L["12"]["Color"] = Color3.fromRGB(101, 101, 101);
+
+
+	-- StarterGui.ToUpdate.Dropdown.Container
+	G2L["13"] = Instance.new("ScrollingFrame", G2L["f"]);
+	G2L["13"]["Active"] = true;
+	G2L["13"]["BorderSizePixel"] = 0;
+	G2L["13"]["CanvasSize"] = UDim2.new(0, 0, 0, 0);
+	G2L["13"]["Name"] = [[Container]];
+	G2L["13"]["ScrollBarImageTransparency"] = 1;
+	G2L["13"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["13"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+	G2L["13"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
+	G2L["13"]["ClipsDescendants"] = false;
+	G2L["13"]["Size"] = UDim2.new(1, 0, 0.9, 0);
+	G2L["13"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
+	G2L["13"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["13"]["ScrollBarThickness"] = 2;
+	G2L["13"]["BackgroundTransparency"] = 1;
+
+
+	-- StarterGui.ToUpdate.Dropdown.Container.UIListLayout
+	G2L["14"] = Instance.new("UIListLayout", G2L["13"]);
+	G2L["14"]["HorizontalAlignment"] = Enum.HorizontalAlignment.Center;
+	G2L["14"]["Padding"] = UDim.new(0.05, 0);
+	G2L["14"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
+
+
+	-- StarterGui.ToUpdate.Dropdown.Container.Option
+	G2L["15"] = Instance.new("Frame", G2L["13"]);
+	G2L["15"]["BorderSizePixel"] = 0;
+	G2L["15"]["BackgroundColor3"] = Color3.fromRGB(67, 67, 67);
+	G2L["15"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+	G2L["15"]["Size"] = UDim2.new(0.9, 0, 0.25, 0);
+	G2L["15"]["Position"] = UDim2.new(0.8, 0, 0.5, 0);
+	G2L["15"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["15"]["Name"] = [[Option]];
+	G2L["15"]["BackgroundTransparency"] = 0.4;
+	CollectionService:AddTag(G2L["15"], [[A]]);
+
+	-- StarterGui.ToUpdate.Dropdown.Container.Option.UICorner
+	G2L["16"] = Instance.new("UICorner", G2L["15"]);
+	G2L["16"]["CornerRadius"] = UDim.new(0.3, 0);
+
+
+	-- StarterGui.ToUpdate.Dropdown.Container.Option.Option
+	G2L["17"] = Instance.new("TextLabel", G2L["15"]);
+	G2L["17"]["TextWrapped"] = true;
+	G2L["17"]["BorderSizePixel"] = 0;
+	G2L["17"]["TextSize"] = 14;
+	G2L["17"]["TextXAlignment"] = Enum.TextXAlignment.Left;
+	G2L["17"]["TextScaled"] = true;
+	G2L["17"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["17"]["FontFace"] = Font.new([[rbxasset://fonts/families/Inconsolata.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+	G2L["17"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["17"]["BackgroundTransparency"] = 1;
+	G2L["17"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+	G2L["17"]["Size"] = UDim2.new(0.75181, 0, 0.8, 0);
+	G2L["17"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["17"]["Text"] = [[Default]];
+	G2L["17"]["Name"] = [[Option]];
+	G2L["17"]["Position"] = UDim2.new(0.40091, 0, 0.5, 0);
+	CollectionService:AddTag(G2L["17"], [[C]]);
+
+
+	-- StarterGui.ToUpdate.Dropdown.Container.Option.Button
+	G2L["18"] = Instance.new("TextButton", G2L["15"]);
+	G2L["18"]["TextWrapped"] = true;
+	G2L["18"]["BorderSizePixel"] = 0;
+	G2L["18"]["TextSize"] = 14;
+	G2L["18"]["TextScaled"] = true;
+	G2L["18"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["18"]["BackgroundColor3"] = Color3.fromRGB(133, 172, 255);
+	G2L["18"]["FontFace"] = Font.new([[rbxasset://fonts/families/Roboto.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+	G2L["18"]["BackgroundTransparency"] = 1;
+	G2L["18"]["Size"] = UDim2.new(1, 0, 1, 0);
+	G2L["18"]["BorderColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["18"]["Text"] = [[]];
+	G2L["18"]["Name"] = [[Button]];
+
+
+	-- StarterGui.ToUpdate.Dropdown.Container.Option.UIScale
+	G2L["19"] = Instance.new("UIScale", G2L["15"]);
+
+
+
+	-- StarterGui.ToUpdate.Dropdown.Container.Option.UIStroke
+	G2L["1a"] = Instance.new("UIStroke", G2L["15"]);
+	G2L["1a"]["Transparency"] = 0.7;
+	G2L["1a"]["Color"] = Color3.fromRGB(101, 101, 101);
+
+
+	-- StarterGui.ToUpdate.Dropdown.Container.Option.Icon
+	G2L["1b"] = Instance.new("ImageLabel", G2L["15"]);
+	G2L["1b"]["BorderSizePixel"] = 0;
+	G2L["1b"]["ScaleType"] = Enum.ScaleType.Fit;
+	G2L["1b"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+	G2L["1b"]["AnchorPoint"] = Vector2.new(1, 0.5);
+	G2L["1b"]["Image"] = [[rbxassetid://126394619946416]];
+	G2L["1b"]["Size"] = UDim2.new(0.25, 0, 0.7, 0);
+	G2L["1b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+	G2L["1b"]["BackgroundTransparency"] = 1;
+	G2L["1b"]["Name"] = [[Icon]];
+	G2L["1b"]["Position"] = UDim2.new(1, 0, 0.5, 0);
+
+
+
+	return G2L["1"]
+end
+
 function library.Dashboard()
 	local G2L = {};
 
