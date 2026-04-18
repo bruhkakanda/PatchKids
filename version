@@ -1,25 +1,17 @@
-local ver =  0.01
+local ver =  0.0101
 local verType = "Alpha "
 local interfaceData = {
   Changelog = {
     Version = verType .. tostring(ver),
-    Index = {"MM2","Settings", "Interface"},
+    Index = {"Settings", "Interface"},
     Header = {
-		  MM2 = {
-		  	"Removed Valentine's Event Tab",
-        "Added Auto Reset to Autofarm",
-        "Added 'TP to lobby' to Autofarm",
-        "Fixed Dodge Murderer",
-		  },
 		  Settings = {
-			"Removed Valentine's Theme",
-       		'Added <font color="rgb(164,157,255)">Premium</font> Sakura Theme'
-		  },
-      Interface = {
-		'<font color="rgb(144,238,144)">Fixed Dashboard resizing</font>',
-		'<font color="rgb(144,238,144)">Fixed Tab button alignment</font>',
-        '<font color="rgb(144,238,144)">Dropdown is being worked on</font>'
-      }
+			'Added Dropdowns to Themes'
+	      }
+	      Interface = {
+			'<font color="rgb(144,238,144)">Fixed Dashboard resizing again</font>',
+			'<font color="rgb(144,238,144)">Dropdown Interface added</font>'
+	      }
 	  }
   }
 }
