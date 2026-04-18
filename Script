@@ -1,5 +1,5 @@
 -- ══════════════════════════════════════════════════════════════
--- PATCHKIDS MAIN SCRIPT
+-- PATCHKIDS MAIN SCRIPT s
 -- ══════════════════════════════════════════════════════════════
 
 local G2L = {}
@@ -552,7 +552,7 @@ G2L_MODULES[G2L["5"]] = {
 					local button = clone.DropdownButton
 					local buttonPos = button.AbsolutePosition
 					local buttonSize = button.AbsoluteSize
-					local parentPos = UI.Parent.AbsolutePosition
+					local parentPos = API.mainframe.AbsolutePosition
 					local dropdownSize = dropdownTemplates.Dropdown.AbsoluteSize
 
 					local x = (buttonPos.X - parentPos.X) + (buttonSize.X / 2)
@@ -2303,10 +2303,6 @@ task.spawn(function()
         ButtonLock.Toggle.Value = not ButtonLock.Toggle.Value
         library.ToggleDragging()
     end)
-
-    default.Activated:Connect(function() library:ApplyTheme("Default") end)
-    light.Activated:Connect(function()   library:ApplyTheme("Light")   end)
-    ocean.Activated:Connect(function()   library:ApplyTheme("Ocean")   end)
 
     tab.New("Home")
     tab.FixDashboard(interfaceData.Changelog or {})
