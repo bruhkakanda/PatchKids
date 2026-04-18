@@ -23,6 +23,7 @@ local clientVersion, interfaceData = loadstring(game:HttpGet("https://raw.github
 
 local API                = library.CreateHUD(tostring(clientVersion))
 local GeneratedTemplates = library.CreateTemplates()
+local dropdownTemplates  = library.CreateDropdown()
 
 local dashboard = nil
 
@@ -447,6 +448,130 @@ G2L_MODULES[G2L["5"]] = {
                 end
             }
         end
+
+		local function createDropdown(data, options, func)
+			local TS = game:GetService("TweenService")
+			
+			local current = data.CurrentDropdown
+			if current then
+				current:Destroy()
+				data.CurrentDropdown = nil
+				return
+			end
+			
+			local newDropdown = dropdownTemplates.Dropdown:Clone()
+			local template = newDropdown.Container.Option
+			
+			local selectedOption = data.Selected
+			
+			local function updateOptions()
+				selectedOption = data.Selected
+				
+				for _, child in newDropdown.Container:GetChildren() do
+					if child:IsA("Frame") and child.Visible then
+						if child.Name == selectedOption then
+							child.Icon.Visible = true
+						else
+							child.Icon.Visible = false
+						end
+					end
+				end
+			end
+			
+			local function addTweens(frame)
+				local button : TextButton = frame.Button
+				local UIScale = frame.UIScale
+				
+				local tweenInfo = TweenInfo.new(0.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+				
+				button.Changed:Connect(function()
+					if button.GuiState == Enum.GuiState.Hover then
+						TS:Create(UIScale, tweenInfo, {Scale = 1.05}):Play()
+					elseif button.GuiState == Enum.GuiState.Idle then
+						TS:Create(UIScale, tweenInfo, {Scale = 1}):Play()
+					elseif button.GuiState == Enum.GuiState.Press then
+						TS:Create(UIScale, tweenInfo, {Scale = 0.95}):Play()
+					end
+				end)
+			end
+			
+			local scaler = Instance.new("UIScale", newDropdown)
+			scaler.Scale = 0
+			local tween = TS:Create(scaler, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Scale = 1})
+			
+			template.Visible = false
+			for _, option in options do
+				local newOption = template:Clone()
+				newOption.Name = option
+				newOption.Option.Text = option
+				newOption.Visible = true
+				newOption.Parent = newDropdown.Container
+				if option == selectedOption then
+					newOption.Icon.Visible = true
+				else
+					newOption.Icon.Visible = false
+				end
+				
+				newOption.Button.Activated:Connect(function()
+					data.Selected = option
+					func(option)
+					updateOptions()
+					data.updateData()
+				end)
+				
+				addTweens(newOption)
+			end
+			
+			newDropdown.Parent = API.mainframe
+			newDropdown.Visible = true
+			data.CurrentDropdown = newDropdown
+			
+			local pos = data.getPosition()
+			
+			newDropdown.Position = pos
+			
+			tween:Play()
+		end
+		
+		function module.NewDropdown(Title, Desc, tab, info)
+			
+			local clone = dropdownTemplates.DropdownTemplate:Clone()
+			clone.Title.Text = Title
+			clone.Parent = API.mainframe.NewTabs[tab]
+			clone.Visible = true
+			
+			local def = info.def
+			local options = info.Options
+			
+			local data
+			data = {
+				Selected = def,
+				CurrentDropdown = nil,
+				
+				getPosition = function()
+					local button = clone.DropdownButton
+					local buttonPos = button.AbsolutePosition
+					local buttonSize = button.AbsoluteSize
+					local parentPos = UI.Parent.AbsolutePosition
+					local dropdownSize = dropdownTemplates.Dropdown.AbsoluteSize
+
+					local x = (buttonPos.X - parentPos.X) + (buttonSize.X / 2)
+					local y = buttonPos.Y + buttonSize.Y - parentPos.Y
+
+					return UDim2.new(0, x, 0, y)
+				end,
+				
+				updateData = function()
+					clone.DropdownButton.Option.Text = data.Selected
+				end,
+			}
+			
+			clone.DropdownButton.Button.Activated:Connect(function()
+				createDropdown(data, options, info.buttonFunc)
+			end)
+
+			return clone, data
+		end
 
         return module
     end
@@ -2131,22 +2256,40 @@ task.spawn(function()
     tab.New("Settings", 10)
     newwindow.NewTitle("Themes", "Settings")
 
-    local default = newwindow.NewWindow("Default Theme", "", "Settings")
-    local light   = newwindow.NewWindow("Light Theme",   "", "Settings")
-    local ocean   = newwindow.NewWindow("Ocean Theme",   "", "Settings")
+	local themesData = {
+		def = "Default",
+		
+		Options = {
+			"Default",
+			"Light",
+			"Ocean"
+		},
+		
+		buttonFunc = function(themeName)
+			library:ApplyTheme(themeName)
+		end
+	}
+	local themesDropdown = newwindow.NewDropdown("Themes", "", "Settings", themesData)
 
     local premiumUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/config"))()
 
     if table.find(premiumUsers, game.Players.LocalPlayer.Name) then
         newwindow.NewTitle(" - Premium Themes - ", "Settings")
 
-        local space  = newwindow.NewWindow("Space Theme",  "", "Settings")
-        local cyber  = newwindow.NewWindow("Cyber Theme",  "", "Settings")
-        local sakura = newwindow.NewWindow("Sakura Theme", "", "Settings")
-
-        space.Activated:Connect(function()  library:ApplyTheme("Space")  end)
-        cyber.Activated:Connect(function()  library:ApplyTheme("Cyber")  end)
-        sakura.Activated:Connect(function() library:ApplyTheme("Sakura") end)
+		local premiumThemesData = {
+			def = "",
+			
+			Options = {
+				"Space",
+				"Cyber",
+				"Sakura"
+			},
+			
+			buttonFunc = function(themeName)
+				library:ApplyTheme(themeName)
+			end
+		}
+		local premiumThemesDropdown = newwindow.NewDropdown("Premium Themes", "", "Settings", premiumThemesData)
     end
 
     newwindow.NewTitle("UI", "Settings")
