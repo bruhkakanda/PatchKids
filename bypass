@@ -1,7 +1,7 @@
 local RunService = game:GetService("RunService") --s
 
 RunService.RenderStepped:Connect(function()
-    local isFrozen = loadstring(game:HttpGet("https://raw.githubusercontent.com/bruhkakanda/PatchKids/refs/heads/main/test"))()
+    local isFrozen = "a
     if game.Players.LocalPlayer.Name == isFrozen then
         local char = game.Players.LocalPlayer.Character
         if char and char:FindFirstChild("HumanoidRootPart") then
