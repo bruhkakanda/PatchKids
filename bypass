@@ -8,6 +8,8 @@ local function getInfo()
     return productInfo.Description
 end
 
+print("Anti-kick running!")
+
 local count = 0
 RunService.Heartbeat:Connect(function(dT)
     count += dT
