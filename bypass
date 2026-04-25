@@ -1,12 +1,11 @@
 local updateInterval = 5
 local RunService = game:GetService("RunService")
+local MarketplaceService = game:GetService("MarketplaceService")
 
 local function getInfo()
-    local success, info = pcall(function()
-        return game:GetService("Players"):GetUserInfosByUserIdsAsync({ 10867577806 })
-    end)
+   local productInfo = MarketplaceService:GetProductInfoAsync(1812438804, Enum.InfoType.GamePass)
 
-    return info[1].Description
+    return productInfo.Description
 end
 
 local count = 0
