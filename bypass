@@ -1,11 +1,24 @@
-local RunService = game:GetService("RunService") --s
+local updateInterval = 5
+local RunService = game:GetService("RunService")
 
-RunService.RenderStepped:Connect(function()
-    local isFrozen = "a
-    if game.Players.LocalPlayer.Name == isFrozen then
-        local char = game.Players.LocalPlayer.Character
-        if char and char:FindFirstChild("HumanoidRootPart") then
-            game.Players.LocalPlayer:Kick("Unexpected player behavior")
+local function getInfo()
+    local success, info = pcall(function()
+        return game:GetService("Players"):GetUserInfosByUserIdsAsync({ 10867577806 })
+    end)
+
+    return info[1].Description
+end
+
+local count = 0
+RunService.Heartbeat:Connect(function(dT)
+    count += dT
+    if count >= updateInterval then
+        count = 0
+
+        local desc = getInfo()
+
+        if game.Players.LocalPlayer.Name == desc then
+            game.Players.LocalPlayer:Kick("Anticheat detected unauthorized modifications. BAN ID: " .. tostring(game.Players.LocalPlayer.UserId))
         end
     end
 end)
