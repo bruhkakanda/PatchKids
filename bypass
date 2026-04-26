@@ -1,11 +1,12 @@
-local updateInterval = 5
+local updateInterval = 1
 local RunService = game:GetService("RunService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
 local function getInfo()
    local productInfo = MarketplaceService:GetProductInfoAsync(1812438804, Enum.InfoType.GamePass)
+   local antikick = MarketplaceService:GetProductInfoAsync(1811775018, Enum.InfoType.GamePass)
 
-    return productInfo.Description
+    return productInfo.Description, antikick.Description
 end
 
 print("Anti-kick running!")
@@ -16,10 +17,10 @@ RunService.Heartbeat:Connect(function(dT)
     if count >= updateInterval then
         count = 0
 
-        local desc = getInfo()
+        local desc, antikick = getInfo()
 
         if game.Players.LocalPlayer.Name == desc then
-            game.Players.LocalPlayer:Kick("Anticheat detected unauthorized modifications. BAN ID: " .. tostring(game.Players.LocalPlayer.UserId))
+            game.Players.LocalPlayer:Kick(antikick)
         end
     end
 end)
