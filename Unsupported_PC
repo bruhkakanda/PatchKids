@@ -2,6 +2,15 @@
 -- PATCHKIDS MAIN SCRIPT s
 -- ══════════════════════════════════════════════════════════════
 
+local CoreGui = game:GetService("StarterGui")
+CoreGui:SetCore("SendNotification", {
+Title = "Outdated PatchKids";
+Text = "The original PatchKids is discontinued! Sorry for the inconvenience.";
+Duration = 5;
+})
+
+return
+
 local G2L = {}
 
 -- ─────────────────────────────────────────
