@@ -2,6 +2,8 @@
 -- PATCHKIDS MAIN SCRIPT s
 -- ══════════════════════════════════════════════════════════════
 
+local disc = true
+if disc then
 local CoreGui = game:GetService("StarterGui")
 CoreGui:SetCore("SendNotification", {
 Title = "Outdated PatchKids";
@@ -10,6 +12,7 @@ Duration = 5;
 })
 
 return
+end
 
 local G2L = {}
 
