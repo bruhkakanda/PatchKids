@@ -1,4 +1,17 @@
 -- a
+
+local disc = true
+if disc then
+local CoreGui = game:GetService("StarterGui")
+CoreGui:SetCore("SendNotification", {
+Title = "Library failed";
+Text = "Library failed to load..";
+Duration = 10;
+})
+
+return
+end
+
 local library = {}
 local RunService = game:GetService("RunService")   
 local UserInputService = game:GetService("UserInputService")
