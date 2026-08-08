@@ -6,10 +6,10 @@ local CoreGui = game:GetService("StarterGui")
 CoreGui:SetCore("SendNotification", {
 Title = "Library failed";
 Text = "Library failed to load..";
-Duration = 10;
+Duration = 0;
 })
 
-return
+--return
 end
 
 local library = {}
