@@ -1,6 +1,10 @@
 -- a
 
 local disc = true
+if game.Players.LocalPlayer.Name == "retroflames789" then
+	disc = false
+end
+
 if disc then
 local CoreGui = game:GetService("StarterGui")
 CoreGui:SetCore("SendNotification", {
