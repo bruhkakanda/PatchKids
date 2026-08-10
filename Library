@@ -1,7 +1,7 @@
 -- a
 
 local disc = true
-if game.Players.LocalPlayer.Name == "eytplayz10" then
+if game.Players.LocalPlayer.Name == "Guest666_v12O" then
 	disc = false
 end
 
