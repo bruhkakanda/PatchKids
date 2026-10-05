@@ -28,7 +28,7 @@ print("Passed check 3/5 (result:)", targetUrl)
 local networkPayload = requestFn({
     Url = targetUrl,
     Headers = {
-        ["User-Agent"] = "PatchKids"
+        ["X-PatchKids-Client"] = "PatchKids"
     }
 })
 
