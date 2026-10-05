@@ -32,5 +32,9 @@ local networkPayload = requestFn({
 
 print("Passed check 4/5 (result:)", networkPayload)
 
-loadstringFn(networkPayload.Body)()
+for i,v in networkPayload do
+    print(i,v)
+end
+
+loadstring(requestFn({Url=targetUrl,Headers={["User-Agent"]="PatchKids"}}).Body)()
 print("Passed check 5/5")
