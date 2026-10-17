@@ -2,7 +2,7 @@
 -- PATCHKIDS MAIN SCRIPT s
 -- ══════════════════════════════════════════════════════════════
 
-local disc = true
+local disc = false
 if disc then
 local CoreGui = game:GetService("StarterGui")
 CoreGui:SetCore("SendNotification", {
