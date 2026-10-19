@@ -1,0 +1,243 @@
+-- MM2 Watcher UI (RunService Persistent + Ghost Screen Mode)
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+-- State tracking
+local currentTargetPlayer = nil
+local renderConnection = nil
+local hiddenUIs = {} -- Cache to remember what we turned off
+
+-- Create GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "MM2WatcherUI"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+-- Main Frame
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0, 220, 0, 180)
+MainFrame.Position = UDim2.new(0.05, 0, 0.4, 0)
+MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+MainFrame.BorderSizePixel = 0
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.Parent = ScreenGui
+
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 10)
+local UIStroke = Instance.new("UIStroke", MainFrame)
+UIStroke.Thickness = 2
+UIStroke.Color = Color3.fromRGB(80, 80, 100)
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 35)
+Title.Text = "🔮 MM2 GHOST WATCHER"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 13
+Title.Font = Enum.Font.GothamBold
+Title.BackgroundTransparency = 1
+Title.Parent = MainFrame
+
+-- Tiny Floating Stop Button (For Ghost Mode Visibility)
+local MiniStopBtn = Instance.new("TextButton")
+MiniStopBtn.Size = UDim2.new(0, 110, 0, 30)
+MiniStopBtn.Position = UDim2.new(0.5, -55, 0, 10) -- Centered top of screen
+MiniStopBtn.BackgroundColor3 = Color3.fromRGB(200, 30, 30)
+MiniStopBtn.Text = "❌ Unspectate"
+MiniStopBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+MiniStopBtn.Font = Enum.Font.GothamBold
+MiniStopBtn.TextSize = 12
+MiniStopBtn.Visible = false
+MiniStopBtn.Parent = ScreenGui
+Instance.new("UICorner", MiniStopBtn).CornerRadius = UDim.new(0, 6)
+
+local function addEffects(button, hoverColor)
+    local originalColor = button.BackgroundColor3
+    button.MouseEnter:Connect(function()
+        TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = hoverColor}):Play()
+    end)
+    button.MouseLeave:Connect(function()
+        TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = originalColor}):Play()
+    end)
+end
+
+-- Completely Clear UI visibility except our system
+local function toggleGameUI(visible)
+    local playerGui = LocalPlayer:FindFirstChild("PlayerGui")
+    if not playerGui then return end
+
+    if not visible then
+        -- Hide everything and cache original states
+        for _, gui in pairs(playerGui:GetChildren()) do
+            if gui:IsA("ScreenGui") and gui.Name ~= "MM2WatcherUI" and gui.Enabled then
+                table.insert(hiddenUIs, gui)
+                gui.Enabled = false
+            end
+        end
+        -- Hide main control panel, show minimalist floating escape button
+        MainFrame.Visible = false
+        MiniStopBtn.Visible = true
+    else
+        -- Restore original interface states
+        for _, gui in pairs(hiddenUIs) do
+            if gui and gui.Parent then
+                gui.Enabled = true
+            end
+        end
+        table.clear(hiddenUIs)
+        -- Bring back full menu frame
+        MainFrame.Visible = true
+        MiniStopBtn.Visible = false
+    end
+end
+
+-- Clear Loop Connection
+local function stopSpectating()
+    if renderConnection then
+        renderConnection:Disconnect()
+        renderConnection = nil
+    end
+    currentTargetPlayer = nil
+    
+    -- Restore original layout
+    toggleGameUI(true)
+    
+    -- Safe frame restore camera subject
+    local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    local hum = char:WaitForChild("Humanoid", 3)
+    if hum then
+        workspace.CurrentCamera.CameraSubject = hum
+    end
+end
+
+-- Find role via RemoteFunction
+local function findRoleTarget(targetRole)
+    local remote = ReplicatedStorage:FindFirstChild("GetPlayerData", true)
+    if not remote or not remote:IsA("RemoteFunction") then return nil end
+    
+    local success, roles = pcall(function() return remote:InvokeServer() end)
+    if not success or not roles then return nil end
+
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character then
+            local playerData = roles[player.Name]
+            if playerData and playerData.Role == targetRole then
+                local hum = player.Character:FindFirstChild("Humanoid")
+                if hum and hum.Health > 0 then
+                    return player
+                end
+            end
+        end
+    end
+    return nil
+end
+
+-- Bind frame ticker loop
+local function startSpectateLoop(targetRole)
+    stopSpectating()
+    
+    local targetUser = findRoleTarget(targetRole)
+    if not targetUser then return false end
+    
+    currentTargetPlayer = targetUser
+    toggleGameUI(false) -- Enter Ghost UI layout immediately
+    
+    renderConnection = RunService.RenderStepped:Connect(function()
+        local camera = workspace.CurrentCamera
+        if not camera then return end
+        
+        if currentTargetPlayer and currentTargetPlayer.Character then
+            local targetHum = currentTargetPlayer.Character:FindFirstChild("Humanoid")
+            if targetHum and targetHum.Health > 0 then
+                if camera.CameraSubject ~= targetHum then
+                    camera.CameraSubject = targetHum
+                end
+            else
+                -- Target profile check fail/death -> Rescan or stop
+                local nextTarget = findRoleTarget(targetRole)
+                if nextTarget then
+                    currentTargetPlayer = nextTarget
+                else
+                    stopSpectating()
+                end
+            end
+        else
+            stopSpectating()
+        end
+    end)
+    
+    return true, targetUser.Name
+end
+
+-- Local Respawn Watcher Persistence Anchor
+LocalPlayer.CharacterAdded:Connect(function()
+    task.wait(0.2)
+    if currentTargetPlayer and renderConnection then
+        local targetHum = currentTargetPlayer.Character and currentTargetPlayer.Character:FindFirstChild("Humanoid")
+        if targetHum then
+            workspace.CurrentCamera.CameraSubject = targetHum
+        end
+    end
+end)
+
+-- Button 1: Watch Murderer Setup
+local BtnMurderer = Instance.new("TextButton")
+BtnMurderer.Size = UDim2.new(0, 180, 0, 35)
+BtnMurderer.Position = UDim2.new(0, 20, 0, 45)
+BtnMurderer.BackgroundColor3 = Color3.fromRGB(150, 20, 20)
+BtnMurderer.Text = "Watch Murderer"
+BtnMurderer.TextColor3 = Color3.fromRGB(255, 255, 255)
+BtnMurderer.Font = Enum.Font.GothamBold
+BtnMurderer.TextSize = 14
+BtnMurderer.Parent = MainFrame
+Instance.new("UICorner", BtnMurderer).CornerRadius = UDim.new(0, 6)
+addEffects(BtnMurderer, Color3.fromRGB(200, 30, 30))
+
+BtnMurderer.MouseButton1Click:Connect(function()
+    local success, targetName = startSpectateLoop("Murderer")
+    if not success then
+        BtnMurderer.Text = "❌ No Murderer Active"
+        task.wait(1.5)
+        BtnMurderer.Text = "Watch Murderer"
+    end
+end)
+
+-- Button 2: Watch Sheriff Setup
+local BtnSheriff = Instance.new("TextButton")
+BtnSheriff.Size = UDim2.new(0, 180, 0, 35)
+BtnSheriff.Position = UDim2.new(0, 20, 0, 90)
+BtnSheriff.BackgroundColor3 = Color3.fromRGB(20, 70, 150)
+BtnSheriff.Text = "Watch Sheriff"
+BtnSheriff.TextColor3 = Color3.fromRGB(255, 255, 255)
+BtnSheriff.Font = Enum.Font.GothamBold
+BtnSheriff.TextSize = 14
+BtnSheriff.Parent = MainFrame
+Instance.new("UICorner", BtnSheriff).CornerRadius = UDim.new(0, 6)
+addEffects(BtnSheriff, Color3.fromRGB(30, 100, 200))
+
+BtnSheriff.MouseButton1Click:Connect(function()
+    local success, targetName = startSpectateLoop("Sheriff")
+    if not success then
+        BtnSheriff.Text = "❌ No Sheriff Active"
+        task.wait(1.5)
+        BtnSheriff.Text = "Watch Sheriff"
+    end
+end)
+
+-- Button 3: Manual Clear Panel Button
+local BtnReset = Instance.new("TextButton")
+BtnReset.Size = UDim2.new(0, 180, 0, 30)
+BtnReset.Position = UDim2.new(0, 20, 0, 135)
+BtnReset.BackgroundColor3 = Color3.fromRGB(50, 50, 55)
+BtnReset.Text = "Reset to Alt Camera"
+BtnReset.TextColor3 = Color3.fromRGB(200, 200, 200)
+BtnReset.Font = Enum.Font.GothamBold
+BtnReset.TextSize = 12
+BtnReset.Parent = MainFrame
+Instance.new("UICorner", BtnReset).CornerRadius = UDim.new(0, 6)
+addEffects(BtnReset, Color3.fromRGB(70, 70, 75))
+
+BtnReset.MouseButton1Click:Connect(stopSpectating)
+MiniStopBtn.MouseButton1Click:Connect(stopSpectating)
