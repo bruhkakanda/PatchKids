@@ -1,0 +1,70 @@
+local GuiService = game:GetService("GuiService")
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
+local RunService = game:GetService("RunService")
+local VirtualUser = game:GetService("VirtualUser")
+
+local Player = Players.LocalPlayer
+local PlaceId = game.PlaceId
+local JobId = game.JobId
+local SERVER_HOP_INTERVAL = 10800
+
+local function ServerHop()
+    print("Attempting to server hop...")
+    local success, result = pcall(function()
+        -- Fetch public servers from the Roblox Web API
+        local url = "https://roblox.com" .. PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+        return HttpService:JSONDecode(game:HttpGet(url))
+    end)
+    
+    if success and result and result.data then
+        for _, server in ipairs(result.data) do
+            -- Find a server that isn't full and isn't your current one
+            if server.playing < server.maxPlayers and server.id ~= JobId then
+                print("Found new server! Teleporting...")
+                TeleportService:TeleportToPlaceInstance(PlaceId, server.id, Player)
+                return
+            end
+        end
+    end
+    print("Server hop failed or no servers found. Falling back to normal teleport.")
+    TeleportService:Teleport(PlaceId, Player)
+end
+
+local function onErrorMessageChanged(errorMessage)
+    if errorMessage and errorMessage ~= "" then
+        print("Error/Kick detected: " .. errorMessage)
+        task.wait(1) -- Brief pause to prevent infinite loop spam
+        ServerHop()
+    end
+end
+GuiService.ErrorMessageChanged:Connect(onErrorMessageChanged)
+
+task.spawn(function()
+    task.wait(SERVER_HOP_INTERVAL)
+    print("3 hours elapsed. Initiating scheduled server hop.")
+    ServerHop()
+end)
+
+Player.Idled:Connect(function()
+    VirtualUser:Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+    task.wait(1)
+    VirtualUser:Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+    print("Anti-AFK: Kept session active.")
+end)
+
+local function ApplyAntiFling(character)
+    local root = character:WaitForChild("HumanoidRootPart", 5)
+    if root then
+        -- Runs every frame to zero out dangerous angular velocity (spinning)
+        RunService.Heartbeat:Connect(function()
+            if root and root.Parent then
+                root.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+            end
+        end)
+    end
+end
+
+if Player.Character then ApplyAntiFling(Player.Character) end
+Player.CharacterAdded:Connect(ApplyAntiFling)
