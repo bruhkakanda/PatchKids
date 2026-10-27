@@ -25,6 +25,14 @@ if not isInternal then
 	warn("Sync is not able to be required with your current Executor. Some features may not work correctly.")
 end
 
+function color3ToDiscord(color: Color3): number
+	local r = math.round(color.R * 255)
+	local g = math.round(color.G * 255)
+	local b = math.round(color.B * 255)
+
+	return (r * 65536) + (g * 256) + b
+end
+
 local RarityColors = {
 		["Common"] = Color3.fromRGB(241, 241, 241),
 		["Unknown"] = Color3.fromRGB(241, 241, 241),
