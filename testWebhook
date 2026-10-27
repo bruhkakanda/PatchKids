@@ -1,5 +1,7 @@
 local webhookLink = getgenv().webhookUrl
 
+local plr = game.Players.LocalPlayer
+
 local isInternal = false
 local Sync = nil
 
