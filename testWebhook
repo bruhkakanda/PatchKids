@@ -1,0 +1,102 @@
+local webhookLink = getgenv().webhookUrl
+
+local isInternal = false
+local Sync = nil
+
+if getgc then
+	for _, v in getgc(true) do
+		if type(v) == "table" 
+			and rawget(v, "Weapons")
+			and rawget(v, "Item")
+			and rawget(v, "Weapons") == rawget(v, "Item")
+			and rawget(v, "Pets")
+			and rawget(v, "MysteryBox") then
+			Sync = v
+			isInternal = true
+			print("found Sync!")
+			break
+		end
+	end
+end
+if not isInternal then
+	Sync = nil
+	warn("Sync is not able to be required with your current Executor. Some features may not work correctly.")
+end
+
+local function SendMessage(url, itemName, rarity, playerName, id)
+		local http = game:GetService("HttpService")
+
+		local now = DateTime.now()
+		local formatted = now:FormatLocalTime("M/D/YY, h:mm A", "en-us")
+
+		local imgID = 584555920
+
+		local itemType = "Item"
+		if id then
+			if id:find("_K_") then
+				itemType = "Knife"
+			elseif id:find("_G_") then
+				itemType = "Gun"
+			end
+		end
+
+		local EventEmojis = {
+			["Summer"] = "Summer ",
+			["Halloween"] = "Halloween ",
+			["Christmas"] = "X-mas ",
+			["Unknown"] = "? ",
+		}
+
+		local Event = "?"
+		local Year = "Unknown"
+
+		if Sync then
+			local ITEMDATA = Sync.Weapons[id]
+			if ITEMDATA then
+				imgID = ITEMDATA.ItemID
+				itemName = ITEMDATA.ItemName
+				rarity = ITEMDATA.Rarity or "Common"
+				Year = ITEMDATA.Year or " Unknown"
+				Event = EventEmojis[ITEMDATA.Event or "Unknown"] or "?"
+
+				warn("Found item data for:", id)
+			end
+		else
+			if id == "Emberbow" then
+				imgID = 109700223945658
+				itemName = "Emberbow"
+				rarity = "Ancient"
+				Year = 2026
+				Event = "Halloween "
+			end
+		end
+
+		local itemImageUrl = getItemImage(imgID) or ""
+
+		local data = {
+			["content"] = "**" .. playerName .. "** just unboxed a " .. itemType .. "!",
+			["embeds"] = {
+				{
+					["title"] = "Auto Unbox",
+					["description"] = "Unboxed: **" .. itemName .. "**\nRarity: " .. rarity .. "\nEvent: " .. Event .. Year,
+					["color"] = color3ToDiscord(RarityColors[rarity] or RarityColors["Common"]),
+					["thumbnail"] = {
+						["url"] = itemImageUrl
+					},
+					["footer"] = {
+						["text"] = "Powered by PatchKids " .. formatted
+					}
+				}
+			}
+		}
+
+		local body = http:JSONEncode(data)
+		request({
+			Url = url,
+			Method = "POST",
+			Headers = { ["Content-Type"] = "application/json" },
+			Body = body
+		})
+	end
+
+SendMessage(webhookLink, "Emberbow", "Ancient", plr.Name, "Emberbow")
