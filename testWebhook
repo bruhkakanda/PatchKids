@@ -61,7 +61,7 @@ local RarityColors = {
 		return nil
 	end
 
-	local function SendMessage(url, itemName, rarity, playerName, id)
+		local function SendMessage(url, itemName, rarity, playerName, id)
 		local http = game:GetService("HttpService")
 
 		local now = DateTime.now()
@@ -120,7 +120,7 @@ local RarityColors = {
 		local itemImageUrl = getItemImage(imgID) or ""
 
 		local data = {
-			["content"] = "**" .. playerName .. "** just unboxed a " .. itemType .. "!",
+			["content"] = "**" .. playerName .. "** just ".. action:lower() .." a " .. itemType .. "!",
 			["embeds"] = {
 				{
 					["title"] = title,
