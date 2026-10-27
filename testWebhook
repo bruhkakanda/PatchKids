@@ -61,13 +61,16 @@ local RarityColors = {
 		return nil
 	end
 
-local function SendMessage(url, itemName, rarity, playerName, id)
+	local function SendMessage(url, itemName, rarity, playerName, id)
 		local http = game:GetService("HttpService")
 
 		local now = DateTime.now()
 		local formatted = now:FormatLocalTime("M/D/YY, h:mm A", "en-us")
 
 		local imgID = 584555920
+
+		local title = "Auto Unbox"
+		local action = "Unboxed"
 
 		local itemType = "Item"
 		if id then
@@ -109,14 +112,19 @@ local function SendMessage(url, itemName, rarity, playerName, id)
 			end
 		end
 
+		if id == "Emberbow" then
+			title = "Purchased Final Tier"
+			action = "Purchased"
+		end
+
 		local itemImageUrl = getItemImage(imgID) or ""
 
 		local data = {
 			["content"] = "**" .. playerName .. "** just unboxed a " .. itemType .. "!",
 			["embeds"] = {
 				{
-					["title"] = "Auto Unbox",
-					["description"] = "Unboxed: **" .. itemName .. "**\nRarity: " .. rarity .. "\nEvent: " .. Event .. Year,
+					["title"] = title,
+					["description"] = action .. ": **" .. itemName .. "**\nRarity: " .. rarity .. "\nEvent: " .. Event .. Year,
 					["color"] = color3ToDiscord(RarityColors[rarity] or RarityColors["Common"]),
 					["thumbnail"] = {
 						["url"] = itemImageUrl
